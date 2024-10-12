@@ -1,0 +1,53 @@
+.Home{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+  
+.Home .textDiv {
+  width: 600px;
+  margin-right: 60px;
+}
+  
+.Home .textDiv h1 {
+  font-size: 3em;
+  color: rgb(3, 117, 247);
+  margin-bottom: 10px;
+}
+  
+.Home p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+  
+.Home button{
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.5s ease;
+}
+
+.Home .signup-btn{
+  margin: 10px 10px 10px 0;
+  background-color: rgb(3, 117, 247);
+  color: white;
+}
+  
+  .Home .signup-btn:hover, .Home .login-btn:hover{
+    transform: translateY(-5px);
+  }
+
+  .Home .login-btn{
+    margin: 10px;
+    background-color: rgb(224, 224, 224);
+    border: 1px solid rgb(161, 161, 161)
+  }
+  
+  .homeLogo {
+    width: 35%;
+    height: 60%;
+  }

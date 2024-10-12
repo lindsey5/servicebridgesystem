@@ -1,0 +1,355 @@
+import Transaction from '../../models/transaction.js';
+import Client from '../../models/client-account.js';
+import Available_date from '../../models/available-date.js';
+import { Op } from 'sequelize';
+import ProviderEarning from '../../models/provider-earning.js';
+import transactionService from '../../services/transactionService.js';
+import cancelledTransactionService from '../../services/cancelledTransactionService.js';
+import earningService from '../../services/earningService.js';
+import ReviewedTransaction from '../../models/reviewed-transaction.js';
+import Provider from '../../models/provider-account.js';
+
+const create_transaction = async (req, res) =>{
+    try {
+        const client_id = req.userId;
+        const data = req.body;
+        console.log(data);
+        const transaction = await transactionService.create_transaction(client_id, data);
+        if(transaction){
+            res.status(200).json({transaction});
+        }else{
+            res.status(400).json({error: "Creating new transaction failed"});
+        }
+    }catch(err){
+        const errors = handleErrors(err.errors);
+        res.status(400).json({errors});
+    }
+}
+
+const handleErrors = (errors) =>{
+    const errorMessage = [];
+    errors.forEach(error => errorMessage.push(error.message));
+    return errorMessage;
+}
+
+const get_client_transactions = async (req, res) => {
+    const { page, limit} = req.query;
+    const offset = (page - 1 ) * limit;
+    const parseLimit = parseInt(limit);
+    const {selectedStatus, date} = req.body;
+    try{
+        const id = req.userId;
+        const query = {
+            where: { client: id},
+            order: [
+                ['booked_on', 'DESC']
+            ]
+        }
+
+        if(date){
+            query.include = {
+            model: Available_date,
+                where: {date},
+            }
+        }
+        if(selectedStatus.length > 0){
+            query.where.status = {
+                [Op.in]: selectedStatus
+            };
+        }
+        const transactions = await transactionService.get_transactions(query, offset, parseLimit);
+        if(transactions){
+            res.status(200).json(transactions);
+        }
+    }catch(err){
+        res.status(404).json({error: err});
+    }
+}
+
+const get_provider_transactions = async (req, res) => {
+    const { page, limit} = req.query;
+    const offset = (page - 1 ) * limit;
+    const parseLimit = parseInt(limit);
+    const {selectedStatus, date} = req.body;
+    try{
+        const id = req.userId;
+        const query = {
+            where: { provider: id},
+            order: [
+                ['booked_on', 'DESC']
+            ]
+        }
+
+        if(date){
+            query.include = {
+            model: Available_date,
+                where: {date},
+            }
+        }
+        if(selectedStatus.length > 0){
+            query.where.status = {
+                [Op.in]: selectedStatus
+            };
+        }
+        const transactions = await transactionService.get_transactions(query, offset, parseLimit);
+        if(transactions){
+            res.status(200).json(transactions);
+        }else{
+            res.status(400).json({error: 'No transactions found'})
+        }
+    }catch(err){
+        res.status(404).json({error: err});
+    }
+}
+
+const cancel_transaction = async (req, res) => {
+    const { status, reason: cancellation_reason , user } = req.body.data;
+    const transaction_id = req.params.id;
+    try{
+        const updated_transaction = await transactionService.update_transaction(transaction_id, status);
+        if(updated_transaction){
+            const cancelled_transaction = await cancelledTransactionService.create_cancelled_transaction({transaction_id, cancellation_reason, cancelled_by: req.userId, canceller: user});
+            if(cancelled_transaction){
+                res.status(200).json({updated_transaction, cancelled_transaction});
+            }else{
+                res.status(400).json({message: 'Cancellation failed'});
+            }
+        }else{
+            return res.status(404).json({ error: 'Transaction not found' });
+        }
+    }catch(err){
+        res.status(400).json({ error: err});
+    }
+}
+
+const update_transaction = async (req, res) => {
+    const {status} = req.body;
+    const transaction_id = req.params.id;
+    try{
+        const transaction = transactionService.update_transaction(transaction_id, status);
+        if(transaction){
+            res.status(200).json(transaction);
+        }else{
+            res.status(400).json({error: 'Failed to update transaction'})
+        }
+    }catch(err){
+        res.status(400).json({ error: err});
+    }
+}
+
+const client_complete_transaction = async (req, res) => {
+    const transaction_id = req.params.id;
+    const { service_price, payment_intent_id } = req.query;
+    const payment_intent = await paymentService.retrievePaymentIntent(payment_intent_id);
+    if(payment_intent?.data.attributes.status === 'succeeded'){
+        try{
+            const earnings = await earningService.post_earnings(service_price, transaction_id);
+            if(earnings){
+                const transaction = await transactionService.update_transaction(transaction_id, 'Completed');
+                if(transaction){
+                    return res.redirect('http://localhost:5173/');
+                }else{
+                    res.status(400).json({error: 'Completion error'});
+                }
+            }else{
+                res.status(400).json({error: 'Completion error'});
+            }
+        }catch(err){
+            return res.status(400).json({error: err});
+        }
+    }else{
+        res.redirect('http://localhost:5173/');
+    }
+}
+
+const get_cancelled_transaction = async (req, res) => {
+    const id = req.params.id;
+    try{
+        const cancelled_transaction = await cancelledTransactionService.viewCancelledTransaction(id)
+        if(cancelled_transaction){
+            res.status(200).json({cancelled_transaction});
+        }else{
+            res.status(400).json({error: 'Transaction not found'});
+        }
+
+    }catch(err){
+        res.status(400).json({error: err});
+    }
+}
+
+const get_total_completed_task = async (req, res) =>{
+    const provider_id = req.userId;
+    try{
+        const total_tasks = await transactionService.getTransactionCount({
+            where: { 
+                provider: provider_id, 
+                status: {
+                    [Op.or]: ['Completed', 'Reviewed']
+                }
+            }
+        })
+        if(total_tasks){
+            res.status(200).json({total_tasks});
+        }
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+const get_total_completed_transaction_today = async (req, res) =>{
+    const provider_id = req.userId;
+    try{
+        const total_task_today = await transactionService.getTransactionCount({
+            where: { 
+                provider: provider_id, 
+                status: {
+                    [Op.or]: ['Completed', 'Reviewed']
+                }
+            },
+            include: [ { 
+                model: ProviderEarning,
+                payment_date: { [Op.eq]: new Date() } 
+            }]
+        })
+         res.status(200).json({total_task_today});
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+const get_completed_transaction_today = async (req, res) => {
+    const provider_id = req.userId;
+    try{
+        const completed_transactions = await Transaction.findAll({
+            where: {
+                provider: provider_id
+            },
+            include: [ { 
+                model: ProviderEarning,
+                where: { 
+                    payment_date: { [Op.eq]:  new Date() } 
+                },
+                attributes: ['earnings']
+            },{ model: Available_date,
+                attributes: ['date']
+             }, 
+            { model: Client,
+                 attributes: ['firstname', 'lastname']
+             }
+        ]
+        });
+        if(completed_transactions.length > 0){
+            res.status(200).json({completed_transactions});
+        }else{
+            res.status(400).json('No completed task');
+        }
+    }catch(err){
+        res.status(400).json({ error: err.message });
+    }
+}
+
+const get_transactions_by_date = async (req, res) => {
+    const date = req.params.date;
+    try{
+        const provider_id = req.userId
+        const transactions = await Transaction.findAll({
+            where:{
+                provider: provider_id
+            },
+            include: {
+                model: Available_date,
+                where: { date },
+            },
+            order: [['time', 'DESC']]
+        });
+        res.status(200).json({transactions});
+
+
+    }catch(err){
+        res.status(400).json({error: err});
+    }
+}
+
+const review_transaction = async (req, res) => {
+    const transaction_id = req.params.id;
+    const {rating, review} = req.body;
+    try{
+        const updated_transaction = await transactionService.update_transaction(transaction_id, 'Reviewed');
+        if(updated_transaction){
+            const reviewed_transaction = await ReviewedTransaction.create({
+                transaction_id,
+                rating,
+                review
+            });
+            if(reviewed_transaction){
+                const provider_id = updated_transaction.dataValues.provider;
+                const reviewed_transactions_rating = await ReviewedTransaction.findAll({
+                    include: {
+                        model: Transaction,
+                        where: { provider: provider_id },
+                    },
+                });
+                let sum = 0;
+                reviewed_transactions_rating.forEach(reviewed_transaction => {
+                    sum += reviewed_transaction.dataValues.rating 
+                })
+                const newRating = Math.round((sum / reviewed_transactions_rating.length) * 10) / 10;
+                const provider = await Provider.findByPk(provider_id);
+                const updatedProvider = await provider.update({
+                            rating: newRating
+                });
+                if(updatedProvider){
+                    res.status(200).json({message: 'Transaction successfully rated'});
+                }else{
+                    res.status(400).json({ error: 'Failed to update provider rating' });
+                }
+            }else{
+                res.status(400).json({ error: 'Failed to create review' });
+            }
+        }else{
+            res.status(400).json({error: 'Transaction not found'});
+        }
+    }catch(err){
+        console.log(err);
+        res.status(400).json({error: err});
+    }
+}
+
+const get_reviewed_transaction = async (req, res) => {
+    const transaction_id = req.params.id;
+    try{
+        const reviewed_transaction = await ReviewedTransaction.findByPk(transaction_id);
+        if(reviewed_transaction){
+            const transaction = await Transaction.findByPk(transaction_id);
+            if(transaction){
+                const client = await Client.findOne({
+                    attributes: ['firstname', 'lastname', 'profile_pic'],
+                    where:{
+                        id: transaction.dataValues.client
+                    }
+                });
+                const fullname = `${client.dataValues.firstname} ${client.dataValues.lastname}`;
+                res.status(200).json({...reviewed_transaction.dataValues, service_name: transaction.dataValues.service_name, fullname, profile_pic: client.dataValues.profile_pic});
+            }
+        }
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+
+}
+
+export default { 
+    create_transaction, 
+    get_client_transactions,
+    get_provider_transactions,
+    cancel_transaction, 
+    update_transaction,
+    client_complete_transaction,
+    get_cancelled_transaction,
+    get_total_completed_task, 
+    get_total_completed_transaction_today, 
+    get_completed_transaction_today,
+    get_transactions_by_date,
+    review_transaction,
+    get_reviewed_transaction
+ };

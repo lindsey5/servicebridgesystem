@@ -1,0 +1,117 @@
+.conversation{
+    flex: 1;
+    height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.conversation .convo-container{
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.conversation .recipient-details-container{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.conversation .recipient-details-container > img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid rgb(185, 185, 185);
+}
+
+.conversation .message-box-container{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.conversation .message-box-container .recipient-profile-pic{
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(179, 179, 179);
+    border-radius: 50px;
+}
+
+.conversation .message-box{
+    padding: 10px;
+    margin-left: 10px;
+    max-width: 300px;
+    border-radius: 25px;
+    background-color: rgb(226, 226, 226);
+}
+
+.conversation .message-box-container.other{
+    justify-content: flex-start;
+    float: left;
+}
+
+.conversation .message-box-container.you{
+    justify-content: flex-end;
+    float: right;
+    align-self: flex-end;
+}
+
+.conversation .message-box-container.you .message-box{
+    background-color:rgb(3, 117, 247);
+    color: white;
+}
+
+.conversation .message-box > .message-content{
+    word-wrap: break-word;
+    font-size: 17px;
+}
+
+.conversation .message-box > .timestamp{
+    font-size: 13px;
+}
+
+.conversation .message-box.you > .timestamp{
+    color: rgb(224, 224, 224);
+    font-size: 13px;
+}
+
+.message-input-bar{
+    width: 75%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    background-color: rgb(226, 226, 226);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.message-input-bar textarea{
+    flex: 1;
+    background-color: rgb(226, 226, 226);
+    outline: none;
+    height: 20px;
+    overflow-y: hidden;
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+}
+
+.message-input-bar .send-button{
+    width: 45px;
+    height: 35px;
+    border: none;
+    background-color: rgb(226, 226, 226);
+    cursor: pointer;
+}
+
+.message-input-bar .send-button > img{
+    width: 75%;
+    height: 75%;
+}

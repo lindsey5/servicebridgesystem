@@ -1,0 +1,46 @@
+.sidebar{
+    position: fixed;
+    top: 65px;
+    bottom: 0;
+    left: 0;
+    width: 180px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    border-right: 1px solid rgb(224, 224, 224);
+}
+
+.nav-btn{
+    height: 50px;
+    border: none;
+    position: relative;
+    margin-bottom: 5px;
+    font-size: 17px;
+    background-color: white;
+    text-align: start;
+    padding-left: 50px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.nav-btn:hover{
+    background-color: rgb(212, 212, 212);
+}
+
+.icons{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 10px;
+    top: 12px;
+}
+
+.minimize{
+    width: 40px;
+}
+
+.minimize .icons{
+    left: 15px;
+}

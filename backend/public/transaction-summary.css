@@ -1,0 +1,113 @@
+body{
+    background-color: rgb(228, 228, 228);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
+
+.transaction-summary{
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-summary table{
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid rgb(226, 226, 226);
+    margin-top: 10px;
+}
+
+.transaction-summary td{
+    background-color: white;
+    padding: 20px;
+}
+
+.buttons-container{
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.book-btn, .back-btn {
+    margin-top: 30px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.book-btn{
+    border: none;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    transition: background-color 0.5s ease-out;
+}
+
+.back-btn{
+    transition: border 0.5s ease-out, color 0.5s ease-out;
+    background-color: white;
+    border: 1.5px solid black;
+    margin-right: 20px;
+}
+
+.back-btn:hover{
+    border-color: rgb(3, 117, 247);
+    color: rgb(3, 117, 247);
+}
+
+.book-btn:hover{
+    background-color: rgb(156, 202, 255);
+}
+
+.success-modal-container{
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.5);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.success-modal{
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.success-modal > img{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.success-modal .continue-btn{
+    background-color: #00BA00;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.success-modal .continue-btn:hover{
+    background-color: #67ff67;
+}

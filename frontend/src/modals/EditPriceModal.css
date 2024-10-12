@@ -1,0 +1,47 @@
+.edit-price-modal{
+    position: absolute;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.edit-price-modal .price{
+    width: 250px;
+    height: 30px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.edit-price-modal .edit-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-price-modal .edit-buttons > button{
+    cursor: pointer;
+    width: 48%;
+    height: 30px;
+    margin: 20px 0;
+    color: white;
+    border: none;
+}
+
+
+.edit-price-modal .submit{
+    background-color: rgb(3, 117, 247);
+}
+
+.edit-price-modal .cancel{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+}
+
+.edit-price-modal .edit-buttons > button:hover{
+    background-color: rgb(190, 190, 190);
+}

@@ -1,0 +1,233 @@
+.availability{
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.calendar-container ul, .calendar-container li {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.calendar-container {
+    width: 700px;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+.legend{
+    position: absolute;
+    left: 50%;
+    bottom: -50px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.legend > div{
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    font-weight: 600;
+}
+
+.calendar-container #today{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #6332c5;
+}
+
+.calendar-container #available-day{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-color: #4bdf06;
+}
+
+.calendar-container .calendar-header {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between;
+    background-color: rgb(3, 117, 247);
+}
+
+.calendar-header .calendar-navigation {
+    display: flex;
+}
+
+.calendar-header .calendar-navigation span {
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+    user-select: none;
+    font-size: 1.9rem;
+    color: #fff;
+}
+
+.calendar-navigation span:last-child {
+    margin-right: -10px;
+}
+
+.calendar-header .calendar-current-date {
+    font-weight: 500;
+    font-size: 1.45rem;
+    color: #fff;
+}
+
+.calendar-body {
+    padding: 20px;
+}
+
+.calendar-body ul {
+    list-style: none;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+}
+
+.calendar-body .calendar-dates {
+    margin-bottom: 20px;
+}
+
+.calendar-body li {
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+    color: #414141;
+}
+
+.calendar-body .calendar-weekdays li {
+    cursor: default;
+    font-weight: 500;
+}
+
+.calendar-body .calendar-dates li {
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.calendar-dates li.inactive {
+    color: #aaa;
+}
+
+.calendar-dates li.active, .calendar-dates li.available {
+    color: #fff;
+}
+
+.calendar-dates li::before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%);
+}
+
+.calendar-dates li.available::before {
+    background: #4bdf06;
+}
+
+.calendar-dates li.active::before {
+    background: #6332c5;
+}
+
+.calendar-dates li:not(.active):hover::before {
+    background-color: #dbdbdb;
+}
+
+.transactions-div{
+    width: 400px;
+    height: 600px;
+    margin-left: 20px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    overflow-y: auto;
+}
+
+.transactions-header{
+    width: 100%;
+    background-color: rgb(3, 117, 247);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.transactions-header h2{
+    color: #fff;
+    margin: 10px;
+}
+
+.transactions-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transactions-container > div {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
+    border-bottom: 1.6px solid rgb(204, 204, 204);
+}
+
+.blue{
+    color: rgb(0, 0, 255);
+    background-color: rgb(214, 238, 255);
+}
+
+.red{
+    color: red;
+    background-color: rgb(255, 215, 215);
+}
+
+.green{
+    color: green;
+    background-color: rgb(213, 255, 213);
+}
+
+@media (min-width: 1301px){
+    .availability {
+        margin-top: 0;
+    }
+}
+
+
+@media (max-width: 1300px){
+    .availability {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .transactions-div{
+        margin-left: 0;
+        margin-top: 100px;
+        margin-bottom: 20px;
+    }
+
+    .calendar-container.show{
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 425px){
+    .calendar-dates li::before {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,177 @@
+body{
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+    width: 900px;
+    height: 530px;
+    background-color: white;
+    box-shadow: 0 0 10px 15px  rgb(198, 212, 228);
+    display: flex;
+    border-radius: 10px;
+}
+
+.icon-container{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container img{
+    width: 70%;
+    height: 60%;
+}
+
+.right-div{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(3, 117, 247);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.right-div h1{
+    color: white;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 60px;
+    margin-bottom: 80px;
+}
+
+input[type ="text"], input[type ="password"]{
+    width: 100%;
+    height: 46px;
+    padding-left: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 30px;
+    border: none;
+    margin-bottom: 40px;
+}
+
+.input-container{
+    position: relative;
+    width: 70%;
+}
+
+.input-icon, .check-box-container{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 11px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.check-box-container{
+    cursor: pointer;
+}
+
+.check-box-container input[ type = "checkbox"]{
+    display: none;
+}
+
+.check-box-icon{
+    background-image: url('/icons/padlock.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.input-icon img, .check-box-icon{
+    width: 100%;
+    height: 100%;
+}
+
+.error{
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+    font-size: 15px;
+    color: rgb(192, 192, 192);
+    padding: 3px;
+}
+
+#login-btn{
+    background-color: rgb(3, 117, 247);
+    width: 150px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+#login-btn:hover{
+   background-color: rgb(167, 202, 255);
+}
+
+#forgot-pass, #signup{
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+#forgot-pass:hover, #signup:hover{
+    text-decoration: underline;
+}
+
+
+
+@media  screen and (max-width: 768px) {
+    .container{
+        width: 90%;
+    }
+}
+
+@media  screen and (max-width: 425px) {
+    .container{
+        width: 90%;
+        box-shadow: none;
+    }
+    
+    .icon-container{
+        display: none;
+    }
+
+    .right-div{
+        width: 100%;
+        background-color: white;
+    }
+
+    .right-div h1{
+        color: rgb(3, 117, 247);
+        margin-bottom: 60px;
+    }
+
+    input[type ="text"], input[type ="password"]{
+        background-color: rgb(227, 238, 250);
+    }
+
+    #login-btn{
+        width: 70%;
+    }
+
+    #forgot-pass{
+        color: rgb(3, 117, 247);
+    }
+
+    .error{
+        color: red;
+    }
+}

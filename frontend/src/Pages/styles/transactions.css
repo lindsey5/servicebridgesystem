@@ -1,0 +1,230 @@
+.transactions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.transactions .container{
+    margin-top: 80px;
+    width: 90%;
+    height: 80vh;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 7px rgb(182, 182, 182);
+    padding: 15px;
+}
+
+.transactions .top-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.transactions .top-div > div{
+    display: flex;
+}
+
+.transactions .top-div .filter-div{
+    outline: none;
+    border: 1px solid rgb(180, 180, 180);
+    display: flex;
+    margin-right: 20px;
+    font-size: 15px;
+    position: relative;
+}
+
+.transactions .filter-div .filter-button{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    width: 80px;
+}
+
+.transactions .filter-div .filter-button > img{
+    margin-left: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.transactions .filter-div .filter-container{
+    position: absolute;
+    width: 400px;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-60%);
+    background-color: white;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 10px;
+    z-index: 1;
+    display: none;
+    padding: 20px;
+}
+
+.transactions .filter-container .status-container{
+    display: flex;
+    align-items: start;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    padding: 10px 0;
+}
+
+.transactions .filter-container .status-container > div{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+}
+
+.transactions .status-container > div > div{
+   margin: 10px 5px;
+}
+
+.transactions .filter-container .date-container{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    padding: 10px 0;
+}
+
+.transactions .filter-container .date-container input[type='date']{
+    margin-left: 40px;
+    height: 30px;
+}
+
+.transactions .filter-container .buttons-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.transactions .filter-container .clear-btn{
+    color: red;
+    background-color: white;
+}
+
+.transactions .filter-container .apply-btn{
+    background-color: rgb(3, 117, 247);
+    color: white;
+    width: 100px;
+}
+
+.transactions .filter-container .clear-btn, 
+.transactions .filter-container .apply-btn{
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.transactions .filter-container .clear-btn:hover, 
+.transactions.filter-container .apply-btn:hover{
+    background-color: rgb(207, 207, 207);
+}
+
+.transactions .top-div select option{
+    font-size: 15px;
+}
+
+.transactions .pagination-controls{
+    display: flex;
+    min-width: 110px;
+    justify-content: space-between;
+}
+
+.transactions .pagination-controls button{
+    background-color: white;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+    margin: 0 2px;
+    width: 30px;
+    height: 30px;
+}
+
+.transactions #nextPage:not(:disabled):hover, 
+.transactions #prevPage:not(:disabled):hover, 
+.transactions .pagination-btn:hover{
+    cursor: pointer;
+    background-color: rgb(197, 197, 197);
+}
+
+.transactions .container .table-container{
+    width: 100%;
+    height: 75%;
+    background-color: white;
+    border: 2px solid rgb(236, 236, 236);
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.transactions .container .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions .container .table-container th {
+    padding: 10px;
+    background-color: rgb(236, 236, 236);
+    font-weight: 500;
+    text-align: center;
+}
+
+.transactions .container .table-container td{
+    padding: 8px;
+    background-color: white;
+    border-bottom: 1px solid rgb(236, 236, 236);
+    text-align: center;
+}
+
+.transactions .blue-td p{
+    color: rgb(0, 0, 255);
+    background-color: rgb(214, 238, 255);
+}
+
+.transactions .red-td p{
+    color: red;
+    background-color: rgb(255, 215, 215);
+}
+
+.transactions .green-td p{
+    color: green;
+    background-color: rgb(213, 255, 213);
+}
+
+.transactions .buttons-table-data{
+    display: flex;
+    justify-content: center;
+}
+
+.transactions .buttons-table-data > div{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.transactions td button{
+    width: 50px;
+    height: 45px;
+    margin: 10px 0;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+}
+
+.transactions td button img{
+    width: 60%;
+    height: 60%;
+}
+
+.transactions td button:hover{
+    background-color: rgb(230, 230, 230);
+}
+
+.transactions .loader-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

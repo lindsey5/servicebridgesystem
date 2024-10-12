@@ -1,0 +1,74 @@
+.auth-modal-container{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    z-index: 1;
+}
+
+.auth-modal-container .modal{
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    border-radius: 20px;
+    animation: slide 0.5s ease-out;
+}
+
+/* Keyframes for animation */
+@keyframes slide {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.auth-modal-container .modal img{
+    width: 150px;
+    height: 150px;
+}
+
+.auth-modal-container .close-btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.auth-modal-container .close-btn:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+.auth-modal-container .modal h1{
+    margin-bottom: 40px;
+}
+
+.auth-modal-container .button{
+    width: 200px;
+    height: 40px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    margin-bottom: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-modal-container .button:hover{
+    background-color: rgb(13, 37, 255);
+}

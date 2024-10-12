@@ -1,0 +1,187 @@
+.services .table-container {
+    width: 80%;
+    height: 550px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: white;
+    position: relative;
+}
+
+.services .table-container h2{
+    margin: 20px;
+}
+
+.services .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.services .table-container th {
+    height: 25px;
+    padding: 10px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    text-align: start;
+    font-weight: 500;
+}
+
+.services .table-container td{
+    padding: 8px;
+    background-color: white;
+    border: 1px solid rgb(207, 207, 207);
+}
+
+.set-price-btn{
+    background-color: rgb(3, 117, 247);
+    color: white;
+    cursor: pointer;
+}
+
+.delete-btn{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    cursor: pointer;
+}
+
+.add-btn{
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    z-index: 1;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.5s ease-out;
+}
+
+.add-modal-container, .price-modal-container{
+    display: none;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: hsl(0, 0%, 0%, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes slide{
+    from{
+        transform: translateY(-30px);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+.price-modal{
+    width: 300px;
+    height: 250px;
+    background-color: white;
+    position: relative;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    animation: slide 0.5s ease-out;
+}
+
+.price-modal > h2 {
+    margin-bottom: 60px;
+}
+
+.price, .submit-btn{
+    margin-bottom: 40px;
+    width: 200px;
+    height: 30px;
+}
+
+.price{
+    outline: none;
+}
+
+.submit-btn{
+    background-color: rgb(3, 117, 247);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.price-modal .hide-btn{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    font-size: 25px;
+    border: none;
+    color: rgb(165, 165, 165);
+    cursor: pointer;
+}
+
+.add-btn:hover{
+    background-color: rgb(140, 194, 255);
+}
+
+.add-modal{
+    width: 300px;
+    height: 250px;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: slide 0.5s ease-out;
+    border-radius: 20px;
+}
+
+.add-modal h2, .add-service{
+    margin-bottom: 20px;
+}
+
+#services{
+    width: 200px;
+    height: 40px;
+    margin-bottom: 50px;
+    outline: none;
+}
+
+.add-service{
+    width: 150px;
+    height: 30px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-service:hover, .submit-btn:hover{
+    background-color: rgb(6, 77, 158);
+}
+
+.cancel-add-service-btn{
+    width: 150px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}
+
+.cancel-add-service-btn:hover{
+    background-color: rgb(160, 160, 160);
+}

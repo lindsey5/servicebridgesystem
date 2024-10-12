@@ -1,0 +1,71 @@
+.transaction-summary-container{
+    background-color: rgb(228, 228, 228);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial;
+}
+
+.transaction-summary{
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-summary table{
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid rgb(226, 226, 226);
+    margin-top: 10px;
+}
+
+.transaction-summary td{
+    background-color: white;
+    padding: 20px;
+}
+
+.transaction-summary .buttons-container{
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.transaction-summary .book-btn, .transaction-summary .back-btn {
+    margin-top: 30px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.transaction-summary .book-btn{
+    border: none;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    transition: background-color 0.5s ease-out;
+}
+
+.transaction-summary .back-btn{
+    transition: border 0.5s ease-out, color 0.5s ease-out;
+    background-color: white;
+    border: 1.5px solid black;
+    margin-right: 20px;
+}
+
+.transaction-summary .back-btn:hover{
+    border-color: rgb(3, 117, 247);
+    color: rgb(3, 117, 247);
+}
+
+.transaction-summary .book-btn:hover{
+    background-color: rgb(156, 202, 255);
+}
+
+

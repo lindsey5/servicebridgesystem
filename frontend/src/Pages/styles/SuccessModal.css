@@ -1,0 +1,35 @@
+.success-modal{
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 0 15px 5px grey;
+}
+
+.success-modal > img{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.success-modal .continue-btn{
+    background-color: #00BA00;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.success-modal .continue-btn:hover{
+    background-color: #67ff67;
+}

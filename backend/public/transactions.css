@@ -1,0 +1,212 @@
+.container{
+    width: 90%;
+    height: 70vh;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 7px rgb(182, 182, 182);
+    padding: 15px;
+}
+
+.top-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.top-div > div{
+    display: flex;
+}
+
+.top-div .filter-div{
+    outline: none;
+    border: 1px solid rgb(180, 180, 180);
+    display: flex;
+    margin-right: 20px;
+    font-size: 15px;
+    position: relative;
+}
+
+.filter-div .filter-button{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    width: 80px;
+}
+
+.filter-div .filter-button > img{
+    margin-left: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+
+.filter-div .filter-container{
+    position: absolute;
+    width: 400px;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-60%);
+    background-color: white;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 10px;
+    z-index: 1;
+    display: none;
+    padding: 20px;
+}
+
+.filter-container .status-container{
+    display: flex;
+    align-items: start;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    padding: 10px 0;
+}
+
+.filter-container .status-container > div{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+}
+
+.status-container > div > div{
+   margin: 10px 5px;
+}
+
+.filter-container .date-container{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    padding: 10px 0;
+}
+
+.filter-container .date-container input[type='date']{
+    margin-left: 40px;
+    height: 30px;
+}
+
+.filter-container .buttons-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.filter-container .clear-btn{
+    color: red;
+    background-color: white;
+}
+
+.filter-container .apply-btn{
+    background-color: rgb(3, 117, 247);
+    color: white;
+    width: 100px;
+}
+
+.filter-container .clear-btn, 
+.filter-container .apply-btn{
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.filter-container .clear-btn:hover, 
+.filter-container .apply-btn:hover{
+    background-color: rgb(207, 207, 207);
+}
+
+.top-div select option{
+    font-size: 15px;
+}
+
+.pagination-controls{
+    display: flex;
+    min-width: 110px;
+    justify-content: space-between;
+}
+
+.pagination-controls  button{
+    background-color: white;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 5px;
+    margin: 0 2px;
+    width: 30px;
+    height: 30px;
+}
+
+#nextPage:not(:disabled):hover, 
+#prevPage:not(:disabled):hover, 
+.pagination-btn:hover{
+    cursor: pointer;
+    background-color: rgb(197, 197, 197);
+}
+
+.container .table-container{
+    width: 100%;
+    height: 75%;
+    background-color: white;
+    border: 2px solid rgb(236, 236, 236);
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.container .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.container .table-container th {
+    padding: 10px;
+    background-color: rgb(236, 236, 236);
+    font-weight: 500;
+    text-align: center;
+}
+
+.container .table-container td{
+    padding: 8px;
+    background-color: white;
+    border-bottom: 1px solid rgb(236, 236, 236);
+    text-align: center;
+}
+
+.blue-td p{
+    color: rgb(0, 0, 255);
+    background-color: rgb(214, 238, 255);
+}
+
+.red-td p{
+    color: red;
+    background-color: rgb(255, 215, 215);
+}
+
+.green-td p{
+    color: green;
+    background-color: rgb(213, 255, 213);
+}
+
+td button{
+    width: 100px;
+    height: 25px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+td button:hover{
+    background-color: rgb(230, 230, 230);
+}
+
+.accept-btn, .update-btn{
+    margin-bottom: 10px;
+}
+
+.cancel-btn, .decline-btn{
+    background-color: red;
+}
+
+.cancel-btn:hover{
+    background-color: rgb(255, 156, 156);
+}
