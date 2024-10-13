@@ -13,7 +13,6 @@ const create_transaction = async (req, res) =>{
     try {
         const client_id = req.userId;
         const data = req.body;
-        console.log(data);
         const transaction = await transactionService.create_transaction(client_id, data);
         if(transaction){
             res.status(200).json({transaction});
@@ -21,8 +20,11 @@ const create_transaction = async (req, res) =>{
             res.status(400).json({error: "Creating new transaction failed"});
         }
     }catch(err){
-        const errors = handleErrors(err.errors);
-        res.status(400).json({errors});
+        if(err.errors){
+            const errors = handleErrors(err.errors);
+            res.status(400).json({errors});
+        }
+        res.status(400).json({err});
     }
 }
 

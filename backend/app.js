@@ -14,28 +14,32 @@ import './Associations/ServiceAssociations.js';
 import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
 import ChatService from './services/chatService.js';
-dotenv.config();
 import { Server } from 'socket.io';
-import Transaction from './models/transaction.js';
-import transactionService from './services/transactionService.js';
-const origin = process.env.NODE_ENV === "production" ? "http://localhost:3000" : "http://localhost:5173";
+import session from 'express-session';
+
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT; 
+const origin = process.env.NODE_ENV === "production" ? `http://localhost:${PORT}` : "http://localhost:5173";
 const io = new Server({
   cors: { origin }
 });
-
-const app = express();
-const PORT = process.env.PORT; 
 
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }));
-
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+app.use(session({
+  secret: process.env.SESSION_SECRET, 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }, 
+}))
 
 // Call all the routes
 routes.useRoutes(app);
@@ -188,7 +192,6 @@ app.post('/webhook/paymongo', async(req,res) =>{
     res.sendStatus(500); // Respond with a 500 error if something goes wrong
 }
 })
-
 
 const __dirname = path.resolve();
 

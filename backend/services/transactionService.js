@@ -1,5 +1,5 @@
 import Transaction from '../models/transaction.js';
-
+import Client from '../models/client-account.js';
 const create_transaction = async (client_id, data) => {
     try{
         const client_account = await Client.findOne({ 
@@ -8,8 +8,9 @@ const create_transaction = async (client_id, data) => {
         });
         const address = client_account.address;
         const transaction = await Transaction.create({client: client_id, status: 'Requested', address, ...data});
+        console.log(data);
         if(transaction){
-        return transaction
+            return transaction
         }
         return null
     }catch(err){

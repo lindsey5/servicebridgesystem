@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import jwt from 'jsonwebtoken';
+import transactionService from "../../services/transactionService.js";
 
 const create_checkout_link = async (req, res) => {
     try{
@@ -8,12 +9,23 @@ const create_checkout_link = async (req, res) => {
         const token = req.cookies.jwt;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const client_id = decodedToken.id;
+
+        req.session.checkoutData = {
+            client_id,
+            provider: data.provider,
+            service_name: data.service_name,
+            price: data.price,
+            payment_method: data.paymentMethod,
+            date_id: data.date_id,
+            time: data.time,
+        };
+
         const options = {
             method: 'POST',
             headers: {
             accept: 'application/json',
             'Content-Type': 'application/json',
-            authorization: 'Basic c2tfdGVzdF9Razh2Q1ZkdUJaOTFZRmtRTEhyTEpXR0E6'
+            authorization: `Basic ${process.env.PAYMONGO_API_KEY}` 
             },
             body: JSON.stringify({
             data: {
@@ -22,7 +34,7 @@ const create_checkout_link = async (req, res) => {
                 show_description: false,
                 show_line_items: true,
                 cancel_url: 'http://localhost:5173/',
-                success_url: `http://localhost:5173/`,
+                success_url: `http://localhost:3000/api/payment/success`,
                 line_items: [{currency: 'PHP', amount, quantity: 1, name: `${data.service_name}`}],
                 payment_method_types: [
                     'gcash',
@@ -33,15 +45,6 @@ const create_checkout_link = async (req, res) => {
                     'dob_ubp',
                     'brankas_metrobank'
                 ],
-                metadata: {
-                    client: client_id,
-                    provider: data.provider, 
-                    service_name: data.service_name, 
-                    price: data.price, 
-                    payment_method: data.paymentMethod,
-                    date_id: data.date_id, 
-                    time: data.time
-                }
                 }
             }
             })
@@ -49,7 +52,6 @@ const create_checkout_link = async (req, res) => {
         const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options)
         if(response.ok){
             const result = await response.json();
-            console.log(result);
             res.status(200).json({id: result.data.id, checkout_url: result.data.attributes.checkout_url});
         }else{
             throw new Error("Failed to create checkout url");
@@ -61,4 +63,20 @@ const create_checkout_link = async (req, res) => {
     
 }
 
-export default { create_checkout_link }
+const payment_success = async (req, res) => {
+    try{
+        const checkoutData = req.session.checkoutData;
+        const {client_id, ...data} = checkoutData;
+        const newTransaction = await transactionService.create_transaction(client_id, data);
+        if(newTransaction){
+            res.redirect('http://localhost:5173/Client/Transactions');
+        }else{
+            res.status(400).json({error: "Creating new transaction failed"});
+        }
+    }catch(err){
+        console.log(err);
+        res.status(400).json({error: err});
+    }
+}
+
+export default { create_checkout_link, payment_success }

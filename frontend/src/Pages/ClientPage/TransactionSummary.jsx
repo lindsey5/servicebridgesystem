@@ -48,7 +48,7 @@ const TransactionSummary = () => {
             })
             if(response.ok){
                 const result = await response.json();
-                window.open(result.checkout_url, '_blank');
+                window.location.href = result.checkout_url;
             }else{
                 alert("Creating link error, please try again");
             }

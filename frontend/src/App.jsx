@@ -42,7 +42,6 @@ const router = createBrowserRouter(
         <Route element={<ClientRoutes />}>
           <Route path="booking" element={<Booking />}/>
           <Route path='Transaction/Summary' element={<TransactionSummary/>} />
-          <Route path='Payment' element={<Payment />} />
         </Route>
       </Route>
       
