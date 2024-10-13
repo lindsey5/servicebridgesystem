@@ -45,7 +45,7 @@ const ReasonModal = ({modal_state, modal_dispatch}) => {
     }
 
     return (
-        <div className="transaction-modal-container" style={{display: showProviderReasonModal ? 'flex' : 'none'}}>
+        <div className="transaction-modal-container" style={{display: modal_state.showProviderReason ? 'flex' : 'none'}}>
             <div className="reason-modal modal">
             <h3>Select Reason for Cancellation</h3>
                 <div className="reason">
