@@ -15,7 +15,6 @@ Service Bridge System is a platform designed to bridge clients and service provi
   #### Booking and Appointment of Service
   Book services with your preferred provider.
   Schedule appointments based on provider availability.
-  Real-time confirmation of booking status.
   
   #### Payment Integration (PayMongo)
   Secure payment processing through PayMongo.
