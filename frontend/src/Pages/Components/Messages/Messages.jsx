@@ -20,9 +20,6 @@ const Messages = () => {
                 query: { token }, 
             });
             setSocket(socketConnection);
-            return () => {
-                socketConnection.disconnect();
-            };
         }
     }, [data]);
 

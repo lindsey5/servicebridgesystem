@@ -34,6 +34,15 @@
     border-radius: 10px;
 } 
 
+.sidebar button.active{
+    background-color: #e6f2ff;
+}
+
+
+.sidebar button:hover{
+    background-color: #e6f2ff;
+}
+
 .icons{
     position: absolute;
     width: 25px;

@@ -81,6 +81,12 @@ const Availability = () => {
         }
     };
 
+    const fetchTransactionsByDate = (date) => {
+        fetch(`/api/transactions/${date}`)
+        .then(response => response.json())
+        .then(result=> setTransactions(result.transactions))
+    }
+
     
     const renderCalendar = () => {
         const year = date.getFullYear();
