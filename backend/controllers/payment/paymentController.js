@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import jwt from 'jsonwebtoken';
 import transactionService from "../../services/transactionService.js";
+import paymentService from '../../services/paymentService.js';
 
 const create_checkout_link = async (req, res) => {
     try{
@@ -19,7 +20,6 @@ const create_checkout_link = async (req, res) => {
             date_id: data.date_id,
             time: data.time,
         };
-
         const options = {
             method: 'POST',
             headers: {
@@ -49,9 +49,10 @@ const create_checkout_link = async (req, res) => {
             }
             })
         };
-        const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options)
+        const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
         if(response.ok){
             const result = await response.json();
+            req.session.payment_checkout_id	 = result.data.id;
             res.status(200).json({id: result.data.id, checkout_url: result.data.attributes.checkout_url});
         }else{
             throw new Error("Failed to create checkout url");
@@ -60,22 +61,26 @@ const create_checkout_link = async (req, res) => {
         console.log(err);
         res.status(400).json({error: err});
     }
-    
 }
 
 const payment_success = async (req, res) => {
     try{
         const checkoutData = req.session.checkoutData;
+        const payment_checkout_id = req.session.payment_checkout_id;
         const {client_id, ...data} = checkoutData;
         const newTransaction = await transactionService.create_transaction(client_id, data);
         if(newTransaction){
-            res.redirect('http://localhost:5173/Client/Transactions');
+            const transaction_id = newTransaction.dataValues.transaction_id;
+            const newPayment = await paymentService.create_payment(transaction_id, payment_checkout_id);
+            if(newPayment){
+                res.redirect('http://localhost:5173/Client/Transactions');
+            }
         }else{
             res.status(400).json({error: "Creating new transaction failed"});
         }
     }catch(err){
         console.log(err);
-        res.status(400).json({error: err});
+        res.status(400).json({error: 'Payment failed'});
     }
 }
 

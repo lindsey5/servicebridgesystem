@@ -8,7 +8,6 @@ const create_transaction = async (client_id, data) => {
         });
         const address = client_account.address;
         const transaction = await Transaction.create({client: client_id, status: 'Requested', address, ...data});
-        console.log(data);
         if(transaction){
             return transaction
         }

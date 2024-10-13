@@ -2,18 +2,23 @@ import { useContext, useState } from 'react';
 import './transactionModal.css';
 import { TransactionContext } from '../Context/TransactionContext';
 
-const cancelTransaction = ({reason, id, user}) => {
+const cancelTransaction = async ({reason, id, user}) => {
     const data = { reason, status: 'Cancelled', user: user.user }
     if(reason){
         if(confirm("Click OK to continue")){
-            fetch(`/api//transactions/cancel/${id}`, {
+            const response = await fetch(`/api//transactions/cancel/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({data})
             })
-            window.location.reload();
+            if(response.ok){
+                window.location.reload();
+            }else{
+                const result = await response.json();
+                alert(result.message);
+            }
         }
     }else{
         alert('Select a reason');

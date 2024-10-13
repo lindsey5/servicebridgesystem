@@ -3,7 +3,7 @@ import { sequelize } from '../config/connection.js';
 
 const Payment = sequelize.define('Payment', {
     transaction_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
         validate: {
@@ -11,55 +11,29 @@ const Payment = sequelize.define('Payment', {
                 msg: 'Transaction ID cannot be empty'
             },
             maxLength(value) {
-                if (value.length > 255) {
+                if (value.length > 36) {
                     throw new Error('Transaction ID cannot be more than 36 characters long.');
                 }
             }
         }
     },
-    payment_intent_id: {
+    payment_checkout_id: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: {
-                msg: 'Payment Intent ID cannot be empty'
+                msg: 'Payment Checkout ID cannot be empty'
             },
             maxLength(value) {
                 if (value.length > 255) {
-                    throw new Error('Payment Intent ID cannot be more than 255 characters long.');
+                    throw new Error('Payment Checkout ID cannot be more than 255 characters long.');
                 }
             }
         }
     },
-    client_key: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: {
-                msg: 'Client Key cannot be empty'
-            },
-            maxLength(value) {
-                if (value.length > 255) {
-                    throw new Error('Client Key cannot be more than 255 characters long.');
-                }
-            }
-        }
-    },
-    payment_method_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: {
-                msg: 'Payment Method ID cannot be empty'
-            },
-            maxLength(value) {
-                if (value.length > 255) {
-                    throw new Error('Payment Method ID cannot be more than 255 characters long.');
-                }
-            }
-        }
-    }
-    }, { timestamps: false, }
-);
+},
+{
+    timestamps: false,
+});
 
 export default Payment;

@@ -3,6 +3,7 @@ import Transaction from '../models/transaction.js';
 import ReviewedTransaction from '../models/reviewed-transaction.js';
 import Client from '../models/client-account.js';
 import Cancelled_transaction from '../models/cancelled_transaction.js';
+import Payment from '../models/payment.js';
 
 // Relationship between ReviewedTransaction and Transaction
 // A ReviewedTransaction has one corresponding Transaction
@@ -68,4 +69,18 @@ Transaction.belongsTo(Cancelled_transaction, {
   targetKey: 'transaction_id',   // The primary key in CancelledTransaction
   onDelete: 'CASCADE',           // If a cancelled transaction is deleted, the related transaction is deleted
   onUpdate: 'CASCADE',           // Updates cascade to the related transaction
+})
+
+Payment.hasOne(Transaction, {
+  foreignKey: 'transaction_id',  
+  sourceKey: 'transaction_id',   
+  onDelete: 'CASCADE',        
+  onUpdate: 'CASCADE'
+})
+
+Transaction.belongsTo(Payment, {
+  foreignKey: 'transaction_id', 
+  targetKey: 'transaction_id', 
+  onDelete: 'CASCADE',         
+  onUpdate: 'CASCADE', 
 })
