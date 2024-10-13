@@ -17,6 +17,7 @@ const cancelTransaction = async ({reason, id, user}) => {
                 window.location.reload();
             }else{
                 const result = await response.json();
+                console.log(result);
                 alert(result.message);
             }
         }

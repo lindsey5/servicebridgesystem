@@ -18,7 +18,7 @@ const retrieve_payment_checkout = async (payment_checkout_id) => {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          authorization: 'Basic c2tfdGVzdF9Razh2Q1ZkdUJaOTFZRmtRTEhyTEpXR0E6'
+          authorization: `Basic ${process.env.PAYMONGO_API_KEY}`
         }
       };
       
@@ -37,7 +37,7 @@ const refund_payment = async (payment_id, price) => {
             headers: {
               accept: 'application/json',
               'content-type': 'application/json',
-              authorization: 'Basic c2tfdGVzdF9Razh2Q1ZkdUJaOTFZRmtRTEhyTEpXR0E6'
+              authorization: `Basic ${process.env.PAYMONGO_API_KEY}`
             },
             body: JSON.stringify({
               data: {

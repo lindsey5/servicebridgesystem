@@ -73,6 +73,8 @@ const payment_success = async (req, res) => {
             const transaction_id = newTransaction.dataValues.transaction_id;
             const newPayment = await paymentService.create_payment(transaction_id, payment_checkout_id);
             if(newPayment){
+                delete req.session.checkoutData;
+                delete req.session.payment_checkout_id;
                 res.redirect('http://localhost:5173/Client/Transactions');
             }
         }else{
