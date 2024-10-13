@@ -9,22 +9,36 @@ export const updateTransaction = (transaction_id, status) => {
     window.location.reload();
 }
 
-export const setToOngoing = (transaction_id, status) => {
+export const setToOngoing = (transaction_id) => {
     if (confirm('Do you want to mark this transaction as ongoing?')) {
-        updateTransaction(transaction_id, status);
+        updateTransaction(transaction_id, 'On Going');
     }
 }
 
-export const finishTransaction = (transaction_id, status) => {
+export const finishTransaction = (transaction_id) => {
     if (confirm('Task finished?')) {
-        updateTransaction(transaction_id, status);
+        updateTransaction(transaction_id, 'Finished');
     }
 }
 
-export const acceptTransaction = (transaction_id, status) => {
+export const acceptTransaction = (transaction_id) => {
     if (confirm('Do you really want to accept this transaction?')) {
-        updateTransaction(transaction_id, status);
+        updateTransaction(transaction_id, 'Accepted');
     }
+}
+
+export const expire_transaction = async(transaction_id) =>{
+    const response = await fetch(`/api/transactions/expire/${transaction_id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if(response.ok){
+        window.location.reload();
+    }
+
+    return null
 }
 
 export const createTransaction = async (data) =>{
@@ -48,5 +62,20 @@ export const createTransaction = async (data) =>{
     }
 
     return null
+}
 
+export const completeTransaction = async (transaction_id, price) => {
+    if(confirm('Confirm the completion of this transaction?')){
+        const response = await fetch(`/api/transactions/complete/${transaction_id}/client`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({service_price: price})
+        });
+
+        if(response.ok){
+            window.location.reload();
+        }
+    }
 }

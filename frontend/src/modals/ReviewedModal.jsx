@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import defaultProfilePic from '../assets/user (1).png';
 import createImageSrc from '../utils/createImageSrc';
 
-const ReviewedModal = ({showReviewedModal, setReviewedModal}) =>{
+const ReviewedModal = ({modal_state, modal_dispatch}) =>{
     const {transactionId} = useContext(TransactionContext);
     const [reviewedTransaction, setReviewedTransaction] = useState();
     const [dateReviewed, setDateReviewed] = useState();
@@ -33,7 +33,7 @@ const ReviewedModal = ({showReviewedModal, setReviewedModal}) =>{
             }
         }
         getReviewedTransaction();
-    }, [showReviewedModal]);
+    }, [modal_state.showReviewedTransaction]);
 
     useEffect(() =>{
         if(reviewedTransaction?.rating){
@@ -47,15 +47,15 @@ const ReviewedModal = ({showReviewedModal, setReviewedModal}) =>{
     },[reviewedTransaction])
 
     return (
-        <div className="transaction-modal-container modal-container" style={{display: showReviewedModal ? 'flex' : 'none'}}>
+        <div className="transaction-modal-container modal-container" style={{display: modal_state.showReviewedTransaction ? 'flex' : 'none'}}>
             <div className="reviewed-modal modal">
                 <div className="client">
                     <div className="client-profile-pic">
                         <img src={imgSrc}/>
                     </div>
-                    <h3>{reviewedTransaction && reviewedTransaction.fullname}</h3>
+                    <h3 id='client-name'>{reviewedTransaction && reviewedTransaction.fullname}</h3>
                 </div>
-                <h4>{reviewedTransaction && reviewedTransaction.service_name}</h4>
+                <h4 id='service-name'>{reviewedTransaction && reviewedTransaction.service_name}</h4>
                 <h4>{reviewedTransaction && dateReviewed}</h4>
                 <div className="rating">
                     <h4 id="rating">{reviewedTransaction && reviewedTransaction.rating} / 5</h4>
@@ -66,9 +66,9 @@ const ReviewedModal = ({showReviewedModal, setReviewedModal}) =>{
                     <span ref={el => starRef.current[4] = el }className="star">★</span>
                 </div>
                 <h4>Review:</h4>
-                <div>{reviewedTransaction && reviewedTransaction.review}</div>
+                <div id='review'>{reviewedTransaction && reviewedTransaction.review}</div>
                 <button className="close-btn" 
-                onClick={() => setReviewedModal(false)}>Close</button>
+                onClick={() => modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: false})}>Close</button>
             </div>
         </div>
     )

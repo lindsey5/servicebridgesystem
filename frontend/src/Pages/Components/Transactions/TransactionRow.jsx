@@ -2,13 +2,7 @@ import React, { useContext } from 'react';
 import { TransactionContext } from '../../../Context/TransactionContext';
 import { useNavigate } from 'react-router-dom';
 import { RecipientContext } from '../../../Context/RecipientContext';
-import { updateTransaction, setToOngoing, finishTransaction, acceptTransaction } from '../../../utils/transactionUtils';
-
-const complete = async (transaction_id, price, payment_method) => {
-    if(confirm('Confirm the completion of this transaction?')){
-        
-    }
-}
+import { completeTransaction, setToOngoing, finishTransaction, acceptTransaction, expire_transaction } from '../../../utils/transactionUtils';
 
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
@@ -16,15 +10,33 @@ const isDateExpired = (transactionDateTime) => {
     return date < currentDate;
 };
 
-const TransactionRow = ({ transaction, index, setClientReasonModal, setShowCancelledTran, setShowRateModal, setReviewedModal}) => {
+const create_provider_payment_link = async (transaction_id, price) =>{
+    const response = await fetch(`/api/payment/link/provider`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({transaction_id, price}),
+        credentials: 'include'
+    })
+    if(response.ok){
+        const result = await response.json();  
+        console.log(result);
+        window.location.href = result.checkout_url;
+    }else{
+        alert("Creating link error, please try again");
+    }
+}
+
+const TransactionRow = ({ transaction, index, modal_dispatch }) => {
     const user = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
     const {setTransactionId} = useContext(TransactionContext);
 
     const transactionDateTime = `${transaction.date} ${transaction.time}`;
-    if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
-        updateTransaction(transaction.id, 'Expired');
+    if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted') && transaction.payment_method === 'Online Payment') {
+        expire_transaction(transaction.id);
     }
 
     let status;
@@ -43,7 +55,7 @@ const TransactionRow = ({ transaction, index, setClientReasonModal, setShowCance
 
     const generateButton = () => {
         
-        const { status, payment_method } = transaction;
+        const { status } = transaction;
     
         const handleActionButton = (onClick, icon) => (
             <button onClick={onClick}>
@@ -51,37 +63,41 @@ const TransactionRow = ({ transaction, index, setClientReasonModal, setShowCance
             </button>
         );
     
-        if (status === 'Requested' && user.user === 'Provider') {
+        if (transaction.status === 'Requested' && user.user === 'Provider') {
             return (
                 <>
-                    {handleActionButton(() => acceptTransaction(transaction.id, 'Accepted', transactionDateTime), 'accept')}
-                    {handleActionButton(() => {}, 'cancel')}
+                {handleActionButton(() => acceptTransaction(transaction.id), 'accept')}
+                {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
                 </>
             );
-        } else if (status === 'Accepted' && user.user === 'Provider') {
+        }else if(transaction.status === 'Accepted' && user.user === 'Provider'){
             return (
                 <>
-                    {handleActionButton(() => setToOngoing(transaction.id, 'On Going', transactionDateTime), 'accept')}
-                    {handleActionButton(() => {}, 'cancel')}
+                {handleActionButton(() => setToOngoing(transaction.id), 'accept')}
+                {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
                 </>
             );
-        } else if ((status === 'Requested' || status === 'Accepted') && user.user === 'Client') {
-            return handleActionButton(() =>{ setTransactionId(transaction.id); setClientReasonModal(true); }, 'cancel');
+        
+        }else if ((status === 'Requested' || status === 'Accepted') && user.user === 'Client') {
+            return handleActionButton(() =>{ setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: true}); }, 'cancel');
 
         } else if (status === 'On Going' && user.user === 'Provider') {
-            return handleActionButton(() => finishTransaction(transaction.id, 'Finished', transactionDateTime), 'accept');
+            return handleActionButton(() => finishTransaction(transaction.id), 'accept');
 
-        } else if (status === 'Finished' && user.user === 'Client' && payment_method === 'Online Payment') {
-            return handleActionButton(() => complete(transaction.id, transaction.price, payment_method), 'accept');
+        } else if (status === 'Finished' && transaction.payment_method === 'Online Payment') {
+            return handleActionButton(() => completeTransaction(transaction.id, transaction.price), 'accept');
+            
+        } else if(status === 'Finished' && transaction.payment_method === 'Cash on Pay') {
+            return handleActionButton(() => create_provider_payment_link(transaction.id, transaction.price), 'accept');
 
-        } else if (status === 'Completed' && user.user === 'Client') {
-            return handleActionButton(() => { setShowRateModal(true); setTransactionId(transaction.id); }, 'like');
+        }else if (status === 'Completed' && user.user === 'Client') {
+            return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.id); }, 'like');
 
         } else if (status === 'Cancelled' || status === 'Declined') {
-            return handleActionButton(() => { setTransactionId(transaction.id); setShowCancelledTran(true); }, 'eye');
+            return handleActionButton(() => { setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye');
 
         } else if (status === 'Reviewed') {
-            return handleActionButton(() => {setReviewedModal(true); setTransactionId(transaction.id)}, 'eye');
+            return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.id)}, 'eye');
         }   
     
         return null;

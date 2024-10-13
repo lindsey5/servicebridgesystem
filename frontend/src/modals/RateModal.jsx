@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import './transactionModal.css';
 import { TransactionContext } from '../Context/TransactionContext';
 
-const RateModal = ({showRateModal, setShowRateModal}) =>{
+const RateModal = ({modal_state, modal_dispatch}) =>{
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
     const starsRef = useRef([]);
@@ -20,7 +20,7 @@ const RateModal = ({showRateModal, setShowRateModal}) =>{
 
     useEffect(() => {
         setRating(0);
-    },[showRateModal]);
+    },[modal_state.showRateModal]);
 
     const rateTransaction = () => {
         if(!rating){
@@ -43,7 +43,7 @@ const RateModal = ({showRateModal, setShowRateModal}) =>{
     }
 
     return (
-        <div className="transaction-modal-container" style={{display: showRateModal ? 'flex' : 'none'}}>
+        <div className="transaction-modal-container" style={{display: modal_state.showRateModal ? 'flex' : 'none'}}>
             <div className="rate-modal modal">
                 <h2>Rate and Review</h2>
                 <span id="rating">Rating ({rating}/5)</span>
@@ -56,7 +56,7 @@ const RateModal = ({showRateModal, setShowRateModal}) =>{
                 </div>
                 <textarea className="review" onChange={(e) => setReview(e.target.value)} maxLength="100" placeholder="Enter your review here"></textarea>
                 <div className="buttons">
-                    <button className="cancel-rate-btn" onClick={() => setShowRateModal(false)}>Cancel</button>
+                    <button className="cancel-rate-btn" onClick={() => modal_dispatch({type: 'SHOW_RATE_MODAL', payload: false})}>Cancel</button>
                     <button className="submit-rate-btn" onClick={rateTransaction}>Submit</button>
                 </div>
             </div>

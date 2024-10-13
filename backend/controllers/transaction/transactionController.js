@@ -150,6 +150,41 @@ const cancel_transaction = async (req, res) => {
     }
 }
 
+const expire_transaction = async (req, res) =>{
+    const status = 'Expired';
+    const transaction_id = req.params.id;
+    try{
+        const payment = await Payment.findOne({
+            where:{
+                transaction_id
+            },
+            include: [{model: Transaction}]
+        });
+        const payment_checkout_id = payment.dataValues.payment_checkout_id;
+        const price = payment.dataValues.transaction.dataValues.price;
+        const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
+        if(payment_checkout){
+            const payment_id = payment_checkout.data.attributes.payments[0].id;
+            const refunded_payment = await paymentService.refund_payment(payment_id, price);
+            console.log(payment_id);
+            if(refunded_payment){
+                const updated_transaction = await transactionService.update_transaction(transaction_id, status);
+                if(updated_transaction){
+                    res.status(200).json({updated_transaction});
+                }else{
+                    res.status(400).json({message: "Failed to expire"});
+                }
+            }else{
+                res.status(400).json({message: "Refund Failed"})
+            }
+        }else{
+            res.status(400).json({message: "Payment not found"})
+        }
+    }catch(err){
+        res.status(400).json({message: "Refund Failed"})
+    }
+}
+
 const update_transaction = async (req, res) => {
     const {status} = req.body;
     const transaction_id = req.params.id;
@@ -167,26 +202,27 @@ const update_transaction = async (req, res) => {
 
 const client_complete_transaction = async (req, res) => {
     const transaction_id = req.params.id;
-    const { service_price, payment_intent_id } = req.query;
-    const payment_intent = await paymentService.retrievePaymentIntent(payment_intent_id);
-    if(payment_intent?.data.attributes.status === 'succeeded'){
-        try{
-            const earnings = await earningService.post_earnings(service_price, transaction_id);
-            if(earnings){
-                const transaction = await transactionService.update_transaction(transaction_id, 'Completed');
-                if(transaction){
-                    return res.redirect('http://localhost:5173/');
-                }else{
-                    res.status(400).json({error: 'Completion error'});
-                }
-            }else{
-                res.status(400).json({error: 'Completion error'});
-            }
-        }catch(err){
-            return res.status(400).json({error: err});
-        }
-    }else{
-        res.redirect('http://localhost:5173/');
+    const { service_price } = req.body;
+    try{
+        const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
+        res.status(200).json({completed_transaction});
+    
+    }catch(err){
+        console.log(err);
+        return res.status(400).json({error: err});
+    }
+}
+
+const provider_complete_transaction = async (req, res) => {
+    const transaction_id = req.params.id;
+    const { service_price } = req.query;
+    try{
+        const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
+        console.log(completed_transaction);
+        res.redirect('http://localhost:5173/Provider/Transactions');
+    }catch(err){
+        console.log(err);
+        return res.status(400).json({error: err});
     }
 }
 
@@ -323,9 +359,7 @@ const review_transaction = async (req, res) => {
                 })
                 const newRating = Math.round((sum / reviewed_transactions_rating.length) * 10) / 10;
                 const provider = await Provider.findByPk(provider_id);
-                const updatedProvider = await provider.update({
-                            rating: newRating
-                });
+                const updatedProvider = await provider.update({rating: newRating});
                 if(updatedProvider){
                     res.status(200).json({message: 'Transaction successfully rated'});
                 }else{
@@ -373,6 +407,8 @@ export default {
     cancel_transaction, 
     update_transaction,
     client_complete_transaction,
+    provider_complete_transaction,
+    expire_transaction,
     get_cancelled_transaction,
     get_total_completed_task, 
     get_total_completed_transaction_today, 

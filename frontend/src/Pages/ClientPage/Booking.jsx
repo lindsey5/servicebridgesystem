@@ -137,7 +137,7 @@ const Booking = () => {
                         { selectedTime ? selectedTime : 'Select Time'}
                     </button>
                     <img className='drop-down-icon' id="time-icon" src="/icons/down.png" alt="time icon" />
-                    <ul id="drop-down-time" style={{display: showTimeDropDown ? 'flex' : 'none'}}>{generateTimeSlots()}</ul>
+                    <ul id="drop-down-time" style={{display: showTimeDropDown && selectedDate ? 'flex' : 'none'}}>{generateTimeSlots()}</ul>
                 </div>
                 <h3>Payment method</h3>
                 <div className="payment">

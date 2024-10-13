@@ -62,7 +62,7 @@ const getProviders = async (req, res) => {
         }
 
         if(price > 0){
-            query.include[0].where.price = { [Op.lte] : price };
+            query.include[0].where.price = { [Op.lt] : price };
         }
 
         if(sortBy){
@@ -100,7 +100,7 @@ const getProviders = async (req, res) => {
                 };
             });
         
-            res.json({
+            res.status(200).json({
                 providers: providers,
                 totalPages: totalPages,
                 currentPage: page

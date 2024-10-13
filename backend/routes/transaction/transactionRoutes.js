@@ -15,7 +15,11 @@ router.put('/transactions/cancel/:id', verifyToken, transactionController.cancel
 
 router.put('/transactions/update/:id',verifyToken, transactionController.update_transaction);
 
-router.get('/transactions/client/complete/:id', transactionController.client_complete_transaction);
+router.put('/transactions/complete/:id/client', transactionController.client_complete_transaction);
+
+router.get('/transactions/complete/:id/provider',  transactionController.provider_complete_transaction);
+
+router.put('/transactions/expire/:id', transactionController.expire_transaction);
 
 router.get('/transactions/cancelled/:id', transactionController.get_cancelled_transaction);
 

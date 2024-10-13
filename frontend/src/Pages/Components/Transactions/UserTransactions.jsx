@@ -9,6 +9,8 @@ import '../../styles/Loader.css';
 import CancelledModal from '../../../modals/cancelledModal.jsx';
 import RateModal from '../../../modals/RateModal.jsx';
 import ReviewedModal from '../../../modals/ReviewedModal.jsx';
+import ProviderReasonModal from '../../../modals/ProviderReasonModal.jsx';
+import useModalReducer from '../../../hooks/modalReducer.jsx';
 
 const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const {state, dispatch}  = useTransactionsReducer();
@@ -18,10 +20,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const [totalPages, setTotalPages] = useState(1);
     const checkboxesRef = useRef([]);
     const dateInputRef = useRef(null);
-    const [showClientReasonModal, setClientReasonModal] = useState(false);
-    const [showCancelledTran, setShowCancelledTran] = useState(false);
-    const [showRateModal, setShowRateModal] = useState(false);
-    const [showReviewedModal, setReviewedModal] = useState(false);
+    const {modal_state, modal_dispatch} = useModalReducer();
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
@@ -87,10 +86,11 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
 
     return(
         <div className="transactions">
-            <ClientReasonModal showClientReasonModal= {showClientReasonModal} setClientReasonModal={setClientReasonModal} />
-            <CancelledModal showCancelledTran={showCancelledTran} setShowCancelledTran={setShowCancelledTran}/>
-            <RateModal showRateModal={showRateModal} setShowRateModal={setShowRateModal}/>
-            <ReviewedModal showReviewedModal={showReviewedModal} setReviewedModal={setReviewedModal}/>
+            <ClientReasonModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
+            <CancelledModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
+            <RateModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
+            <ReviewedModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
+            <ProviderReasonModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
             {loading && 
                 <div className='loader-container'>
                     <div className="loader"></div>
@@ -111,8 +111,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                                         <div><input type="checkbox" value="Finished" ref={el => checkboxesRef.current[3] = el} onClick={(e) => handleClick(e.target)} />Finished</div>
                                         <div><input type="checkbox" value="Completed" ref={el => checkboxesRef.current[4] = el} onClick={(e) => handleClick(e.target)} />Completed</div>
                                         <div><input type="checkbox" value="Cancelled" ref={el => checkboxesRef.current[5] = el} onClick={(e) => handleClick(e.target)} />Cancelled</div>
-                                        <div><input type="checkbox" value="Declined" ref={el => checkboxesRef.current[6] = el} onClick={(e) => handleClick(e.target)} />Declined</div>
-                                        <div><input type="checkbox" value="Reviewed" ref={el => checkboxesRef.current[7] = el} onClick={(e) => handleClick(e.target)} />Reviewed</div>
+                                        <div><input type="checkbox" value="Reviewed" ref={el => checkboxesRef.current[6] = el} onClick={(e) => handleClick(e.target)} />Reviewed</div>
                                     </div>
                                 </div>
                                 <div className="date-container">
@@ -157,10 +156,8 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                                     <TransactionRow 
                                         key={index} transaction={transaction} 
                                         index={index} 
-                                        setClientReasonModal={setClientReasonModal}
-                                        setShowCancelledTran={setShowCancelledTran}
-                                        setShowRateModal={setShowRateModal}
-                                        setReviewedModal={setReviewedModal}
+                                        modal_state={modal_state}
+                                        modal_dispatch={modal_dispatch}
                                     />
                                 ))}
                         </tbody>

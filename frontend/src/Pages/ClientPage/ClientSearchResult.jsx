@@ -35,12 +35,9 @@ const ClientSearchResult = () => {
                 if(response.ok){
                     const result = await response.json();
                     setFetchedData(result);
-                    if(result.providers && result){
-                        dispatch({ type: 'SET_PROVIDERS', payload: result.providers });
-                        dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === result.totalPages });
-                        dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
-                        generatePaginationButtons(result.totalPages);
-                    }
+                    dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === result.totalPages });
+                    dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
+                    generatePaginationButtons(result.totalPages);
                 }else{
                     setFetchedData(null);
                 }
@@ -66,7 +63,7 @@ const ClientSearchResult = () => {
             paginationBtns.push(
                 <button key={i} className='pagination-btn'
                 onClick={()=> handleClick(i)}
-                style={ {backgroundColor: state.currentPage === i ? 'rgb(3, 117, 247)' : '',color: state.currentPage === i ? 'white' : ''}
+                style={ {backgroundColor: state.currentPage === i ? 'rgb(3, 117, 247)' : '' , color: state.currentPage === i ? 'white' : ''}
                 }>{i}</button>
             );
         }
@@ -74,10 +71,10 @@ const ClientSearchResult = () => {
     }
 
     const handlePrice = (value) => {
-        const prices = [200, 500, 1000, 1500, 2000, 2500, 0];
+        const prices = [1000, 1500, 2000, 2500, 0];
         const priceValue = prices[value - 1];
         dispatch({ type: 'SET_PRICE', payload: priceValue });
-        dispatch({ type: 'SET_PRICE_LABEL', payload: value === '7' ? 'Any Price' : `Below ₱${priceValue}` });
+        dispatch({ type: 'SET_PRICE_LABEL', payload: value === '5' ? 'Any Price' : `Below ₱${priceValue}` });
         dispatch({ type: 'SET_CURRENT_PAGE', payload: 1 });
     };
 
@@ -124,7 +121,7 @@ const ClientSearchResult = () => {
                 <div className="filter-container">
                     <div className="price-div">
                     <h2>Price</h2>
-                    <input type="range" min="1" max="7" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} />
+                    <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} />
                     <p id="selectedPrice">{state.priceLabel}</p>
                     </div>
                     <div className="sort-div">
@@ -147,7 +144,7 @@ const ClientSearchResult = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="search-results-container">
                         <h2>{!fetchedData ? 'No ' : ''}Results for '{searchTerm}'</h2>
-                        {fetchedData && state.providers ? state.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
+                        {fetchedData ? fetchedData.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
                     </div>
                     <div className="pagination-controls">
                     <button id="prevPage" disabled={state.disabledPrevBtn} style={{display: !fetchedData ? 'none' : ''}} onClick={prevPage}>&lt; Prev</button>

@@ -1,16 +1,15 @@
-import fetch from "node-fetch";
 import jwt from 'jsonwebtoken';
 import transactionService from "../../services/transactionService.js";
 import paymentService from '../../services/paymentService.js';
 
-const create_checkout_link = async (req, res) => {
+const create_client_checkout_link = async (req, res) => {
     try{
         const data = req.body.data;
         const amount = data.price * 100;
         const token = req.cookies.jwt;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const client_id = decodedToken.id;
-
+        const success_url = 'http://localhost:3000/api/payment/success/client';
         req.session.checkoutData = {
             client_id,
             provider: data.provider,
@@ -20,42 +19,12 @@ const create_checkout_link = async (req, res) => {
             date_id: data.date_id,
             time: data.time,
         };
-        const options = {
-            method: 'POST',
-            headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-            authorization: `Basic ${process.env.PAYMONGO_API_KEY}` 
-            },
-            body: JSON.stringify({
-            data: {
-                attributes: {
-                send_email_receipt: false,
-                show_description: false,
-                show_line_items: true,
-                cancel_url: 'http://localhost:5173/',
-                success_url: `http://localhost:3000/api/payment/success`,
-                line_items: [{currency: 'PHP', amount, quantity: 1, name: `${data.service_name}`}],
-                payment_method_types: [
-                    'gcash',
-                    'paymaya',
-                    'brankas_landbank',
-                    'card',
-                    'dob',
-                    'dob_ubp',
-                    'brankas_metrobank'
-                ],
-                }
-            }
-            })
-        };
-        const response = await fetch('https://api.paymongo.com/v1/checkout_sessions', options);
-        if(response.ok){
-            const result = await response.json();
-            req.session.payment_checkout_id	 = result.data.id;
-            res.status(200).json({id: result.data.id, checkout_url: result.data.attributes.checkout_url});
+        const checkout_link = await paymentService.create_checkout_link(amount, data.service_name, success_url);
+        if(checkout_link){
+            req.session.payment_checkout_id	 = checkout_link.id;
+            res.status(200).json(checkout_link);
         }else{
-            throw new Error("Failed to create checkout url");
+            res.status(400).json({error: "Creating checkout url failed"});
         }
     } catch(err){
         console.log(err);
@@ -63,7 +32,24 @@ const create_checkout_link = async (req, res) => {
     }
 }
 
-const payment_success = async (req, res) => {
+const create_provider_checkout_link = async (req, res) => {
+    try{
+        const {transaction_id, price} = req.body;
+        const amount = (price * 0.05) * 100;
+        const success_url = `http://localhost:3000/api/transactions/complete/${transaction_id}/provider?service_price=${price}`;
+        const checkout_link = await paymentService.create_checkout_link(amount, 'Commission fee', success_url);
+        if(checkout_link){
+            res.status(200).json(checkout_link);
+        }else{
+            res.status(400).json({error: "Creating checkout url failed"});
+        }
+    } catch(err){
+        console.log(err);
+        res.status(400).json({error: err});
+    }
+}
+
+const client_payment_success = async (req, res) => {
     try{
         const checkoutData = req.session.checkoutData;
         const payment_checkout_id = req.session.payment_checkout_id;
@@ -76,14 +62,15 @@ const payment_success = async (req, res) => {
                 delete req.session.checkoutData;
                 delete req.session.payment_checkout_id;
                 res.redirect('http://localhost:5173/Client/Transactions');
+            }else{
+                res.status(400).json({error: 'Payment failed'});
             }
         }else{
             res.status(400).json({error: "Creating new transaction failed"});
         }
     }catch(err){
-        console.log(err);
         res.status(400).json({error: 'Payment failed'});
     }
 }
 
-export default { create_checkout_link, payment_success }
+export default { create_client_checkout_link, create_provider_checkout_link, client_payment_success }

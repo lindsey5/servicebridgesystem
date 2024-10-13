@@ -3,24 +3,31 @@ import './EditPriceModal.css'
 const EditPriceModal = ({serviceDetails, setServiceDetails, setEditModal, showEditModal}) => {
 
     async function updatePrice({service_id, price}) {
-        if(confirm('Click OK to continue')){
-            try {
-                const response = await fetch(`http://localhost:3000/api/services-offered/${service_id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({price}),
-                    credentials: 'include'
-                });
-                const result = await response.json();
-                if(result){
-                    window.location.reload();
+        if (!Number.isInteger(Number(price))) {
+            alert("The price should not have decimals");
+        }else if(price < 500 ){
+            alert("The minimum price is 500")
+        }else{
+            if(confirm('Click OK to continue')){
+                try {
+                    const response = await fetch(`http://localhost:3000/api/services-offered/${service_id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({price}),
+                        credentials: 'include'
+                    });
+                    const result = await response.json();
+                    if(result){
+                        window.location.reload();
+                    }
+                } catch (error) {
+                    console.error('Error updating price:', error);
                 }
-            } catch (error) {
-                console.error('Error updating price:', error);
             }
         }
+        
     }
 
     return(

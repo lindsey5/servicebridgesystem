@@ -84,7 +84,6 @@
 .transaction-modal-container .continue-cancel-btn, .transaction-modal-container .continue-decline-btn{
     background-color: rgb(145, 145, 145);
     color: white;
-    display: none;
 }
 
 .transaction-modal-container .dont-cancel-btn:hover, 

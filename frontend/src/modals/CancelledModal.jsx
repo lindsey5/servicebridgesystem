@@ -2,7 +2,7 @@ import './transactionModal.css';
 import { useContext, useEffect, useState } from 'react';
 import { TransactionContext } from '../Context/TransactionContext';
 
-const CancelledModal = ({showCancelledTran, setShowCancelledTran}) =>{
+const CancelledModal = ({modal_state, modal_dispatch}) =>{
     const { transactionId } = useContext(TransactionContext);
     const [cancelledTransaction, setCancelledTransaction] = useState();
 
@@ -36,10 +36,10 @@ const CancelledModal = ({showCancelledTran, setShowCancelledTran}) =>{
             }
             getCancelledTransaction();
         }
-    },[showCancelledTran]);
+    },[modal_state.showCancelledTransaction]);
 
     return (
-        <div className="transaction-modal-container" style={{display: showCancelledTran ? 'flex' : 'none'}}>
+        <div className="transaction-modal-container" style={{display: modal_state.showCancelledTransaction ? 'flex' : 'none'}}>
         <div className="view-cancelled-modal modal">
             <h2>Cancelled Transaction</h2>
             <table>
@@ -67,7 +67,7 @@ const CancelledModal = ({showCancelledTran, setShowCancelledTran}) =>{
                 </tbody>
             </table>
             <div>
-                <button onClick={() => setShowCancelledTran(false)}>Ok</button>
+                <button onClick={() => modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: false})}>Ok</button>
             </div>
         </div>
     </div>)

@@ -1,5 +1,7 @@
 import Transaction from '../models/transaction.js';
 import Client from '../models/client-account.js';
+import earningService from './earningService.js';
+
 const create_transaction = async (client_id, data) => {
     try{
         const client_account = await Client.findOne({ 
@@ -61,9 +63,32 @@ const getTransactionCount = async (query) => {
 
 }
 
+const complete_transaction = async (transaction_id, service_price) => {
+    try{
+        const earnings = await earningService.post_earnings(service_price, transaction_id);
+        if(earnings){
+            const transaction = await Transaction.findByPk(transaction_id);
+            if(transaction){
+                const completed_transaction = await transaction.update({status: 'Completed'});
+                if(completed_transaction.dataValues.payment_method === 'Online Payment'){
+                    
+                }
+                return completed_transaction;
+            }else{
+                throw new Error('Completion error');
+            }
+        }else{
+            throw new Error('Completion error');
+        }
+    }catch(err){
+        throw new Error('Completion error');
+    }
+}
+
 export default {
     create_transaction,
     get_transactions,
     update_transaction,
-    getTransactionCount
+    getTransactionCount,
+    complete_transaction
 };
