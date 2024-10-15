@@ -2,7 +2,8 @@ import { useLocation, useNavigate, } from 'react-router-dom';
 import './TransactionSummary.css';
 import useFetch from '../../hooks/useFetch';
 import { useEffect } from 'react';
-import { createTransaction } from '../../utils/transactionUtils';
+import { createTransaction } from '../../services/transactionService';
+import { createClientPaymentLink } from '../../services/paymentService';
 
 const TransactionSummary = () => {
     useEffect(() => {
@@ -38,17 +39,8 @@ const TransactionSummary = () => {
                 alert('Book failed');
             }
         }else{
-            const response = await fetch(`/api/payment/link/client`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({data}),
-                credentials: 'include'
-            })
-            if(response.ok){
-                const result = await response.json();  
-                console.log(result);
+            const result = await createClientPaymentLink(data);
+            if(result){
                 window.location.href = result.checkout_url;
             }else{
                 alert("Creating link error, please try again");

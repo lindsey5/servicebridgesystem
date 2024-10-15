@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react"
 import useFetch from "../../hooks/useFetch";
 import './ProviderServicesOffered.css';
-import EditPriceModal from "../../modals/EditPriceModal";
+import EditPriceModal from "../../modals/EditServicePriceModal";
+import { deleteServiceOffered } from "../../services/servicesOfferedService";
 
 const ProviderServicesOffered = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -28,32 +29,12 @@ const ProviderServicesOffered = () => {
         
     }, [data, searchTerm]);
 
-    async function deleteService(service_id) {
-        if(confirm('Are you sure you want to delete?')){
-            try {
-                const response = await fetch(`http://localhost:3000/api/services-offered/${service_id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include'
-                });
-                const result = await response.json();
-                if(result){
-                    window.location.reload();
-                }
-            } catch (error) {
-                console.error('Error updating price:', error);
-            }
-        }
-    }
-
     const CategorySelect = () => {
-        const {data } = useFetch('/api/category');
+        const {data: categories } = useFetch('/api/category');
         return (
             <select className="select-category" onChange={(e)=> setSearchTerm(e.target.value)} value={searchTerm}>
                  <option value="">All Categories</option>
-                {data && data.map(category => {
+                {categories && categories.map(category => {
                     const category_name = category.category_name;
                     return (<option key={category.category_name} value={category_name}>{category_name}</option>)
                 })}
@@ -89,7 +70,7 @@ const ProviderServicesOffered = () => {
                                 <img src="/icons/settings.png" />
                                 <span className="tool-tip-price">Edit Price</span>
                             </button>
-                            <button onClick={() => deleteService(service.service_id)}>
+                            <button onClick={() => deleteServiceOffered(service.service_id)}>
                                 <img src="/icons/trash-bin.png" />
                                 <span className="tool-tip-remove">Remove</span>
                             </button>

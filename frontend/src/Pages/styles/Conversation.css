@@ -1,13 +1,17 @@
 .conversation{
     flex: 1;
     height: calc(100vh - 65px);
+}
+
+.conversation form{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: rgb(255, 255, 255);
+    height: 100%;
 }
 
-.conversation .convo-container{
+.conversation form .convo-container{
     flex: 1;
     width: 100%;
     overflow-y: auto;
@@ -92,7 +96,7 @@
     padding: 10px;
 }
 
-.message-input-bar textarea{
+.message-input-bar input[type = 'text']{
     flex: 1;
     background-color: rgb(226, 226, 226);
     outline: none;

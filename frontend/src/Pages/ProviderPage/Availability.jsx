@@ -57,7 +57,6 @@ const Availability = () => {
         .catch(err => {
             return false;
         });
-
     }
 
     const handleDateClick = async (day) => {

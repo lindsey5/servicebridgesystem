@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { TransactionContext } from '../../../Context/TransactionContext';
 import { useNavigate } from 'react-router-dom';
 import { RecipientContext } from '../../../Context/RecipientContext';
-import { completeTransaction, setToOngoing, finishTransaction, acceptTransaction, expire_transaction } from '../../../utils/transactionUtils';
+import { create_provider_payment_link } from '../../../services/paymentService';
+import { completeTransaction, expire_transaction, updateTransaction } from '../../../services/transactionService';
 
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
@@ -10,21 +11,21 @@ const isDateExpired = (transactionDateTime) => {
     return date < currentDate;
 };
 
-const create_provider_payment_link = async (transaction_id, price) =>{
-    const response = await fetch(`/api/payment/link/provider`,{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({transaction_id, price}),
-        credentials: 'include'
-    })
-    if(response.ok){
-        const result = await response.json();  
-        console.log(result);
-        window.location.href = result.checkout_url;
-    }else{
-        alert("Creating link error, please try again");
+const setToOngoing = (transaction_id) => {
+    if (confirm('Do you want to mark this transaction as ongoing?')) {
+        updateTransaction(transaction_id, 'On Going');
+    }
+}
+
+const finishTransaction = (transaction_id) => {
+    if (confirm('Task finished?')) {
+        updateTransaction(transaction_id, 'Finished');
+    }
+}
+
+const acceptTransaction = (transaction_id) => {
+    if (confirm('Do you really want to accept this transaction?')) {
+        updateTransaction(transaction_id, 'Accepted');
     }
 }
 
@@ -84,7 +85,7 @@ const TransactionRow = ({ transaction, index, modal_dispatch }) => {
         } else if (status === 'On Going' && user.user === 'Provider') {
             return handleActionButton(() => finishTransaction(transaction.id), 'accept');
 
-        } else if (status === 'Finished' && transaction.payment_method === 'Online Payment') {
+        } else if (status === 'Finished' && transaction.payment_method === 'Online Payment' && user.user === 'Client') {
             return handleActionButton(() => completeTransaction(transaction.id, transaction.price), 'accept');
             
         } else if(status === 'Finished' && transaction.payment_method === 'Cash on Pay') {

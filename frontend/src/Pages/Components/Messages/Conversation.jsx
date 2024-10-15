@@ -90,7 +90,8 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
         );
     };
 
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+        e.preventDefault();
         if (message) {
             const newMessage = {
                 content: message,
@@ -108,21 +109,23 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
     };
     
     return (
-        <div className="conversation">
-            <div className="convo-container" ref={chatEndRef}>
-                <div className='recipient-details-container'>
-                    <img src={imgSrc} />
-                    <h2>{recipientDetails && recipientDetails.fullname}</h2>
-                </div>
-                {messages && messages.map(message => <MessageBox key={message.id} message={message} />)}
+            <div className="conversation">
+                <form onSubmit={sendMessage}>
+                    <div className="convo-container" ref={chatEndRef}>
+                        <div className='recipient-details-container'>
+                            <img src={imgSrc} />
+                            <h2>{recipientDetails && recipientDetails.fullname}</h2>
+                        </div>
+                        {messages && messages.map(message => <MessageBox key={message.id} message={message} />)}
+                    </div>
+                    <div className="message-input-bar">
+                        <input type='text' ref={messageRef} maxLength="200" placeholder="Message" onChange={(e) => setMessage(e.target.value)} />
+                        <button className="send-button">
+                            <img src="/icons/send.png" alt="Send" />
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div className="message-input-bar">
-                <textarea ref={messageRef} maxLength="200" placeholder="Message" onChange={(e) => setMessage(e.target.value)} />
-                <button className="send-button" onClick={sendMessage}>
-                    <img src="/icons/send.png" alt="Send" />
-                </button>
-            </div>
-        </div>
     );
 };
 

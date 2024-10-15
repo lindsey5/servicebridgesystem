@@ -3,7 +3,6 @@ import { useReducer } from "react";
 const initialState = {
     price: 0,
     priceLabel: 'Any Price',
-    providers: null,
     currentPage: 1,
     disabledPrevBtn: true,
     disabledNextBtn: true,
@@ -17,8 +16,6 @@ const reducer = (state, action) => {
             return { ...state, price: action.payload };
         case 'SET_PRICE_LABEL':
             return { ...state, priceLabel: action.payload };
-        case 'SET_PROVIDERS':
-            return { ...state, providers: action.payload };
         case 'SET_CURRENT_PAGE':
             return { ...state, currentPage: action.payload };
         case 'SET_DISABLED_PREV_BTN':

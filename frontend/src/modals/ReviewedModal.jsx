@@ -3,37 +3,26 @@ import './transactionModal.css';
 import { useContext, useEffect, useRef, useState } from 'react';
 import defaultProfilePic from '../assets/user (1).png';
 import createImageSrc from '../utils/createImageSrc';
+import useFetch from '../hooks/useFetch';
+import { formatDate } from '../utils/formatDate';
 
 const ReviewedModal = ({modal_state, modal_dispatch}) =>{
     const {transactionId} = useContext(TransactionContext);
-    const [reviewedTransaction, setReviewedTransaction] = useState();
     const [dateReviewed, setDateReviewed] = useState();
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const starRef = useRef([]);
-
+    const { data : reviewedTransaction } = useFetch(`/api/transactions/reviewed/${transactionId}`);
+    
     useEffect(() =>{
-        const getReviewedTransaction = async() =>{
-            if(transactionId){
-                try{
-                    const response = await fetch(`/api/transactions/reviewed/${transactionId}`);
-                    if(response.ok){
-                        const result = await response.json();
-                        setReviewedTransaction(result);
-                        const date = new Date(result.date_reviewed);
-                        const formattedDate = date.toISOString().split('T')[0];
-                        const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        setDateReviewed(`${formattedDate} (${time})`);
-
-                        const src = await createImageSrc(result.profile_pic.data);
-                        setImgSrc(src);
-                    }
-                }catch(err){
-                    console.log(err);
-                }
+        const setDetails = async() =>{
+            if(reviewedTransaction){
+                setDateReviewed(formatDate(reviewedTransaction.date_reviewed));
+                const src = await createImageSrc(reviewedTransaction.profile_pic.data);
+                setImgSrc(src);
             }
         }
-        getReviewedTransaction();
-    }, [modal_state.showReviewedTransaction]);
+        setDetails();
+    }, [modal_state.showReviewedTransaction, reviewedTransaction]);
 
     useEffect(() =>{
         if(reviewedTransaction?.rating){

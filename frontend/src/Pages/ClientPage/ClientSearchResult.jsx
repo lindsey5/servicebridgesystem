@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import useSearchReducer from '../../hooks/useSearchReducer';
 import ProviderProfile from './ProviderProfile';
 import '../styles/Loader.css';
+import { fetchSearchResults } from '../../services/searchResultService';
 
 const ClientSearchResult = () => {
     const location = useLocation();
@@ -20,32 +21,16 @@ const ClientSearchResult = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch(`/api/provider/search-result?page=${state.currentPage}&limit=10`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        service_name: searchTerm,
-                        price: state.price,
-                        sortBy: state.sortBy
-                    })
-                });
-                if(response.ok){
-                    const result = await response.json();
-                    setFetchedData(result);
-                    dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === result.totalPages });
-                    dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
-                    generatePaginationButtons(result.totalPages);
-                }else{
-                    setFetchedData(null);
-                }
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
+            const searchResults = await fetchSearchResults(searchTerm, state)
+            if(searchResults){
+                setFetchedData(searchResults);
+                dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === searchResults.totalPages });
+                dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
+                generatePaginationButtons(searchResults.totalPages);
+            }else{
+                setFetchedData(null);
             }
+                setLoading(false);
         };
 
         fetchData();

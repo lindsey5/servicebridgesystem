@@ -3,6 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import './ProviderServices.css';
 import createImageSrc from "../../utils/createImageSrc";
 import '../styles/SuccessModal.css';
+import { addServiceOffered } from "../../services/servicesOfferedService";
 
 const ProviderServices = () => {
     const [services, setServices] = useState([]);
@@ -34,33 +35,6 @@ const ProviderServices = () => {
         loadImages();
     }, [data, searchTerm]);
 
-    async function addService(serviceName){
-       if(confirm('Do you want to add this service?')){
-        try{
-            const response = await fetch('http://localhost:3000/api/services-offered',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    service_name: serviceName
-                }),
-                credentials: 'include'
-            });
-            if(response.ok){
-                const result = await response.json();
-                if(result.error){
-                    alert(result.error);
-                }else{
-                    setSuccessModal(true);
-                }
-            }
-        }catch(error){
-            console.log(error);
-        }
-       }
-    }
-
     const CategorySelect = () => {
         const {data } = useFetch('/api/category');
         return (
@@ -90,7 +64,7 @@ const ProviderServices = () => {
             </div>
             <div className="services-container">
                 {services.map((service) => (
-                    <div key={service.service_name} className="service" onClick={()=> addService(service.service_name)}>
+                    <div key={service.service_name} className="service" onClick={()=> addServiceOffered(service.service_name, setSuccessModal)}>
                         <img src={service.imageSrc} className="category-icon" />
                         <h1 className="service-name">{service.service_name}</h1>
                         <h3>Category: {service.category_name}</h3>

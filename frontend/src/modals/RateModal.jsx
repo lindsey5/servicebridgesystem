@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import './transactionModal.css';
 import { TransactionContext } from '../Context/TransactionContext';
+import { rateTransaction } from '../services/transactionService';
 
 const RateModal = ({modal_state, modal_dispatch}) =>{
     const [rating, setRating] = useState(0);
@@ -22,25 +23,6 @@ const RateModal = ({modal_state, modal_dispatch}) =>{
         setRating(0);
     },[modal_state.showRateModal]);
 
-    const rateTransaction = () => {
-        if(!rating){
-            alert('Select rate');
-        }else{
-            if(confirm("Click OK to continue")){
-                fetch(`/api//transactions/review/${transactionId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        rating,
-                        review
-                    })
-                })
-                window.location.reload();
-            }
-        }
-    }
 
     return (
         <div className="transaction-modal-container" style={{display: modal_state.showRateModal ? 'flex' : 'none'}}>
@@ -57,7 +39,7 @@ const RateModal = ({modal_state, modal_dispatch}) =>{
                 <textarea className="review" onChange={(e) => setReview(e.target.value)} maxLength="100" placeholder="Enter your review here"></textarea>
                 <div className="buttons">
                     <button className="cancel-rate-btn" onClick={() => modal_dispatch({type: 'SHOW_RATE_MODAL', payload: false})}>Cancel</button>
-                    <button className="submit-rate-btn" onClick={rateTransaction}>Submit</button>
+                    <button className="submit-rate-btn" onClick={()=> rateTransaction(rating, transactionId, review)}>Submit</button>
                 </div>
             </div>
         </div>

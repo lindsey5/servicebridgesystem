@@ -65,10 +65,11 @@ app.get('/api/get/user-details/:id', async(req, res) => {
         return res.status(200).json({fullname, profile_pic: provider.profile_pic});
       }
     }else{
-      return new Error('User not found'); 
+      throw new Error('User not found'); 
     }
 
   }catch(err){
+    res.status(400).json({error: err});
     console.log(err);
   }
 
@@ -183,7 +184,6 @@ app.post('/webhook/paymongo', async(req,res) =>{
     if (data.attributes.type === 'payment.paid') {
         // Handle successful payment
         console.log("Payment was successful!");
-        // Process the transaction or update your database here
     }
 
     res.sendStatus(200); // Respond to PayMongo to acknowledge receipt
