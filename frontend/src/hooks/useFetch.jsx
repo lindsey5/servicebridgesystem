@@ -3,13 +3,7 @@ import { useState, useEffect } from 'react';
 const useFetch = (url) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    const runInterval = () =>{
-        setInterval(() => {
-            setLoading(false);
-        }, 2000);
-    }
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,19 +13,17 @@ const useFetch = (url) => {
                 if(response.ok) {
                     setData(result);
                     setError(false);
-                    runInterval();
-                }else {
-                    runInterval();
-                    setError(true);
                 }
             }catch(err){
-                runInterval();
                 setError(true);
+            }finally{
+                setLoading(false);
             }
         };
         fetchData();
     }, [url]);
-    return { data, error }; 
+
+    return { data, error, loading }; 
 };
 
 export default useFetch;

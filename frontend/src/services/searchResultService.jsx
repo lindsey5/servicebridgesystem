@@ -1,4 +1,4 @@
-export const fetchSearchResults = async (searchTerm, state) => {
+export const fetchSearchResults = async (service_name, state) => {
     try {
         const response = await fetch(`/api/provider/search-result?page=${state.currentPage}&limit=10`, {
             method: 'POST',
@@ -6,7 +6,7 @@ export const fetchSearchResults = async (searchTerm, state) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                service_name: searchTerm,
+                service_name,
                 price: state.price,
                 sortBy: state.sortBy
             })

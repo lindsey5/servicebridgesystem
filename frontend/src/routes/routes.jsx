@@ -1,29 +1,78 @@
-import getUser from "../utils/getUser";
+import { useState, useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
-export const ClientRoutes = () => {
-    const { user } = getUser();
-    if (user && user === 'Client') {
-      return <Outlet />;
+// Function to fetch the user type
+const fetchUserType = async (setUser) => {
+  try {
+    const response = await fetch('/api/user');
+    if (response.ok) {
+      const result = await response.json();
+      setUser(result.user);
+    } else {
+      setUser(null);
     }
-  
-    return <Navigate to="/" />;
+  } catch (error) {
+    setUser(null);
+  }
 };
-  
+
+export const ClientRoutes = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchUserType(setUser);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+    if (loading) {
+      return null;
+    }
+
+  return user === 'Client' ? <Outlet /> : <Navigate to="/" />;
+};
+
 export const ProviderRoutes = () => {
-    const { user } = getUser();
-  
-    if (user && user === 'Provider') {
-      return <Outlet />;
-    }
-    return <Navigate to="/" />;
-  };
-  
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchUserType(setUser);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  return user === 'Provider' ? <Outlet /> : <Navigate to="/" />;
+};
+
 export const PublicRoutes = () => {
-    const { user } = getUser();
-    if (user) {
-      const navigateTo = user === 'Client' ? "/Client/Home" : "/Provider/Dashboard";
-      return <Navigate to={navigateTo} />;
-    }
-    return <Outlet />;
-}
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchUserType(setUser);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  if (user) {
+    const navigateTo = user === 'Client' ? "/Client/Home" : "/Provider/Dashboard";
+    return <Navigate to={navigateTo} />;
+  }
+
+  return <Outlet />;
+};

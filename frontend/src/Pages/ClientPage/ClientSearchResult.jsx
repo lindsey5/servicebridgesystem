@@ -9,10 +9,10 @@ import { fetchSearchResults } from '../../services/searchResultService';
 const ClientSearchResult = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const searchTerm = queryParams.get('searchTerm');
+    const service_name = queryParams.get('searchTerm');
     const {state, dispatch} = useSearchReducer();
     const filterCheckBoxesRef = useRef([]);
-    const [fetchedData, setFetchedData] = useState(null);
+    const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,20 +21,20 @@ const ClientSearchResult = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const searchResults = await fetchSearchResults(searchTerm, state)
+            const searchResults = await fetchSearchResults(service_name, state)
             if(searchResults){
-                setFetchedData(searchResults);
+                setResults(searchResults);
                 dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === searchResults.totalPages });
                 dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
                 generatePaginationButtons(searchResults.totalPages);
             }else{
-                setFetchedData(null);
+                setResults(null);
             }
                 setLoading(false);
         };
 
         fetchData();
-    }, [state.currentPage, state.price, state.sortBy, searchTerm]);
+    }, [state.currentPage, state.price, state.sortBy, service_name]);
 
     const handleClick = (page) => {
         dispatch({ type: 'SET_CURRENT_PAGE', payload: page });
@@ -128,15 +128,15 @@ const ClientSearchResult = () => {
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="search-results-container">
-                        <h2>{!fetchedData ? 'No ' : ''}Results for '{searchTerm}'</h2>
-                        {fetchedData ? fetchedData.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
+                        <h2>{!results ? 'No ' : ''}Results for '{service_name}'</h2>
+                        {results ? results.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
                     </div>
                     <div className="pagination-controls">
-                    <button id="prevPage" disabled={state.disabledPrevBtn} style={{display: !fetchedData ? 'none' : ''}} onClick={prevPage}>&lt; Prev</button>
+                    <button id="prevPage" disabled={state.disabledPrevBtn} style={{display: !results ? 'none' : ''}} onClick={prevPage}>&lt; Prev</button>
                     <div className="pagination">
-                        {fetchedData ? state.paginationBtns : null}
+                        {results ? state.paginationBtns : null}
                     </div>
-                    <button id="nextPage" disabled={state.disabledNextBtn} style={{display: !fetchedData ? 'none' : ''}} onClick={nextPage}>Next &gt;</button>
+                    <button id="nextPage" disabled={state.disabledNextBtn} style={{display: !results ? 'none' : ''}} onClick={nextPage}>Next &gt;</button>
                     </div>
                 </div>
             </div>}

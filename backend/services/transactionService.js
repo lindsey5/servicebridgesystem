@@ -70,9 +70,6 @@ const complete_transaction = async (transaction_id, service_price) => {
             const transaction = await Transaction.findByPk(transaction_id);
             if(transaction){
                 const completed_transaction = await transaction.update({status: 'Completed'});
-                if(completed_transaction.dataValues.payment_method === 'Online Payment'){
-                    
-                }
                 return completed_transaction;
             }else{
                 throw new Error('Completion error');

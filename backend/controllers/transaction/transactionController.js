@@ -5,7 +5,6 @@ import { Op } from 'sequelize';
 import ProviderEarning from '../../models/provider-earning.js';
 import transactionService from '../../services/transactionService.js';
 import cancelledTransactionService from '../../services/cancelledTransactionService.js';
-import earningService from '../../services/earningService.js';
 import ReviewedTransaction from '../../models/reviewed-transaction.js';
 import Provider from '../../models/provider-account.js';
 import Payment from '../../models/payment.js';
@@ -150,41 +149,6 @@ const cancel_transaction = async (req, res) => {
     }
 }
 
-const expire_transaction = async (req, res) =>{
-    const status = 'Expired';
-    const transaction_id = req.params.id;
-    try{
-        const payment = await Payment.findOne({
-            where:{
-                transaction_id
-            },
-            include: [{model: Transaction}]
-        });
-        const payment_checkout_id = payment.dataValues.payment_checkout_id;
-        const price = payment.dataValues.transaction.dataValues.price;
-        const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
-        if(payment_checkout){
-            const payment_id = payment_checkout.data.attributes.payments[0].id;
-            const refunded_payment = await paymentService.refund_payment(payment_id, price);
-            console.log(payment_id);
-            if(refunded_payment){
-                const updated_transaction = await transactionService.update_transaction(transaction_id, status);
-                if(updated_transaction){
-                    res.status(200).json({updated_transaction});
-                }else{
-                    res.status(400).json({message: "Failed to expire"});
-                }
-            }else{
-                res.status(400).json({message: "Refund Failed"})
-            }
-        }else{
-            res.status(400).json({message: "Payment not found"})
-        }
-    }catch(err){
-        res.status(400).json({message: "Refund Failed"})
-    }
-}
-
 const update_transaction = async (req, res) => {
     const {status} = req.body;
     const transaction_id = req.params.id;
@@ -218,8 +182,11 @@ const provider_complete_transaction = async (req, res) => {
     const { service_price } = req.query;
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
-        console.log(completed_transaction);
-        res.redirect('http://localhost:5173/Provider/Transactions');
+        if(completed_transaction){
+            res.redirect('http://localhost:5173/Provider/Transactions');
+        }else{
+            res.status(400).json({error: "Completion of transaction failed"});
+        }
     }catch(err){
         console.log(err);
         return res.status(400).json({error: err});
@@ -408,7 +375,6 @@ export default {
     update_transaction,
     client_complete_transaction,
     provider_complete_transaction,
-    expire_transaction,
     get_cancelled_transaction,
     get_total_completed_task, 
     get_total_completed_transaction_today, 

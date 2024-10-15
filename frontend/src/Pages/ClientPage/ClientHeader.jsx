@@ -48,19 +48,14 @@ const ClientHeader = () => {
         }else{
             setAutoComplete(false);
         }
-        const handler = setTimeout(() => {
-            if (results.data) {
-                const filteredServices = results.data.services.filter(service =>
-                    service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                setServices(filteredServices);
-            }
-        }, 300);
+        if (results.data) {
+            const filteredServices = results.data.services.filter(service =>
+            service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setServices(filteredServices);
+        }
 
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchTerm, results.data]);
+    }, [searchTerm]);
 
     return (
         <header className='client-header'>
@@ -74,7 +69,6 @@ const ClientHeader = () => {
                     onBlur={handleBlur} 
                     value={searchTerm} 
                     onChange={(e) => setSearchTerm(e.target.value)} 
-                    aria-label="Search for services"
                 />
                 <button className="search-button" onClick={() => handleSearch(searchTerm)}>
                     <img className="search-icon" src={searchIcon} alt="Search Icon" />

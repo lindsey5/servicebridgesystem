@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import { TransactionContext } from '../../../Context/TransactionContext';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RecipientContext } from '../../../Context/RecipientContext';
-import { create_provider_payment_link } from '../../../services/paymentService';
-import { completeTransaction, expire_transaction, updateTransaction } from '../../../services/transactionService';
+import TransactionButton from './TransactionButton';
+import TransactionStatus from './TransactionStatus';
+import { updateTransaction } from '../../../services/transactionService';
+import { refund_payment } from '../../../services/paymentService';
 
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
@@ -11,105 +12,42 @@ const isDateExpired = (transactionDateTime) => {
     return date < currentDate;
 };
 
-const setToOngoing = (transaction_id) => {
-    if (confirm('Do you want to mark this transaction as ongoing?')) {
-        updateTransaction(transaction_id, 'On Going');
-    }
-}
-
-const finishTransaction = (transaction_id) => {
-    if (confirm('Task finished?')) {
-        updateTransaction(transaction_id, 'Finished');
-    }
-}
-
-const acceptTransaction = (transaction_id) => {
-    if (confirm('Do you really want to accept this transaction?')) {
-        updateTransaction(transaction_id, 'Accepted');
-    }
-}
-
 const TransactionRow = ({ transaction, index, modal_dispatch }) => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUserType = async () =>{
+            const response = await fetch('/api/user');
+            if(response.ok){
+                const {user} = await response.json();
+                setUser(user);
+            }
+        }
+        fetchUserType();
+    },[transaction])
+
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
-    const {setTransactionId} = useContext(TransactionContext);
-
     const transactionDateTime = `${transaction.date} ${transaction.time}`;
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted') && transaction.payment_method === 'Online Payment') {
-        expire_transaction(transaction.id);
-    }
-
-    let status;
-    if (transaction.status === 'Cancelled' || transaction.status === 'Declined' || transaction.status === 'Expired') {
-        status = <td className='red-td'><p>{transaction.status}</p></td>;
-    } else if (transaction.status === 'Requested' || transaction.status === 'On Going' || transaction.status === 'Accepted') {
-        status = <td className='blue-td'><p>{transaction.status}</p></td>;
-    } else {
-        status = <td className='green-td'><p>{transaction.status}</p></td>;
+        if(transaction.payment_method === 'Online Payment'){
+            refund_payment(transaction.id);
+        }else{
+            updateTransaction(transaction.id, 'Failed');
+        }
     }
 
     const formattedPrice = `₱${transaction.price.toLocaleString('en-US', {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1
     })}`;
-
-    const generateButton = () => {
-        
-        const { status } = transaction;
-    
-        const handleActionButton = (onClick, icon) => (
-            <button onClick={onClick}>
-                {icon && <img src={`/icons/${icon}.png`} />}
-            </button>
-        );
-    
-        if (transaction.status === 'Requested' && user.user === 'Provider') {
-            return (
-                <>
-                {handleActionButton(() => acceptTransaction(transaction.id), 'accept')}
-                {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
-                </>
-            );
-        }else if(transaction.status === 'Accepted' && user.user === 'Provider'){
-            return (
-                <>
-                {handleActionButton(() => setToOngoing(transaction.id), 'accept')}
-                {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
-                </>
-            );
-        
-        }else if ((status === 'Requested' || status === 'Accepted') && user.user === 'Client') {
-            return handleActionButton(() =>{ setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: true}); }, 'cancel');
-
-        } else if (status === 'On Going' && user.user === 'Provider') {
-            return handleActionButton(() => finishTransaction(transaction.id), 'accept');
-
-        } else if (status === 'Finished' && transaction.payment_method === 'Online Payment' && user.user === 'Client') {
-            return handleActionButton(() => completeTransaction(transaction.id, transaction.price), 'accept');
-            
-        } else if(status === 'Finished' && transaction.payment_method === 'Cash on Pay') {
-            return handleActionButton(() => create_provider_payment_link(transaction.id, transaction.price), 'accept');
-
-        }else if (status === 'Completed' && user.user === 'Client') {
-            return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.id); }, 'like');
-
-        } else if (status === 'Cancelled' || status === 'Declined') {
-            return handleActionButton(() => { setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye');
-
-        } else if (status === 'Reviewed') {
-            return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.id)}, 'eye');
-        }   
-    
-        return null;
-    };
     
     return (
         <tr>
             <td>{index + 1}</td>
             <td id='provider'>{transaction.provider}</td>
             <td>{transaction.client}</td>
-            {status}
+            <TransactionStatus transaction={transaction}/>
             <td>{transaction.address}</td>
             <td>{transaction.service_name}</td>
             <td>{formattedPrice}</td>
@@ -119,11 +57,11 @@ const TransactionRow = ({ transaction, index, modal_dispatch }) => {
             <td>{transaction.booked_on}</td>
             <td className='buttons-table-data'>
                 <div>
-                {generateButton()}
+                {user && <TransactionButton transaction={transaction} user={user} modal_dispatch={modal_dispatch}/>}
                 <button onClick={() => {
-                    const recipientId = user.user === 'Client' ? transaction.provider_id  : transaction.client_id;
+                    const recipientId = user === 'Client' ? transaction.provider_id  : transaction.client_id;
                     setRecipientId(recipientId);
-                    const url = user.user === 'Provider' ? '/Provider/Messages' : '/Client/Messages';
+                    const url = user === 'Provider' ? '/Provider/Messages' : '/Client/Messages';
                     navigate(url);
                 }}><img src='/icons/chat.png'/></button>
                 </div>

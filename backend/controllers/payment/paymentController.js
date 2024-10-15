@@ -73,4 +73,44 @@ const client_payment_success = async (req, res) => {
     }
 }
 
-export default { create_client_checkout_link, create_provider_checkout_link, client_payment_success }
+const refund_payment = async (req, res) =>{
+    const status = 'Failed';
+    const transaction_id = req.params.transaction_id;
+    try{
+        const payment = await Payment.findOne({
+            where:{
+                transaction_id
+            },
+            include: [{model: Transaction}]
+        });
+        const payment_checkout_id = payment.dataValues.payment_checkout_id;
+        const price = payment.dataValues.transaction.dataValues.price;
+        const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
+        if(payment_checkout){
+            const payment_id = payment_checkout.data.attributes.payments[0].id;
+            const refunded_payment = await paymentService.refund_payment(payment_id, price);
+            if(refunded_payment){
+                const updated_transaction = await transactionService.update_transaction(transaction_id, status);
+                if(updated_transaction){
+                    res.status(200).json({updated_transaction});
+                }else{
+                    res.status(400).json({message: "Failed to expire"});
+                }
+            }else{
+                res.status(400).json({message: "Refund Failed"})
+            }
+        }else{
+            res.status(400).json({message: "Payment not found"})
+        }
+    }catch(err){
+        res.status(400).json({message: "Refund Failed"})
+    }
+}
+
+
+export default { 
+    create_client_checkout_link, 
+    create_provider_checkout_link, 
+    client_payment_success, 
+    refund_payment 
+}

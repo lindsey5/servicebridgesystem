@@ -1,17 +1,3 @@
-export const expire_transaction = async(transaction_id) =>{
-    const response = await fetch(`/api/transactions/expire/${transaction_id}`,{
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if(response.ok){
-        window.location.reload();
-    }
-
-    return null
-}
-
 export const createTransaction = async (data) =>{
     const response = await fetch(`/api/transactions`,{
         method: 'POST',

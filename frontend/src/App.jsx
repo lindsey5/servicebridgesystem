@@ -19,49 +19,50 @@ import Availability from './Pages/ProviderPage/Availability.jsx';
 import Messages from './Pages/Components/Messages/Messages.jsx';
 import Services from './Pages/Components/Services/Services.jsx';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route element={<PublicRoutes />}>
-        <Route path="/" element={<Home />} />
-        <Route path="Provider/Login" element={<ProviderLogin />} />
-        <Route path="Client/Login" element={<ClientLogin />} />
-      </Route>
-
-      <Route path="/Client/" element={<ClientLayout />}>
-        <Route element={<ClientRoutes />}>
-          <Route path="Home" element={<ClientHome />} />
-          <Route path="Search/Result" element={<ClientSearchResult />}/>
-          <Route path="Transactions" element={<ClientTransactions />}/>
-          <Route path='Messages' element={<Messages />}/>
-          <Route path='Services' element={<Services />}/>
-        </Route>
-      </Route>
-
-      <Route path="/Client/">
-        <Route element={<ClientRoutes />}>
-          <Route path="booking" element={<Booking />}/>
-          <Route path='Transaction/Summary' element={<TransactionSummary/>} />
-        </Route>
-      </Route>
-      
-      <Route path='/Provider/' element={<ProviderLayout />}>
-        <Route element={<ProviderRoutes />}>
-          <Route path="Dashboard" element={<ProviderDashboard />} />
-          <Route path='Transactions' element={<ProviderTransactions />} />
-          <Route path='Services' element={<ProviderServices />}/>
-          <Route path='Services-Offered' element={<ProviderServicesOffered /> } />
-          <Route path='Availability' element={<Availability />} />
-          <Route path='Messages' element={<Messages />}/>
-        </Route>
-      </Route>
-    
-      <Route path="*" element={<Navigate to="/" />} />
-    </>
-  )
-);
-
 export default function App() {
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route element={<PublicRoutes/>}>
+          <Route path="/" element={<Home />} />
+          <Route path="Provider/Login" element={<ProviderLogin />} />
+          <Route path="Client/Login" element={<ClientLogin />} />
+        </Route>
+  
+        <Route path="/Client/" element={<ClientLayout />}>
+          <Route element={<ClientRoutes />}>
+            <Route path="Home" element={<ClientHome />} />
+            <Route path="Search/Result" element={<ClientSearchResult />}/>
+            <Route path="Transactions" element={<ClientTransactions />}/>
+            <Route path='Messages' element={<Messages />}/>
+            <Route path='Services' element={<Services />}/>
+          </Route>
+        </Route>
+  
+        <Route path="/Client/">
+          <Route element={<ClientRoutes />}>
+            <Route path="booking" element={<Booking />}/>
+            <Route path='Transaction/Summary' element={<TransactionSummary/>} />
+          </Route>
+        </Route>
+        
+        <Route path='/Provider/' element={<ProviderLayout />}>
+          <Route element={<ProviderRoutes />}>
+            <Route path="Dashboard" element={<ProviderDashboard />} />
+            <Route path='Transactions' element={<ProviderTransactions />} />
+            <Route path='Services' element={<ProviderServices />}/>
+            <Route path='Services-Offered' element={<ProviderServicesOffered /> } />
+            <Route path='Availability' element={<Availability />} />
+            <Route path='Messages' element={<Messages />}/>
+          </Route>
+        </Route>
+      
+        <Route path="*" element={<Navigate to="/" />} />
+      </>
+    )
+  );  
+
   return (
     <RouterProvider router={router} />
   );
