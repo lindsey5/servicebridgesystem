@@ -107,23 +107,11 @@ const client_account = sequelize.define('client_account', {
                 account.password = await bcrypt.hash(account.password, salt);
             }
         },
-        beforeUpdate: async (account, options) => {
-            // Log before updating and saving the user
-            console.log('User about to be updated & saved:', account);
-
-            // Hash the password before updating
-            if (account.password) {
-                account.password = await bcrypt.hash(account.password, salt);
-            }
-        },
 
         afterCreate: async (account, options) => {
             console.log('new user was created & saved', account);
         },
 
-        afterUpdate: async (account, options) => {
-            console.log('User was updated:', account);
-        }
     }
 }
 

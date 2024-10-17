@@ -18,8 +18,9 @@ const ProviderHeader = () =>{
 
     const logout = async () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('activeButton');
         window.location.href = '/logout';
-    }
+    };
 
     const { data: providerData } = useFetch('/api/provider');
     const [profilePicSrc, setProfilePicSrc] = useState(null);

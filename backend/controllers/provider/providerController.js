@@ -41,7 +41,6 @@ const get_provider_name = async (req, res) => {
 }
 
 const getProviders = async (req, res) => {
-    const today = new Date();
     const {service_name, price: priceStr, sortBy } = req.body;
     const price = parseFloat(priceStr);
     const page = parseInt(req.query.page);
@@ -57,7 +56,7 @@ const getProviders = async (req, res) => {
                     where: { service_name, price: {  [Op.ne] : 0 } }, 
                     attributes: ['service_name', 'price'] 
                 },
-                { model: AvailableDate, where: { date: {[Op.gte]: today } } }
+                { model: AvailableDate, where: { date: {[Op.gte]: new Date() } } }
             ]
         }
 

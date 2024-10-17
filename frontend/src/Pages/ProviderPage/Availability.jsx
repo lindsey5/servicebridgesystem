@@ -61,8 +61,10 @@ const Availability = () => {
 
     const handleDateClick = async (day) => {
         const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const currentDate = new Date();
-        const selectedDate = new Date(formattedDate);
+        const currentDate = new Date().getDate();
+        const selectedDate = new Date(formattedDate).getDate();
+        console.log(currentDate);
+        console.log(selectedDate);
         const flag = await isDateExist(formattedDate);
         setShowTransactions(false);
         if (flag || selectedDate < currentDate) {

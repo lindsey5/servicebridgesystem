@@ -1,12 +1,21 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './transactionModal.css';
 import { TransactionContext } from '../Context/TransactionContext';
 import { cancelTransaction } from '../services/transactionService';
+import useFetch from '../hooks/useFetch';
 
 const ReasonModal = ({modal_state, modal_dispatch}) => {
     const [reason, setReason] = useState('');
     const [showTextArea, setTextArea] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user'));
+    const {data} = useFetch('/api/user');
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if(data?.user){
+            setUser(data.user);
+        }
+    }, [data]);
+
     const transactionContext = useContext(TransactionContext);
 
     const setCancellationReason = (target) => {
@@ -56,7 +65,7 @@ const ReasonModal = ({modal_state, modal_dispatch}) => {
                 <textarea maxLength="100" id="other-reason"onInput={(e) => setCancellationReason(e.target)} style={{display: showTextArea ? 'block' : 'none'}} />
                 <div className="reason-modal-buttons-div">
                     <button className="dont-cancel-btn" onClick={() => modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: false})}>Cancel</button>
-                    <button className="continue-btn" onClick={() => cancelTransaction({reason, id: transactionContext.transactionId, user})}>Continue</button>
+                    <button className="continue-btn" onClick={() => cancelTransaction(reason, transactionContext.transactionId, user)}>Continue</button>
                 </div>
             </div>
         </div>

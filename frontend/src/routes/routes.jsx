@@ -27,9 +27,9 @@ export const ClientRoutes = () => {
     };
     fetchData();
   }, []);
-    if (loading) {
-      return null;
-    }
+  if (loading) {
+    return null;
+  }
 
   return user === 'Client' ? <Outlet /> : <Navigate to="/" />;
 };

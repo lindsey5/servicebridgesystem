@@ -6,12 +6,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 
-const ProviderLogin = () => {
+const ClientLogin = () => {
     useEffect(() => {
-        document.title = "Provider Login | Hustle";
+        document.title = "Client Login | Hustle";
     },[]);
-
     const navigate = useNavigate();
+     
     const [isShow, setShow] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -21,7 +21,7 @@ const ProviderLogin = () => {
     async function login(e) {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/provider-login', {
+            const response = await fetch('http://localhost:3000/client-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,8 +39,7 @@ const ProviderLogin = () => {
                 setPasswordError(result.errors.password || '');
             }
             if(response.ok){
-                localStorage.setItem('user', JSON.stringify({ user: 'Provider' }));
-                navigate('/Provider/Dashboard');
+                navigate('/Client/Home');
             }
             }catch (error) {
                 alert(error);
@@ -55,7 +54,7 @@ const ProviderLogin = () => {
                 </div>
                 <form onSubmit={login}>
                     <div className="right-div">
-                        <h1>Provider Login</h1>
+                        <h1>Client Login</h1>
                         <div className="input-container">
                             <span className="input-icon">
                                 <img src={userLogo} alt="User Icon" /> 
@@ -87,4 +86,4 @@ const ProviderLogin = () => {
     );
 }
 
-export default ProviderLogin;
+export default ClientLogin;

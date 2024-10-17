@@ -1,0 +1,114 @@
+.signup-page{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-page .container{
+    width: 300px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px 8px rgb(206, 206, 206);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.signup-page .container > form{
+    width: 100%;
+}
+
+.signup-page .container > form > div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-page .container .input-container{
+    width: 100%;
+    position: relative;
+}
+
+.signup-page .container .input-container{
+    margin: 20px 0;
+}
+
+.signup-page .container input{
+    width: 100%;
+    height: 37px;
+    outline: none;
+    border: 1px solid grey;
+    padding-left: 10px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.signup-page .input-container span {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(-50%);
+    color: grey;
+    font-size: 14px;
+    background-color: white;
+    padding: 0 5px;
+    animation: slide-span ease-in 0.2s;
+    display: none;
+}
+
+@keyframes slide-span{
+    from{
+        transform: translateY(10px);
+    }
+
+    to{
+        transform: translateY(0);
+    }
+}
+
+.signup-page .container input:focus{
+    border-width: 2px;
+    border-color:  rgb(92, 168, 255);
+}
+
+.signup-page .container input:focus::placeholder {
+    color: transparent;
+}
+
+.signup-page .input-container input.has-value + span{
+    color: grey;
+    display: block;
+}
+
+.signup-page .input-container input.has-value:focus + span {
+    color: rgb(92, 168, 255);
+}
+
+
+.signup-page .first-page p,
+.signup-page .second-page p{
+    color: red;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.signup-page button{
+    height: 35px;
+    color: white;
+    background-color: rgb(3, 117, 247);
+    border: none;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.signup-page button:hover{
+    background-color: rgb(159, 204, 255);
+}
+
+
+.signup-page  a{
+    margin-left: 5px;
+    color: rgb(3, 117, 247);
+}

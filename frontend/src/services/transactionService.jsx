@@ -48,8 +48,9 @@ export const updateTransaction = (transaction_id, status) => {
     window.location.reload();
 }
 
-export const cancelTransaction = async ({reason, id, user}) => {
-    const data = { reason, status: 'Cancelled', user: user.user }
+export const cancelTransaction = async (reason, id, user) => {
+    console.log(user);
+    const data = { reason, status: 'Cancelled', user }
     if(reason){
         if(confirm("Are you sure you want to cancel?")){
             const response = await fetch(`/api/transactions/cancel/${id}`, {
@@ -90,4 +91,18 @@ export const rateTransaction = (rating, transactionId, review) => {
             window.location.reload();
         }
     }
+}
+
+export const fail_and_refund = async(transaction_id) =>{
+    const response = await fetch(`/api/transactions/fail/${transaction_id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    if(response.ok){
+        window.location.reload();
+    }
+
+    return null
 }

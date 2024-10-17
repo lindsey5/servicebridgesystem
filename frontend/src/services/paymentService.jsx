@@ -20,7 +20,6 @@ export const createClientPaymentLink = async(data) =>{
     }
 }
 
-
 export const create_provider_payment_link = async (transaction_id, price) =>{
     try{
         const response = await fetch(`/api/payment/link/provider`,{
@@ -43,16 +42,3 @@ export const create_provider_payment_link = async (transaction_id, price) =>{
     }
 }
 
-export const refund_payment = async(transaction_id) =>{
-    const response = await fetch(`/api/payment/refund/${transaction_id}`,{
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-    if(response.ok){
-        window.location.reload();
-    }
-
-    return null
-}

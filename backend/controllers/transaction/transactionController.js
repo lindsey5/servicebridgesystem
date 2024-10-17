@@ -25,7 +25,7 @@ const create_transaction = async (req, res) =>{
             const errors = handleErrors(err.errors);
             res.status(400).json({errors});
         }
-        res.status(400).json({err});
+        else res.status(400).json({err});
     }
 }
 
@@ -90,9 +90,7 @@ const get_provider_transactions = async (req, res) => {
             }
         }
         if(selectedStatus.length > 0){
-            query.where.status = {
-                [Op.in]: selectedStatus
-            };
+            query.where.status = {[Op.in]: selectedStatus};
         }
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);
         if(transactions){
@@ -126,6 +124,7 @@ const cancel_transaction = async (req, res) => {
         if(payment_checkout){
             const payment_id = payment_checkout.data.attributes.payments[0].id;
             const refunded_payment = await paymentService.refund_payment(payment_id, price);
+            console.log(refunded_payment);
             if(refunded_payment){
                 const cancelled_transaction = await cancelledTransactionService.create_cancelled_transaction({transaction_id, cancelled_by, cancellation_reason, canceller: user })
                 if(cancelled_transaction){
@@ -208,6 +207,41 @@ const get_cancelled_transaction = async (req, res) => {
     }
 }
 
+const fail_transaction = async (req, res) =>{
+    const status = 'Failed';
+    const transaction_id = req.params.transaction_id;
+    try{
+        const payment = await Payment.findOne({
+            where:{
+                transaction_id
+            },
+            include: [{model: Transaction}]
+        });
+        const payment_checkout_id = payment.dataValues.payment_checkout_id;
+        const price = payment.dataValues.transaction.dataValues.price;
+        const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
+        if(payment_checkout){
+            const payment_id = payment_checkout.data.attributes.payments[0].id;
+            const refunded_payment = await paymentService.refund_payment(payment_id, price);
+            if(refunded_payment){
+                const updated_transaction = await transactionService.update_transaction(transaction_id, status);
+                if(updated_transaction){
+                    res.status(200).json({updated_transaction});
+                }else{
+                    res.status(400).json({message: "Failed to expire"});
+                }
+            }else{
+                res.status(400).json({message: "Refund Failed"})
+            }
+        }else{
+            res.status(400).json({message: "Payment not found"})
+        }
+    }catch(err){
+        res.status(400).json({message: "Refund Failed"})
+    }
+}
+
+
 const get_total_completed_task = async (req, res) =>{
     const provider_id = req.userId;
     try{
@@ -239,9 +273,10 @@ const get_total_completed_transaction_today = async (req, res) =>{
             },
             include: [ { 
                 model: ProviderEarning,
-                payment_date: { [Op.eq]: new Date() } 
+                where: {payment_date: { [Op.eq]: new Date() } }
             }]
         })
+
          res.status(200).json({total_task_today});
     }catch(err){
         res.status(400).json({error: err.message});
@@ -349,16 +384,14 @@ const get_reviewed_transaction = async (req, res) => {
     try{
         const reviewed_transaction = await ReviewedTransaction.findByPk(transaction_id);
         if(reviewed_transaction){
-            const transaction = await Transaction.findByPk(transaction_id);
+            const transaction = await Transaction.findOne({
+                where: { transaction_id },
+                include: { model: Client }
+            });
             if(transaction){
-                const client = await Client.findOne({
-                    attributes: ['firstname', 'lastname', 'profile_pic'],
-                    where:{
-                        id: transaction.dataValues.client
-                    }
-                });
-                const fullname = `${client.dataValues.firstname} ${client.dataValues.lastname}`;
-                res.status(200).json({...reviewed_transaction.dataValues, service_name: transaction.dataValues.service_name, fullname, profile_pic: client.dataValues.profile_pic});
+                const jsonTransaction = transaction.toJSON();
+                const fullname = `${jsonTransaction.client_account.firstname} ${jsonTransaction.client_account.lastname}`;
+                res.status(200).json({...reviewed_transaction.dataValues, service_name: jsonTransaction.service_name, fullname, profile_pic: jsonTransaction.client_account.profile_pic});
             }
         }
     }catch(err){
@@ -375,6 +408,7 @@ export default {
     update_transaction,
     client_complete_transaction,
     provider_complete_transaction,
+    fail_transaction,
     get_cancelled_transaction,
     get_total_completed_task, 
     get_total_completed_transaction_today, 

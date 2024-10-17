@@ -12,18 +12,14 @@ export const handleErrors = (err) => {
         errors.password = 'Incorrect password';
     }
 
-    // Duplicate entry
-    if (err.name === 'SequelizeUniqueConstraintError') {
-        errors.username = 'Username already exists';
-        return errors;
+    if(err.name === 'SequelizeValidationError'){
+        err.errors.forEach(err => {
+            errors[err.path] = err.message;
+        })
     }
-
-    // Validation errors
-    if (err.name === 'SequelizeValidationError') {
-        err.errors.forEach((error) => {
-            errors[error.path] = error.message;
-        });
-    }
+    if(err.name === 'SequelizeUniqueConstraintError'){
+        errors[err.errors[0].path] = 'Username is already used';
+    }   
 
     return errors;
 }

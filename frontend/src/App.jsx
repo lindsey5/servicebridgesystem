@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './Pages/HomePage/Home.jsx';
-import ClientLogin from './Pages/LoginPages/ClientLogin.jsx';
-import ProviderLogin from './Pages/LoginPages/ProviderLogin.jsx';
+import ClientLogin from './Pages/AuthPages/ClientLogin.jsx';
+import ProviderLogin from './Pages/AuthPages/ProviderLogin.jsx';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
 import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 import ProviderDashboard from './Pages/ProviderPage/ProviderDashboard.jsx';
@@ -18,9 +18,9 @@ import ProviderServicesOffered from './Pages/ProviderPage/ProviderServicesOffere
 import Availability from './Pages/ProviderPage/Availability.jsx';
 import Messages from './Pages/Components/Messages/Messages.jsx';
 import Services from './Pages/Components/Services/Services.jsx';
+import ClientSignup from './Pages/AuthPages/ClientSignup.jsx';
 
 export default function App() {
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -28,6 +28,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="Provider/Login" element={<ProviderLogin />} />
           <Route path="Client/Login" element={<ClientLogin />} />
+          <Route path='Client/Signup' element={<ClientSignup />}/>
         </Route>
   
         <Route path="/Client/" element={<ClientLayout />}>

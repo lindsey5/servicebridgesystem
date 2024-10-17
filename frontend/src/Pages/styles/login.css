@@ -16,7 +16,7 @@
     border-radius: 10px;
 }
 
-.container .icon-container{
+.login-parent-container .container .icon-container{
     height: 100%;
     width: 50%;
     display: flex;
@@ -24,17 +24,17 @@
     align-items: center;
 }
 
-.container .icon-container img{
+.login-parent-container .container .icon-container img{
     width: 70%;
     height: 60%;
 }
 
-.container form{
+.login-parent-container .container form{
     width: 50%;
     height: 100%;
 }
 
-.container .right-div{
+.login-parent-container .container .right-div{
     width: 100%;
     height: 100%;
     display: flex;
@@ -45,7 +45,7 @@
     border-bottom-right-radius: 10px;
 }
 
-.container .right-div h1{
+.login-parent-container .container .right-div h1{
     color: white;
     font-size: 40px;
     font-weight: 600;
@@ -53,7 +53,8 @@
     margin-bottom: 80px;
 }
 
-.container input[type ="text"], .container input[type ="password"]{
+.login-parent-container .container input[type ="text"], 
+.login-parent-container .container input[type ="password"]{
     width: 100%;
     height: 46px;
     padding-left: 50px;
@@ -67,12 +68,13 @@
     margin-bottom: 40px;
 }
 
-.container .input-container{
+.login-parent-container .container .input-container{
     position: relative;
     width: 70%;
 }
 
-.container .input-icon, .container .check-box-container{
+.login-parent-container .container .input-icon, 
+.login-parent-container .container .check-box-container{
     position: absolute;
     width: 20px;
     height: 20px;
@@ -82,20 +84,21 @@
     align-items: center;
 }
 
-.container .check-box-container{
+.login-parent-container .container .check-box-container{
     cursor: pointer;
 }
 
-.container .check-box-container input[type = "checkbox"]{
+.login-parent-container .container .check-box-container input[type = "checkbox"]{
     display: none;
 }
 
-.container .input-icon img, .check-box-icon img{
+.login-parent-container .container .input-icon img, 
+.login-parent-container .check-box-icon img{
     width: 100%;
     height: 100%;
 }
 
-.container .error{
+.login-parent-container .container .error{
     position: absolute;
     right: 10px;
     bottom: -5px;
@@ -104,7 +107,7 @@
     padding: 3px;
 }
 
-.container #login-btn{
+.login-parent-container .container #login-btn{
     background-color: rgb(3, 117, 247);
     width: 150px;
     height: 40px;
@@ -116,24 +119,26 @@
     margin-top: 20px;
 }
 
-.container #login-btn:hover{
+.login-parent-container .container #login-btn:hover{
    background-color: rgb(167, 202, 255);
 }
 
-.container .links {
+.login-parent-container .container .links {
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
     width: 70%;
 }
 
-.container #forgot-pass, .container #signup{
+.login-parent-container .container #forgot-pass,
+.login-parent-container .container #signup{
     color: white;
     text-decoration: none;
     font-size: 15px;
 }
 
-.container #forgot-pass:hover, .container #signup:hover{
+.login-parent-container .container #forgot-pass:hover, 
+.login-parent-container .container #signup:hover{
     text-decoration: underline;
 }
 
@@ -151,33 +156,34 @@
         box-shadow: none;
     }
     
-    .container .icon-container{
+    .login-parent-container .container .icon-container{
         display: none;
     }
 
-    .container .right-div{
+    .login-parent-container .container .right-div{
         width: 100%;
         background-color: white;
     }
 
-    .container .right-div h1{
+    .login-parent-container .container .right-div h1{
         color: rgb(3, 117, 247);
         margin-bottom: 60px;
     }
 
-    .container input[type ="text"], .container input[type ="password"]{
+    .login-parent-container .container input[type ="text"], 
+    .login-parent-container .container input[type ="password"]{
         background-color: rgb(227, 238, 250);
     }
 
-    .container #login-btn{
+    .login-parent-container .container #login-btn{
         width: 70%;
     }
 
-    .container #forgot-pass{
+    .login-parent-container .container #forgot-pass{
         color: rgb(3, 117, 247);
     }
 
-    .container .error{
+    .login-parent-container .container .error{
         color: red;
     }
 }

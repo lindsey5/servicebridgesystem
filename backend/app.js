@@ -116,6 +116,21 @@ app.get('/api/latest-message', async (req, res) => {
 
 });
 
+/*import sgMail from '@sendgrid/mail';
+sgMail.setApiKey(process.env.SG_API_KEY);
+
+const msg = {
+  to: 'lindseysamson80@gmail.com', // Recipient's email
+  from: 'lindseysamson5@gmail.com', // Sender's verified email in SendGrid
+  subject: 'Verify Your Email',
+  text: 'Please verify your email address.',
+};
+
+sgMail
+  .send(msg)
+  .then(() => console.log('Email sent'))
+  .catch((error) => console.error(error.response.body));*/
+
 // Socket authentication middleware
 io.use((socket, next) => {
     const token = socket.handshake.query.token;
@@ -176,22 +191,6 @@ io.on('connection', (socket) => {
 });
 
 io.listen(4000);
-
-app.post('/webhook/paymongo', async(req,res) =>{
-  try {
-    const data = req.body.data;
-
-    if (data.attributes.type === 'payment.paid') {
-        // Handle successful payment
-        console.log("Payment was successful!");
-    }
-
-    res.sendStatus(200); // Respond to PayMongo to acknowledge receipt
-} catch (error) {
-    console.error("Error processing webhook:", error);
-    res.sendStatus(500); // Respond with a 500 error if something goes wrong
-}
-})
 
 const __dirname = path.resolve();
 

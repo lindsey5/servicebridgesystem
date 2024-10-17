@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RecipientContext } from '../../../Context/RecipientContext';
 import TransactionButton from './TransactionButton';
 import TransactionStatus from './TransactionStatus';
-import { updateTransaction } from '../../../services/transactionService';
-import { refund_payment } from '../../../services/paymentService';
+import { updateTransaction, fail_and_refund } from '../../../services/transactionService';
 
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
@@ -31,7 +30,7 @@ const TransactionRow = ({ transaction, index, modal_dispatch }) => {
     const transactionDateTime = `${transaction.date} ${transaction.time}`;
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted') && transaction.payment_method === 'Online Payment') {
         if(transaction.payment_method === 'Online Payment'){
-            refund_payment(transaction.id);
+            fail_and_refund(transaction.id);
         }else{
             updateTransaction(transaction.id, 'Failed');
         }

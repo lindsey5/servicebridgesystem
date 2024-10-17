@@ -15,9 +15,11 @@ router.put('/transactions/cancel/:id', verifyToken, transactionController.cancel
 
 router.put('/transactions/update/:id',verifyToken, transactionController.update_transaction);
 
-router.put('/transactions/complete/:id/client',clientRequireAuth, transactionController.client_complete_transaction);
+router.put('/transactions/complete/:id/client', clientRequireAuth, transactionController.client_complete_transaction);
 
 router.get('/transactions/complete/:id/provider',  providerRequireAuth, transactionController.provider_complete_transaction);
+
+router.put('/transaction/fail/:id', verifyToken, transactionController.fail_transaction);
 
 router.get('/transactions/cancelled/:id', verifyToken, transactionController.get_cancelled_transaction);
 
@@ -32,5 +34,7 @@ router.get('/transactions/:date', providerRequireAuth, transactionController.get
 router.put('/transactions/review/:id', clientRequireAuth, transactionController.review_transaction);
 
 router.get('/transactions/reviewed/:id', verifyToken, transactionController.get_reviewed_transaction);
+
+
 
 export default router;

@@ -1,13 +1,21 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import './transactionModal.css';
 import { TransactionContext } from '../Context/TransactionContext';
 import { cancelTransaction } from '../services/transactionService';
+import useFetch from '../hooks/useFetch';
 
 const ReasonModal = ({modal_state, modal_dispatch}) => {
     const [reason, setReason] = useState('');
     const [showTextArea, setTextArea] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user'));
     const transactionContext = useContext(TransactionContext);
+    const {data} = useFetch('/api/user');
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if(data?.user){
+            setUser(data.user);
+        }
+    }, [data]);
 
     const setCancellationReason = (target) => {
         if(target.value === "Other"){
