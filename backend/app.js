@@ -25,10 +25,10 @@ const io = new Server({
   cors: { origin }
 });
 
-app.use(cors({
+/*app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
-}));
+}));*/
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
@@ -115,21 +115,6 @@ app.get('/api/latest-message', async (req, res) => {
   }
 
 });
-
-/*import sgMail from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SG_API_KEY);
-
-const msg = {
-  to: 'lindseysamson80@gmail.com', // Recipient's email
-  from: 'lindseysamson5@gmail.com', // Sender's verified email in SendGrid
-  subject: 'Verify Your Email',
-  text: 'Please verify your email address.',
-};
-
-sgMail
-  .send(msg)
-  .then(() => console.log('Email sent'))
-  .catch((error) => console.error(error.response.body));*/
 
 // Socket authentication middleware
 io.use((socket, next) => {

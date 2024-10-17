@@ -12,7 +12,7 @@ export default function ProviderSideBar () {
     useEffect(() => {
         const savedActiveButton = localStorage.getItem('activeButton');
         if (savedActiveButton) {
-        setActiveButton(parseInt(savedActiveButton));
+            setActiveButton(parseInt(savedActiveButton));
         }
     }, []);
 

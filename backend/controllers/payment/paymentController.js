@@ -9,7 +9,7 @@ const create_client_checkout_link = async (req, res) => {
         const token = req.cookies.jwt;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const client_id = decodedToken.id;
-        const success_url = 'http://localhost:3000/api/payment/success/client';
+        const success_url = '/api/payment/success/client';
         req.session.checkoutData = {
             client_id,
             provider: data.provider,
@@ -36,7 +36,7 @@ const create_provider_checkout_link = async (req, res) => {
     try{
         const {transaction_id, price} = req.body;
         const amount = (price * 0.05) * 100;
-        const success_url = `http://localhost:3000/api/transactions/complete/${transaction_id}/provider?service_price=${price}`;
+        const success_url = `/api/transactions/complete/${transaction_id}/provider?service_price=${price}`;
         const checkout_link = await paymentService.create_checkout_link(amount, 'Commission fee', success_url);
         if(checkout_link){
             res.status(200).json(checkout_link);
@@ -61,7 +61,7 @@ const client_payment_success = async (req, res) => {
             if(newPayment){
                 delete req.session.checkoutData;
                 delete req.session.payment_checkout_id;
-                res.redirect('http://localhost:5173/Client/Transactions');
+                res.redirect('/Client/Transactions');
             }else{
                 res.status(400).json({error: 'Payment failed'});
             }

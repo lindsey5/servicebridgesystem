@@ -10,7 +10,6 @@ const ReasonModal = ({modal_state, modal_dispatch}) => {
     const transactionContext = useContext(TransactionContext);
     const {data} = useFetch('/api/user');
     const [user, setUser] = useState(null);
-
     useEffect(() => {
         if(data?.user){
             setUser(data.user);
@@ -58,7 +57,7 @@ const ReasonModal = ({modal_state, modal_dispatch}) => {
                  style={{display: showTextArea ? 'block' : 'none'}} />
                 <div className="reason-modal-buttons-div">
                     <button className="dont-cancel-btn" onClick={() => modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: false})}>Cancel</button>
-                    <button className="continue-btn" onClick={() => cancelTransaction({reason, id: transactionContext.transactionId, user})}>Continue</button>
+                    <button className="continue-btn" onClick={() => cancelTransaction(reason, transactionContext.transactionId, user)}>Continue</button>
                 </div>
             </div>
         </div>
