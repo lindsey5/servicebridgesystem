@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import './availability.css';
+import './Availability.css';
 
 const Availability = () => {
     const [date, setDate] = useState(new Date());
