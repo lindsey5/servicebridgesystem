@@ -9,7 +9,7 @@ import {PublicRoutes, ClientRoutes, ProviderRoutes} from './routes/routes.jsx';
 import ClientLayout from './layouts/ClientLayout.jsx';
 import ProviderLayout from './layouts/ProviderLayout.jsx';
 import ClientSearchResult from './Pages/ClientPage/ClientSearchResult.jsx';
-import Booking from './Pages/ClientPage/booking.jsx';
+import Booking from './Pages/ClientPage/Booking.jsx';
 import ClientTransactions from './Pages/ClientPage/ClientTransactions.jsx';
 import TransactionSummary from './Pages/ClientPage/TransactionSummary.jsx';
 import ProviderTransactions from './Pages/ProviderPage/ProviderTransactions.jsx';
