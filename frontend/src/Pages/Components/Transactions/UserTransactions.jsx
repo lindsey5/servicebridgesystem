@@ -6,7 +6,7 @@ import TransactionPagination from './TransactionPagination';
 import ClientReasonModal from '../../../modals/ClientReasonModal';
 import useTransactionsReducer from '../../../hooks/useTransactionsReducer';
 import '../../styles/Loader.css';
-import CancelledModal from '../../../modals/cancelledModal.jsx';
+import CancelledModal from '../../../modals/CancelledModal.jsx';
 import RateModal from '../../../modals/RateModal.jsx';
 import ReviewedModal from '../../../modals/ReviewedModal.jsx';
 import ProviderReasonModal from '../../../modals/ProviderReasonModal.jsx';
