@@ -77,7 +77,7 @@ const ProviderLogin = () => {
 
                         <div className='links'>
                             <a href="" id="forgot-pass">Forgot Password?</a>
-                            <a href="/client-signup" id="signup">Create an Account</a>
+                            <a href="" id="signup">Create an Account</a>
                         </div>
                     </div>
                 </form>
