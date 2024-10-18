@@ -67,4 +67,23 @@ const get_provider_today_earnings = async (req, res) => {
     }
 }
 
-export default { get_provider_earning_per_month, get_provider_today_earnings };
+const get_provider_earnings = async (req, res) => {
+    try{
+        const provider = req.userId;
+        const total_earnings = await ProviderEarning.findAll({
+            include: [{
+                model: Transaction,
+                where: { provider, payment_method: 'Online Payment' }
+            }],
+            order: [
+                ['payment_date', 'DESC']
+            ]
+        })
+
+        res.status(200).json(total_earnings);
+    }catch(err){
+        res.status(400).json({error: err.message})
+    }
+}
+
+export default { get_provider_earning_per_month, get_provider_today_earnings, get_provider_earnings };

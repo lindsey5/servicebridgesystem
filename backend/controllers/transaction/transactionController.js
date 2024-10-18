@@ -9,6 +9,7 @@ import ReviewedTransaction from '../../models/reviewed-transaction.js';
 import Provider from '../../models/provider-account.js';
 import Payment from '../../models/payment.js';
 import paymentService from '../../services/paymentService.js';
+import ProviderBalance from '../../models/provider-balance.js';
 
 const create_transaction = async (req, res) =>{
     try {
@@ -168,6 +169,9 @@ const client_complete_transaction = async (req, res) => {
     const { service_price } = req.body;
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
+        const provider = completed_transaction.completed_transaction.dataValues.provider;
+        const earnings = completed_transaction.earnings.providerEarning.dataValues.earnings;
+        await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } })
         res.status(200).json({completed_transaction});
     }catch(err){
         console.log(err);

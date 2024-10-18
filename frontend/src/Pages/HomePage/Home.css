@@ -4,7 +4,7 @@
   justify-content: center;
   height: 100vh;
   width: 98vw;
-  background-color: white
+  background-color: white;
 }
   
 .Home .textDiv {
@@ -56,9 +56,10 @@
 
 .how-it-work-section{
   display: flex;
-  background-color: white;
+  background-color: rgb(233, 233, 233);
   align-items: center;
   justify-content: center;
+  padding: 80px 0;
 }
 
 .how-it-work-section img{

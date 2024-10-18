@@ -10,6 +10,7 @@ import availableDateRoutes from './available_date/availableDateRoutes.js';
 import earningRoutes from './earning/earningRoutes.js';
 import categoryRoutes from './category/categoryRoutes.js';
 import paymentRoutes from './payment/paymentRoutes.js';
+import providerBalanceRoutes from './provider/providerBalanceRoutes.js';
 
 const useRoutes = (app) => {
     app.use(clientAuthRoutes);
@@ -23,6 +24,7 @@ const useRoutes = (app) => {
     app.use('/api/earning', earningRoutes);
     app.use('/api/', categoryRoutes);
     app.use('/api/payment', paymentRoutes);
+    app.use('/api/provider/balance', providerBalanceRoutes);
 }
 
 export default { useRoutes };

@@ -42,6 +42,7 @@
 .dashboard-mid-section{
     width: 98%;
     display: flex;
+    align-items: start;
     margin: 10px;
 }
 
@@ -55,11 +56,60 @@
 }
 
 .dashboard-mid-section .account-balance{
-    width: 30%;
-    height: 430px;
+    width:30%;
     box-shadow: 0 0 10px 2px rgb(182, 182, 182);
     background-color: white;
     border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dashboard-mid-section .account-balance span{
+    color: grey;
+    font-weight: 500;
+}
+
+.dashboard-mid-section .account-balance > img{
+    width: 50px;
+    height: 50px;
+}
+
+.dashboard-mid-section .account-balance .buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard-mid-section .account-balance .history-btn{
+    border: none;
+    padding: 10px 30px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: rgb(221, 221, 221);
+}
+
+.dashboard-mid-section .account-balance .history-btn:hover{
+    background-color: rgb(156, 156, 156);
+}
+
+.dashboard-mid-section .account-balance .withdraw-btn{
+    background-color: #0375f7;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.dashboard-mid-section .account-balance .withdraw-btn:hover{
+    background-color: #9fccff;
 }
 
 .provider-dashboard .task-completed-container{
@@ -85,7 +135,7 @@
 
 .provider-dashboard .task-completed-container > table th{
     padding: 10px;
-    background-color: rgb(3, 117, 247);
+    background-color: #0375f7;
     color: white;
 }
 

@@ -71,7 +71,7 @@ const complete_transaction = async (transaction_id, service_price) => {
             const transaction = await Transaction.findByPk(transaction_id);
             if(transaction){
                 const completed_transaction = await transaction.update({status: 'Completed'});
-                return completed_transaction;
+                return {completed_transaction, earnings};
             }else{
                 throw new Error('Completion error');
             }

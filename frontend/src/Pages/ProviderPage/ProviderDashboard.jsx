@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import {CChart} from '@coreui/react-chartjs';
 import './ProviderDashboard.css';
+import EarningModal from "../../modals/EarningModal";
 
 const ProviderDashboard = () => {
     const { data: monthlyIncome } = useFetch('/api/earning/provider/month');
@@ -9,6 +10,8 @@ const ProviderDashboard = () => {
     const { data: totalTransactionToday } = useFetch('/api/provider/completed/transaction/total/today');
     const { data: totalTransactions } = useFetch('/api/provider/completed/transaction/total');
     const { data: completedTransactions } = useFetch('/api/provider/completed/transaction/today');
+    const [showEarningModal, setShowEarningModal] = useState(false);
+    const { data: balance } = useFetch('/api/provider/balance');
 
     useEffect(() => {
         document.title = "Dashboard | Provider";
@@ -38,6 +41,7 @@ const ProviderDashboard = () => {
     return (
         <div className="provider-dashboard">
             <> 
+            {showEarningModal && <EarningModal setShowEarningModal={setShowEarningModal}/>}
             <div className="top-section">
                 <div className="earnings-summary">
                     <div>
@@ -84,7 +88,7 @@ const ProviderDashboard = () => {
                                 borderColor: "rgb(110, 178, 255)",
                                 pointBackgroundColor: "rgb(0, 119, 255)",
                                 data: monthlyIncome,
-                                pointRadius: 7,
+                                pointRadius: 3,
                                 tension: 0.2,
                             },
                             ],
@@ -100,7 +104,21 @@ const ProviderDashboard = () => {
                         }}
                     />
                 </div>
-                <div className="account-balance"></div>
+                <div className="account-balance">
+                    <div>
+                        <span>Total Balance</span>
+                        <h1>₱ {balance?.balance.toLocaleString('en-US', {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1
+                            })}
+                        </h1>
+                    </div>
+                    <img src="/icons/wallet.png" alt="" />
+                    <div className="buttons">
+                        <button className="history-btn" onClick={()=> setShowEarningModal(true)}>History</button>
+                        <button className="withdraw-btn">Withdraw</button>
+                    </div>
+                </div>
             </div>
             <div className="task-completed-container">
                 <h2>Completed Task Today</h2>
