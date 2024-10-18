@@ -25,7 +25,7 @@ const create_transaction = async (req, res) =>{
             const errors = handleErrors(err.errors);
             res.status(400).json({errors});
         }
-        else res.status(400).json({err});
+        else res.status(400).json({error: err.message});
     }
 }
 
@@ -65,7 +65,7 @@ const get_client_transactions = async (req, res) => {
             res.status(200).json(transactions);
         }
     }catch(err){
-        res.status(404).json({error: err});
+        res.status(404).json({error: err.message});
     }
 }
 
@@ -99,7 +99,7 @@ const get_provider_transactions = async (req, res) => {
             res.status(400).json({error: 'No transactions found'})
         }
     }catch(err){
-        res.status(404).json({error: err});
+        res.status(404).json({error: err.message});
     }
 }
 
@@ -159,7 +159,7 @@ const update_transaction = async (req, res) => {
             res.status(400).json({error: 'Failed to update transaction'})
         }
     }catch(err){
-        res.status(400).json({ error: err});
+        res.status(400).json({ error: err.message});
     }
 }
 
@@ -169,26 +169,26 @@ const client_complete_transaction = async (req, res) => {
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
         res.status(200).json({completed_transaction});
-    
     }catch(err){
         console.log(err);
-        return res.status(400).json({error: err});
+        return res.status(400).json({error: err.message});
     }
 }
 
 const provider_complete_transaction = async (req, res) => {
+    const port = process.env.NODE_ENV === "production" ? 3000 : 5173;
     const transaction_id = req.params.id;
     const { service_price } = req.query;
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
         if(completed_transaction){
-            res.redirect('http://localhost:5173/Provider/Transactions');
+            res.redirect(`http://localhost:${port}/Provider/Transactions`);
         }else{
             res.status(400).json({error: "Completion of transaction failed"});
         }
     }catch(err){
         console.log(err);
-        return res.status(400).json({error: err});
+        return res.status(400).json({error: err.message});
     }
 }
 
@@ -203,7 +203,7 @@ const get_cancelled_transaction = async (req, res) => {
         }
 
     }catch(err){
-        res.status(400).json({error: err});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -332,7 +332,7 @@ const get_transactions_by_date = async (req, res) => {
 
 
     }catch(err){
-        res.status(400).json({error: err});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -375,7 +375,7 @@ const review_transaction = async (req, res) => {
         }
     }catch(err){
         console.log(err);
-        res.status(400).json({error: err});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -400,6 +400,33 @@ const get_reviewed_transaction = async (req, res) => {
 
 }
 
+const get_reviewed_transactions = async (req,res) => {
+    const provider = req.params.provider;
+    const query = {
+        where: {},
+        include: 
+            { 
+              model: Transaction,  
+              where: { provider } ,
+              include: { model: Client,
+                attributes: ['firstname', 'lastname', 'profile_pic']
+               }
+            },
+    }
+
+    if(req.query.rating){
+        query.where.rating = req.query.rating;
+    }
+    try{
+        const reviewed_transactions = await transactionService.get_all_reviewed_transactions(query);
+        res.status(200).json(reviewed_transactions);
+
+    }catch(err){
+        console.log(err);
+        res.status(400).json({error: err.message});
+    }
+}
+
 export default { 
     create_transaction, 
     get_client_transactions,
@@ -415,5 +442,6 @@ export default {
     get_completed_transaction_today,
     get_transactions_by_date,
     review_transaction,
-    get_reviewed_transaction
+    get_reviewed_transaction,
+    get_reviewed_transactions,
  };

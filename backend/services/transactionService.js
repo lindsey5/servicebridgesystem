@@ -1,6 +1,7 @@
 import Transaction from '../models/transaction.js';
 import Client from '../models/client-account.js';
 import earningService from './earningService.js';
+import ReviewedTransaction from '../models/reviewed-transaction.js';
 
 const create_transaction = async (client_id, data) => {
     try{
@@ -82,10 +83,27 @@ const complete_transaction = async (transaction_id, service_price) => {
     }
 }
 
+const get_all_reviewed_transactions = async (query) => {
+    console.log(query);
+    try{
+        const reviewed_transactions = await ReviewedTransaction.findAll(query)
+
+        if(reviewed_transactions){
+            return reviewed_transactions
+        }else{
+            throw new Error("Error fetching reviewed transactions")
+        }
+    }catch(err){
+        throw new Error("Error fetching reviewed transactions")
+    }
+
+}
+
 export default {
     create_transaction,
     get_transactions,
     update_transaction,
     getTransactionCount,
-    complete_transaction
+    complete_transaction,
+    get_all_reviewed_transactions,
 };

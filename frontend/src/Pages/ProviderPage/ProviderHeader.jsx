@@ -17,7 +17,6 @@ const ProviderHeader = () =>{
     };
 
     const logout = async () => {
-        localStorage.removeItem('user');
         localStorage.removeItem('activeButton');
         window.location.href = '/logout';
     };
@@ -56,10 +55,9 @@ const ProviderHeader = () =>{
                 <h1 id="user-fullname">
                     {providerData?.provider.firstname && providerData?.provider.lastname && `${providerData.provider.firstname} ${providerData.provider.lastname}`}
                 </h1>
-                <button id="account-setting">Account Setting</button>
-                <button id="transactions-btn" onClick={()=> navigate('/Provider/Transactions')}>
-                    <img src="/icons/menu.png" className="icon" alt="menu icon" />
-                    Transactions
+                <button id="account-setting">
+                    <img src="/icons/user.png" className="icon" alt="exit icon" />
+                    Account Setting
                 </button>
                 <button id="logout" onClick={() => logout()}>
                     <img src="/icons/exit.png" className="icon" alt="exit icon" />

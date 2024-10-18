@@ -1,17 +1,16 @@
 .client-home{
     background-color: rgb(228, 228, 228);
     display: flex;
-    margin: 0;
     justify-content: center;
+    padding-top: 100px;
 }
 
-.home-container{
-    margin-top: 100px;
+.client-home .home-container{
     display: flex;
     margin-right: 220px;
 }
 
-.account-container{
+.client-home .account-container{
     width: 220px;
     height: 250px;
     background-color: white;
@@ -25,7 +24,7 @@
     border: 1px solid rgb(161, 161, 161);
 }
 
-.profile-pic-container{
+.client-home .profile-pic-container{
     width: 100px;
     height: 100px;
     border-radius: 50px;
@@ -34,12 +33,12 @@
     overflow: hidden;
 }
 
-.profile-pic{
+.client-home .profile-pic{
     width: 100%;
     height: 100%;
 }
 
-#fullname{
+.client-home #fullname{
     font-size: 23px;
     white-space: nowrap; 
     overflow: hidden;
@@ -48,7 +47,7 @@
     text-align: center;
 }
 
-#acc-setting{
+.client-home #acc-setting{
     width: 150px;
     height: 30px;
     background-color: rgb(3, 117, 247);
@@ -57,11 +56,11 @@
     cursor: pointer;
 }
 
-#acc-setting:hover{
+.client-home #acc-setting:hover{
     background-color: rgb(128, 187, 255);
 }
 
-.popular-services-container, .view-all-services-container, .how-it-work-container{
+.client-home .popular-services-container, .client-home .view-all-services-container, .client-home .how-it-work-container{
     margin-bottom: 10px;
     width: 600px;
     border-radius: 10px;
@@ -71,22 +70,22 @@
     border: 1px solid rgb(161, 161, 161);
 }
 
-.popular-services-container{
+.client-home .popular-services-container{
     overflow: hidden;
 }
 
-.popular-services-container h1{
+.client-home .popular-services-container h1{
     font-size: 30px;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
-.popular-services-div{
+.client-home .popular-services-div{
     display: flex;
     flex-wrap: wrap;
 }
 
-.popular-services{
+.client-home .popular-services{
     color: rgb(3, 117, 247);
     border: 2px solid #0375f7;
     border-radius: 20px;
@@ -100,7 +99,7 @@
     cursor: pointer;
 }
 
-.popular-services > img{
+.client-home .popular-services > img{
     width: 15px;
     height: 15px;
     position: absolute;
@@ -108,11 +107,11 @@
     left: 15px;
 }
 
-.popular-services:hover, .view-services-btn:hover{
+.client-home .popular-services:hover, .client-home .view-services-btn:hover{
     background-color: rgb(175, 212, 255);
 }
 
-.view-all-services-container{
+.client-home .view-all-services-container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,16 +119,16 @@
     text-align: center;
 }
 
-.view-all-services-container > img{
+.client-home .view-all-services-container > img{
     width: 80px;
     height: 80px;
 }
 
-.view-all-services-container > p {
+.client-home .view-all-services-container > p {
     color: rgb(145, 145, 145);
 }
 
-.view-services-btn{
+.client-home .view-services-btn{
     width: 150px;
     height: 40px;
     color: rgb(3, 117, 247);
@@ -140,18 +139,19 @@
     cursor: pointer;
 }
 
-.how-it-work-container{
+.client-home .how-it-work-container{
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.how-it-work-container > h1{
+.client-home .how-it-work-container > h1{
     font-size: 40px;
     margin-bottom: 50px;
+    text-align: center;
 }
 
-.how-it-work-container .number{
+.client-home .how-it-work-container .number{
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -164,55 +164,39 @@
     font-size: 20px;
 }
 
-.how-it-work-container > div{
+.client-home .how-it-work-container > div{
     margin: 20px;
     width: 300px;
     display: flex;
     align-items: center;
 }
 
-.how-it-work-container > p{
-    margin: 20px 0;
+.client-home .how-it-work-container > p{
     font-size: 20px;
     font-weight: 500;
 }
 
 @media (max-width: 1200px){
-    body{
-        justify-content: center;
-    }
-    
-    .home-container{
-        margin-right: 0px;
-    }
-
-    .popular-services-container, 
-    .view-all-services-container, .how-it-work-container{
-        width: 500px;
-        margin-bottom: 10px;
+    .client-home .home-container{
+        margin-right: 0;
     }
 }
 
-@media (max-width: 700px){
-    .home-container{
+@media (max-width: 850px){
+    .client-home .account-container{
+        margin-right: 0;
+    }
+
+    .client-home .home-container{
         flex-direction: column;
-        margin-top: 75px;
+        align-items: center;
     }
 
-    .account-container{
-        margin: 0;
-    }
-
-    .account-container, .popular-services-container, 
-    .view-all-services-container, .how-it-work-container{
-        width: 90vw;
+    .client-home .account-container, .client-home .popular-services-container, 
+    .client-home .view-all-services-container, .client-home .how-it-work-container{
+        width: 95vw;
         border-radius: 0;
         margin-bottom: 10px;
-    }
-
-    .popular-services-container, 
-    .view-all-services-container, .how-it-work-container{
-        padding: 50px;
     }
 }
 

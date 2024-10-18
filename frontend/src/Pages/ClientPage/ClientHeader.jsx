@@ -37,7 +37,6 @@ const ClientHeader = () => {
     };
 
     const logout = async () => {
-        localStorage.removeItem('user');
         window.location.href = '/logout';
     };
 
@@ -106,7 +105,10 @@ const ClientHeader = () => {
                         alt="User Profile" 
                     />
                     <h1 id="user-fullname">{context.fullname}</h1>
-                    <button id="account-setting">Account Setting</button>
+                    <button id="account-setting">
+                        <img src="/icons/user.png" className="icon" alt="Menu Icon" />
+                        Account Setting
+                    </button>
                     <button id="transactions-btn" onClick={() => navigate('/Client/Transactions')}>
                         <img src="/icons/menu.png" className="icon" alt="Menu Icon" />Transactions
                     </button>

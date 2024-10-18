@@ -108,7 +108,7 @@ const getProviders = async (req, res) => {
         
     } catch (err) {
         console.error('Error fetching data:', err);
-        res.status(500).json({ error: 'Database error' });
+        res.status(400).json({ error: 'Error fetching data' });
     }
 }
 

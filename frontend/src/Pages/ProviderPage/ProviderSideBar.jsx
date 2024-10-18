@@ -13,6 +13,23 @@ export default function ProviderSideBar () {
         const savedActiveButton = localStorage.getItem('activeButton');
         if (savedActiveButton) {
             setActiveButton(parseInt(savedActiveButton));
+            switch(savedActiveButton){
+                case '1':
+                    navigate('/Provider/Dashboard');
+                    break;
+                case '2':
+                    navigate('/Provider/Services');
+                    break;
+                case '3':
+                    navigate('/Provider/Services-Offered');
+                    break;
+                case '4':
+                    navigate('/Provider/Availability');
+                    break;
+                case '5':
+                    navigate('/Provider/Transactions');
+                    break;
+            }
         }
     }, []);
 

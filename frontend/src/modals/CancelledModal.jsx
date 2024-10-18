@@ -10,7 +10,7 @@ const CancelledModal = ({modal_state, modal_dispatch}) =>{
     useEffect(() =>{
         if(transactionId){
             const getCancelledTransaction = async () => {
-                const response = await fetch(`/api/transactions/cancelled/${transactionId}`);
+                const response = await fetch(`/api/transaction/cancelled/${transactionId}`);
                 if(response.ok){
                     const result = await response.json();
                     const {cancelled_date, ...cancelledTransaction } = result.cancelled_transaction;

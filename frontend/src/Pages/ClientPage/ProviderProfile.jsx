@@ -42,7 +42,7 @@ const ProviderProfile = ({provider}) => {
                     <div className='img-container'>
                         <img src={imgSrc} alt='Provider' />
                     </div>
-                    <a href=''>View Reviews</a>
+                    <p>View Reviews</p>
                     <button className='book-btn' onClick={book}>Book Service</button>
                 </div>
                 <div className='details-div'>

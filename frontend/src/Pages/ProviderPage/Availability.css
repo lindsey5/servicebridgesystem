@@ -1,7 +1,7 @@
 .availability{
-    padding-top: 100px;
     display: flex;
     justify-content: center;
+    padding: 150px 20px;
 }
 
 .calendar-container ul, .calendar-container li {
@@ -11,7 +11,7 @@
 }
 
 .calendar-container {
-    width: 700px;
+    width: 60%;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     position: relative;
@@ -201,33 +201,8 @@
     background-color: rgb(213, 255, 213);
 }
 
-@media (min-width: 1301px){
-    .availability {
-        margin-top: 0;
-    }
-}
-
-
-@media (max-width: 1300px){
-    .availability {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .transactions-div{
-        margin-left: 0;
-        margin-top: 100px;
-        margin-bottom: 20px;
-    }
-
-    .calendar-container.show{
-        margin-top: 100px;
-    }
-}
-
-@media (max-width: 425px){
-    .calendar-dates li::before {
-        width: 40px;
-        height: 40px;
+@media screen and (max-width: 1000px){
+    .availability{
+        width: 1000px;
     }
 }

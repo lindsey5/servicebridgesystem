@@ -36,7 +36,7 @@ export const providerRequireAuth = async (req, res, next) => {
             }
             return res.status(401).json({ error: 'No token found' });
        } catch (error) {
-        return res.status(401).json({ error: 'No token found' });
+            return res.status(401).json({ error: 'No token found' });
        }
     } else {
         // No token found in cookies

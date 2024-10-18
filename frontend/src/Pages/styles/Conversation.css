@@ -5,6 +5,7 @@
 
 .conversation form{
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     background-color: rgb(255, 255, 255);
@@ -12,11 +13,11 @@
 }
 
 .conversation form .convo-container{
-    flex: 1;
     width: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .conversation .recipient-details-container{
@@ -50,7 +51,6 @@
 .conversation .message-box{
     padding: 10px;
     margin-left: 10px;
-    max-width: 300px;
     border-radius: 25px;
     background-color: rgb(226, 226, 226);
 }
@@ -97,10 +97,9 @@
 }
 
 .message-input-bar input[type = 'text']{
-    flex: 1;
+    width: 100%;
     background-color: rgb(226, 226, 226);
     outline: none;
-    height: 20px;
     overflow-y: hidden;
     border: none;
     padding: 5px;
@@ -118,4 +117,16 @@
 .message-input-bar .send-button > img{
     width: 75%;
     height: 75%;
+}
+
+
+@media (max-width: 670px){
+    .conversation .message-box > .message-content,
+    .conversation .message-box > .timestamp{
+        font-size: 10px;
+    }
+    .message-input-bar{
+        height: 20px;
+    }
+
 }

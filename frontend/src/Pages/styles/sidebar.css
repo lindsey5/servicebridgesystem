@@ -58,14 +58,3 @@
 .minimize .icons{
     left: 15px;
 }
-
-
-@media  screen and (max-width: 425px) {
-    .sidebar{
-        display: none;
-    }
-
-    .main-content{
-        padding: 0;
-    }
-}

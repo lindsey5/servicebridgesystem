@@ -11,7 +11,7 @@ const ReviewedModal = ({modal_state, modal_dispatch}) =>{
     const [dateReviewed, setDateReviewed] = useState();
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const starRef = useRef([]);
-    const { data : reviewedTransaction } = useFetch(`/api/transactions/reviewed/${transactionId}`);
+    const { data : reviewedTransaction } = useFetch(`/api/transaction/${transactionId}/reviewed`);
     
     useEffect(() =>{
         const setDetails = async() =>{

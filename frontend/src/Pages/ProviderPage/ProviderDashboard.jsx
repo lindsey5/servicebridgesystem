@@ -4,7 +4,7 @@ import {CChart} from '@coreui/react-chartjs';
 import './ProviderDashboard.css';
 
 const ProviderDashboard = () => {
-    const { data: monthlyIncome, error: monthlyIncomeError } = useFetch('/api/earning/provider/month');
+    const { data: monthlyIncome } = useFetch('/api/earning/provider/month');
     const { data: earningsToday } = useFetch('/api/earning/provider/today');
     const { data: totalTransactionToday } = useFetch('/api/provider/completed/transaction/total/today');
     const { data: totalTransactions } = useFetch('/api/provider/completed/transaction/total');
@@ -13,10 +13,6 @@ const ProviderDashboard = () => {
     useEffect(() => {
         document.title = "Dashboard | Provider";
     },[]);
-
-    useEffect(()=>{
-        console.log(completedTransactions);
-    },[completedTransactions])
 
     const CompletedTransactionRow = ({transaction}) => {
 
@@ -42,7 +38,7 @@ const ProviderDashboard = () => {
     return (
         <div className="provider-dashboard">
             <> 
-            <div className="top-section-container">
+            <div className="top-section">
                 <div className="earnings-summary">
                     <div>
                         <h2>Total Earnings Today:</h2>
@@ -71,38 +67,40 @@ const ProviderDashboard = () => {
                     <img src="/icons/checked.png" />
                 </div>
             </div>
-            <div className="chart-container">
-            {!monthlyIncomeError && 
-                <CChart
-                    type="line"
-                    style={{ width: '100%', height: '400px' }}
-                    data={{
-                        labels: [
-                        "January", "February", "March", "April", "May", "June", 
-                        "July", "August", "September", "October", "November", "December"
-                        ],
-                        datasets: [
-                        {
-                            label: "Monthly Incomes",
-                            backgroundColor: "white",
-                            borderColor: "rgb(110, 178, 255)",
-                            pointBackgroundColor: "rgb(0, 119, 255)",
-                            data: monthlyIncome,
-                            pointRadius: 7,
-                            tension: 0.2,
-                        },
-                        ],
-                    }}
-                    options={{
-                        responsive: true,
-                        maintainAspectRatio: false, 
-                        plugins: {
-                        legend: {
-                            display: true,
-                        },
-                        },
-                    }}
-                />}
+            <div className="dashboard-mid-section">
+                <div className="chart-container">
+                    <CChart
+                        type="line"
+                        style={{ width: '100%', height: '430px' }}
+                        data={{
+                            labels: [
+                            "January", "February", "March", "April", "May", "June", 
+                            "July", "August", "September", "October", "November", "December"
+                            ],
+                            datasets: [
+                            {
+                                label: "Monthly Incomes",
+                                backgroundColor: "white",
+                                borderColor: "rgb(110, 178, 255)",
+                                pointBackgroundColor: "rgb(0, 119, 255)",
+                                data: monthlyIncome,
+                                pointRadius: 7,
+                                tension: 0.2,
+                            },
+                            ],
+                        }}
+                        options={{
+                            responsive: true,
+                            maintainAspectRatio: false, 
+                            plugins: {
+                            legend: {
+                                display: true,
+                            },
+                            },
+                        }}
+                    />
+                </div>
+                <div className="account-balance"></div>
             </div>
             <div className="task-completed-container">
                 <h2>Completed Task Today</h2>

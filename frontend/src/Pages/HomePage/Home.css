@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 98vw;
 }
   
 .Home .textDiv {
   width: 600px;
-  margin-right: 60px;
+  margin: 0 30px;
 }
   
 .Home .textDiv h1 {
@@ -37,17 +38,162 @@
   color: white;
 }
   
-  .Home .signup-btn:hover, .Home .login-btn:hover{
-    transform: translateY(-5px);
+.Home .signup-btn:hover, .Home .login-btn:hover{
+  transform: translateY(-5px);
+}
+
+.Home .login-btn{
+  margin: 10px;
+  background-color: rgb(224, 224, 224);
+  border: 1px solid rgb(161, 161, 161)
+}
+  
+.homeLogo {
+  width: 450px;
+  height: 70%;
+}
+
+.how-it-work-section{
+  display: flex;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 100px 0;
+}
+
+.how-it-work-section img{
+  width: 50%;
+  height: 600px;
+  margin-right: 20px;
+}
+
+.how-it-work-section .how-it-work-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+  background-color: white;
+  margin: 20px 0;
+}
+
+.how-it-work-section .how-it-work-container > h1 {
+  font-size: 40px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.how-it-work-section .how-it-work-container .number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #0375f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.how-it-work-section .how-it-work-container > div {
+  margin: 20px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+}
+
+.how-it-work-section .how-it-work-container > p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.home-footer{
+  margin-top: 50px;
+  background-color:  #0375f7;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-footer > div{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-footer > div > div{
+  margin: 30px 50px;
+}
+
+.home-footer h3, .home-footer li, .home-footer h2{
+  color: white;
+}
+
+.home-footer img{
+  width: 270px;
+  height: 120px;
+}
+
+.home-footer li{
+  list-style-type: none;
+  line-height: 1.8;
+}
+
+.home-footer .about-div li, 
+.home-footer .social-div li,
+.home-footer .support-div li{
+  cursor: pointer;
+}
+
+.home-footer .about-div li:hover, 
+.home-footer .social-div li:hover,
+.home-footer .support-div li:hover{
+  text-decoration: underline;
+}
+
+.home-footer h2{
+  margin-top: 50px;
+  text-align: center;
+}
+
+@media screen and (max-width: 650px){
+  .how-it-work-section{
+    margin-top: 100px;
+    flex-direction: column;
+    padding-top: 20px;
   }
 
-  .Home .login-btn{
-    margin: 10px;
-    background-color: rgb(224, 224, 224);
-    border: 1px solid rgb(161, 161, 161)
+  .how-it-work-section img{
+    width: 90%;
+    margin-right: 0;
+  }
+
+  .how-it-work-section .how-it-work-container{
+    width: 100%;
+  }
+
+}
+@media screen and (max-width: 800px){
+  .Home{
+    padding-top: 200px;
+    flex-direction: column;
+  }
+
+  .Home .textDiv {
+    width: 100%;
+    text-align: center;
+  }
+
+  .homeLogo{
+    margin-top: 100px;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 325px){
+  .home-footer > div > div{
+    margin: 30px 10px;
   }
   
-  .homeLogo {
-    width: 35%;
-    height: 60%;
-  }
+}

@@ -1,5 +1,5 @@
 export const createTransaction = async (data) =>{
-    const response = await fetch(`/api/transactions`,{
+    const response = await fetch(`/api/transaction`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export const createTransaction = async (data) =>{
 
 export const completeTransaction = async (transaction_id, price) => {
     if(confirm('Confirm the completion of this transaction?')){
-        const response = await fetch(`/api/transactions/complete/${transaction_id}/client`,{
+        const response = await fetch(`/api/transaction/complete/${transaction_id}/client`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const completeTransaction = async (transaction_id, price) => {
 }
 
 export const updateTransaction = (transaction_id, status) => {
-    fetch(`/api//transactions/update/${transaction_id}`, {
+    fetch(`/api//transaction/update/${transaction_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -49,11 +49,10 @@ export const updateTransaction = (transaction_id, status) => {
 }
 
 export const cancelTransaction = async (reason, id, user) => {
-    console.log(user);
     const data = { reason, status: 'Cancelled', user }
     if(reason){
         if(confirm("Are you sure you want to cancel?")){
-            const response = await fetch(`/api/transactions/cancel/${id}`, {
+            const response = await fetch(`/api/transaction/cancel/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +77,7 @@ export const rateTransaction = (rating, transactionId, review) => {
         alert('Select rate');
     }else{
         if(confirm("Click OK to continue")){
-            fetch(`/api//transactions/review/${transactionId}`, {
+            fetch(`/api//transaction/${transactionId}/review`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

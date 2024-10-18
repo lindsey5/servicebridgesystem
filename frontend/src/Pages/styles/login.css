@@ -11,7 +11,7 @@
     width: 900px;
     height: 530px;
     background-color: white;
-    box-shadow: 0 0 10px 15px  rgb(198, 212, 228);
+    box-shadow: 0 0 10px 5px  rgb(177, 177, 177);
     display: flex;
     border-radius: 10px;
 }
@@ -144,46 +144,17 @@
 
 
 
-@media  screen and (max-width: 768px) {
-    .login-parent-container .container{
-        width: 90%;
-    }
-}
 
 @media  screen and (max-width: 425px) {
-    .login-parent-container .container{
-        width: 100vw;
-        box-shadow: none;
-    }
-    
     .login-parent-container .container .icon-container{
         display: none;
     }
 
-    .login-parent-container .container .right-div{
+    .login-parent-container .container{
+        width: 90%;
+    }
+
+    .login-parent-container .container form{
         width: 100%;
-        background-color: white;
-    }
-
-    .login-parent-container .container .right-div h1{
-        color: rgb(3, 117, 247);
-        margin-bottom: 60px;
-    }
-
-    .login-parent-container .container input[type ="text"], 
-    .login-parent-container .container input[type ="password"]{
-        background-color: rgb(227, 238, 250);
-    }
-
-    .login-parent-container .container #login-btn{
-        width: 70%;
-    }
-
-    .login-parent-container .container #forgot-pass{
-        color: rgb(3, 117, 247);
-    }
-
-    .login-parent-container .container .error{
-        color: red;
     }
 }

@@ -1,15 +1,14 @@
 .your-services{
-    margin-left: 20px;
-    padding: 10px;
-    padding-top: 70px;
+    margin: 0 20px;
     display: flex;
+    padding-top: 80px;
     flex-direction: column;
 }
 
 .your-services .search-bar{
     height: 35px;
     border-radius: 10px;
-    width: 40%;
+    width: 200px;
     border: 1px solid rgb(158, 158, 158);
     padding-left: 10px;
     outline: none;
@@ -20,11 +19,11 @@
 .your-services .select-category{
     width: 200px;
     height: 30px;
+    margin-bottom: 50px;
 }
 
 .your-services .services-container{
     width: 100%;
-    margin-top: 40px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
@@ -32,6 +31,7 @@
 
 .your-services .service {
     display: flex;
+    
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 5px 3px rgb(177, 177, 177);
@@ -102,17 +102,8 @@
 }
 
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1000px){
     .your-services .services-container{
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-    
-}
-
-@media screen and (max-width: 600px){
-    .your-services .services-container{
-        grid-template-columns: 1fr;
-        gap: 10px;
+        grid-template-columns: repeat(3, 400px);
     }
 }
