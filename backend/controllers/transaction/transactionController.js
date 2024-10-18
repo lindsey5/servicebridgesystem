@@ -322,20 +322,25 @@ const get_transactions_by_date = async (req, res) => {
     const date = req.params.date;
     try{
         const provider_id = req.userId
-        const transactions = await Transaction.findAll({
+        const transactionsByDate = await Transaction.findAll({
             where:{
                 provider: provider_id
             },
             include: {
                 model: Available_date,
                 where: { date },
-            },
-            order: [['time', 'DESC']]
+            }
+        });
+        const transactions = transactionsByDate
+        .map(transaction => transaction.toJSON())
+        .sort((a, b) => {
+            const timeA = new Date(`${a.available_date.date} ${a.time}`);
+            const timeB = new Date(`${a.available_date.date} ${b.time}`);
+            return timeB - timeA; 
         });
         res.status(200).json({transactions});
-
-
     }catch(err){
+        console.log(err);
         res.status(400).json({error: err.message});
     }
 }

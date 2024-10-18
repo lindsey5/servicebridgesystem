@@ -23,6 +23,19 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const {modal_state, modal_dispatch} = useModalReducer();
     const [loading, setLoading] = useState(true);
 
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const fetchUserType = async () =>{
+            const response = await fetch('/api/user');
+            if(response.ok){
+                const {user} = await response.json();
+                setUser(user);
+            }
+        }
+        fetchUserType();
+    },[url]);
+
     useEffect(()=>{
         async function fetchTransactions () {
             const response = await fetch(url, {
@@ -158,6 +171,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                                         index={index} 
                                         modal_state={modal_state}
                                         modal_dispatch={modal_dispatch}
+                                        user={user}
                                     />
                                 ))}
                         </tbody>

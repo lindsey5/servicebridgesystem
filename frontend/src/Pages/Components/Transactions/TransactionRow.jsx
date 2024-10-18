@@ -11,19 +11,7 @@ const isDateExpired = (transactionDateTime) => {
     return date < currentDate;
 };
 
-const TransactionRow = ({ transaction, index, modal_dispatch }) => {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const fetchUserType = async () =>{
-            const response = await fetch('/api/user');
-            if(response.ok){
-                const {user} = await response.json();
-                setUser(user);
-            }
-        }
-        fetchUserType();
-    },[transaction])
+const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
 
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);

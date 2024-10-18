@@ -29,12 +29,11 @@ const get_provider_earning_per_month = async (req, res) => {
         };
         
         const provider_earnings = await ProviderEarning.findAll(options); // Retrieve the earnings for each month
-                
         // Populate the provider_earnings_array with total earnings indexed by month
         provider_earnings.forEach(earning => {
             // Assign the total earnings to the correct index in the array (0-11 for Jan-Dec)
             provider_earnings_array[earning.dataValues.month - 1] = earning.dataValues.total_earnings; 
-            });
+        });
 
         // Respond with the array of monthly earnings
         res.status(200).json(provider_earnings_array);
