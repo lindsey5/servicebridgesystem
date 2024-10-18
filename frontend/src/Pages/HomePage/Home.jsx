@@ -24,7 +24,7 @@ const Home = () => {
                 </div>
                 <img className='homeLogo' src={ logo }></img> 
             </section>
-            <section className='how-it-work-section'>
+            <div className='how-it-work-section'>
                 <img src='/icons/logo.jpg'/> 
                 <div className="how-it-work-container">
                         <h1>How it works</h1>
@@ -53,7 +53,7 @@ const Home = () => {
                             <p>Give Feedback</p>
                         </div>
                 </div>
-            </section>
+            </div>
             <Services showLoginModal={showLoginModal}/>
             <footer className='home-footer'>
                 <div>
