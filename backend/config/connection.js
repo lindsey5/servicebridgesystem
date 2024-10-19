@@ -1,9 +1,12 @@
 import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+dotenv.config();
 
 //Initialized a connection to a MySQL database using Sequelize.
-const sequelize = new Sequelize('servicebridgesystem', 'root', '', {
-  host: 'localhost',
+const sequelize = new Sequelize(process.env.DB, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
   dialect: 'mysql',
+  port: 3306,
   logging: false,
 });
 

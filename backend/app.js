@@ -3,8 +3,6 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import routes from './routes/routes.js';
 import jwt from 'jsonwebtoken';
-import Client from './models/client-account.js';
-import Provider from './models/provider-account.js';
 import { connectDB } from './config/connection.js';
 import cors from 'cors';
 import path from 'path';
@@ -15,7 +13,6 @@ import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
 import ChatService from './services/chatService.js';
 import { Server } from 'socket.io';
-import session from 'express-session';
 
 dotenv.config();
 const app = express();
@@ -34,12 +31,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({
-  secret: process.env.SESSION_SECRET, 
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }, 
-}))
 
 // Call all the routes
 routes.useRoutes(app);
@@ -47,62 +38,6 @@ routes.useRoutes(app);
 app.get('/logout', (req, res) => {
     res.clearCookie('jwt', { httpOnly: true, secure: false });
     res.redirect('/');
-});
-
-app.get('/api/get/user-details/:id', async(req, res) => {
-  try{
-    const id = req.params.id;
-    if(id){
-      const client = await Client.findOne({where: {id}});
-      const provider = await Provider.findOne({where: {id}});
-      if(client){
-        const fullname = client.firstname + " " + client.lastname;
-        return res.status(200).json({fullname, profile_pic: client.profile_pic});
-      }
-
-      if(provider){
-        const fullname = provider.firstname + " " + provider.lastname;
-        return res.status(200).json({fullname, profile_pic: provider.profile_pic});
-      }
-    }else{
-      throw new Error('User not found'); 
-    }
-
-  }catch(err){
-    res.status(400).json({error: err});
-    console.log(err);
-  }
-
-})
-
-app.get('/api/user', async (req, res) => {
-  const token = req.cookies.jwt;
-    if (token) {
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-            const id = decodedToken.id;
-            
-            if(id) {
-              const client = await Client.findOne({where: {id}});
-              const provider = await Provider.findOne({where: {id}});
-
-              if(client) return res.status(200).json({ user: 'Client'});
-              if(provider) return res.status(200).json({ user: 'Provider'});
-            }
-        } catch (err) {
-            return res.json({ error: 'Invalid Token' });
-        }
-    } else {
-        return res.json({ error: 'No token found' });
-    }
-});
-
-app.get('/api/getToken', (req, res) => {
-  const token = req.cookies.jwt;
-  if (!token) {
-      return res.status(401).json({ message: 'No token found' });
-  }
-  res.status(200).json({ token });
 });
 
 app.get('/api/latest-message', async (req, res) => {
