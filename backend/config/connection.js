@@ -9,7 +9,6 @@ const sequelize = new Sequelize(process.env.DB, process.env.DB_USERNAME, process
   port: 3306,
 });
 
-
 // Function to test database connection
 const connectDB = async () => {
   try {
