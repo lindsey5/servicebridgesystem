@@ -18,10 +18,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
 const server = createServer(app);
-const origin = server;
-const io = new Server({
+
+const io = new Server(server,{
   cors: { 
-    origin,
+    origin: 'https://servicebridgesystem.onrender.com',
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true
@@ -113,6 +113,7 @@ io.on('connection', (socket) => {
       console.log('User disconnected:', socket.id);
   });
 });
+
 
 const __dirname = path.resolve();
 
