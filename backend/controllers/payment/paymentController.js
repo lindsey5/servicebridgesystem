@@ -9,7 +9,7 @@ const create_client_checkout_link = async (req, res) => {
         const token = req.cookies.jwt;
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const client_id = decodedToken.id;
-        const success_url = 'http://localhost:3000/api/payment/success/client';
+        const success_url = 'https://servicebridgesystem.onrender.com/api/payment/success/client';
 
         const checkout_link = await paymentService.create_checkout_link(amount, data.service_name, success_url);
         if(checkout_link){
@@ -38,7 +38,7 @@ const create_provider_checkout_link = async (req, res) => {
     try{
         const {transaction_id, price} = req.body;
         const amount = (price * 0.05) * 100;
-        const success_url = `http://localhost:3000/api/transaction/complete/${transaction_id}/provider?service_price=${price}`;
+        const success_url = `https://servicebridgesystem.onrender.com/api/transaction/complete/${transaction_id}/provider?service_price=${price}`;
         const checkout_link = await paymentService.create_checkout_link(amount, 'Commission fee', success_url);
         if(checkout_link){
             res.status(200).json(checkout_link);
@@ -62,7 +62,7 @@ const client_payment_success = async (req, res) => {
             const newPayment = await paymentService.create_payment(transaction_id, payment_checkout_id);
             if(newPayment){
                 res.clearCookie('checkoutData', { httpOnly: true, secure: true });
-                res.redirect('http://localhost:5173/Client/Transactions');
+                res.redirect('https://servicebridgesystem.onrender.com/Client/Transactions');
             }else{
                 res.status(400).json({error: 'Payment failed'});
             }

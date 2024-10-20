@@ -21,7 +21,7 @@ const ProviderLogin = () => {
     async function login(e) {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/provider-login', {
+            const response = await fetch('https://servicebridgesystem.onrender.com/provider-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
