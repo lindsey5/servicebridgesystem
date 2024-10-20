@@ -185,7 +185,7 @@ const provider_complete_transaction = async (req, res) => {
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
         if(completed_transaction){
-            res.redirect(`/Provider/Transactions`);
+            res.redirect(`https://servicebridgesystem.onrender.com/Provider/Transactions`);
         }else{
             res.status(400).json({error: "Completion of transaction failed"});
         }

@@ -47,19 +47,24 @@ const get_provider_today_earnings = async (req, res) => {
     const provider_id = req.userId; // Get the userId from the request object then assign to the provider_id variable
     try{
         // Retrieve the total of the provider's earning this day
-        const todayEarnings = await ProviderEarning.findOne({
-            attributes: [ 
-                [fn('SUM', col('earnings')), 'total_earnings']
-            ],
-            where: { payment_date: { [Op.eq]: new Date() } }, 
+        const todayEarnings = await ProviderEarning.findAll({
+            attributes: ['earnings'],
+            where: { payment_date: { [Op.eq]: new Date() } },
             include: [{
-                model: Transaction,
-                where: { provider: provider_id }
+              attributes: [],
+              model: Transaction,
+              where: { provider: provider_id }
             }]
-        });
+          });
 
-        res.status(200).json({ total_earnings: todayEarnings.dataValues.total_earnings }); // Respond with the provider's total earnings this day
+        let sum = 0;
+        todayEarnings.forEach(todayEarning => {
+            sum += todayEarning.dataValues.earnings
+        })
+        console.log(sum);
+        res.status(200).json({ total_earnings: sum }); 
     }catch(err){
+        console.log(err);
          // Handle any errors that occur during the process
         res.status(400).json({error: err.message}); // Send an error response message
     }
