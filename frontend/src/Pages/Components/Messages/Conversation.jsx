@@ -60,8 +60,8 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
         });
 
         return () => {
-            socket.off('past messages', handlePastMessages); // Remove past messages listener
-            socket.off('private message', handlePrivateMessage); // Remove private message listener
+            socket.off('past messages'); // Remove past messages listener
+            socket.off('private message'); // Remove private message listener
         };
 
     }, [recipientDetails, recipientId]);
