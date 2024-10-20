@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import routes from './routes/routes.js';
 import jwt from 'jsonwebtoken';
 import { connectDB } from './config/connection.js';
-import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
 import './Associations/EarningAssociations.js';
@@ -22,10 +21,6 @@ const io = new Server({
   cors: { origin }
 });
 
-app.use(cors({
-    origin,
-    credentials: true
-}));
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));
