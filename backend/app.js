@@ -17,7 +17,7 @@ import { Server } from 'socket.io';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
-const origin = `https://servicebridgesystem.onrender.com`;
+const origin = '*';
 const io = new Server({
   cors: { origin }
 });
@@ -70,7 +70,7 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
   console.log('A user connected with ID:', socket.id);
   socket.join(socket.userId);
-
+  
   socket.on('reconnect', () => {
     socket.join(socket.userId);
     console.log('User reconnected:', socket.userId);

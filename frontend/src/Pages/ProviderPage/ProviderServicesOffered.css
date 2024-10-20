@@ -3,6 +3,7 @@
     display: flex;
     padding-top: 80px;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 .your-services .search-bar{

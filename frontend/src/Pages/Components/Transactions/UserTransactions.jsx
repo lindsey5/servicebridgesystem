@@ -94,10 +94,16 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             checkbox.checked = false;
         });
         dateInputRef.current.value = '';
+    }   
+
+    const hideFilter =(target) =>{
+        if(!document.querySelector('.filter-div').contains(target)){
+            dispatch({type: 'SET_FILTER_CONTAINER', payload: false});
+        }
     }
 
     return(
-        <div className="transactions">
+        <div className="transactions"  onClick={(e)=> hideFilter(e.target)}>
             <ClientReasonModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
             <CancelledModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
             <RateModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
@@ -124,6 +130,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                                         <div><input type="checkbox" value="Completed" ref={el => checkboxesRef.current[4] = el} onClick={(e) => handleClick(e.target)} />Completed</div>
                                         <div><input type="checkbox" value="Cancelled" ref={el => checkboxesRef.current[5] = el} onClick={(e) => handleClick(e.target)} />Cancelled</div>
                                         <div><input type="checkbox" value="Reviewed" ref={el => checkboxesRef.current[6] = el} onClick={(e) => handleClick(e.target)} />Reviewed</div>
+                                        <div><input type="checkbox" value="Failed" ref={el => checkboxesRef.current[7] = el} onClick={(e) => handleClick(e.target)} />Failed</div>
                                     </div>
                                 </div>
                                 <div className="date-container">

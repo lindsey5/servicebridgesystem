@@ -4,6 +4,7 @@
     justify-content: center;
     background-color: rgb(241, 241, 241);
     min-height: 100vh;
+    padding-bottom: 20px;
 }
 
 .search-result .container{
