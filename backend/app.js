@@ -69,6 +69,12 @@ io.use((socket, next) => {
 
 io.on('connection', (socket) => {
   console.log('A user connected with ID:', socket.id);
+  socket.join(socket.userId);
+
+  socket.on('reconnect', () => {
+    socket.join(socket.userId);
+    console.log('User reconnected:', socket.userId);
+  });
 
   // Handle fetching chat partners
   socket.on('chat-partners', async () => {
