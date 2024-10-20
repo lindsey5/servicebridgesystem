@@ -23,7 +23,7 @@ const io = new Server({
 });
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://servicebridgesystem.onrender.com',
     credentials: true
 }));
 app.use(express.static('public'));
