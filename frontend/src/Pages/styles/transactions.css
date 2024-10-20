@@ -6,8 +6,8 @@
 }
 
 .transactions .container{
-    margin-top: 80px;
     width: 80%;
+    margin-top: 80px;
     height: 75%;
     background-color: white;
     border-radius: 20px;
@@ -243,8 +243,3 @@
     100% { transform: rotate(360deg); }
 }
 
-@media screen and (max-width: 1000px){
-    .transactions{
-        width: 1000px;
-    }
-}

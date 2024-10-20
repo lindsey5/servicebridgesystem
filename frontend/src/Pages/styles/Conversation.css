@@ -121,11 +121,7 @@
 
 
 @media (max-width: 670px){
-    .conversation .message-box > .message-content,
-    .conversation .message-box > .timestamp{
-        font-size: 10px;
-    }
     .message-input-bar{
-        height: 20px;
+        height: 30px;
     }
 }
