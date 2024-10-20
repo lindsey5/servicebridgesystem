@@ -12,7 +12,7 @@ const Header = ({ showLoginModal, showSignupModal }) => {
                     <a href="#home">Home</a>
                     <a href="#services">Services</a>
                     <a href="#"className="login" onClick={showLoginModal}>Login</a>
-                    <a href="#" className="login" onClick={showLoginModal}>Signup</a>
+                    <a href="#" className="signup" onClick={showSignupModal}>Signup</a>
                 </div>
             </button>
             <ul>
