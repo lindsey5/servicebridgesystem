@@ -160,6 +160,7 @@
     box-sizing: border-box;
     top: calc(88%);
     right: 20px;
+    z-index: 20;
 }
 
 
