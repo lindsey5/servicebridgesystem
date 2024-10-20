@@ -18,7 +18,7 @@ const Home = () => {
             <section className='Home' id='home'>
                 <div className='textDiv'>
                 <h1>Empowering Your Hustle, Bridging Your Future!</h1>
-                <p>Hustle connects skilled people with those who need their services, creating opportunities for both growth and convenience..</p>
+                <p>Hustle serves as a vital bridge, connecting skilled individuals with those in need of their unique services</p>
                     <button className='signup-btn' onClick={showSignupModal}>Sign Up</button>
                     <button className='login-btn' onClick={showLoginModal}>Log In</button>
                 </div>
