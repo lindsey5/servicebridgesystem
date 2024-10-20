@@ -160,13 +160,8 @@
     text-overflow: ellipsis;
 }
 
-.search-result .details-div .address{
-    word-break: break-word;
-}
-
 .search-result .details-div .rating-div{
     display:flex;
-    margin-bottom: 20px;
 }
 
 .search-result .rating-div .star{
@@ -287,6 +282,7 @@
 
     .details-div{
         width: 100%;
+        background-color: red;
     }
 }
 
