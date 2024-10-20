@@ -180,13 +180,12 @@ const client_complete_transaction = async (req, res) => {
 }
 
 const provider_complete_transaction = async (req, res) => {
-    const port = process.env.NODE_ENV === "production" ? 3000 : 5173;
     const transaction_id = req.params.id;
     const { service_price } = req.query;
     try{
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
         if(completed_transaction){
-            res.redirect(`http://localhost:${port}/Provider/Transactions`);
+            res.redirect(`/Provider/Transactions`);
         }else{
             res.status(400).json({error: "Completion of transaction failed"});
         }
