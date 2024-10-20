@@ -16,7 +16,7 @@ const Messages = () => {
         const token = data?.token;
         document.title = "Messages | Client";
         if (token) {
-            const socketConnection = io('http://localhost:4000', {
+            const socketConnection = io({
                 query: { token }, 
             });
             setSocket(socketConnection);
