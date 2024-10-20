@@ -1,3 +1,5 @@
+import { formatDate } from "../utils/formatDate";
+
 export const createTransaction = async (data) =>{
     const response = await fetch(`/api/transaction`,{
         method: 'POST',
@@ -105,3 +107,41 @@ export const fail_and_refund = async(transaction_id) =>{
 
     return null
 }
+
+export const createTransactionObject = async (transactionData) => {
+    const bookedDate = new Date(transactionData.booked_on);
+
+    const fetchName = async (url) => {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.fullname;
+    };
+
+    const fetchDate = async (url) => {
+        const response = await fetch(url);
+        return await response.json();
+    };
+
+    // Fetching client, provider, and date details concurrently
+    const [client, provider, date] = await Promise.all([
+        fetchName(`/api/client/name/${transactionData.client}`),
+        fetchName(`/api/provider/name/${transactionData.provider}`),
+        fetchDate(`/api/available-date/${transactionData.date_id}`)
+    ]);
+
+    return {
+        id: transactionData.transaction_id,
+        provider_id: transactionData.provider,
+        client_id: transactionData.client,
+        service_name: transactionData.service_name,
+        address: transactionData.address,
+        price: parseFloat(transactionData.price),
+        payment_method: transactionData.payment_method,
+        status: transactionData.status,
+        booked_on: formatDate(bookedDate),
+        time: transactionData.time,
+        client: client,
+        provider: provider,
+        date: date
+    };
+};

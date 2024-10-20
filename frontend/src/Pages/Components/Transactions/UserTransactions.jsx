@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import '../../styles/transactions.css'
-import Transaction from '../../../utils/Transaction.js';
 import TransactionRow from './TransactionRow';
 import TransactionPagination from './TransactionPagination';
 import ClientReasonModal from '../../../modals/ClientReasonModal';
@@ -11,6 +10,7 @@ import RateModal from '../../../modals/RateModal.jsx';
 import ReviewedModal from '../../../modals/ReviewedModal.jsx';
 import ProviderReasonModal from '../../../modals/ProviderReasonModal.jsx';
 import useModalReducer from '../../../hooks/modalReducer.jsx';
+import { createTransactionObject } from '../../../services/transactionService.jsx';
 
 const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const {state, dispatch}  = useTransactionsReducer();
@@ -46,9 +46,8 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                 body: JSON.stringify({selectedStatus: state.selectedStatus, date: state.date})
             });
             const result = await response.json();
-            const transactionInstances = await Promise.all(
-                result.transactions.map(transactionData => Transaction.create(transactionData))
-            );
+            const transactionInstances = await Promise.all(result.transactions.map((transactionData) => createTransactionObject(transactionData)));
+           
             dispatch({ type: 'SET_TRANSACTIONS',payload: transactionInstances });
             setTotalPages(result.totalPages);
             currentPage === result.totalPages ? setNextBtn(true) : setNextBtn(false);
@@ -165,7 +164,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                             </tr>
                         </thead>
                         <tbody>
-                            {state.transactions && state.transactions.map((transaction, index) => (
+                        {state.transactions && state.transactions.map((transaction, index) => (
                                     <TransactionRow 
                                         key={index} transaction={transaction} 
                                         index={index} 
