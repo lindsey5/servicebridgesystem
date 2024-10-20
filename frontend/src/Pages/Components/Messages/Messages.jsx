@@ -17,6 +17,7 @@ const Messages = () => {
         document.title = "Messages | Client";
         if (token) {
             const socketConnection = io({
+                transports: ['websocket'],
                 query: { token }, 
             });
             setSocket(socketConnection);

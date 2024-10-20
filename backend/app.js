@@ -19,7 +19,12 @@ const app = express();
 const PORT = process.env.PORT; 
 const origin = 'https://servicebridgesystem.onrender.com';
 const io = new Server({
-  cors: { origin }
+  cors: { 
+    origin,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Authorization"],
+    credentials: true
+   }
 });
 
 app.use(express.static('public'));
