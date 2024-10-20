@@ -52,20 +52,20 @@ const ProviderDashboard = () => {
                     </div>
                     <img src="/icons/peso.png" />
                 </div>
-                <div className="completed-tasks">
-                    <div>
-                        <h2>Total Task Completed:</h2>
-                        <h2 id="total-completed-task">
-                        {totalTransactions?.total_tasks ? totalTransactions.total_tasks : 'No transactions yet'}
-                        </h2>
-                    </div>
-                    <img src="/icons/checked.png" />
-                </div>
                 <div className="completed-tasks-today">
                     <div>
                         <h2>Task Completed today:</h2>
                         <h2 id="completed-task-today">
                         {totalTransactionToday?.total_task_today ? totalTransactionToday.total_task_today : 'No transactions yet'}
+                        </h2>
+                    </div>
+                    <img src="/icons/checked.png" />
+                </div>
+                <div className="completed-tasks">
+                    <div>
+                        <h2>Total Task Completed:</h2>
+                        <h2 id="total-completed-task">
+                        {totalTransactions?.total_tasks ? totalTransactions.total_tasks : 'No transactions yet'}
                         </h2>
                     </div>
                     <img src="/icons/checked.png" />

@@ -1,6 +1,7 @@
 import { fn, col, Op } from 'sequelize';
 import ProviderEarning from '../../models/provider-earning.js';
 import Transaction from '../../models/transaction.js';
+import AvailableDate from '../../models/available-date.js';
 
 // This function retrieves the provider's earnings for each month of the current year
 const get_provider_earning_per_month = async (req, res) => {
@@ -49,11 +50,17 @@ const get_provider_today_earnings = async (req, res) => {
         // Retrieve the total of the provider's earning this day
         const todayEarnings = await ProviderEarning.findAll({
             attributes: ['earnings'],
-            where: { payment_date: { [Op.eq]: new Date() } },
             include: [{
               attributes: [],
               model: Transaction,
-              where: { provider: provider_id }
+              where: { 
+                provider: provider_id,
+               },
+               include: [{
+                attributes: [],
+                model: AvailableDate,
+                where: {date: { [Op.eq]: new Date() }}
+               }]
             }]
           });
 

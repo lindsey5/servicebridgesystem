@@ -10,6 +10,7 @@ import Provider from '../../models/provider-account.js';
 import Payment from '../../models/payment.js';
 import paymentService from '../../services/paymentService.js';
 import ProviderBalance from '../../models/provider-balance.js';
+import AvailableDate from '../../models/available-date.js';
 
 const create_transaction = async (req, res) =>{
     try {
@@ -274,10 +275,17 @@ const get_total_completed_transaction_today = async (req, res) =>{
                     [Op.or]: ['Completed', 'Reviewed']
                 }
             },
-            include: [ { 
+            include: [ 
+                { 
                 model: ProviderEarning,
-                where: {payment_date: { [Op.eq]: new Date() } }
-            }]
+                where: {payment_date: { [Op.eq]: new Date() }}
+                },
+                {
+                    attributes: [],
+                    model: AvailableDate,
+                    where: {date: { [Op.eq]: new Date() }}
+                }
+            ]
         })
 
          res.status(200).json({total_task_today});
@@ -291,21 +299,30 @@ const get_completed_transaction_today = async (req, res) => {
     try{
         const completed_transactions = await Transaction.findAll({
             where: {
-                provider: provider_id
+                provider: provider_id,
+                status: {
+                    [Op.or]: ['Completed', 'Reviewed']
+                }
             },
-            include: [ { 
-                model: ProviderEarning,
-                where: { 
-                    payment_date: { [Op.eq]:  new Date() } 
+            include: [ 
+                { 
+                    model: ProviderEarning,
+                    attributes: ['earnings']
                 },
-                attributes: ['earnings']
-            },{ model: Available_date,
-                attributes: ['date']
-             }, 
-            { model: Client,
-                 attributes: ['firstname', 'lastname']
-             }
-        ]
+                { 
+                    model: Available_date,
+                    attributes: ['date']
+                }, 
+                { 
+                    model: Client,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    attributes: [],
+                    model: AvailableDate,
+                    where: {date: { [Op.eq]: new Date() }}
+                }
+            ]
         });
         if(completed_transactions.length > 0){
             res.status(200).json({completed_transactions});
