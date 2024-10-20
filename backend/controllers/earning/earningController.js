@@ -8,25 +8,23 @@ const get_provider_earning_per_month = async (req, res) => {
     const provider_id = req.userId; // Get the userId from the request object then assign to the provider_id variable
     const currentYear = new Date().getFullYear();
     try {
-        const options = { 
+        const options = {
             attributes: [
-                // Calculate the total earnings of the provider for each month
                 [fn('SUM', col('earnings')), 'total_earnings'], 
-                [fn('MONTH', col('payment_date')), 'month']
+                [fn('MONTH', col('payment_date')), 'month'],
             ],
             where: {
                 payment_date: {
                     [Op.between]: [`${currentYear}-01-01`, `${currentYear}-12-31`] // Restrict the query to the current year
                 }
             },
-            // Include the Transaction model with a condition for the specific provider
             include: [{ 
+                attributes: [],
                 model: Transaction,
                 where: { provider: provider_id }
             }],
-            // Group the results by month of the payment date
-            group: [fn('MONTH'), col('payment_date')]
-        };
+            group: [fn('MONTH', col('payment_date'))]
+        };        
         
         const provider_earnings = await ProviderEarning.findAll(options); // Retrieve the earnings for each month
         // Populate the provider_earnings_array with total earnings indexed by month
@@ -38,6 +36,7 @@ const get_provider_earning_per_month = async (req, res) => {
         // Respond with the array of monthly earnings
         res.status(200).json(provider_earnings_array);
     } catch (err) {
+        console.log(err);
          // Handle any errors that occur during the process
         res.status(400).json({ error: err.message }); // Send an error response message
     }
@@ -81,7 +80,6 @@ const get_provider_earnings = async (req, res) => {
 
         res.status(200).json(total_earnings);
     }catch(err){
-        console.log(err);
         res.status(400).json({error: err.message})
     }
 }

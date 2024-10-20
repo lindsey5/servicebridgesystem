@@ -14,7 +14,7 @@ ProviderEarning.init({
     allowNull: false,
   },
   payment_date: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   }
 }, {

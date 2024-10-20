@@ -2,7 +2,6 @@ import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
 import { Op } from 'sequelize';
-import { sequelize } from '../../config/connection.js';
 
 // This function get the client details from the databased based on the client id
 const get_provider = async (req, res) => {
@@ -50,29 +49,17 @@ const getProviders = async (req, res) => {
 
     try {
         const query = {
-            attributes: [
-                'id',
-                'firstname',
-                'lastname',
-                'rating',
-                'profile_pic',
-                'bio',
-                'city',
-                [sequelize.fn('COUNT', sequelize.col('id')), 'count']
-            ],
+            attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city'],
             include: [
                 { 
                     model: ProviderServiceOffered, 
-                    where: { service_name, price: { [Op.ne]: 0 } }, 
-                    attributes: ['service_name', 'price']
+                    where: { service_name, price: {  [Op.ne] : 0 } }, 
+                    attributes: ['service_name', 'price'] 
                 },
-                { 
-                    model: AvailableDate, 
-                    where: { date: { [Op.gte]: new Date() } }
-                }
+                { model: AvailableDate, where: { date: {[Op.gte]: new Date() } } }
             ],
-            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city'], // Include all attributes used in SELECT
-        };
+            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city']
+        }
 
         if(price > 0){
             query.include[0].where.price = { [Op.lt] : price };
@@ -85,9 +72,9 @@ const getProviders = async (req, res) => {
 
         // Get to total rows
         const totalRecords = await Provider.count(query);
-
         // Calculate total pages
         const totalPages = calculateTotalPages(totalRecords[0].count, limit);
+
         query.limit = limit;
         query.offset = offset
         const searchResults = await Provider.findAll(query);
@@ -121,7 +108,7 @@ const getProviders = async (req, res) => {
         }
         
     } catch (err) {
-        console.error('Error fetching data:', err);
+        console.log(err);
         res.status(400).json({ error: 'Error fetching data' });
     }
 }
