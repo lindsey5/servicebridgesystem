@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RecipientContext } from '../../../Context/RecipientContext';
 import TransactionButton from './TransactionButton';
@@ -8,7 +8,6 @@ import { updateTransaction, fail_and_refund } from '../../../services/transactio
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
     const currentDate = new Date();
-    console.log(date < currentDate);
     return date < currentDate;
 };
 

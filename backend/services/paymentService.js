@@ -64,8 +64,6 @@ const refund_payment = async (payment_id, price) => {
 }
 
 const create_checkout_link = async (amount, item, success_url) => {
-    const port = process.env.NODE_ENV === "production" ? 3000 : 5173;
-    console.log(port);
     try{
         const options = {
             method: 'POST',
@@ -80,7 +78,7 @@ const create_checkout_link = async (amount, item, success_url) => {
                 send_email_receipt: false,
                 show_description: false,
                 show_line_items: true,
-                cancel_url: `http://localhost:${port}`,
+                cancel_url: `https://servicebridgesystem.onrender.com/`,
                 success_url,
                 line_items: [{currency: 'PHP', amount, quantity: 1, name: `${item}`}],
                 payment_method_types: [
