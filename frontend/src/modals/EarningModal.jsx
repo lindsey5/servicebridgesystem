@@ -4,7 +4,7 @@ import './EarningModal.css'
 
 const EarningModal = ({setShowEarningModal}) => {
 
-    const { data } = useFetch('/api/earning/provider/history');
+    const { data, loading } = useFetch('/api/earning/provider/history');
     
     const parseNum = (num) =>{
         return num.toLocaleString('en-US', {
@@ -32,6 +32,10 @@ const EarningModal = ({setShowEarningModal}) => {
         <div className="earning-modal">
             <h2>Earnings</h2>
             <div className="earnings-container">
+            {loading && 
+                <div className='loader-container'>
+                    <div className="loader"></div>
+            </div>}
             {data && data.map(earning => <EarningDiv key={earning.transaction_id} earning={earning}/>)}
             </div>
             <button className="close-btn" onClick={() => setShowEarningModal(false)}>Close</button>

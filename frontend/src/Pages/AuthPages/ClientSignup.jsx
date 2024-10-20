@@ -24,7 +24,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
         dispatch({type: 'SET_ERROR', payload: 'Password doesn\'t match'});
     }else{
         try{
-            const response = await fetch('http://localhost:3000/client-signup',{
+            const response = await fetch('/client-signup',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

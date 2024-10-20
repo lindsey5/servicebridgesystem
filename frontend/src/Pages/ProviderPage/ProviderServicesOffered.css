@@ -27,11 +27,11 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    padding-bottom: 20px;
 }
 
 .your-services .service {
     display: flex;
-    
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 5px 3px rgb(177, 177, 177);

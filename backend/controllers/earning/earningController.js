@@ -25,7 +25,7 @@ const get_provider_earning_per_month = async (req, res) => {
                 where: { provider: provider_id }
             }],
             // Group the results by month of the payment date
-            group: [fn('MONTH', col('payment_date'))]
+            group: [fn('MONTH'), col('payment_date')]
         };
         
         const provider_earnings = await ProviderEarning.findAll(options); // Retrieve the earnings for each month
