@@ -8,6 +8,7 @@ import { updateTransaction, fail_and_refund } from '../../../services/transactio
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
     const currentDate = new Date();
+    console.log(date < currentDate);
     return date < currentDate;
 };
 
@@ -16,7 +17,8 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
     const transactionDateTime = `${transaction.date} ${transaction.time}`;
-    if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted') && transaction.payment_method === 'Online Payment') {
+
+    if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
         if(transaction.payment_method === 'Online Payment'){
             fail_and_refund(transaction.id);
         }else{

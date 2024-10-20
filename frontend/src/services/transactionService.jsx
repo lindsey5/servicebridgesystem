@@ -95,7 +95,7 @@ export const rateTransaction = (rating, transactionId, review) => {
 }
 
 export const fail_and_refund = async(transaction_id) =>{
-    const response = await fetch(`/api/transactions/fail/${transaction_id}`,{
+    const response = await fetch(`/api/transaction/fail/${transaction_id}`,{
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

@@ -213,7 +213,7 @@ const get_cancelled_transaction = async (req, res) => {
 
 const fail_transaction = async (req, res) =>{
     const status = 'Failed';
-    const transaction_id = req.params.transaction_id;
+    const transaction_id = req.params.id;
     try{
         const payment = await Payment.findOne({
             where:{
@@ -232,7 +232,8 @@ const fail_transaction = async (req, res) =>{
                 if(updated_transaction){
                     res.status(200).json({updated_transaction});
                 }else{
-                    res.status(400).json({message: "Failed to expire"});
+                    console.log('hehe');
+                    res.status(400).json({message: "Failed to update"});
                 }
             }else{
                 res.status(400).json({message: "Refund Failed"})
@@ -241,6 +242,7 @@ const fail_transaction = async (req, res) =>{
             res.status(400).json({message: "Payment not found"})
         }
     }catch(err){
+        console.log(err);
         res.status(400).json({message: "Refund Failed"})
     }
 }
