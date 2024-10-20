@@ -119,7 +119,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                                     <div>
                                         <div><input type="checkbox" value="Requested" ref={el => checkboxesRef.current[0] = el} onClick={(e) => handleClick(e.target)} />Requested</div>
                                         <div><input type="checkbox" value="Accepted" ref={el => checkboxesRef.current[1] = el} onClick={(e) => handleClick(e.target)} />Accepted</div>
-                                        <div><input type="checkbox" value="On Going" ref={el => checkboxesRef.current[2] = el} onClick={(e) => handleClick(e.target)} />On Going</div>
+                                        <div><input type="checkbox" value="In Progress" ref={el => checkboxesRef.current[2] = el} onClick={(e) => handleClick(e.target)} />In Progress</div>
                                         <div><input type="checkbox" value="Finished" ref={el => checkboxesRef.current[3] = el} onClick={(e) => handleClick(e.target)} />Finished</div>
                                         <div><input type="checkbox" value="Completed" ref={el => checkboxesRef.current[4] = el} onClick={(e) => handleClick(e.target)} />Completed</div>
                                         <div><input type="checkbox" value="Cancelled" ref={el => checkboxesRef.current[5] = el} onClick={(e) => handleClick(e.target)} />Cancelled</div>

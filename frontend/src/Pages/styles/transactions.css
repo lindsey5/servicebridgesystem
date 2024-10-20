@@ -13,6 +13,7 @@
     border-radius: 20px;
     box-shadow: 5px 5px 10px 7px rgb(182, 182, 182);
     padding: 15px;
+    position: relative;
 }
 
 .transactions .top-div{
@@ -243,3 +244,15 @@
     100% { transform: rotate(360deg); }
 }
 
+@media screen and (max-width: 450px){
+    .transactions .filter-div .filter-container{
+        position: fixed;
+        top: 50%;
+        transform: translateY(-60%);
+        width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        background-color: white;
+    }
+}
