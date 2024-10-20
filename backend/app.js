@@ -114,8 +114,6 @@ io.on('connection', (socket) => {
   });
 });
 
-io.listen(process.env.PORT || 4000)
-
 const __dirname = path.resolve();
 
 // Now you can use __dirname
