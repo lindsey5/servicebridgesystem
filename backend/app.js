@@ -12,11 +12,13 @@ import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
 import ChatService from './services/chatService.js';
 import { Server } from 'socket.io';
+import { createServer } from 'http';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
-const origin = 'https://servicebridgesystem.onrender.com';
+const server = createServer(app);
+const origin = server;
 const io = new Server({
   cors: { 
     origin,
@@ -112,7 +114,7 @@ io.on('connection', (socket) => {
   });
 });
 
-io.listen(4000)
+io.listen(process.env.PORT || 4000)
 
 const __dirname = path.resolve();
 
@@ -124,8 +126,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, ()=>{
+/*app.listen(PORT, ()=>{
     connectDB();
     console.log("Server started at http://localhost:" + PORT);
+});*/
+
+// Start the server and connect to the database
+server.listen(PORT, () => {
+  connectDB(); // Your DB connection logic
+  console.log(`Server started at http://localhost:${PORT}`);
 });
 
