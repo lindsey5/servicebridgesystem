@@ -8,6 +8,7 @@ const get_categories = async (req, res) => {
             res.status(200).json(category); // Send a response containing all the categories found
         }        
     }catch(err){
+        console.log(err);
         // Handle any errors that occur during the process
         res.status(400).json({error: err.message});
     }

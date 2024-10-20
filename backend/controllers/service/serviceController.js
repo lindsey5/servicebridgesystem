@@ -18,6 +18,7 @@ const service_findAll = async (req, res) => {
             ]
             
         });
+
         if(services){
             res.status(200).json({services});
         }else{

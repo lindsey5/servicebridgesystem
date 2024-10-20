@@ -11,7 +11,8 @@ const Category = sequelize.define('Category', {
         type: DataTypes.BLOB,
         allowNull: false,
     }
-    }, { timestamps: false, }
+    }, { timestamps: false, tableName: 'categories' },
+
 );
 
 export default Category;

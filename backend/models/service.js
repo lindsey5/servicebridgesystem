@@ -31,7 +31,7 @@ const Service = sequelize.define('Service', {
             }
         }
     }
-    }, { timestamps: false, }
+    }, { timestamps: false, tableName: 'services' }
 );
 
 export default Service;

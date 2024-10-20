@@ -81,6 +81,7 @@ const get_provider_earnings = async (req, res) => {
 
         res.status(200).json(total_earnings);
     }catch(err){
+        console.log(err);
         res.status(400).json({error: err.message})
     }
 }

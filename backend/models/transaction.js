@@ -118,8 +118,6 @@ const Transaction = sequelize.define('transaction', {
     booked_on: {
         type: DataTypes.DATE
     }
-}, {
-    timestamps: false
-});
+}, { timestamps: false, tableName: 'transactions' });
 
 export default Transaction;
