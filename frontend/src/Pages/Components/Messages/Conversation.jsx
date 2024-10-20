@@ -59,6 +59,11 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
             fetchChatPartners(socket);
         });
 
+        return () => {
+            socket.off('past messages', handlePastMessages); // Remove past messages listener
+            socket.off('private message', handlePrivateMessage); // Remove private message listener
+        };
+
     }, [recipientDetails, recipientId]);
 
     useEffect(() =>{
