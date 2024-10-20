@@ -51,6 +51,7 @@ app.get('/api/latest-message', async (req, res) => {
 io.use((socket, next) => {
     const token = socket.handshake.query.token;
     if (!token) {
+        console.log('No token');
         return next(new Error('Authentication error'));
     }
 
@@ -59,19 +60,14 @@ io.use((socket, next) => {
         socket.id = decoded.id;
         next();
     } catch (err) {
+        console.log(err);
         return next(new Error('Authentication error'));
     }
 });
 
 io.on('connection', (socket) => {
   console.log('A user connected with ID:', socket.id);
-  socket.join(socket.userId);
   
-  socket.on('reconnect', () => {
-    socket.join(socket.userId);
-    console.log('User reconnected:', socket.userId);
-  });
-
   // Handle fetching chat partners
   socket.on('chat-partners', async () => {
     console.log('chat-partners emmited');
