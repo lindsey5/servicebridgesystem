@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../../styles/ChatPartners.css';
 import useFetch from '../../../hooks/useFetch';
 import createImageSrc from '../../../utils/createImageSrc';

@@ -108,6 +108,7 @@ const get_provider_transactions = async (req, res) => {
 const cancel_transaction = async (req, res) => {
     const { status, reason: cancellation_reason , user } = req.body.data;
     const transaction_id = req.params.id;
+    const cancelled_by = req.userId;
     try{
         const payment = await Payment.findOne({
             where:{
@@ -119,33 +120,29 @@ const cancel_transaction = async (req, res) => {
                 }
             ]
         });
-        const cancelled_by = user === 'Client' ? payment.dataValues.transaction.dataValues.client : payment.dataValues.transaction.dataValues.provider;
-        const payment_checkout_id = payment.dataValues.payment_checkout_id;
-        const price = payment.dataValues.transaction.dataValues.price;
-        const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
-        if(payment_checkout){
-            const payment_id = payment_checkout.data.attributes.payments[0].id;
-            const refunded_payment = await paymentService.refund_payment(payment_id, price);
-            console.log(refunded_payment);
-            if(refunded_payment){
-                const cancelled_transaction = await cancelledTransactionService.create_cancelled_transaction({transaction_id, cancelled_by, cancellation_reason, canceller: user })
-                if(cancelled_transaction){
-                    const updated_transaction = await transactionService.update_transaction(transaction_id, status);
-                    if(updated_transaction){
-                        res.status(200).json({updated_transaction});
-                    }else{
-                        res.status(400).json({message: "Cancellation Failed"});
-                    }
-                }else{
-                    res.status(400).json({message: "Cancellation Failed"});
+        if(payment){
+            const payment_checkout_id = payment.dataValues.payment_checkout_id;
+            const price = payment.dataValues.transaction.dataValues.price;
+            const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
+            if(payment_checkout){
+                const payment_id = payment_checkout.data.attributes.payments[0].id;
+                const refunded_payment = await paymentService.refund_payment(payment_id, price);
+                if(!refunded_payment){
+                    throw new Error('Refund Failed');
                 }
-            }else{
-                res.status(400).json({message: "Refund Failed"})
             }
-        }else{
-            res.status(400).json({message: "Refund Failed"})
+        }
+        const cancelled_transaction = await cancelledTransactionService.create_cancelled_transaction({transaction_id, cancelled_by, cancellation_reason, canceller: user })
+        if(cancelled_transaction){
+            const updated_transaction = await transactionService.update_transaction(transaction_id, status);
+            if(updated_transaction){
+                res.status(200).json({updated_transaction});
+            }else{
+                res.status(400).json({message: "Cancellation Failed"});
+            }
         }
     }catch(err){
+        console.log(err);
         res.status(400).json({message: "Refund Failed"})
     }
 }
