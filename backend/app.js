@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import routes from './routes/routes.js';
 import jwt from 'jsonwebtoken';
 import { connectDB } from './config/connection.js';
-import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
 import './Associations/EarningAssociations.js';
@@ -113,7 +112,7 @@ io.on('connection', (socket) => {
   });
 });
 
-io.listen(process.env.PORT || 4000)
+io.listen(4000)
 
 const __dirname = path.resolve();
 
