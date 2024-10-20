@@ -59,7 +59,6 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
             fetchChatPartners(socket);
         });
 
-        console.log(recipientDetails);
     }, [recipientDetails, recipientId]);
 
     useEffect(() =>{
