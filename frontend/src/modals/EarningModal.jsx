@@ -12,7 +12,7 @@ const EarningModal = ({setShowEarningModal}) => {
             maximumFractionDigits: 1
         })
     }
-
+    console.log(data);
     const EarningDiv = ({earning}) =>{
         return(
             <div className="earning-div">
@@ -23,6 +23,7 @@ const EarningModal = ({setShowEarningModal}) => {
                         <span>{parseNum(earning.transaction.price) + ' - 5%'}</span>
                     </div>
                 </div>
+                <span>{earning.payment_date}</span>
                 <h3>{'+ ' + parseNum(earning.earnings)}</h3>
             </div>
         )
