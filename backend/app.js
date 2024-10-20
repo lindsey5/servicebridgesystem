@@ -17,7 +17,7 @@ import { Server } from 'socket.io';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
-const origin = process.env.NODE_ENV === "production" ? `https://servicebridgesystem.onrender.com` : "http://localhost:5173";
+const origin =`https://servicebridgesystem.onrender.com`;
 const io = new Server({
   cors: { origin }
 });
