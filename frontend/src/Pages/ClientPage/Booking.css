@@ -6,6 +6,7 @@
     align-items: center;
     position: relative;
     font-family: Arial;
+    width: 100vw;
     height: 100vh;
 }
 
