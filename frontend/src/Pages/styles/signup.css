@@ -1,4 +1,5 @@
 .signup-page{
+    width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -8,7 +9,7 @@
 .signup-page .container{
     width: 300px;
     border-radius: 20px;
-    background-color: white;
+    background-color:white;
     box-shadow: 0 0 10px 8px rgb(206, 206, 206);
     display: flex;
     flex-direction: column;
