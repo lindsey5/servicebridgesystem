@@ -11,13 +11,9 @@ export default function ProviderLayout() {
       <RecipientContextProvider>
         <ProviderHeader />
         <ProviderSideBar />
-        <ProviderContext.Consumer>
-          {({ isSidebarShorten }) => (
-            <main className={`main-content ${isSidebarShorten ? 'shortened' : 'expanded'}`}>
+            <main>
               <Outlet />
             </main>
-          )}
-        </ProviderContext.Consumer>
       </RecipientContextProvider>
     </ProviderContextProvider>
   );

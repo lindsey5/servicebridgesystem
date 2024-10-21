@@ -9,6 +9,10 @@ body{
 }
 
 #root{
-  max-height: 100vh;
-  overflow-y: auto;
+  display: flex;
+}
+
+#root main{
+  flex: 1;
+  overflow-x: auto;
 }

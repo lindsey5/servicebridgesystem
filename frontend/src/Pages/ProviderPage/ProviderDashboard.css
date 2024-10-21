@@ -1,9 +1,8 @@
 .provider-dashboard{
     margin: 0;
     display: flex;
-    padding-left: 20px;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     background-color: rgb(235, 235, 235);
 }
 
@@ -117,9 +116,10 @@
     background-color: white;
     box-sizing: border-box;
     margin: 10px;
-    overflow-y: auto;
     box-shadow: 0 0 10px 2px rgb(182, 182, 182);
     border-radius: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .provider-dashboard .task-completed-container h2{
@@ -128,6 +128,7 @@
 
 .provider-dashboard .task-completed-container > table {
     width: 100%;
+    height: 80%;
     padding: 10px;
     border-collapse: collapse;
 }
@@ -155,12 +156,42 @@
         width: 60%;
     }
 
-    .provider-dashboard{
-        width: 1000px;
-    }
-
     .provider-dashboard .top-section > div h2, .provider-dashboard .top-section > div h1{
         font-size: 15px;
     }
 }
-    
+
+@media screen and (max-width: 875px){
+    .provider-dashboard .top-section > div img{
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 700px){
+    .dashboard-mid-section{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dashboard-mid-section .account-balance{
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    .dashboard-mid-section .chart-container{
+        width: 90%;
+    }
+
+    .provider-dashboard .task-completed-container{
+        width: 90%;
+    }
+
+}
+
+@media screen and (max-width: 425px) {
+    .provider-dashboard .top-section{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}

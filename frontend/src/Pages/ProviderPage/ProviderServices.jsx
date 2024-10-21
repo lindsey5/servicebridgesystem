@@ -11,7 +11,6 @@ const ProviderServices = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [showSuccess, setSuccessModal] = useState(false);
 
-    console.log(data);
     useEffect(() => {
         document.title = "Services List | Provider";
     },[]);

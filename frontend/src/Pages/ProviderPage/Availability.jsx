@@ -140,7 +140,7 @@ const Availability = () => {
                 transactions.map((transaction, index) => {
                   // Determine status color
                   let statusClass = '';
-                  if (transaction.status === 'Cancelled' || transaction.status === 'Declined' || transaction.status === 'Expired') {
+                  if (transaction.status === 'Cancelled' || transaction.status === 'Declined' || transaction.status === 'Failed') {
                     statusClass = 'red';
                   } else if (
                     transaction.status === 'Completed' ||
@@ -169,6 +169,16 @@ const Availability = () => {
           </div>
         );
       };
+
+    const formatDate = (date) =>{
+        const dateObj = new Date(JSON.stringify(date));
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        return formatter.format(dateObj);
+    }
 
     return (
         <div className="availability">
@@ -205,7 +215,7 @@ const Availability = () => {
             </div>
             <div className="transactions-div" style={{ display: showTransactions ? 'flex' : 'none' }}>
                 <div className="transactions-header">
-                    <h2>{selectedDate}</h2>
+                    <h2>{formatDate(selectedDate)}</h2>
                 </div>
                 <TransactionsDiv transactions={transactions}/>
             </div>

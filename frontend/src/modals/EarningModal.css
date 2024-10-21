@@ -3,7 +3,8 @@
     height: 580px;
     background-color: white;
     top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 20px;
     border: 1px solid rgb(202, 202, 202);
     padding: 20px;
@@ -91,4 +92,28 @@
 
 .earning-modal .close-btn:hover{
     background-color: rgb(255, 168, 168);
+}
+
+
+@media screen and (max-height: 800px){
+    .earning-modal{
+        height: 70%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .earning-modal{
+        width: 95vw;
+    }
+
+    .earnings-container{
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .earning-div{
+        width: 98%;
+    }
+    
+
 }

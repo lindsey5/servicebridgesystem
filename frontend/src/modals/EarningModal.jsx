@@ -12,7 +12,6 @@ const EarningModal = ({setShowEarningModal}) => {
             maximumFractionDigits: 1
         })
     }
-    console.log(data);
     const EarningDiv = ({earning}) =>{
         return(
             <div className="earning-div">

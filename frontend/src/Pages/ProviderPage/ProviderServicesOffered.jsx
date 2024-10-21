@@ -10,7 +10,6 @@ const ProviderServicesOffered = () => {
     const { data } = useFetch('/api/services-offered');
     const [serviceDetails, setServiceDetails] = useState({service_id: null, price: 0});
     const [showEditModal, setEditModal] = useState(false);
-
     useEffect(() => {
         document.title = "Your Services | Provider";
     },[]);    

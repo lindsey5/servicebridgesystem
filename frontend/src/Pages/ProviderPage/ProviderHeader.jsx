@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import { ProviderContext } from '../../Context/ProviderContext';
 
 const ProviderHeader = () =>{
-    const { setIsSidebarShorten } =  useContext(ProviderContext);
+    const { setHideSideBar } =  useContext(ProviderContext);
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const ProviderHeader = () =>{
     return (
     <header className='provider-header'>
         <div className="header-left-div">
-            <button className="sidebar-toggle-btn" onClick={() => setIsSidebarShorten(prev => !prev)}>
+            <button className="sidebar-toggle-btn" onClick={() => setHideSideBar(prev => !prev)}>
                 <img src="/icons/menu.png" alt="menu" />
             </button>
             <h1 id="title" onClick={()=> navigate('/Provider/Dashboard')}>Hustle</h1>

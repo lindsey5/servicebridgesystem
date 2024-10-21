@@ -22,6 +22,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const dateInputRef = useRef(null);
     const {modal_state, modal_dispatch} = useModalReducer();
     const [loading, setLoading] = useState(true);
+    const [fetchedData, setFetchedData] = useState();
 
     const [user, setUser] = useState(null);
 
@@ -38,16 +39,10 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
 
     useEffect(()=>{
         async function fetchTransactions () {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({selectedStatus: state.selectedStatus, date: state.date})
-            });
+            const response = await fetch(url);
             const result = await response.json();
             const transactionInstances = await Promise.all(result.transactions.map((transactionData) => createTransactionObject(transactionData)));
-           
+            setFetchedData(transactionInstances);
             dispatch({ type: 'SET_TRANSACTIONS',payload: transactionInstances });
             setTotalPages(result.totalPages);
             currentPage === result.totalPages ? setNextBtn(true) : setNextBtn(false);
@@ -55,7 +50,20 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             setLoading(false);
         }
         fetchTransactions();
-    }, [state.selectedStatus, state.date, currentPage]);
+    }, [currentPage]);
+
+    useEffect(() =>{
+        if(state.transactions){
+            // Filter the state.transactions by state.date and state.selectedStatus
+            const filteredTransactions = state.date || state.selectedStatus.length > 0 ? 
+            state.transactions.filter(transaction => 
+                transaction.date === state.date || 
+                state.selectedStatus.includes(transaction.status)) : 
+                fetchedData;
+            
+            dispatch({ type: 'SET_TRANSACTIONS',payload: filteredTransactions });
+         }
+    },[state.selectedStatus, state.date]);
 
     const handleClick = (target) =>{
         if (!target.checked) {

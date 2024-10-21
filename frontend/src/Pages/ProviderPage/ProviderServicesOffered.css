@@ -103,8 +103,14 @@
 }
 
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1024px){
     .your-services .services-container{
-        grid-template-columns: repeat(3, 400px);
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px){
+    .your-services .services-container{
+        grid-template-columns: 1fr;
     }
 }

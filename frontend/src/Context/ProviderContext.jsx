@@ -5,7 +5,7 @@ export const  ProviderContext = createContext();
 
 export const ProviderContextProvider = ({children}) => {
     const [fullname, setFullname] = useState(null);
-    const [isSidebarShorten, setIsSidebarShorten] = useState(false);
+    const [hideSideBar, setHideSideBar] = useState(false);
     
     const {data: ProviderData} = useFetch('/api/provider');
 
@@ -17,7 +17,7 @@ export const ProviderContextProvider = ({children}) => {
     }, [ProviderData])
 
     return (
-        <ProviderContext.Provider value={{ fullname, isSidebarShorten, setIsSidebarShorten }}>
+        <ProviderContext.Provider value={{ fullname, hideSideBar, setHideSideBar }}>
             {children}
         </ProviderContext.Provider>
     )

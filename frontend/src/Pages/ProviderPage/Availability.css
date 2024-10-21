@@ -1,7 +1,9 @@
 .availability{
     display: flex;
-    justify-content: center;
     padding: 150px 20px;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
 }
 
 .calendar-container ul, .calendar-container li {
@@ -11,7 +13,6 @@
 }
 
 .calendar-container {
-    width: 60%;
     border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     position: relative;
@@ -184,6 +185,7 @@
     flex-wrap: wrap;
     background-color: white;
     border-bottom: 1.6px solid rgb(204, 204, 204);
+    text-align: center;
 }
 
 .blue{
@@ -201,8 +203,30 @@
     background-color: rgb(213, 255, 213);
 }
 
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 600px){
     .availability{
-        width: 1000px;
+        justify-content: start;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .availability{
+        flex-direction: column;
+    }
+
+    .transactions-div{
+        margin-top: 150px;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    .calendar-dates li{
+        font-size: 12px;
+    }
+
+    .calendar-dates li::before{
+        width: 45px;
+        height: 45px;
     }
 }
