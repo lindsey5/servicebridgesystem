@@ -11,7 +11,7 @@ const Home = () => {
     const { isVisible: showSignup, show: showSignupModal, hide: hideSignupModal} = useModal();
 
     return (
-        <>
+        <main>
             <Header showLoginModal={showLoginModal} showSignupModal={showSignupModal}/>
             <LoginModal show={showLogin} hideModal={hideLoginModal}/>
             <SignupModal show={showSignup} hideModal={hideSignupModal}/>
@@ -89,7 +89,7 @@ const Home = () => {
                 </div>
                 <h2>© 2024 Hustle Inc. All rights reserved.</h2>
             </footer>
-        </>
+        </main>
     );
 }
 
