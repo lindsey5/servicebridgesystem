@@ -39,8 +39,10 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
 
     useEffect(()=>{
         async function fetchTransactions () {
+            setLoading(true);
             setNextBtn(true)
             setPrevBtn(true);
+            dispatch({ type: 'SET_TRANSACTIONS',payload: null });
             const response = await fetch(url);
             const result = await response.json();
             const transactionInstances = await Promise.all(result.transactions.map((transactionData) => createTransactionObject(transactionData)));
