@@ -5,8 +5,8 @@
   height: 100vh;
   background-color: white;
   opacity: 0;
-  transform: translateX(-100px);
-  transition: transform 0.7s ease-out;
+  transform: translateX(-150px);
+  transition: transform 0.8s ease-out;
 }
 
 .Home .textDiv {
@@ -103,8 +103,9 @@
   justify-content: center;
   padding: 80px 0;
   width: 100vw;
-  transform: translateX(-100px);
-  transition: transform 0.7s ease-out;
+  opacity: 0;
+  transform: translateX(-150px);
+  transition: transform 0.8s ease-out;
 }
 
 .how-it-work-section img{
