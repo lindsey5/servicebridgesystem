@@ -14,18 +14,26 @@
   margin: 0 30px;
 }
   
-.Home .textDiv h1 {
+.Home .textDiv .tagline {
   font-size: 3em;
   color: rgb(3, 117, 247);
   margin-bottom: 10px;
-  animation: slideHomeText 1.5s ease-in-out;
+  opacity: 0;
 }
 
-.Home p {
+.Home .textDiv .tagline.animate {
+  animation: slideHomeText 0.8s ease-in-out forwards 0.5s;
+}
+
+.Home .platform {
   font-size: 1.2em;
   margin-bottom: 20px;
   line-height: 1.7;
-  animation: slideHomeText 2.5s ease-in-out;
+  opacity: 0;
+}
+
+.Home .platform.animate{
+  animation: slideHomeText 1.5s ease-in-out forwards 1s ;
 }
 
 @keyframes slideHomeText{
@@ -47,7 +55,24 @@
   border-radius: 10px;
   cursor: pointer;
   font-size: 20px;
+  opacity: 0;
   transition: transform 0.5s ease;
+}
+
+.Home button.animate{
+  animation: animateButton 0.8s ease-in 1.8s forwards;
+}
+
+@keyframes animateButton{
+  from{
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .Home .signup-btn{
@@ -63,7 +88,7 @@
 .Home .login-btn{
   margin: 10px;
   background-color: rgb(224, 224, 224);
-  border: 1px solid rgb(161, 161, 161)
+  border: 1px solid rgb(161, 161, 161);
 }
   
 .homeLogo {
