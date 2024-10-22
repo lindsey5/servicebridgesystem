@@ -182,6 +182,10 @@ const Availability = () => {
 
     return (
         <div className="availability">
+            <div className='top-section'>
+                <h1>Your Availability</h1>
+                <span>Choose a date you'd like to add to your availability</span>
+            </div>
             <div className="calendar-container">
                 <div className="legend">
                     <div><span id="today"></span>Today</div>

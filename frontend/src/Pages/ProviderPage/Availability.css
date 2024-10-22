@@ -1,9 +1,26 @@
 .availability{
     display: flex;
-    padding: 150px 20px;
+    padding: 190px 20px;
     justify-content: center;
     align-items: center;
     overflow-x: auto;
+    position: relative;
+}
+
+.availability > .top-section{
+    top: 80px;
+    left: 30px;
+    position: absolute;
+    font-size: 15px;
+}
+
+.availability > .top-section h1{
+    color: black;
+    margin-bottom: 10px;
+}
+
+.availability > .top-section span{
+    color: grey;
 }
 
 .calendar-container ul, .calendar-container li {
