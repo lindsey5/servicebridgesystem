@@ -42,14 +42,14 @@ const Home = () => {
             <SignupModal show={showSignup} hideModal={hideSignupModal}/>
             <section id='home' className='Home' ref={el => elementsRef.current[0] = el}>
                 <div className='textDiv'>
-                    <h1 className='tagline' ref={el => elementsRef.current[1] = el}>Empowering Your Hustle, Bridging Your Future!</h1>
-                    <p className='platform' ref={el => elementsRef.current[2] = el}>Hustle serves as a vital bridge, connecting skilled individuals with those in need of their unique services</p>
-                <button className='signup-btn' ref={el => elementsRef.current[3] = el} onClick={showSignupModal}>Sign Up</button>
-                <button className='login-btn' ref={el => elementsRef.current[4] = el}onClick={showLoginModal}>Log In</button>
+                    <h1 className='tagline' ref={el => elementsRef.current[2] = el}>Empowering Your Hustle, Bridging Your Future!</h1>
+                    <p className='platform' ref={el => elementsRef.current[3] = el}>Hustle serves as a vital bridge, connecting skilled individuals with those in need of their unique services</p>
+                <button className='signup-btn' ref={el => elementsRef.current[4] = el} onClick={showSignupModal}>Sign Up</button>
+                <button className='login-btn' ref={el => elementsRef.current[5] = el}onClick={showLoginModal}>Log In</button>
                 </div>
                 <img className='homeLogo' src={ logo }></img> 
             </section>
-            <section className='how-it-work-section' ref={el => elementsRef.current[5] = el}>
+            <section className='how-it-work-section' ref={el => elementsRef.current[6] = el}>
                 <img src='/icons/logo.jpg'/> 
                 <div className="how-it-work-container">
                         <h1>How it works</h1>
