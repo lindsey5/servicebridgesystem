@@ -6,7 +6,7 @@
   background-color: white;
   opacity: 0;
   transform: translateX(-150px);
-  transition: transform 0.8s ease-out;
+  transition: transform 1s ease-out;
 }
 
 .Home .textDiv {
@@ -105,7 +105,7 @@
   width: 100vw;
   opacity: 0;
   transform: translateX(-150px);
-  transition: transform 0.8s ease-out;
+  transition: transform 1s ease-out;
 }
 
 .how-it-work-section img{
