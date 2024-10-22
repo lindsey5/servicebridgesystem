@@ -102,7 +102,6 @@
   align-items: center;
   justify-content: center;
   padding: 80px 0;
-  width: 100vw;
   opacity: 0;
   transform: translateX(-150px);
   transition: transform 1s ease-out;
