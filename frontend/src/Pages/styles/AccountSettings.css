@@ -148,7 +148,7 @@ input[type="file"] {
 
 @media screen and (max-width: 650px) {
     .profile-pic-parent-container{
-        top: 110px;
+        top: 120px;
         left: 0;
         right: 0;
         position: fixed;
@@ -166,6 +166,10 @@ input[type="file"] {
     .details-container .buttons{
         display: flex;
         justify-content: space-between;
+    }
+
+    .details-container .buttons > button{
+        width: 40%;
     }
 
 }

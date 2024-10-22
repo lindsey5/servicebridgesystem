@@ -173,6 +173,7 @@
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
+    overflow-x: auto;
 }
 
 .transactions-container > div {
@@ -182,10 +183,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     background-color: white;
     border-bottom: 1.6px solid rgb(204, 204, 204);
     text-align: center;
+}
+
+.transactions-container > div > p{
+    margin: 0 5px;
 }
 
 .blue{
