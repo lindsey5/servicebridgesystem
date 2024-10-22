@@ -81,7 +81,8 @@
     outline: none;
 }
 
-.details-container .input-container > label{
+.details-container .input-container > label,
+.details-container .address-container > label{
     color: rgb(153, 153, 153);
     margin-bottom: 3px;
 }
