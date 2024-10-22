@@ -182,7 +182,7 @@
     font-size: 25px;
 }
 
-#account-setting, #logout, #transactions-btn{
+#account-settings-btn, #logout, #transactions-btn{
     width: 240px;
     height: 35px;
     margin-top: 5px;
@@ -198,7 +198,7 @@
 
 #logout:hover, 
 #transactions-btn:hover,
-#account-setting:hover{
+#account-settings-btn:hover{
     background-color: rgb(196, 196, 196);
 }
 

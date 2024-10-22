@@ -19,6 +19,7 @@ import Availability from './Pages/ProviderPage/Availability.jsx';
 import Messages from './Pages/Components/Messages/Messages.jsx';
 import Services from './Pages/Components/Services/Services.jsx';
 import ClientSignup from './Pages/AuthPages/ClientSignup.jsx';
+import ClientAccountSettings from './Pages/ClientPage/ClientAccountSetting.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="Transactions" element={<ClientTransactions />}/>
             <Route path='Messages' element={<Messages />}/>
             <Route path='Services' element={<Services />}/>
+            <Route path='Account' element={<ClientAccountSettings />}/>
           </Route>
         </Route>
   

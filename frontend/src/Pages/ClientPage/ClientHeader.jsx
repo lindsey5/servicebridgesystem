@@ -105,9 +105,9 @@ const ClientHeader = () => {
                         alt="User Profile" 
                     />
                     <h1 id="user-fullname">{context.fullname}</h1>
-                    <button id="account-setting">
+                    <button id="account-settings-btn" onClick={() => navigate('/Client/Account')}>
                         <img src="/icons/user.png" className="icon" alt="Menu Icon" />
-                        Account Setting
+                        Account Settings
                     </button>
                     <button id="transactions-btn" onClick={() => navigate('/Client/Transactions')}>
                         <img src="/icons/menu.png" className="icon" alt="Menu Icon" />Transactions

@@ -1,0 +1,171 @@
+.account-settings{
+    height: 100vh;
+    position: relative;
+}
+
+.account-settings .top-div{
+    padding-top: 80px;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-settings .top-section, 
+.account-settings .top-div,
+.account-settings .container{
+    background-color: rgb(3, 117, 247);
+}
+
+.account-settings .top-section > h1, 
+.account-settings .top-section > span{
+    margin-top: 0;
+    color: white;
+}
+
+.account-settings .container{
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    z-index: 2;
+    border-radius: 20px;
+}
+
+.account-settings .details-container{
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 15px 5px rgb(163, 163, 163);
+    display: grid;
+    grid-template-columns: 70% 30%;
+    padding: 20px;
+    width: 70vw;
+    position: relative;
+}
+
+.details-container .error-div{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.error-div > span{
+    color: red;
+}
+
+.details-container .input-parent-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 30px;
+    justify-content: space-between;
+}
+
+.details-container .input-container,
+.details-container .address-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    position: relative;
+    width: 45%;
+}
+
+.details-container .input-container > input{
+    height: 30px;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 10px;
+    outline: none;
+}
+
+.details-container .address-container > textarea{
+    height: 80px;
+    outline: none;
+}
+
+.details-container .input-container > label{
+    color: rgb(153, 153, 153);
+    margin-bottom: 3px;
+}
+
+.details-container .input-container > span{
+    position: absolute;
+    right: 5px;
+    bottom: -20px;
+    color: rgb(3, 117, 247);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.details-container .input-container > span:hover{
+    text-decoration: underline;
+}
+
+.details-container .profile-pic-parent-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.details-container .profile-pic-parent-container > img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.profile-pic-parent-container > label{
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: rgb(3, 117, 247);
+    padding: 5px 15px;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.profile-pic-parent-container > label:hover{
+    background-color: rgb(169, 209, 255);
+}
+
+.details-container .buttons{
+    margin-bottom: 20px;
+}
+
+.details-container .buttons > button{
+    width: 150px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.details-container .save-btn{
+    background-color: rgb(3, 117, 247);
+    color: white;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .profile-pic-parent-container{
+        top: 110px;
+        left: 0;
+        right: 0;
+        position: fixed;
+    }
+
+    .account-settings .address-container{
+        width: 100%;
+    }
+
+    .account-settings .details-container{
+        grid-template-columns: 1fr;
+        padding-top: 220px;
+    }
+
+    .details-container .buttons{
+        display: flex;
+        justify-content: space-between;
+    }
+
+}

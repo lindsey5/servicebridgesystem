@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/', clientRequireAuth, clientController.get_client);
 router.get('/name/:id', clientController.get_client_name);
 router.get('/address/:id', clientController.get_client_address);
+router.put('/update', clientRequireAuth, clientController.update_client);
 
 export default router;

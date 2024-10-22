@@ -1,4 +1,5 @@
 import Client_account from '../../models/client-account.js';
+import { handleErrors } from '../../utils/authErrorHandler.js';
 
 // This function get the client details from the databased based on the client id
 const get_client = async (req, res) => {
@@ -54,5 +55,22 @@ const get_client_address = async (req, res) => {
     }
 }
 
+const update_client = async (req, res) => {
+    const { id, ...data } = req.body.data;
+    try{
+        const client = await Client_account.findByPk(id);
+        if(client){
+            const updatedClient = await client.update(data);
+            res.status(200).json(updatedClient);
+        }
+    }catch(err){
+        if(err.name === 'SequelizeUniqueConstraintError'){
+            err.message = 'Username Already used';
+        }
+        res.status(400).json({error: err.message}); // Send an error response
+    }
 
-export default { get_client, get_client_name, get_client_address }
+}
+
+
+export default { get_client, get_client_name, get_client_address, update_client }

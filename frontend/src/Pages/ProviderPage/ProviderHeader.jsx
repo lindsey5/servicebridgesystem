@@ -55,9 +55,9 @@ const ProviderHeader = () =>{
                 <h1 id="user-fullname">
                     {providerData?.provider.firstname && providerData?.provider.lastname && `${providerData.provider.firstname} ${providerData.provider.lastname}`}
                 </h1>
-                <button id="account-setting">
+                <button id="account-settings-btn">
                     <img src="/icons/user.png" className="icon" alt="exit icon" />
-                    Account Setting
+                    Account Settings
                 </button>
                 <button id="logout" onClick={() => logout()}>
                     <img src="/icons/exit.png" className="icon" alt="exit icon" />
