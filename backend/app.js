@@ -19,10 +19,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
 const server = createServer(app);
+const origin = process.env.NODE_ENV === 'production' ? 'https://servicebridgesystem.onrender.com' : 'http://localhost:5173';
 
 const io = new Server(server,{
   cors: { 
-    origin: 'https://servicebridgesystem.onrender.com',
+    origin,
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true

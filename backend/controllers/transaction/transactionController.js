@@ -41,7 +41,6 @@ const get_client_transactions = async (req, res) => {
     const { page, limit} = req.query;
     const offset = (page - 1 ) * limit;
     const parseLimit = parseInt(limit);
-    const {selectedStatus, date} = req.body;
     try{
         const id = req.userId;
         const query = {
@@ -49,18 +48,6 @@ const get_client_transactions = async (req, res) => {
             order: [
                 ['booked_on', 'DESC']
             ]
-        }
-
-        if(date){
-            query.include = {
-            model: Available_date,
-                where: {date},
-            }
-        }
-        if(selectedStatus.length > 0){
-            query.where.status = {
-                [Op.in]: selectedStatus
-            };
         }
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);
         if(transactions){
@@ -83,7 +70,7 @@ const get_provider_transactions = async (req, res) => {
                 ['booked_on', 'DESC']
             ]
         }
-        
+
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);
         if(transactions){
             res.status(200).json(transactions);

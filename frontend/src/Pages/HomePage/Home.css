@@ -201,8 +201,7 @@
 }
 
 .animate {
-  opacity: 1;
-  animation: slideToRight 0.8s ease-out;
+  animation: slideToRight 0.8s ease-out forwards;
 }
 
 @keyframes slideToRight {

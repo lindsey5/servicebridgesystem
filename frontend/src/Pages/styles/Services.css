@@ -1,9 +1,9 @@
 .services-section{
     display: flex;
-    padding-top: 100px;
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    padding-top: 80px;
 }
 
 .services-section > h1{
