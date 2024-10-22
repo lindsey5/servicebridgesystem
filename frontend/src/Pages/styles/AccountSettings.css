@@ -46,7 +46,7 @@
 
 .details-container .error-div{
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .error-div > span{
@@ -148,7 +148,7 @@ input[type="file"] {
 
 @media screen and (max-width: 650px) {
     .profile-pic-parent-container{
-        top: 120px;
+        top: 130px;
         left: 0;
         right: 0;
         position: fixed;
