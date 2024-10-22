@@ -1,6 +1,7 @@
 import Category from '../../models/category.js';
 import Service from '../../models/service.js';
-import { Sequelize } from 'sequelize';
+import { col, fn, Sequelize } from 'sequelize';
+import Transaction from '../../models/transaction.js';
 
 const service_findAll = async (req, res) => {
     try{
@@ -50,4 +51,23 @@ const services_byCategory = async (req, res) =>{
     }
 }
 
-export default { service_findAll, services_byCategory } 
+const get_top_services = async (req, res) => {
+    try{
+        const services = await Transaction.findAll({
+            attributes: [
+                'service_name',
+                [fn('COUNT', col('service_name')), 'service_count']
+            ],
+            group: ['service_name'],
+            order: [[fn('COUNT', col('service_name')), 'DESC']],
+            limit: 10
+        });
+        res.status(200).json({services});
+
+    }catch(err){
+        console.log(err);
+        res.status(400).json({error: err.message});
+    }
+}
+
+export default { service_findAll, services_byCategory, get_top_services } 

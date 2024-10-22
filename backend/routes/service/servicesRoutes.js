@@ -3,7 +3,8 @@ import serviceController from '../../controllers/service/serviceController.js';
 
 const router = express.Router();
 
-router.get('/services', serviceController.service_findAll);
-router.get('/services/:category', serviceController.services_byCategory);
+router.get('/', serviceController.service_findAll);
+router.get('/top', serviceController.get_top_services);
+router.get('/:category', serviceController.services_byCategory);
 
 export default router;

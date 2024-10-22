@@ -135,8 +135,9 @@
   justify-content: center;
   align-items: center;
   color: white;
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 20px;
+  box-shadow: 0 0 15px 5px rgb(150, 199, 255);
 }
 
 .how-it-work-section .how-it-work-container > div {

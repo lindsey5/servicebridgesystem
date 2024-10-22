@@ -19,7 +19,7 @@ const useRoutes = (app) => {
     app.use(providerAuthRoutes);
     app.use('/api/provider', providerRoutes);
     app.use('/api/services-offered', servicesOfferedRoutes);
-    app.use('/api', servicesRoutes);
+    app.use('/api/services', servicesRoutes);
     app.use('/api',transactionRoutes);
     app.use('/api',availableDateRoutes);
     app.use('/api/earning', earningRoutes);

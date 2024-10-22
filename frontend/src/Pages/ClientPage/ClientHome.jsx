@@ -3,16 +3,30 @@ import searchLogo from '../../assets/search (1).png';
 import serviceIcon from '../../assets/service.png';
 import defaultProfilePic from '../../assets/user (1).png';
 import { ClientContext } from '../../Context/ClientContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 const ClientHome = () => {
     const context = useContext(ClientContext);
     const navigate = useNavigate();
+    const { data } = useFetch('/api/services/top');
+    const [popServices, setPopServices] = useState();
 
     useEffect(() => {
         document.title = "Client";
-    })
+    },[])
+
+    useEffect(() => {
+        if(data?.services){
+            setPopServices(data.services.map(service => service.service_name));
+        }
+    }, [data])
+
+    useEffect(() => {
+        console.log(popServices);
+    }, [popServices]);
+
     return (
         <div className='client-home'>
             <div className="home-container">
@@ -28,26 +42,12 @@ const ClientHome = () => {
                     <div className="popular-services-container">
                         <h1>Popular services</h1>
                         <div className="popular-services-div">
-                            <div className="popular-services">
-                                <img src={searchLogo} alt="Search Icon"/>
-                                Home Cleaning
+                        {popServices && popServices.map(service => 
+                            <div className="popular-services" onClick={() => navigate(`/Client/Search/Result?searchTerm=${service}`)}>
+                            <img src={searchLogo} alt="Search Icon"/>
+                            {service}
                             </div>
-                            <div className="popular-services">
-                                <img src={searchLogo} alt="Search Icon"/>
-                                Roof Repair
-                            </div>
-                            <div className="popular-services">
-                                <img src={searchLogo} alt="Search Icon"/>
-                                Flooring Repairs
-                            </div>
-                            <div className="popular-services">
-                                <img src={searchLogo} alt="Search Icon"/>
-                                Windows Installation
-                            </div>
-                            <div className="popular-services">
-                                <img src={searchLogo} alt="Search Icon"/>
-                                Heavy Furniture Moving
-                            </div>
+                        )}
                         </div>
                     </div>
 
