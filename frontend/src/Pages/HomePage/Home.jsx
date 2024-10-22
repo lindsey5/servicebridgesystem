@@ -40,7 +40,7 @@ const Home = () => {
             <Header showLoginModal={showLoginModal} showSignupModal={showSignupModal}/>
             <LoginModal show={showLogin} hideModal={hideLoginModal}/>
             <SignupModal show={showSignup} hideModal={hideSignupModal}/>
-            <section className='Home' ref={el => elementsRef.current[0] = el}>
+            <section id='home' className='Home' ref={el => elementsRef.current[0] = el}>
                 <div className='textDiv'>
                     <h1 className='tagline' ref={el => elementsRef.current[1] = el}>Empowering Your Hustle, Bridging Your Future!</h1>
                     <p className='platform' ref={el => elementsRef.current[2] = el}>Hustle serves as a vital bridge, connecting skilled individuals with those in need of their unique services</p>
