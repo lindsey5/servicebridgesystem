@@ -8,6 +8,7 @@ import { updateTransaction, fail_and_refund } from '../../../services/transactio
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
     const currentDate = new Date();
+    date.setHours(date.getHours() + 1);
     return date < currentDate;
 };
 
