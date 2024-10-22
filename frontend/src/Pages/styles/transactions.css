@@ -42,7 +42,7 @@
     border: none;
     cursor: pointer;
     font-size: 15px;
-    width: 80px;
+    min-width: 80px;
 }
 
 .transactions .filter-div .filter-button > img{
@@ -130,8 +130,8 @@
 
 .transactions .pagination-controls{
     display: flex;
-    min-width: 110px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .transactions .pagination-controls button{
