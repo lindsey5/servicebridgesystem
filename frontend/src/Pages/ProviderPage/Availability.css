@@ -215,6 +215,7 @@
     }
 
     .transactions-div{
+        width: 80vw;
         margin-top: 150px;
         margin-left: 0;
     }
