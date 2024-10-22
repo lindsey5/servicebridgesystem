@@ -28,7 +28,7 @@ const Home = () => {
     
         elementsRef.current.forEach((el) => {
             if (el) {
-              observer.observe(el);
+                observer.observe(el);
             }
           });
         return () => observer.disconnect();
