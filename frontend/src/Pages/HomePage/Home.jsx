@@ -5,17 +5,42 @@ import Header from './header.jsx';
 import useModal from '../../hooks/useModal.jsx';
 import './Home.css';
 import Services from '../Components/Services/Services.jsx';
+import { useState, useEffect, useRef } from 'react';
 
 const Home = () => {
     const { isVisible: showLogin , show: showLoginModal, hide: hideLoginModal } = useModal();
     const { isVisible: showSignup, show: showSignupModal, hide: hideSignupModal} = useModal();
+    const elementsRef = useRef([]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                } else {
+                    entry.target.classList.remove('animate');
+                }
+            });
+          },
+          { threshold: 0.3 }
+        );
+    
+        elementsRef.current.forEach((el) => {
+            if (el) {
+              observer.observe(el);
+            }
+          });
+        return () => observer.disconnect();
+      }, []);
+
 
     return (
         <main>
             <Header showLoginModal={showLoginModal} showSignupModal={showSignupModal}/>
             <LoginModal show={showLogin} hideModal={hideLoginModal}/>
             <SignupModal show={showSignup} hideModal={hideSignupModal}/>
-            <section className='Home' id='home'>
+            <section className='Home' ref={el => elementsRef.current[0] = el}>
                 <div className='textDiv'>
                 <h1>Empowering Your Hustle, Bridging Your Future!</h1>
                 <p>Hustle serves as a vital bridge, connecting skilled individuals with those in need of their unique services</p>
@@ -24,7 +49,7 @@ const Home = () => {
                 </div>
                 <img className='homeLogo' src={ logo }></img> 
             </section>
-            <div className='how-it-work-section'>
+            <section className='how-it-work-section' ref={el => elementsRef.current[1] = el}>
                 <img src='/icons/logo.jpg'/> 
                 <div className="how-it-work-container">
                         <h1>How it works</h1>
@@ -53,7 +78,7 @@ const Home = () => {
                             <p>Give Feedback</p>
                         </div>
                 </div>
-            </div>
+            </section>
             <Services showLoginModal={showLoginModal}/>
             <footer className='home-footer'>
                 <div>

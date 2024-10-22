@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react"
 import { ProviderContext } from "../../Context/ProviderContext";
 
 export default function ProviderSideBar () {
-    const { hideSideBar } = useContext(ProviderContext);
+    const { hideSideBar, setHideSideBar } = useContext(ProviderContext);
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = useState(1);
 

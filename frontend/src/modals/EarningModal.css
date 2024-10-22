@@ -94,13 +94,6 @@
     background-color: rgb(255, 168, 168);
 }
 
-
-@media screen and (max-height: 800px){
-    .earning-modal{
-        height: 70%;
-    }
-}
-
 @media screen and (max-width: 500px){
     .earning-modal{
         width: 95vw;

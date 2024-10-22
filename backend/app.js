@@ -13,6 +13,7 @@ import './Associations/ProviderAssociations.js';
 import ChatService from './services/chatService.js';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -27,7 +28,10 @@ const io = new Server(server,{
     credentials: true
    }
 });
-
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}))
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true}));
 app.use(morgan('dev'));

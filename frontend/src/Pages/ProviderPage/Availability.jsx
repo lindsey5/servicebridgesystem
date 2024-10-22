@@ -215,7 +215,7 @@ const Availability = () => {
             </div>
             <div className="transactions-div" style={{ display: showTransactions ? 'flex' : 'none' }}>
                 <div className="transactions-header">
-                    <h2>{formatDate(selectedDate)}</h2>
+                    <h2>{selectedDate && formatDate(selectedDate)}</h2>
                 </div>
                 <TransactionsDiv transactions={transactions}/>
             </div>
