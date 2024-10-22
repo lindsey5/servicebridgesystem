@@ -154,6 +154,14 @@ input[type="file"] {
         position: fixed;
     }
 
+    .details-container .input-parent-container{
+        width: 100%;
+    }
+
+    .details-container .input-container{
+        width: 100%;
+    }
+
     .account-settings .address-container{
         width: 100%;
     }
@@ -164,6 +172,7 @@ input[type="file"] {
     }
 
     .details-container .buttons{
+        width: 100%;
         display: flex;
         justify-content: space-between;
     }
