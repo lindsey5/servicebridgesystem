@@ -3,7 +3,9 @@ import './EditServicePriceModal.css'
 
 const EditPriceModal = ({serviceDetails, setServiceDetails, setEditModal, showEditModal}) => {
 
+    // Function to updates the price of provider service offered
     async function updatePrice({service_id, price}) {
+        // Validate the price
         if (!Number.isInteger(Number(price))) {
             alert("The price should not have decimals");
         }else if(price < 500 ){

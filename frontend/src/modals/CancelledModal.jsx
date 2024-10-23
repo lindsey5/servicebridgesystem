@@ -4,22 +4,29 @@ import { TransactionContext } from '../Context/TransactionContext';
 import { formatDate } from '../utils/formatDate';
 
 const CancelledModal = ({modal_state, modal_dispatch}) =>{
+    // Get the transactionId from the transaction context
     const { transactionId } = useContext(TransactionContext);
+    // State to hold the data of the selected cancelled transaction
     const [cancelledTransaction, setCancelledTransaction] = useState();
 
-    useEffect(() =>{
-        if(transactionId){
+    // Effect to fetch and set the data of the selected cancelled transaction
+    useEffect(() => {
+        if (transactionId) {
+            // Function to get the cancelled transaction data
             const getCancelledTransaction = async () => {
+                // Fetch the selected cancelled transaction using the transactionId
                 const response = await fetch(`/api/transaction/cancelled/${transactionId}`);
-                if(response.ok){
+                if (response.ok) {
                     const result = await response.json();
-                    const {cancelled_date, ...cancelledTransaction } = result.cancelled_transaction;
-                    setCancelledTransaction({...cancelledTransaction, cancelled_date: formatDate(cancelled_date)});
+                    // Destructure the cancelled_date from the result and keep the rest in cancelledTransaction
+                    const { cancelled_date, ...cancelledTransaction } = result.cancelled_transaction; 
+                    // Set the cancelled transaction data and format the cancelled date
+                    setCancelledTransaction({ ...cancelledTransaction, cancelled_date: formatDate(cancelled_date) });
                 }
-            }
-            getCancelledTransaction();
+            };
+            getCancelledTransaction(); // Call the function to fetch the data
         }
-    },[modal_state.showCancelledTransaction]);
+    }, [modal_state.showCancelledTransaction]); // Re-run the effect if showCancelledTransaction in modal state changes
 
     return (
         <div className="transaction-modal-container" style={{display: modal_state.showCancelledTransaction ? 'flex' : 'none'}}>

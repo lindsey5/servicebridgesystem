@@ -11,39 +11,49 @@ const ProviderLogin = () => {
         document.title = "Provider Login | Hustle";
     },[]);
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Hook for navigation
+    // State to manage the visibility of password
     const [isShow, setShow] = useState(false);
+    // State to hold the username and password input values
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    // State to hold error messages for username and password validation
     const [passwordError, setPasswordError] = useState('');
     const [usernameError, setUsernameError] = useState('');
     
+    // Async function to handle user login
     async function login(e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the default form submission behavior
         try {
+            // Send a POST request to the provider login endpoint
             const response = await fetch('/provider-login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', // Indicate that the request body is JSON
                 },
                 body: JSON.stringify({
-                    username,
-                    password
+                    username, // Include the username from state
+                    password // Include the password from state
                 }),
-                credentials: 'include'
+                credentials: 'include' // Include cookies in the request for session management
             });
+            
+            // Parse the JSON response
             const result = await response.json();
-
-            if(result.errors){
-                setUsernameError(result.errors.username || '');
-                setPasswordError(result.errors.password || '');
+    
+            // Check for validation errors in the response
+            if (result.errors) {
+                setUsernameError(result.errors.username || ''); // Set username error message if present
+                setPasswordError(result.errors.password || ''); // Set password error message if present
             }
-            if(response.ok){
-                navigate('/Provider/Dashboard');
+            // If the response is OK, navigate to the client home page
+            if (response.ok) {
+                navigate('/Provider/Dashboard'); // Redirect the provider dashboard
             }
-            }catch (error) {
-                alert(error);
-            }
+        } catch (error) {
+            // Handle any errors that occur during the fetch
+            alert(error); // Display the error message
+        }
     }
 
     return (

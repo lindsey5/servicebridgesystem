@@ -5,28 +5,30 @@ import { cancelTransaction } from '../services/transactionService';
 import useFetch from '../hooks/useFetch';
 
 const ReasonModal = ({modal_state, modal_dispatch}) => {
-    const [reason, setReason] = useState('');
-    const [showTextArea, setTextArea] = useState(false);
-    const transactionContext = useContext(TransactionContext);
-    const {data} = useFetch('/api/user');
-    const [user, setUser] = useState(null);
+    const [reason, setReason] = useState(''); // State to store the reason for cancellation
+    const [showTextArea, setTextArea] = useState(false); // State to control the visibility of the text area
+    const transactionContext = useContext(TransactionContext); // Access the transaction context for managing transaction-related state
+    const { data } = useFetch('/api/user'); // Fetch user data using the custom hook 'useFetch'
+    const [user, setUser] = useState(null); // State to hold the current user information
+    
     useEffect(() => {
-        if(data?.user){
-            setUser(data.user);
+        if (data?.user) {
+            setUser(data.user); // Set the current user information if available
         }
-    }, [data]);
-
+    }, [data]); // Effect runs when 'data' changes
+    
+    // Function to handle setting the cancellation reason based on the selected option
     const setCancellationReason = (target) => {
-        if(target.value === "Other"){
-            setReason('');
-            setTextArea(true);
-        }else if(target.id === 'other-reason'){
-            setReason(target.value);
-        }else{
-            setReason(target.value);
-            setTextArea(false);
+        if (target.value === "Other") {
+            setReason(''); // Clear the reason if the selected option is 'Other'
+            setTextArea(true); // Show the text area for entering a custom reason
+        } else if (target.id === 'other-reason') {
+            setReason(target.value); // Set the reason if the target has an id of 'other-reason'
+        } else {
+            setReason(target.value); // Set the reason for other options
+            setTextArea(false); // Hide the text area for custom input
         }
-    }
+    };
 
     return (
         <div className="transaction-modal-container" style={{display: modal_state.showClientReason ? 'flex' : 'none'}}>
