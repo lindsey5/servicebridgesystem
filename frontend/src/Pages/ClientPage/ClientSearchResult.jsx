@@ -30,9 +30,9 @@ const ClientSearchResult = () => {
             }else{
                 setResults(null);
             }
-                setLoading(false);
+            setLoading(false);
         };
-
+        setLoading(true);
         fetchData();
     }, [state.currentPage, state.price, state.sortBy, service_name]);
 
@@ -97,16 +97,12 @@ const ClientSearchResult = () => {
     };
     
     return (
-        <div className='search-result' style={{alignItems: loading ? 'center' : 'start'}}>
-            {loading && 
-                <div className='loader-container'>
-                    <div className="loader"></div>
-                </div>}
-                {!loading && <div className="container">
+        <div className='search-result' style={{alignItems: 'start'}}>
+                <div className="container">
                 <div className="filter-container">
                     <div className="price-div">
                     <h2>Price</h2>
-                    <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} />
+                    <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
                     <p id="selectedPrice">{state.priceLabel}</p>
                     </div>
                     <div className="sort-div">
@@ -139,7 +135,7 @@ const ClientSearchResult = () => {
                     <button id="nextPage" disabled={state.disabledNextBtn} style={{display: !results ? 'none' : ''}} onClick={nextPage}>Next &gt;</button>
                     </div>
                 </div>
-            </div>}
+            </div>
         </div>
     )
 }

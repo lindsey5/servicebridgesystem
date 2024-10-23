@@ -145,7 +145,7 @@ const SecondPage = ({state, dispatch}) => {
                 </div>
                 <div className='input-container'>
                     <input type='password'
-                        placeholder='Password'
+                        placeholder='Password*'
                         value={state.password}
                         onChange={(e) => dispatch({type: 'SET_PASSWORD', payload: e.target.value})}
                         onBlur={handleBlur}
@@ -156,7 +156,7 @@ const SecondPage = ({state, dispatch}) => {
                 </div>
                 <div className='input-container'>
                     <input type="password"
-                        placeholder='Confirm Password'
+                        placeholder='Confirm Password*'
                         value={confirmPass}
                         onChange={(e) => setConfirmPass(e.target.value)}
                         onBlur={handleBlur}

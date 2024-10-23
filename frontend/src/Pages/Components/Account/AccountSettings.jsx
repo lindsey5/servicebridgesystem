@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import '../../styles/AccountSettings.css'
 import createImageSrc from '../../../utils/createImageSrc';
+import defaultProfilePic from '../../../assets/user (1).png';
 
 const AccountSettings = ({data, handleUpdate, error}) => {
     const [details, setDetails] = useState();
-    const [imgSrc, setImgSrc] = useState();
+    const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [isUsernameDisabled, setUsernameDisabled] = useState(true);
 
     const setInfo = async() =>{
         if(data){
-            setImgSrc(await createImageSrc(data.client.profile_pic.data));
+            if(data.client.profile_pic) setImgSrc(await createImageSrc(data.client.profile_pic.data));
             setDetails({...data.client, profile_pic: data.client.profile_pic.data });
         }
     }

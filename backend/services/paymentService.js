@@ -2,6 +2,7 @@ import Payment from "../models/payment.js";
 import fetch from "node-fetch";
 import dotenv from 'dotenv';
 dotenv.config();
+const url = process.env.NODE_ENV === 'production' ? 'https://servicebridgesystem.onrender.com' : 'http://localhost:5173';
 
 const create_payment = async (transaction_id, payment_checkout_id) => {
     try{
@@ -78,7 +79,7 @@ const create_checkout_link = async (amount, item, success_url) => {
                 send_email_receipt: false,
                 show_description: false,
                 show_line_items: true,
-                cancel_url: `https://servicebridgesystem.onrender.com/`,
+                cancel_url: url,
                 success_url,
                 line_items: [{currency: 'PHP', amount, quantity: 1, name: `${item}`}],
                 payment_method_types: [
