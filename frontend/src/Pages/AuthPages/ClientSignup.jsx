@@ -152,7 +152,7 @@ const SecondPage = ({state, dispatch}) => {
                         onFocus={handleFocus}
                         required
                     />
-                    <span>Password</span>
+                    <span>Password*</span>
                 </div>
                 <div className='input-container'>
                     <input type="password"
@@ -163,7 +163,7 @@ const SecondPage = ({state, dispatch}) => {
                         onFocus={handleFocus}
                         required
                     />
-                    <span>Confirm Password</span>
+                    <span>Confirm Password*</span>
                 </div>
                 <button>Sign up</button>
             </div>

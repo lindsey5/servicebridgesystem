@@ -11,13 +11,12 @@ const AccountSettings = ({data, handleUpdate, error}) => {
     const setInfo = async() =>{
         if(data){
             if(data.client.profile_pic) setImgSrc(await createImageSrc(data.client.profile_pic.data));
-            setDetails({...data.client, profile_pic: data.client.profile_pic.data });
+            setDetails({...data.client, profile_pic: data.client.profile_pic ? data.client.profile_pic.data : null});
         }
     }
 
     useEffect(() =>{
         setInfo();
-        
     },[data]);
 
     const handleFileChange = async (e) => {
