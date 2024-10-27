@@ -64,7 +64,6 @@ const Availability = () => {
         const currentDate = new Date().toISOString().split('T')[0];
         const flag = await isDateExist(selectedDate);
         setShowTransactions(false);
-        console.log(selectedDate < currentDate);
         if (flag || selectedDate < currentDate) {
             setSelectedDate(selectedDate);
             setShowTransactions(true);
