@@ -99,7 +99,7 @@ const Home = () => {
                         <li>LinkedIn</li>
                         <li>Github</li>
                     </div>
-                    <div className='support-div'>
+                    <div className='support-div'> 
                         <h3>Support</h3>
                         <li>Help</li>
                         <li>Privacy Policy</li>

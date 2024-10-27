@@ -60,20 +60,18 @@ const Availability = () => {
     }
 
     const handleDateClick = async (day) => {
-        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const currentDate = new Date();
-        const selectedDate = new Date(formattedDate);
-        console.log(currentDate);
-        console.log(selectedDate);
-        const flag = await isDateExist(formattedDate);
+        const selectedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const currentDate = new Date().toISOString().split('T')[0];
+        const flag = await isDateExist(selectedDate);
         setShowTransactions(false);
+        console.log(selectedDate < currentDate);
         if (flag || selectedDate < currentDate) {
-            setSelectedDate(formattedDate);
+            setSelectedDate(selectedDate);
             setShowTransactions(true);
-            fetchTransactionsByDate(formattedDate);
+            fetchTransactionsByDate(selectedDate);
         } else {
             if (confirm("Add this date to your availability?")) {
-                if(addDate(formattedDate)){
+                if(addDate(selectedDate)){
                     window.location.reload();
                 }else{
                     alert("Error adding date")

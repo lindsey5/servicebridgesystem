@@ -26,7 +26,7 @@ const ProviderLogin = () => {
         e.preventDefault(); // Prevent the default form submission behavior
         try {
             // Send a POST request to the provider login endpoint
-            const response = await fetch('/provider-login', {
+            const response = await fetch('http://localhost:3000/provider-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Indicate that the request body is JSON

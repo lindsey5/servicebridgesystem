@@ -80,10 +80,6 @@
   background-color: rgb(3, 117, 247);
   color: white;
 }
-  
-.Home .signup-btn:hover, .Home .login-btn:hover{
-  transform: translateY(-5px);
-}
 
 .Home .login-btn{
   margin: 10px;
