@@ -119,7 +119,6 @@ io.on('connection', (socket) => {
   });
 });
 
-
 const __dirname = path.resolve();
 
 // Now you can use __dirname

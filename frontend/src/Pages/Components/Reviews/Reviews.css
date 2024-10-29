@@ -51,8 +51,18 @@
     display: flex;
 }
 
+.Provider-reviews .rating-stars{
+    width: 25%;
+    margin-right: 10px;
+}
+
+
+.Provider-reviews .rating-stars .stars{
+    color: rgb(3, 117, 247);
+}
+
 .Provider-reviews .reviews-detail .percentage{
-    width: 80%;
+    flex: 1;
     height: 50%;
     background-color:  rgb(224, 243, 255);
     border-radius: 20px;

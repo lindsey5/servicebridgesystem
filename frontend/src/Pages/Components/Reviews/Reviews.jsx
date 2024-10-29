@@ -43,7 +43,7 @@ const Reviews = ({id, rating}) => {
             if(button == target){
                 button.style.border = '1px solid  rgb(3, 117, 247)';
                 button.style.color = 'rgb(3, 117, 247)';
-                setFilter(button.textContent);
+                setFilter(button.value);
             }else{
                 button.style.border = '1px solid  grey';
                 button.style.color = 'black';
@@ -66,9 +66,17 @@ const Reviews = ({id, rating}) => {
     const reviewPercentages = () => {
         const reviewElements = [];
         for (let i = ratingPercentages?.length - 1; i >= 0; i--) {
+            const stars = [];
+            for(let j=0; j<=i; j++){
+                stars.push(<span className='stars'>★</span>)
+            }
+
             reviewElements.push(
                 <div className="percentage-container" key={i}>
+                    <div className='rating-stars'>
                     <span style={{marginRight: '5px'}}>{i + 1}</span>
+                    {stars}
+                    </div>
                     <div className="percentage">
                         <div style={{width: `${ratingPercentages[i]}%`}}></div>
                     </div>
@@ -107,12 +115,12 @@ const Reviews = ({id, rating}) => {
             </div>
             </div>
             <div className='review-filter'>
-                <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>All</button>
-                <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>5</button>
-                <button ref={el => filterButtons.current[2] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>4</button>
-                <button ref={el => filterButtons.current[3] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>3</button>
-                <button ref={el => filterButtons.current[4] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>2</button>
-                <button ref={el => filterButtons.current[5] = el} onClick={(e) => setSelectedFilterBtn(e.target)}>1</button>
+                <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='All'>All</button>
+                <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='5'>★★★★★</button>
+                <button ref={el => filterButtons.current[2] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='4'>★★★★</button>
+                <button ref={el => filterButtons.current[3] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='3'>★★★</button>
+                <button ref={el => filterButtons.current[4] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='2'>★★</button>
+                <button ref={el => filterButtons.current[5] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='1'>★</button>
             </div>
             <div className='reviews'>
                 {reviews && reviews.map(review => <Review key={review.transaction_id} review={review}/>)}
