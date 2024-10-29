@@ -32,7 +32,7 @@ const Review = (review) => {
             <div className='client-container'>
                 <img src={imgSrc} />
                 <div>
-                    <h3>{fullname}</h3>
+                    <h3>{fullname.charAt(0)}......{fullname.charAt(fullname.length -1)}</h3>
                     <span className="star" ref={el => starsRef.current[0] = el}>★</span>
                     <span className="star" ref={el => starsRef.current[1] = el}>★</span>
                     <span className="star" ref={el => starsRef.current[2] = el}>★</span>
