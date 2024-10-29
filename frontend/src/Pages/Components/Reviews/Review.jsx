@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import defaultProfilePic from '../../../assets/user (1).png'
 import createImageSrc from "../../../utils/createImageSrc";
 import { formatDate } from "../../../utils/formatDate";
+import { RecipientContext } from "../../../Context/RecipientContext";
+import { useNavigate } from "react-router-dom";
 
-const Review = (review) => {
+const Review = ({review, isProvider}) => {
     const starsRef = useRef([]);
-    const client_img = review.review.transaction.client_account.profile_pic.data;
+    const client_img = review.transaction.client_account.profile_pic.data;
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
-    const {firstname, lastname} = review.review.transaction.client_account;
+    const {firstname, lastname, id} = review.transaction.client_account;
     const fullname = firstname + ' ' + lastname;
-    const date_reviewed = formatDate(review.review.date_reviewed);
+    const date_reviewed = formatDate(review.date_reviewed);
+    const {setRecipientId} = useContext(RecipientContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const setImageSrc =async () => {
@@ -20,15 +24,22 @@ const Review = (review) => {
         setImageSrc();
     }, [client_img]);
 
+    console.log( review.transaction.client_account)
+
     useEffect(() => {
-        for(let i = 0; i<review.review.rating; i++){
+        for(let i = 0; i<review.rating; i++){
             starsRef.current[i].style.color = 'rgb(3, 117, 247)'
         }
 
     },[review])
 
     return(
-        <div key={review.review.transaction_id} className='review-container'>
+        <div className='review-container'>
+            {isProvider && 
+            <button className='message-btn' onClick={() => {
+                    setRecipientId(id);
+                    navigate('/Provider/Messages');
+            }}><img src='/icons/chat.png'/></button>}
             <div className='client-container'>
                 <img src={imgSrc} />
                 <div>
@@ -42,7 +53,7 @@ const Review = (review) => {
             </div>
             <div className='review-details'>
                 <p>{date_reviewed}</p>
-                <p>Service name: <span>{review.review.transaction.service_name}</span></p>
+                <p>Service name: <span>{review.transaction.service_name}</span></p>
                 <p>Review:</p>
                 <p>{review.review.review}</p>
             </div>

@@ -23,6 +23,7 @@ import ClientAccountSettings from './Pages/ClientPage/ClientAccountSetting.jsx';
 import ProviderAccountSettings from './Pages/ProviderPage/ProviderAccountSettings.jsx'
 import ProviderReviews from './Pages/ProviderPage/ProviderReviews.jsx'
 import ViewReviews from './Pages/ClientPage/ViewReviews.jsx';
+import { RecipientContextProvider } from './Context/RecipientContext.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -73,6 +74,9 @@ export default function App() {
   );  
 
   return (
+    <RecipientContextProvider>
       <RouterProvider router={router} />
+    </RecipientContextProvider>
+
   );
 }

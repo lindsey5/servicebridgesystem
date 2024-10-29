@@ -4,7 +4,7 @@ import { ProviderContext } from "../../Context/ProviderContext";
 
 const ProviderReviews = () => {
     const { id, rating } = useContext(ProviderContext);
-    return <Reviews id={id} rating={rating}/> 
+    return <Reviews id={id} rating={rating} isProvider={true}/> 
 
 }
 

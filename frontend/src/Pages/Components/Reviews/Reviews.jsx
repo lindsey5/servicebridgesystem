@@ -3,7 +3,7 @@ import './Reviews.css';
 import Review from './Review';
 import useFetch from '../../../hooks/useFetch';
 
-const Reviews = ({id, rating}) => {
+const Reviews = ({id, rating, isProvider}) => {
     const [reviews, setReviews] = useState();
     const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}`);
     const starsRef = useRef([]);
@@ -123,7 +123,7 @@ const Reviews = ({id, rating}) => {
                 <button ref={el => filterButtons.current[5] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='1'>★</button>
             </div>
             <div className='reviews'>
-                {reviews && reviews.map(review => <Review key={review.transaction_id} review={review}/>)}
+                {reviews && reviews.map(review => <Review key={review.transaction_id} review={review} isProvider={isProvider}/>)}
             </div>
         </main>
     )

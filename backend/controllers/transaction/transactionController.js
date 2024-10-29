@@ -411,7 +411,7 @@ const get_reviewed_transactions = async (req,res) => {
               where: { provider } ,
               include: {
                 model: Client,
-                attributes: ['firstname', 'lastname', 'profile_pic']
+                attributes: ['firstname', 'lastname', 'profile_pic', 'id']
                },
             },
     }
