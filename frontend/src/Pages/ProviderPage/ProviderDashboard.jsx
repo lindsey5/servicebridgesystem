@@ -7,9 +7,9 @@ import EarningModal from "../../modals/EarningModal";
 const ProviderDashboard = () => {
     const { data: monthlyIncome } = useFetch('/api/earning/provider/month');
     const { data: earningsToday } = useFetch('/api/earning/provider/today');
-    const { data: totalTransactionToday } = useFetch('/api/provider/completed/transaction/total/today');
-    const { data: totalTransactions } = useFetch('/api/provider/completed/transaction/total');
-    const { data: completedTransactions } = useFetch('/api/provider/completed/transaction/today');
+    const { data: totalTransactionToday } = useFetch('/api/transactions/completed/total/today');
+    const { data: totalCompletedTransactions } = useFetch('/api/transactions/completed/total');
+    const { data: completedTransactions } = useFetch('/api/transactions/completed/today');
     const [showEarningModal, setShowEarningModal] = useState(false);
     const { data: balance } = useFetch('/api/provider/balance');
 
@@ -40,7 +40,6 @@ const ProviderDashboard = () => {
 
     return (
         <div className="provider-dashboard">
-            <> 
             {showEarningModal && <EarningModal setShowEarningModal={setShowEarningModal}/>}
             <div className="top-section">
                 <div className="earnings-summary">
@@ -54,18 +53,18 @@ const ProviderDashboard = () => {
                 </div>
                 <div className="completed-tasks-today">
                     <div>
-                        <h2>Task Completed today:</h2>
+                        <h2>Transactions Completed today:</h2>
                         <h2 id="completed-task-today">
-                        {totalTransactionToday?.total_task_today ? totalTransactionToday.total_task_today : 'No transactions yet'}
+                        {totalTransactionToday?.total_completed_transactions_today ? totalTransactionToday.total_completed_transactions_today : 'No transactions yet'}
                         </h2>
                     </div>
                     <img src="/icons/checked.png" />
                 </div>
                 <div className="completed-tasks">
                     <div>
-                        <h2>Total Task Completed:</h2>
+                        <h2>Total Transactions Completed:</h2>
                         <h2 id="total-completed-task">
-                        {totalTransactions?.total_tasks ? totalTransactions.total_tasks : 'No transactions yet'}
+                        {totalCompletedTransactions?.completed_transactions_total ? totalCompletedTransactions.completed_transactions_total : 'No transactions yet'}
                         </h2>
                     </div>
                     <img src="/icons/checked.png" />
@@ -135,11 +134,10 @@ const ProviderDashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {completedTransactions && completedTransactions.completed_transactions.map(transaction => <CompletedTransactionRow key={transaction.transaction_id} transaction={transaction}/>)}
+                    {completedTransactions && completedTransactions.completed_transactions_today.map(transaction => <CompletedTransactionRow key={transaction.transaction_id} transaction={transaction}/>)}
                     </tbody>
                 </table>
             </div>
-            </>
         </div>
     )
 }

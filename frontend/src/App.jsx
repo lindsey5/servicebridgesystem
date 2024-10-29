@@ -20,6 +20,9 @@ import Messages from './Pages/Components/Messages/Messages.jsx';
 import Services from './Pages/Components/Services/Services.jsx';
 import ClientSignup from './Pages/AuthPages/ClientSignup.jsx';
 import ClientAccountSettings from './Pages/ClientPage/ClientAccountSetting.jsx';
+import ProviderAccountSettings from './Pages/ProviderPage/ProviderAccountSettings.jsx'
+import ProviderReviews from './Pages/ProviderPage/ProviderReviews.jsx'
+import ViewReviews from './Pages/ClientPage/ViewReviews.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -58,15 +61,18 @@ export default function App() {
             <Route path='Services-Offered' element={<ProviderServicesOffered /> } />
             <Route path='Availability' element={<Availability />} />
             <Route path='Messages' element={<Messages />}/>
+            <Route path='Account' element={<ProviderAccountSettings />} />
+            <Route path='Reviews' element={<ProviderReviews />}/>
           </Route>
         </Route>
-      
+
+        <Route path="/View/Reviews" element={<ViewReviews />} />
         <Route path="*" element={<Navigate to="/" />} />
       </>
     )
   );  
 
   return (
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   );
 }

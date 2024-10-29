@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react"
 import { ProviderContext } from "../../Context/ProviderContext";
 
 export default function ProviderSideBar () {
-    const { hideSideBar, setHideSideBar } = useContext(ProviderContext);
+    const { hideSideBar } = useContext(ProviderContext);
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = useState(1);
 
@@ -29,6 +29,9 @@ export default function ProviderSideBar () {
                 case '5':
                     navigate('/Provider/Transactions');
                     break;
+                case '6':
+                    navigate('/Provider/Reviews');
+                    break;
             }
         }
     }, []);
@@ -45,7 +48,7 @@ export default function ProviderSideBar () {
                 window.innerWidth <= 840
                 ? { display: hideSideBar ? 'flex' : 'none' } 
                 : { width: hideSideBar ? '60px' : '180px' }
-                }
+            }
         >
             <button className={`sidebar-button ${activeButton === 1 ? 'active' : ''}`}
                 onClick={() =>{
@@ -86,6 +89,14 @@ export default function ProviderSideBar () {
                 }}>
                     <img src="/icons/transactions.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {window.innerWidth <= 840 ? 'Transactions' : (hideSideBar ? '' : 'Transactions') }
+            </button>
+            <button className={`sidebar-button ${activeButton === 6 ? 'active' : ''}`}
+                onClick={() => {
+                    navigate('/Provider/Reviews');
+                    handleButtonClick(6);
+                }}>
+                    <img src="/icons/like.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
+                    {window.innerWidth <= 840 ? 'Reviews' : (hideSideBar ? '' : 'Reviews') }
             </button>
         </nav>
         )

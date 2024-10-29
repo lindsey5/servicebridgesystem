@@ -1,7 +1,7 @@
 import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 // This function get the client details from the databased based on the client id
 const get_provider = async (req, res) => {
@@ -11,7 +11,7 @@ const get_provider = async (req, res) => {
         if(provider){
              // Execute if the provider is found using the provider_id variable
             const { password, ...providerWithoutPassword } = provider.toJSON(); // Exclude the password from the provider object
-            res.status(200).json({ provider: providerWithoutPassword }); // Respond with the provider data
+            res.status(200).json(providerWithoutPassword); // Respond with the provider data
         }else{
             res.status(404).json({ error: 'Provider not found' }); // Respond an error message if the client is not found 
         }
@@ -118,4 +118,40 @@ function calculateTotalPages(totalRecords, limit){
 }
 
 
-export default { get_provider, get_provider_name, getProviders};
+const update_provider = async (req, res) => {
+    const { id, ...data } = req.body.data;
+    try{
+        const provider = await Provider.findByPk(id);
+        if(provider){
+            const updatedProvider = await provider.update(data);
+            res.status(200).json(updatedProvider);
+        }
+    }catch(err){
+        if(err.name === 'SequelizeUniqueConstraintError'){
+            err.message = 'Username Already used';
+        }
+        res.status(400).json({error: err.message}); // Send an error response
+    }
+}
+
+const get_provider_rating = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const provider_rating = await Provider.findOne({
+            where: {
+                id
+            },
+            attributes: ['rating']
+        })
+        if(provider_rating){
+            res.status(200).json(provider_rating);
+        }else{
+            throw new Error('Provider not found');
+        }
+    }catch(err){
+        console.log(err);
+        res.status(400).json({error: err.message});
+    }
+}
+
+export default { get_provider, get_provider_name, getProviders, update_provider, get_provider_rating};

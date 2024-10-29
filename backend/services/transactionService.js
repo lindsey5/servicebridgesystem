@@ -84,7 +84,6 @@ const complete_transaction = async (transaction_id, service_price) => {
 }
 
 const get_all_reviewed_transactions = async (query) => {
-    console.log(query);
     try{
         const reviewed_transactions = await ReviewedTransaction.findAll(query)
 

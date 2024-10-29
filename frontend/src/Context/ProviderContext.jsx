@@ -8,6 +8,8 @@ export const ProviderContextProvider = ({children}) => {
     // State to store the provider's full name and sidebar visibility toggle
     const [fullname, setFullname] = useState(null);
     const [hideSideBar, setHideSideBar] = useState(false);
+    const [id, setId] = useState();
+    const [rating, setRating] = useState();
     
     // Fetch provider data using a custom hook
     const { data: ProviderData } = useFetch('/api/provider');
@@ -16,14 +18,16 @@ export const ProviderContextProvider = ({children}) => {
     useEffect(() => {
         if (ProviderData) {
             // Concatenate the provider's first and last name and update state
-            const fullname = ProviderData.provider.firstname + ' ' + ProviderData.provider.lastname;
+            const fullname = ProviderData.firstname + ' ' + ProviderData.lastname;
+            setId(ProviderData.id);
             setFullname(fullname);
+            setRating(ProviderData.rating);
         }
     }, [ProviderData]); // Re-run the effect when ProviderData changes
 
     return (
         // Provide the fullname, hideSideBar state, and setHideSideBar function to context consumers
-        <ProviderContext.Provider value={{ fullname, hideSideBar, setHideSideBar }}>
+        <ProviderContext.Provider value={{ id,rating, fullname, hideSideBar, setHideSideBar }}>
             {children}
         </ProviderContext.Provider>
     );

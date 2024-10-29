@@ -23,10 +23,6 @@ const ClientHome = () => {
         }
     }, [data])
 
-    useEffect(() => {
-        console.log(popServices);
-    }, [popServices]);
-
     return (
         <div className='client-home'>
             <div className="home-container">
@@ -43,7 +39,7 @@ const ClientHome = () => {
                         <h1>Popular services</h1>
                         <div className="popular-services-div">
                         {popServices && popServices.map(service => 
-                            <div className="popular-services" onClick={() => navigate(`/Client/Search/Result?searchTerm=${service}`)}>
+                            <div key={service} className="popular-services" onClick={() => navigate(`/Client/Search/Result?searchTerm=${service}`)}>
                             <img src={searchLogo} alt="Search Icon"/>
                             {service}
                             </div>

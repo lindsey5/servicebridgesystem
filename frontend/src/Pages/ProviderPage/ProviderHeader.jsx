@@ -27,11 +27,10 @@ const ProviderHeader = () =>{
     useEffect(() => {
         const getImageSrc = async () => {
             if(providerData){
-                setProfilePicSrc(providerData.provider.profile_pic?.data ? await createImageSrc(providerData.provider.profile_pic?.data) : null);
+                setProfilePicSrc(providerData.profile_pic?.data ? await createImageSrc(providerData.profile_pic?.data) : null);
             }
         }
         getImageSrc();
-
     }, [providerData]);
 
     return (
@@ -53,9 +52,9 @@ const ProviderHeader = () =>{
             <div className="drop-down-setting" style={{ display: showDropdown ? 'flex' : 'none' }}>
                 <img className="profile-picture" src={ profilePicSrc ? profilePicSrc : defaultProfilePic } />
                 <h1 id="user-fullname">
-                    {providerData?.provider.firstname && providerData?.provider.lastname && `${providerData.provider.firstname} ${providerData.provider.lastname}`}
+                    {providerData?.firstname && providerData?.lastname && `${providerData.firstname} ${providerData.lastname}`}
                 </h1>
-                <button id="account-settings-btn">
+                <button id="account-settings-btn" onClick={() => navigate('/Provider/Account')}>
                     <img src="/icons/user.png" className="icon" alt="exit icon" />
                     Account Settings
                 </button>

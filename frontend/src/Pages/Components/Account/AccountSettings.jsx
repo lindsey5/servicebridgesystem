@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import '../../styles/AccountSettings.css'
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
@@ -10,8 +10,8 @@ const AccountSettings = ({data, handleUpdate, error}) => {
 
     const setInfo = async() =>{
         if(data){
-            if(data.client.profile_pic) setImgSrc(await createImageSrc(data.client.profile_pic.data));
-            setDetails({...data.client, profile_pic: data.client.profile_pic ? data.client.profile_pic.data : null});
+            if(data.profile_pic) setImgSrc(await createImageSrc(data.profile_pic.data));
+            setDetails({...data, profile_pic: data.profile_pic ? data.profile_pic.data : null});
         }
     }
 
@@ -103,6 +103,15 @@ const AccountSettings = ({data, handleUpdate, error}) => {
                                 onInput={(e) => setDetails({...details, address: e.target.value })}
                             />
                         </div>
+                        {details?.bio && 
+                        <div className='bio-container'>
+                            <label>Bio</label>
+                            <textarea 
+                                className='bio' 
+                                value={details.bio} 
+                                onInput={(e) => setDetails({...details, bio: e.target.value })}
+                            />
+                        </div>}
                     </div>
                     <div className='profile-pic-parent-container'>
                         <img src={imgSrc} alt="profile_pic" />

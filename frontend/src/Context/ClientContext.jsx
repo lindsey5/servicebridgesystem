@@ -39,13 +39,13 @@ export const ClientContextProvider = ({ children }) => {
           if (clientData) {
               try {
                   // Check if profile picture data exists and generate image source
-                  const profilePicSrc = clientData.client.profile_pic?.data ?
-                  await createImageSrc(clientData.client.profile_pic?.data) : null;
+                  const profilePicSrc = clientData.profile_pic?.data ?
+                  await createImageSrc(clientData.profile_pic?.data) : null;
                   
                   // Dispatch action to set client fullname and profile picture
                   dispatch({
                       type: 'SET_CLIENT_DATA',
-                      fullname: `${clientData.client.firstname} ${clientData.client.lastname}`,
+                      fullname: `${clientData.firstname} ${clientData.lastname}`,
                       profile_pic: profilePicSrc
                   });
               } catch (err) {

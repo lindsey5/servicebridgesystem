@@ -206,7 +206,6 @@ const fail_transaction = async (req, res) =>{
                 if(updated_transaction){
                     res.status(200).json({updated_transaction});
                 }else{
-                    console.log('hehe');
                     res.status(400).json({message: "Failed to update"});
                 }
             }else{
@@ -216,16 +215,15 @@ const fail_transaction = async (req, res) =>{
             res.status(400).json({message: "Payment not found"})
         }
     }catch(err){
-        console.log(err);
         res.status(400).json({message: "Refund Failed"})
     }
 }
 
 
-const get_total_completed_task = async (req, res) =>{
+const get_total_completed_transactions = async (req, res) =>{
     const provider_id = req.userId;
     try{
-        const total_tasks = await transactionService.getTransactionCount({
+        const completed_transactions_total = await transactionService.getTransactionCount({
             where: { 
                 provider: provider_id, 
                 status: {
@@ -233,8 +231,8 @@ const get_total_completed_task = async (req, res) =>{
                 }
             }
         })
-        if(total_tasks){
-            res.status(200).json({total_tasks});
+        if(completed_transactions_total){
+            res.status(200).json({completed_transactions_total});
         }
     }catch(err){
         res.status(400).json({error: err.message});
@@ -244,7 +242,7 @@ const get_total_completed_task = async (req, res) =>{
 const get_total_completed_transaction_today = async (req, res) =>{
     const provider_id = req.userId;
     try{
-        const total_task_today = await transactionService.getTransactionCount({
+        const total_completed_transactions_today = await transactionService.getTransactionCount({
             where: { 
                 provider: provider_id, 
                 status: {
@@ -264,7 +262,7 @@ const get_total_completed_transaction_today = async (req, res) =>{
             ]
         })
 
-         res.status(200).json({total_task_today});
+         res.status(200).json({total_completed_transactions_today});
     }catch(err){
         res.status(400).json({error: err.message});
     }
@@ -273,7 +271,7 @@ const get_total_completed_transaction_today = async (req, res) =>{
 const get_completed_transaction_today = async (req, res) => {
     const provider_id = req.userId;
     try{
-        const completed_transactions = await Transaction.findAll({
+        const completed_transactions_today = await Transaction.findAll({
             where: {
                 provider: provider_id,
                 status: {
@@ -300,8 +298,8 @@ const get_completed_transaction_today = async (req, res) => {
                 }
             ]
         });
-        if(completed_transactions.length > 0){
-            res.status(200).json({completed_transactions});
+        if(completed_transactions_today.length > 0){
+            res.status(200).json({completed_transactions_today});
         }else{
             res.status(400).json('No completed task');
         }
@@ -404,14 +402,17 @@ const get_reviewed_transaction = async (req, res) => {
 const get_reviewed_transactions = async (req,res) => {
     const provider = req.params.provider;
     const query = {
-        where: {},
+        order: [
+            ['date_reviewed', 'DESC']
+        ],
         include: 
             { 
               model: Transaction,  
               where: { provider } ,
-              include: { model: Client,
+              include: {
+                model: Client,
                 attributes: ['firstname', 'lastname', 'profile_pic']
-               }
+               },
             },
     }
 
@@ -438,7 +439,7 @@ export default {
     provider_complete_transaction,
     fail_transaction,
     get_cancelled_transaction,
-    get_total_completed_task, 
+    get_total_completed_transactions, 
     get_total_completed_transaction_today, 
     get_completed_transaction_today,
     get_transactions_by_date,

@@ -9,7 +9,7 @@ const get_client = async (req, res) => {
         if(client){
             // Execute if the client is found using the client_id variable
             const { password, ...clientWithoutPassword } = client.toJSON(); // Exclude the password from the client object
-            res.status(200).json({ client: clientWithoutPassword }); // Respond with the client data
+            res.status(200).json(clientWithoutPassword ); // Respond with the client data
         }else{
             res.status(404).json({ error: 'Client not found' }); // Respond an error message if the client is not found 
         }
@@ -69,7 +69,6 @@ const update_client = async (req, res) => {
         }
         res.status(400).json({error: err.message}); // Send an error response
     }
-
 }
 
 

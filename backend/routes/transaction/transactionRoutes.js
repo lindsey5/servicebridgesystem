@@ -23,11 +23,11 @@ router.put('/transaction/fail/:id', verifyToken, transactionController.fail_tran
 
 router.get('/transaction/cancelled/:id', verifyToken, transactionController.get_cancelled_transaction);
 
-router.get('/provider/completed/transaction/total', providerRequireAuth, transactionController.get_total_completed_task);
+router.get('/transactions/completed/total', providerRequireAuth, transactionController.get_total_completed_transactions);
 
-router.get('/provider/completed/transaction/total/today', providerRequireAuth, transactionController.get_total_completed_transaction_today);
+router.get('/transactions/completed/total/today', providerRequireAuth, transactionController.get_total_completed_transaction_today);
 
-router.get('/provider/completed/transaction/today', providerRequireAuth, transactionController.get_completed_transaction_today);
+router.get('/transactions/completed/today', providerRequireAuth, transactionController.get_completed_transaction_today);
 
 router.get('/transactions/:date', providerRequireAuth, transactionController.get_transactions_by_date);
 
