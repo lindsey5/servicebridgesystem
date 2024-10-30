@@ -1,7 +1,7 @@
 export const addServiceOffered = async (serviceName, setSuccessModal) => {
     if(confirm('Do you want to add this service?')){
      try{
-         const response = await fetch('h/api/services-offered',{
+         const response = await fetch('/api/services-offered',{
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
