@@ -251,4 +251,15 @@
         width: 45px;
         height: 45px;
     }
+
+    .calendar-body .calendar-weekdays li {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .calendar-dates li::before{
+        width: 35px;
+        height: 35px;
+    }
 }
