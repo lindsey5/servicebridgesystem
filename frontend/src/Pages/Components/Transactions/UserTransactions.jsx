@@ -48,7 +48,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             setFetchedData(result.transactions);
             dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
             setTotalPages(result.totalPages);
-            currentPage === result.totalPages ? setNextBtn(true) : setNextBtn(false);
+            currentPage === result.totalPages || result.totalPages === 0 ? setNextBtn(true) : setNextBtn(false);
             currentPage === 1 ? setPrevBtn(true) : setPrevBtn(false);
             setLoading(false);
         }
@@ -163,37 +163,38 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                         />}
                     </div>
                 </div>
-                <div className="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Provider</th>
-                                <th>Client</th>
-                                <th>Status</th>
-                                <th>Address</th>
-                                <th>Service Name</th>
-                                <th>Price</th>
-                                <th>Payment Method</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Booked on</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {state.transactions && state.transactions.map((transaction, index) => (
-                                    <TransactionRow 
-                                        key={index} transaction={transaction} 
-                                        index={index} 
-                                        modal_state={modal_state}
-                                        modal_dispatch={modal_dispatch}
-                                        user={user}
-                                    />
-                                ))}
-                        </tbody>
-                    </table>
-                </div>
+                     <div className="table-container">
+                     {state.transactions.length < 1 && <h2>No transactions yet</h2>}
+                     <table>
+                         <thead>
+                             <tr>
+                                 <th>No</th>
+                                 <th>Provider</th>
+                                 <th>Client</th>
+                                 <th>Status</th>
+                                 <th>Address</th>
+                                 <th>Service Name</th>
+                                 <th>Price</th>
+                                 <th>Payment Method</th>
+                                 <th>Date</th>
+                                 <th>Time</th>
+                                 <th>Booked on</th>
+                                 <th>Action</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                         {state.transactions.length > 0 && state.transactions.map((transaction, index) => (
+                                     <TransactionRow 
+                                         key={index} transaction={transaction} 
+                                         index={index} 
+                                         modal_state={modal_state}
+                                         modal_dispatch={modal_dispatch}
+                                         user={user}
+                                     />
+                                 ))}
+                         </tbody>
+                     </table>
+                 </div>
             </div>}
         </div>
     )

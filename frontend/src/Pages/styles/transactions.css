@@ -164,6 +164,14 @@
     border-collapse: collapse;
 }
 
+.transactions .container .table-container h2{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%);
+    color: rgb(158, 158, 158);
+}
+
 .transactions .container .table-container th {
     padding: 10px;
     background-color: rgb(236, 236, 236);

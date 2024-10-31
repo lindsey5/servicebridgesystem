@@ -40,6 +40,7 @@ const EarningModal = ({setShowEarningModal}) => {
                 <div className='loader-container'>
                     <div className="loader"></div>
             </div>}
+            {!loading && data?.length < 1 && <h2>No earning yet</h2>}
             {data && data.map(earning => <EarningDiv key={earning.transaction_id} earning={earning}/>)}
             </div>
             <button className="close-btn" onClick={() => setShowEarningModal(false)}>Close</button>
