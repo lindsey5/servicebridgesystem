@@ -57,11 +57,13 @@ const add_service_offered = async (req, res) => {
         }else{
             await Services_offered.create({
                 provider_id: provider_id,
-                service_name: service_offered.service_name
+                service_name: service_offered.service_name,
+                price: 0
             });
             res.json({success: 'Service successfully added'});
         }
     }catch(err){
+        console.log(err)
         res.status(400).json({ error: err.message });
     }
 }
