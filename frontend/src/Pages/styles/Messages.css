@@ -1,6 +1,5 @@
 .messages{
     width: 100%;
-    height: calc(100vh - 70px);
     padding-top: 65px;
     display: flex;
     background-color: white;

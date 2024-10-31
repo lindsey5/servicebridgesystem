@@ -8,6 +8,7 @@
 
 .your-services > h2, .your-services > p{
     margin: 20px auto;
+    text-align: center;
 }
 
 .your-services .search-bar{
@@ -41,6 +42,7 @@
     padding: 20px;
     box-shadow: 0 0 5px 3px rgb(177, 177, 177);
     flex-direction: column;
+    justify-content: space-between;
     border-radius: 20px;
 }
 
@@ -61,15 +63,6 @@
 .your-services img{
     width: 100%;
 }
-
-.your-services .service > h1{
-    margin-top: 40px;
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-}
-
 
 .your-services span{
     visibility: hidden;
@@ -108,13 +101,26 @@
 
 
 @media screen and (max-width: 1024px){
+    .your-services{
+        margin: 0 5px;
+    }
+
     .your-services .services-container{
         grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        width: 100%;
     }
-}
 
-@media screen and (max-width: 600px){
-    .your-services .services-container{
-        grid-template-columns: 1fr;
+    .your-services .service{
+        box-shadow: none;
+        border: 1px solid rgb(165, 165, 165);
+    }
+
+    .your-services .service > h2{
+        font-size: 15px;
+    }
+
+    .your-services .service > h3{
+        font-size: 13px;
     }
 }

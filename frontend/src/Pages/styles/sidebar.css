@@ -1,6 +1,6 @@
 .sidebar{
     width: 180px;
-    min-height: 100vh;
+    min-height: calc(100vh -70px);
     padding: 10px;
     padding-top: 75px;
     background-color: white;
@@ -67,5 +67,6 @@
     .sidebar{
         display: none;
         position: fixed;
+        height: 100%;
     }
 }
