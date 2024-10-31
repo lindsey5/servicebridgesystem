@@ -114,7 +114,8 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
     
     return (
             <div className="conversation">
-                <form onSubmit={sendMessage}>
+                 {recipientId &&
+                    <form onSubmit={sendMessage}>
                     <div className="convo-container" ref={chatEndRef}>
                         <div className='recipient-details-container'>
                             <img src={imgSrc} />
@@ -128,7 +129,8 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
                             <img src="/icons/send.png" alt="Send" />
                         </button>
                     </div>
-                </form>
+                    </form>
+                 }
             </div>
     );
 };

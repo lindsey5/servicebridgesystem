@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/ChatPartners.css';
 import useFetch from '../../../hooks/useFetch';
 import createImageSrc from '../../../utils/createImageSrc';
@@ -6,41 +6,90 @@ import defaultProfilePic from '../../../assets/user (1).png';
 
 const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
 
-    const ChatPartnerDiv = ({ chat_partner }) => {
-        const { data: userDetails } = useFetch(`/api/get/user-details/${chat_partner}`);
-        const { data: latestMessage} = useFetch(`/api/latest-message/?you=${socket.id}&&partner=${chat_partner}`);
-        const [imgSrc, setImgSrc] = useState(defaultProfilePic);
+    const [chatContacts, setChatContacts] = useState();
+    const [showSide, setShowSide] = useState(true);
+
+    const setContacts = async () => {
+        setChatContacts(
+            await Promise.all(
+                chatPartners.map(async (contact) => {
+                    const userDetailsRes = await fetch(`/api/get/user-details/${contact}`);
+                    const userDetails = await userDetailsRes.json();
+                    
+                    const latestMessageRes = await fetch(`/api/latest-message/?you=${socket.id}&&partner=${contact}`);
+                    const latestMessage = await latestMessageRes.json();
+                    return { id: contact, userDetails, latestMessage };
+                })
+            )
+        );
         
+    }
+
+    useEffect(() => {
+        setContacts();
+    }, [chatPartners]);
+
+    
+    const handleSearch = (value) => {
+        if(!value){
+            setContacts();
+        }else{
+            console.log()
+            setChatContacts(
+                chatContacts.filter(contact => 
+                    contact.userDetails?.fullname.toLowerCase().includes(value.toLowerCase())
+                )
+            );
+        }
+    }
+
+    const handleBlur = () => {
+        setContacts();
+    }
+
+    const handleShow = () => {
+        setShowSide(!showSide);
+    }
+
+    const ChatPartnerDiv = ({contact }) => {
+        const [imgSrc, setImgSrc] = useState(defaultProfilePic);
         const getImageSrc = async () => {
-            if (userDetails?.profile_pic) {
-                const src = await createImageSrc(userDetails.profile_pic.data);
+            if (contact.userDetails.profile_pic) {
+                const src = await createImageSrc(contact.userDetails.profile_pic.data);
                 setImgSrc(src);
             }
         };
 
-        if(userDetails && latestMessage){
+        if(contact.userDetails){
             getImageSrc();  
         }
         
         return (
-            <div key={chat_partner} className="chat-partner-container" 
+            <div key={contact} className="chat-partner-container" 
                 onClick={() => {
-                    setRecipientId(chat_partner);  
+                    setRecipientId(contact.id);  
                 }}>
                 <img className="partner-profile-pic" src={imgSrc} alt="Profile" />
                 <div className='partner-details'>
-                    {userDetails && <h3>{userDetails.fullname}</h3>}
-                    {latestMessage && <p>{latestMessage.content}</p>}
+                    <h3>{contact.userDetails.fullname}</h3>
+                   <p>{contact.latestMessage.content}</p>
                 </div>
             </div>
         );
     };
 
     return (
-        <section className="chat-partners">
-            {chatPartners && chatPartners.map(partner => (
-                <ChatPartnerDiv key={partner} chat_partner={partner} />
-            ))}
+        <section className={`chat-partners ${!showSide ? 'hide' : 'show'}`}>
+            <button onClick={handleShow}>{!showSide ? '→' : '←'}</button>
+            <div className='search-container'>
+            <input type='text' className='search-input' placeholder='Search' onBlur={handleBlur} onChange={(e) => handleSearch(e.target.value)}/>
+            </div>
+            {chatContacts?.length < 1 && <h3>No contacts</h3>}
+            <div className='contacts-container'>
+                {chatContacts && chatContacts.map(contact => (
+                    <ChatPartnerDiv key={contact.id} contact={contact} />
+                ))}
+            </div>
         </section>
     );
 };

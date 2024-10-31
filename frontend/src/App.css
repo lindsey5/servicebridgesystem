@@ -14,5 +14,4 @@ body{
 
 #root main{
   flex: 1;
-  overflow-x: auto;
 }

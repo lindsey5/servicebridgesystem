@@ -36,8 +36,8 @@ const Messages = () => {
 
     return (
         <div className="messages">
-            {socket && chatPartners && <ChatPartners socket={socket} chatPartners={chatPartners} setRecipientId={setRecipientId}/>}
-            {socket && recipientId && <Conversation recipientId={recipientId} socket={socket} fetchChatPartners={fetchChatPartners}/>}
+            {<ChatPartners socket={socket} chatPartners={chatPartners} setRecipientId={setRecipientId}/>}
+            {socket && <Conversation recipientId={recipientId} socket={socket} fetchChatPartners={fetchChatPartners}/>}
         </div>
     );
 };

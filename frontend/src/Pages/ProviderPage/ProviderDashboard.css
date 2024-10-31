@@ -7,6 +7,7 @@
 }
 
 .provider-dashboard .top-section{
+    width: 98%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
@@ -164,6 +165,7 @@
 @media screen and (max-width: 700px){
     .provider-dashboard .top-section{
         display: grid;
+        width: 90%;
         grid-template-columns: 1fr 1fr;
     }
 

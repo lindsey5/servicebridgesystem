@@ -1,11 +1,12 @@
 .sidebar{
     width: 180px;
+    height: 100%;
     padding: 10px;
     padding-top: 75px;
     background-color: white;
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    z-index: 3;
     border-right: 1px solid rgb(224, 224, 224);
 }
 
@@ -66,6 +67,5 @@
     .sidebar{
         display: none;
         position: fixed;
-        height: 100vh;
     }
 }

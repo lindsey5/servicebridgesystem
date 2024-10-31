@@ -105,11 +105,19 @@ const ClientHeader = () => {
                         alt="User Profile" 
                     />
                     <h1 id="user-fullname">{context.fullname}</h1>
-                    <button id="account-settings-btn" onClick={() => navigate('/Client/Account')}>
+                    <button id="account-settings-btn" 
+                        onClick={() => {
+                            navigate('/Client/Account');
+                            setShowDropdown(false);
+                    }}>
                         <img src="/icons/user.png" className="icon" alt="Menu Icon" />
                         Account Settings
                     </button>
-                    <button id="transactions-btn" onClick={() => navigate('/Client/Transactions')}>
+                    <button id="transactions-btn" 
+                    onClick={() => {
+                        navigate('/Client/Transactions');
+                        setShowDropdown(false);
+                    }}>
                         <img src="/icons/menu.png" className="icon" alt="Menu Icon" />Transactions
                     </button>
                     <button id="logout" onClick={logout}>

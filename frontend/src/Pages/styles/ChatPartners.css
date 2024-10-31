@@ -1,17 +1,60 @@
 .chat-partners{
-    height: calc(100vh - 65px);
-    overflow-y: auto;
+    height: calc(100vh - 70px);
     background-color: rgb(248, 248, 248);
     border-right: 1px solid rgb(224, 224, 224);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.chat-partners .contacts-container{
+    height: 90%;
+    overflow-y: auto;
+}
+
+.chat-partners > button{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateX(50%);
+    width: 80px;
+    height: 40px;
+    background-color: rgb(3, 117, 247);
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    text-align: start;
+    padding-left: 13px;
+    cursor: pointer;
+}
+
+.chat-partners .search-container{
+    width: 300px;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.chat-partners .search-input{
+    width: 100%;
+    outline: none;
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid rgb(179, 179, 179);
+    padding-left: 10px;
 }
 
 .chat-partner-container{
-    width: 250px;
+    width: 300px;
     background-color: white;
     display: flex;
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid rgb(224, 224, 224);
+    align-items: center;
+    text-align: start;
 }
 
 .chat-partner-container:hover{
@@ -26,23 +69,33 @@
     margin-right: 20px;
 }
 
-.chat-partner-container .partner-details {
-    white-space: nowrap; 
-    overflow: hidden;
+.chat-partners.hide .search-container{
+    width: 80px;
+}
+
+.chat-partners.hide .chat-partner-container{
+    width: 80px;
+    justify-content: center;
+}
+
+.chat-partners.hide .chat-partner-container .partner-profile-pic{
+    margin-right: 0;
+    width: 60px;
+    height: 60px;
+}
+
+.chat-partners.hide .partner-details {
+    display: none;
+
 }
 
 @media (max-width: 670px){
-    .chat-partner-container{
-        width: 80px;
-    }
-    .chat-partner-container .partner-profile-pic{
-        margin-right: 0;
-        width: 60px;
-        height: 60px;
+    .chat-partners{
+        position: fixed;
     }
 
-    .partner-details {
-        display: none;
-
+    .chat-partners.hide{
+        position: relative;
     }
+
 }
