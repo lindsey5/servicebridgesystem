@@ -95,7 +95,7 @@ const Reviews = ({id, rating, isProvider}) => {
                 <div className="reviews-detail">
                     <h4>Total Reviews</h4>
                     <div>
-                    {fetchedReviews && <h1>{fetchedReviews.length}</h1>}
+                    {fetchedReviews && (fetchedReviews.length > 0 ? <h1>{fetchedReviews.length}</h1> : <h3>No reviews yet</h3>)}
                     </div>
                 </div>
                 <div className="reviews-detail">
