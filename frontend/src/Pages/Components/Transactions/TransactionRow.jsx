@@ -13,16 +13,15 @@ const isDateExpired = (transactionDateTime) => {
 };
 
 const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
-
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
     const transactionDateTime = `${transaction.date} ${transaction.time}`;
 
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
         if(transaction.payment_method === 'Online Payment'){
-            fail_and_refund(transaction.id);
+            fail_and_refund(transaction.transaction_id);
         }else{
-            updateTransaction(transaction.id, 'Failed');
+            updateTransaction(transaction.transaction_id, 'Failed');
         }
     }
 

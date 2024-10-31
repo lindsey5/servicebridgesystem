@@ -41,38 +41,38 @@ const TransactionButton = ({transaction, user, modal_dispatch}) => {
     if (transaction.status === 'Requested' && user === 'Provider') {
         return (
             <>
-            {handleActionButton(() => acceptTransaction(transaction.id), 'accept')}
-            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
+            {handleActionButton(() => acceptTransaction(transaction.transaction_id), 'accept')}
+            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
             </>
         );
     }else if(transaction.status === 'Accepted' && user === 'Provider'){
         return (
             <>
-            {handleActionButton(() => setToOngoing(transaction.id), 'accept')}
-            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.id);} , 'cancel')}
+            {handleActionButton(() => setToOngoing(transaction.transaction_id), 'accept')}
+            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
             </>
         );
         
     }else if ((transaction.status === 'Requested' || transaction.status === 'Accepted') && user === 'Client') {
-        return handleActionButton(() =>{ setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: true}); }, 'cancel');
+        return handleActionButton(() =>{ setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: true}); }, 'cancel');
 
     } else if (transaction.status === 'In Progress' && user === 'Provider') {
-        return handleActionButton(() => finishTransaction(transaction.id), 'accept');
+        return handleActionButton(() => finishTransaction(transaction.transaction_id), 'accept');
 
     } else if (transaction.status === 'Finished' && transaction.payment_method === 'Online Payment' && user === 'Client') {
-        return handleActionButton(() => completeTransaction(transaction.id, transaction.price), 'accept');
+        return handleActionButton(() => completeTransaction(transaction.transaction_id, transaction.price), 'accept');
             
     } else if(transaction.status === 'Finished' && transaction.payment_method === 'Cash on Pay' && user === 'Provider') {
-        return handleActionButton(() => goToProviderPaymentLink(transaction.id, transaction.price), 'accept');
+        return handleActionButton(() => goToProviderPaymentLink(transaction.transaction_id, transaction.price), 'accept');
 
     }else if (transaction.status === 'Completed' && user === 'Client') {
-        return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.id); }, 'like');
+        return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.transaction_id); }, 'like');
 
     } else if (transaction.status === 'Cancelled' || transaction.status === 'Declined') {
-        return handleActionButton(() => { setTransactionId(transaction.id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye');
+        return handleActionButton(() => { setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye');
 
     } else if (transaction.status === 'Reviewed') {
-        return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.id)}, 'eye');
+        return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.transaction_id)}, 'eye');
     }else{
         return null
     }   
