@@ -83,6 +83,11 @@
     margin-bottom: 20px;
 }
 
+.Provider-reviews .review-filter > button:first-child{
+    border: 1px solid  rgb(3, 117, 247);
+    color: rgb(3, 117, 247);
+}
+
 .Provider-reviews .review-filter > button{
     background-color: white;
     border: 1px solid  grey;

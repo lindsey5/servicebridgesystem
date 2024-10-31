@@ -68,8 +68,8 @@
         border: 1px solid rgb(165, 165, 165);
     }
 
-    .services-page .service > h1{
-        font-size: 13px;
+    .services-page .service > h2{
+        font-size: 15px;
     }
 
     .services-page .service > h3{
