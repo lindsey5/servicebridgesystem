@@ -2,8 +2,9 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/connection.js';
 
 const ProviderBalance = sequelize.define('ProviderBalance', {
-    provider_id: {
+    id: {
         type: DataTypes.STRING,
+        primaryKey: true,
         allowNull: false,
         validate: {
             notEmpty: {
@@ -13,6 +14,7 @@ const ProviderBalance = sequelize.define('ProviderBalance', {
     },
     balance: {
         type: DataTypes.DOUBLE,
+        defaultValue: 0
     },
     }, {
     timestamps: false,

@@ -1,7 +1,7 @@
 import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
-import { Op, where } from 'sequelize';
+import { Op } from 'sequelize';
 
 // This function get the client details from the databased based on the client id
 const get_provider = async (req, res) => {

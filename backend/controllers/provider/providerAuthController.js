@@ -21,6 +21,7 @@ const signup_post = async (req, res) => {
             res.status(400).json({error: 'Error'});
         }
     }catch(err){
+        console.log(err);
          // Handle any errors that occur during the process
         const errors = handleErrors(err);
         res.status(400).json({errors});
