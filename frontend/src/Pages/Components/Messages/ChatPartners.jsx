@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import '../../styles/ChatPartners.css';
-import useFetch from '../../../hooks/useFetch';
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
 
@@ -86,7 +85,7 @@ const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
             </div>
             {chatContacts?.length < 1 && <h3>No contacts</h3>}
             <div className='contacts-container'>
-                {chatContacts && chatContacts.map(contact => (
+                {chatContacts.length > 0 && chatContacts.map(contact => (
                     <ChatPartnerDiv key={contact.id} contact={contact} />
                 ))}
             </div>
