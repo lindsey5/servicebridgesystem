@@ -164,7 +164,7 @@
     border-collapse: collapse;
 }
 
-.transactions .container .table-container h2{
+.transactions .container .table-container h3{
     position: absolute;
     top: 50%;
     right: 50%;

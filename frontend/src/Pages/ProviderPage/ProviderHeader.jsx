@@ -42,7 +42,10 @@ const ProviderHeader = () =>{
             <h1 id="title" onClick={()=> navigate('/Provider/Dashboard')}>Hustle</h1>
         </div>
         <div className="user-container">
-            <div className='chat-icon-container' onClick={()=> navigate('/Provider/Messages')}>
+            <div className='chat-icon-container' onClick={()=> {
+                navigate('/Provider/Messages');
+                setHideSideBar(false); 
+            }}>
                <img src="/icons/chat.png" className='chat-icon' />
             </div>
             <img className="user-pic" 
@@ -56,7 +59,8 @@ const ProviderHeader = () =>{
                 </h1>
                 <button id="account-settings-btn" onClick={() => {
                     navigate('/Provider/Account');
-                    setShowDropdown(false);    
+                    setShowDropdown(false);
+                    setHideSideBar(false);  
                 }}>
                     <img src="/icons/user.png" className="icon" alt="exit icon" />
                     Account Settings

@@ -10,7 +10,6 @@ import RateModal from '../../../modals/RateModal.jsx';
 import ReviewedModal from '../../../modals/ReviewedModal.jsx';
 import ProviderReasonModal from '../../../modals/ProviderReasonModal.jsx';
 import useModalReducer from '../../../hooks/modalReducer.jsx';
-import { createTransactionObject } from '../../../services/transactionService.jsx';
 
 const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const {state, dispatch}  = useTransactionsReducer();
@@ -164,7 +163,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                     </div>
                 </div>
                      <div className="table-container">
-                     {state.transactions.length < 1 && <h2>No transactions yet</h2>}
+                     {state.transactions.length < 1 && <h3>No transactions yet</h3>}
                      <table>
                          <thead>
                              <tr>
