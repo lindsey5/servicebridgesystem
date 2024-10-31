@@ -164,64 +164,11 @@
     background-color: #dbdbdb;
 }
 
-.transactions-div{
-    width: 400px;
-    margin-left: 20px;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-}
-
-.transactions-header{
-    width: 100%;
-    background-color: rgb(3, 117, 247);
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.transactions-header h2{
-    color: #fff;
-    margin: 10px;
-}
-
-.transactions-container{
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto;
-    overflow-x: auto;
-}
-
-.transactions-container > div {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.availability .available-date-services{
+    margin-left: 50px;
+    width: 300px;
+    height: 400px;
     background-color: white;
-    border-bottom: 1.6px solid rgb(204, 204, 204);
-    text-align: center;
-}
-
-.transactions-container > div > p{
-    margin: 0 5px;
-}
-
-.blue{
-    color: rgb(0, 0, 255);
-    background-color: rgb(214, 238, 255);
-}
-
-.red{
-    color: red;
-    background-color: rgb(255, 215, 215);
-}
-
-.green{
-    color: green;
-    background-color: rgb(213, 255, 213);
 }
 
 @media screen and (max-width: 600px){

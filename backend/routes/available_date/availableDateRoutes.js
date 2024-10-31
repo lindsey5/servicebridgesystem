@@ -1,6 +1,7 @@
 import express from 'express';
 import AvailableDateController from '../../controllers/available_dates/AvailableDateController.js';
 import { providerRequireAuth } from '../../middleware/authMiddleware.js';
+import AvailableDateServicesController from '../../controllers/available_dates/AvailableDateServicesController.js';
 const router = express.Router();
 
 router.get('/provider/available-dates', AvailableDateController.get_available_dates);
@@ -12,5 +13,9 @@ router.post('/provider/available-date', providerRequireAuth, AvailableDateContro
 router.get('/available-date/id', AvailableDateController.get_date_id);
 
 router.get('/available-date/:id', AvailableDateController.get_date );
+
+router.post('/available-date-services', AvailableDateServicesController.create_available_date_service);
+
+router.get('/available-date-services/:date', providerRequireAuth, AvailableDateServicesController.get_available_date_services);
 
 export default router;

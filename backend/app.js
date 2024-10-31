@@ -10,6 +10,7 @@ import './Associations/EarningAssociations.js';
 import './Associations/ServiceAssociations.js';
 import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
+import './Associations/AvailableDateAssociations.js';
 import ChatService from './services/chatService.js';
 import { Server } from 'socket.io';
 import { createServer } from 'http';

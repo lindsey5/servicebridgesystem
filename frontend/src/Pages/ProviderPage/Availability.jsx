@@ -4,14 +4,17 @@ import './Availability.css';
 const Availability = () => {
     const [date, setDate] = useState(new Date());
     const [availableDates, setAvailableDates] = useState([]);
-    const [transactions, setTransactions] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [showTransactions, setShowTransactions] = useState(false);
+    const [availableDateServices, setAvailableDateServices] = useState([]);
+    const [selectedDate, setSelectedDate] = useState();
 
     const months = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
+
+    useEffect(() => {
+        console.log(availableDateServices)
+    },[availableDateServices]);
 
     useEffect(() => {
         document.title = "Availability | Provider";
@@ -59,15 +62,20 @@ const Availability = () => {
         });
     }
 
+    const get_available_date_services = (selectedDate) => {
+       return fetch(`/api/available-date-services/${selectedDate}`)
+        .then(response => response.json())
+        .then(result => setAvailableDateServices(result))
+    }
+
     const handleDateClick = async (day) => {
         const selectedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const currentDate = new Date().toISOString().split('T')[0];
         const flag = await isDateExist(selectedDate);
-        setShowTransactions(false);
+
         if (flag || selectedDate < currentDate) {
             setSelectedDate(selectedDate);
-            setShowTransactions(true);
-            fetchTransactionsByDate(selectedDate);
+            get_available_date_services(selectedDate);
         } else {
             if (confirm("Add this date to your availability?")) {
                 if(addDate(selectedDate)){
@@ -78,12 +86,6 @@ const Availability = () => {
             }
         }
     };
-
-    const fetchTransactionsByDate = (date) => {
-        fetch(`/api/transactions/${date}`)
-        .then(response => response.json())
-        .then(result=> setTransactions(result.transactions))
-    }
 
     
     const renderCalendar = () => {
@@ -128,55 +130,6 @@ const Availability = () => {
         return days;
     };
 
-
-    /*const TransactionsDiv = ({ transactions }) => {
-        return (
-          <div>
-            <div className="transactions-container">
-              {transactions.length > 0 ? (
-                transactions.map((transaction, index) => {
-                  // Determine status color
-                  let statusClass = '';
-                  if (transaction.status === 'Cancelled' || transaction.status === 'Declined' || transaction.status === 'Failed') {
-                    statusClass = 'red';
-                  } else if (
-                    transaction.status === 'Completed' ||
-                    transaction.status === 'Finished' ||
-                    transaction.status === 'Reviewed'
-                  ) {
-                    statusClass = 'green';
-                  } else {
-                    statusClass = 'blue';
-                  }
-      
-                  return (
-                    <div key={index}>
-                      <h3>{transaction.time}</h3>
-                      <p>{transaction.service_name}</p>
-                      <p className={statusClass}>{transaction.status}</p>
-                    </div>
-                  );
-                })
-              ) : (
-                <div>
-                  <h3>No Task for this date</h3>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      };*/
-
-    const formatDate = (date) =>{
-        const dateObj = new Date(JSON.stringify(date));
-        const formatter = new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-        return formatter.format(dateObj);
-    }
-
     return (
         <div className="availability">
             <div className='top-section'>
@@ -214,12 +167,9 @@ const Availability = () => {
                     </ul>
                 </div>
             </div>
-            {/*<div className="transactions-div" style={{ display: showTransactions ? 'flex' : 'none' }}>
-                <div className="transactions-header">
-                    <h2>{selectedDate && formatDate(selectedDate)}</h2>
-                </div>
-                <TransactionsDiv transactions={transactions}/>
-            </div>*/}
+            <div className='available-date-services'>
+                <h2>{selectedDate}</h2>
+            </div>
         </div>
     );
 };

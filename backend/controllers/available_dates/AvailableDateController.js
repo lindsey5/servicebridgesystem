@@ -34,7 +34,7 @@ const get_available_dates = async (req, res) => {
     };
 
     if (req.query.isFiltered === 'true') {
-            queryOptions.where.date = { [Op.gte]: today } 
+        queryOptions.where.date = { [Op.gte]: today } 
     }
 
     try {

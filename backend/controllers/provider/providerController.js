@@ -2,6 +2,8 @@ import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
 import { Op } from 'sequelize';
+import { sequelize } from '../../config/connection.js';
+import AvailableDateService from '../../models/available_dates_services.js';
 
 // This function get the client details from the databased based on the client id
 const get_provider = async (req, res) => {
@@ -36,9 +38,17 @@ const getProviders = async (req, res) => {
                 { 
                     model: ProviderServiceOffered, 
                     where: { service_name, price: {  [Op.ne] : 0 } }, 
-                    attributes: ['service_name', 'price'] 
+                    attributes: ['service_name', 'price'],
+                    include: {
+                        model: AvailableDateService,
+                        attributes: [],
+                        where: {
+                            service_id: sequelize.col('ProviderServiceOffereds.service_id')
+                        }
+                    }
                 },
-                { model: AvailableDate, where: { date: {[Op.gte]: new Date() } } }
+                { model: AvailableDate, where: { date: {[Op.gte]: new Date() } } },
+            
             ],
             group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city']
         }
