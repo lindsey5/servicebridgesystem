@@ -62,7 +62,7 @@
 }
 
 .Provider-reviews .reviews-detail .percentage{
-    flex: 1;
+    width: 50%;
     height: 50%;
     background-color:  rgb(224, 243, 255);
     border-radius: 20px;

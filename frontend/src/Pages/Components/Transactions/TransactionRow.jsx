@@ -4,6 +4,7 @@ import { RecipientContext } from '../../../Context/RecipientContext';
 import TransactionButton from './TransactionButton';
 import TransactionStatus from './TransactionStatus';
 import { updateTransaction, fail_and_refund } from '../../../services/transactionService';
+import { formatDate } from '../../../utils/formatDate';
 
 const isDateExpired = (transactionDateTime) => {
     const date = new Date(transactionDateTime);
@@ -15,7 +16,7 @@ const isDateExpired = (transactionDateTime) => {
 const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
-    const transactionDateTime = `${transaction.date} ${transaction.time}`;
+    const transactionDateTime = `${transaction.available_date.date} ${transaction.time}`;
 
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
         if(transaction.payment_method === 'Online Payment'){
@@ -40,9 +41,9 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
             <td>{transaction.service_name}</td>
             <td>{formattedPrice}</td>
             <td>{transaction.payment_method}</td>
-            <td>{transaction.date}</td>
+            <td>{transaction.available_date.date}</td>
             <td>{transaction.time}</td>
-            <td>{transaction.booked_on}</td>
+            <td>{formatDate(transaction.booked_on)}</td>
             <td className='buttons-table-data'>
                 <div>
                 {user && <TransactionButton transaction={transaction} user={user} modal_dispatch={modal_dispatch}/>}

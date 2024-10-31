@@ -129,7 +129,7 @@ const Availability = () => {
     };
 
 
-    const TransactionsDiv = ({ transactions }) => {
+    /*const TransactionsDiv = ({ transactions }) => {
         return (
           <div>
             <div className="transactions-container">
@@ -165,7 +165,7 @@ const Availability = () => {
             </div>
           </div>
         );
-      };
+      };*/
 
     const formatDate = (date) =>{
         const dateObj = new Date(JSON.stringify(date));
@@ -214,12 +214,12 @@ const Availability = () => {
                     </ul>
                 </div>
             </div>
-            <div className="transactions-div" style={{ display: showTransactions ? 'flex' : 'none' }}>
+            {/*<div className="transactions-div" style={{ display: showTransactions ? 'flex' : 'none' }}>
                 <div className="transactions-header">
                     <h2>{selectedDate && formatDate(selectedDate)}</h2>
                 </div>
                 <TransactionsDiv transactions={transactions}/>
-            </div>
+            </div>*/}
         </div>
     );
 };

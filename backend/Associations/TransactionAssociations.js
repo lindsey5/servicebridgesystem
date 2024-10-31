@@ -56,7 +56,6 @@ Transaction.belongsTo(AvailableDate, {
   onUpdate: 'CASCADE',           // Updates cascade to the transaction
 });
 
-
 Cancelled_transaction.hasOne(Transaction, {
   foreignKey: 'transaction_id',  // The foreign key in Transaction referring to the cancelled transaction
   sourceKey: 'transaction_id',   // The key in CancelledTransaction that is referenced by the foreign key

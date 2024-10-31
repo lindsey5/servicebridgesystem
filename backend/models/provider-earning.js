@@ -1,9 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/connection.js';
 
-class ProviderEarning extends Model {}
-
-ProviderEarning.init({
+const ProviderEarning = sequelize.define('ProviderEarning',{
   transaction_id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -18,8 +16,6 @@ ProviderEarning.init({
     defaultValue: DataTypes.NOW
   }
 }, {
-  sequelize,
-  modelName: 'ProviderEarning',
   tableName: 'provider_earnings',
   timestamps: false,
 });

@@ -42,14 +42,18 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             setNextBtn(true)
             setPrevBtn(true);
             dispatch({ type: 'SET_TRANSACTIONS',payload: null });
-            const response = await fetch(url);
-            const result = await response.json();
-            setFetchedData(result.transactions);
-            dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
-            setTotalPages(result.totalPages);
-            currentPage === result.totalPages || result.totalPages === 0 ? setNextBtn(true) : setNextBtn(false);
-            currentPage === 1 ? setPrevBtn(true) : setPrevBtn(false);
-            setLoading(false);
+            try{
+                const response = await fetch(url);
+                const result = await response.json();
+                setFetchedData(result.transactions);
+                dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
+                setTotalPages(result.totalPages);
+                currentPage === result.totalPages || result.totalPages === 0 ? setNextBtn(true) : setNextBtn(false);
+                currentPage === 1 ? setPrevBtn(true) : setPrevBtn(false);
+                setLoading(false);
+            }catch(err){
+                console.error(err);
+            }
         }
         fetchTransactions();
     }, [currentPage]);

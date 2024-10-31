@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/connection.js';
+import ProviderServiceOffered from './service_offered.js';
 
 const AvailableDate = sequelize.define('available_date', {
     date_id: {
@@ -14,7 +15,10 @@ const AvailableDate = sequelize.define('available_date', {
     date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
-    }
+    },
+    services: [
+        {type: ProviderServiceOffered}
+    ]
 }, {
     timestamps: false,
     tableName: 'provider_available_dates'
