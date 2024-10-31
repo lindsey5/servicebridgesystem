@@ -67,6 +67,7 @@ const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
             <div key={contact} className="chat-partner-container" 
                 onClick={() => {
                     setRecipientId(contact.id);  
+                    setShowSide(false);
                 }}>
                 <img className="partner-profile-pic" src={imgSrc} alt="Profile" />
                 <div className='partner-details'>
