@@ -25,8 +25,7 @@ Service Bridge System is a platform designed to bridge clients and service provi
   Monitor ongoing transactions from booking to service completion.
   
   #### Provider Availability Management
-  Set availability for specific dates.
-  Manage upcoming appointments and block unavailable periods.
+  Provider can set availability for specific dates.
   
   #### Provider Services Offered Management
   Add, update, and remove services offered by the provider.
