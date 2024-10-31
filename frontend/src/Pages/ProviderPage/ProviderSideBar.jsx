@@ -64,7 +64,7 @@ export default function ProviderSideBar () {
                     handleButtonClick(2);
                 }}>
                     <img src="/icons/repair-tool.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
-                    {window.innerWidth <= 840 ? 'Service List' : (hideSideBar ? '' : 'Service List')}
+                    {window.innerWidth <= 840 ? 'Service List' : (hideSideBar ? '' : 'Services List')}
             </button>
             <button className={`sidebar-button ${activeButton === 3 ? 'active' : ''}`}
                 onClick={() => {

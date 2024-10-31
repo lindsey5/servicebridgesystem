@@ -50,6 +50,12 @@ const ProviderServicesOffered = () => {
                 <input className="search-bar" type="text" placeholder="Search" onChange={(e) => setSearchTerm(e.target.value)} />
                 <CategorySelect />
             </div>
+            {services.length < 1 && 
+            <>
+            <h2>You currently don’t have any services</h2>
+            <p>Please click on the services list to add a service.</p>
+            </>
+            }
             <div className="services-container">
             {services.map((service) => {
                 const formattedPrice = service.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

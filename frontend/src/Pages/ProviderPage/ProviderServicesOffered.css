@@ -6,6 +6,10 @@
     min-height: 100vh;
 }
 
+.your-services > h2, .your-services > p{
+    margin: 20px auto;
+}
+
 .your-services .search-bar{
     height: 35px;
     border-radius: 10px;
