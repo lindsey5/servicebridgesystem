@@ -98,43 +98,48 @@ const ClientSearchResult = () => {
     
     return (
         <div className='search-result' style={{alignItems: 'start'}}>
-                <div className="container">
-                <div className="filter-container">
-                    <div className="price-div">
-                    <h2>Price</h2>
-                    <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
-                    <p id="selectedPrice">{state.priceLabel}</p>
-                    </div>
-                    <div className="sort-div">
-                    <h3>Sort By</h3>
-                    <div>
-                        <input type="checkbox" id="price-desc" className="filter-checkbox" onClick={(e) => filterSearch('priceHigh',e.target)}  ref={el => filterCheckBoxesRef.current[0] = el} />
-                        <label htmlFor="price-desc">Price (Highest)</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="price-asc" className="filter-checkbox" onClick={(e) => filterSearch('priceLow', e.target)}  ref={el => filterCheckBoxesRef.current[1] = el}/>
-                        <label htmlFor="price-asc">Price (Lowest)</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="rating-desc" onClick={(e) => filterSearch('ratingHigh', e.target)} className="filter-checkbox" ref={el => filterCheckBoxesRef.current[2] = el} />
-                        <label htmlFor="rating-desc">Rating (Highest)</label>
-                    </div>
-                    </div>
+            <div className="container">
+            <div className="filter-container">
+                <div className="price-div">
+                <h2>Price</h2>
+                <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
+                <p id="selectedPrice">{state.priceLabel}</p>
                 </div>
+                <div className="sort-div">
+                <h3>Sort By</h3>
+                <div>
+                    <input type="checkbox" id="price-desc" className="filter-checkbox" onClick={(e) => filterSearch('priceHigh',e.target)}  ref={el => filterCheckBoxesRef.current[0] = el} />
+                    <label htmlFor="price-desc">Price (Highest)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="price-asc" className="filter-checkbox" onClick={(e) => filterSearch('priceLow', e.target)}  ref={el => filterCheckBoxesRef.current[1] = el}/>
+                    <label htmlFor="price-asc">Price (Lowest)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="rating-desc" onClick={(e) => filterSearch('ratingHigh', e.target)} className="filter-checkbox" ref={el => filterCheckBoxesRef.current[2] = el} />
+                    <label htmlFor="rating-desc">Rating (Highest)</label>
+                </div>
+                </div>
+            </div>
+            {loading && 
+                <div className='loader-container' style={{width: '600px', display: 'flex', justifyContent: 'center'}}>
+                    <div className="loader"></div>
+                </div>}
 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="search-results-container">
-                        <h2>{!results ? 'No ' : ''}Results for '{service_name}'</h2>
-                        {results ? results.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
-                    </div>
-                    <div className="pagination-controls">
-                    <button id="prevPage" disabled={state.disabledPrevBtn} style={{display: !results ? 'none' : ''}} onClick={prevPage}>&lt; Prev</button>
-                    <div className="pagination">
-                        {results ? state.paginationBtns : null}
-                    </div>
-                    <button id="nextPage" disabled={state.disabledNextBtn} style={{display: !results ? 'none' : ''}} onClick={nextPage}>Next &gt;</button>
-                    </div>
+            {!loading && 
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="search-results-container">
+                    <h2>{!results ? 'No ' : ''}Results for '{service_name}'</h2>
+                    {results ? results.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
                 </div>
+                <div className="pagination-controls">
+                <button id="prevPage" disabled={state.disabledPrevBtn} style={{display: !results ? 'none' : ''}} onClick={prevPage}>&lt; Prev</button>
+                <div className="pagination">
+                    {results ? state.paginationBtns : null}
+                </div>
+                <button id="nextPage" disabled={state.disabledNextBtn} style={{display: !results ? 'none' : ''}} onClick={nextPage}>Next &gt;</button>
+                </div>
+            </div>}
             </div>
         </div>
     )

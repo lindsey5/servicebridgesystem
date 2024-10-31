@@ -47,6 +47,20 @@ const get_client_transactions = async (req, res) => {
             where: { client: id},
             order: [
                 ['booked_on', 'DESC']
+            ],
+            include: [
+                {
+                    model: Client,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    model: Provider,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    model: AvailableDate,
+                    attributes: ['date']
+                }
             ]
         }
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);
@@ -68,6 +82,20 @@ const get_provider_transactions = async (req, res) => {
             where: { provider: id},
             order: [
                 ['booked_on', 'DESC']
+            ],
+            include: [
+                {
+                    model: Client,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    model: Provider,
+                    attributes: ['firstname', 'lastname']
+                },
+                {
+                    model: AvailableDate,
+                    attributes: ['date']
+                }
             ]
         }
 

@@ -34,8 +34,8 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
     return (
         <tr>
             <td>{index + 1}</td>
-            <td id='provider'>{transaction.provider}</td>
-            <td>{transaction.client}</td>
+            <td>{transaction.provider_account.firstname} {transaction.provider_account.lastname}</td>
+            <td>{transaction.client_account.firstname} {transaction.client_account.lastname}</td>
             <TransactionStatus transaction={transaction}/>
             <td>{transaction.address}</td>
             <td>{transaction.service_name}</td>

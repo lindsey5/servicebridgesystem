@@ -22,24 +22,6 @@ const get_provider = async (req, res) => {
     }
 };
 
-// This function retrieve the provider's fullname
-const get_provider_name = async (req, res) => {
-    const provider_id = req.params.id; // Retrieve the provider ID from the request parameters
-    try{
-        const provider = await Provider.findOne({ where: { id: provider_id }}); // Verify if the provider is exist from the database using the provider_id variable
-        if(provider){
-            // Execute if the provider is found from the database
-            const fullname = provider.firstname + ' ' + provider.lastname; // Concat the firstname and lastname of the provider
-            res.status(200).json({ fullname });  // Respond with the client's fullname
-        }else{
-            res.status(400).json({error: 'Provider not found'}); // Respond an error message if the provider is not found
-        }
-    }catch(err){
-         // Handle any errors that occur during the process
-        res.status(400).json({ error: err.message });
-    }
-}
-
 const getProviders = async (req, res) => {
     const {service_name, price: priceStr, sortBy } = req.body;
     const price = parseFloat(priceStr);
@@ -154,4 +136,4 @@ const get_provider_rating = async (req, res) => {
     }
 }
 
-export default { get_provider, get_provider_name, getProviders, update_provider, get_provider_rating};
+export default { get_provider, getProviders, update_provider, get_provider_rating};

@@ -10,6 +10,7 @@ const Booking = () => {
     const id = decodedData.id;
     const service_name = decodedData.service_name;
     const price = decodedData.price;
+    const fullname = decodedData.firstname + ' ' + decodedData.lastname;
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [showDateDropDown, setDateDropDown] = useState(false);
@@ -93,7 +94,8 @@ const Booking = () => {
                     price,
                     paymentMethod,
                     date: selectedDate,
-                    time: selectedTime
+                    time: selectedTime,
+                    provider_fullname: fullname
                 }
             });
         }else if(!selectedDate){

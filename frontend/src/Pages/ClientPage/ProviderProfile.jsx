@@ -13,7 +13,9 @@ const ProviderProfile = ({provider}) => {
         const params = {
             id: provider.id,
             price: provider.price,
-            service_name: provider.service_name
+            service_name: provider.service_name,
+            firstname: provider.firstname,
+            lastname: provider.lastname
         }
         const encoded = encodeURIComponent(btoa(JSON.stringify(params)));
         navigate(`/Client/booking?data=${encoded}`);

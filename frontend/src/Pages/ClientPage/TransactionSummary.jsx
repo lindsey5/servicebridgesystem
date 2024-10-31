@@ -12,13 +12,12 @@ const TransactionSummary = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const { provider, service_name, price, paymentMethod, date, time } = location.state;
+    const { provider, service_name, price, paymentMethod, date, time, provider_fullname } = location.state;
     const parsePrice = parseFloat(price);
     const formattedPrice = parsePrice.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     });
-    const { data: providerName } = useFetch(`/api/provider/name/${provider}`);
 
     const book = async () => {
         const date_id = await getDateId(date, provider);
@@ -62,7 +61,7 @@ const TransactionSummary = () => {
                     <tbody>
                         <tr>
                             <td>Provider:</td>
-                            <td>{providerName ? providerName.fullname : 'N/A'}</td>
+                            <td>{provider_fullname}</td>
                         </tr>
                         <tr>
                             <td>Service Name</td>
