@@ -7,6 +7,8 @@ const AccountSettings = ({data, handleUpdate, error}) => {
     const [details, setDetails] = useState();
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [isUsernameDisabled, setUsernameDisabled] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [savingText, setSavingText] = useState('');
 
     const setInfo = async() =>{
         if(data){
@@ -47,8 +49,29 @@ const AccountSettings = ({data, handleUpdate, error}) => {
         }
     };
 
+    const [count, setCount] = useState(0); 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+          setCount(prev => prev + 1);
+          setSavingText(prev => (count < 3 ? prev + '.' : ''));
+    
+          if (count >= 3) {
+            setSavingText('');
+            setCount(0);
+          }
+        }, 500);
+    
+        return () => clearInterval(intervalId); // Cleanup interval on unmount
+      }, [count]);
+
     return(
-        <div className='account-settings'> 
+        <div className='account-settings'>
+            <div className='save-modal' style={{display: saving ? 'flex' : 'none'}}>
+            <div>
+                <img src="/icons/logo4.jpg"/>
+                <h2>Saving please wait{savingText}</h2>
+            </div>
+            </div>
             <div className='top-div' />
             <div className='container'>
                 <div className='top-section'>
@@ -125,7 +148,10 @@ const AccountSettings = ({data, handleUpdate, error}) => {
                     </div>
                     <div className='buttons'>
                         <button className='reset-btn' onClick={setInfo}>Reset</button>
-                        <button  className='save-btn' onClick={() => handleUpdate(details)}>Save</button>
+                        <button  className='save-btn' onClick={() => {
+                            handleUpdate(details);
+                            setSaving(true);
+                        }}>Save</button>
                     </div>
                 </div>
             </div>

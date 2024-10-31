@@ -54,7 +54,10 @@ const ProviderHeader = () =>{
                 <h1 id="user-fullname">
                     {providerData?.firstname && providerData?.lastname && `${providerData.firstname} ${providerData.lastname}`}
                 </h1>
-                <button id="account-settings-btn" onClick={() => navigate('/Provider/Account')}>
+                <button id="account-settings-btn" onClick={() => {
+                    navigate('/Provider/Account');
+                    setShowDropdown(false);    
+                }}>
                     <img src="/icons/user.png" className="icon" alt="exit icon" />
                     Account Settings
                 </button>

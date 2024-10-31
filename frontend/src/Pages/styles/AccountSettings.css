@@ -157,6 +157,35 @@ input[type="file"] {
     font-size: 25px;
 }
 
+.save-modal{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.save-modal > div{
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.save-modal > div img{
+    width: 60%;
+    height: 70px;
+    display: block;
+}
+
 @media screen and (max-width: 650px) {
     .profile-pic-parent-container{
         top: 130px;
