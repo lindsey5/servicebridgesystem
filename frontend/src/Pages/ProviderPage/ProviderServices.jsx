@@ -66,7 +66,7 @@ const ProviderServices = () => {
                 {services.map((service) => (
                     <div key={service.service_name} className="service" onClick={()=> addServiceOffered(service.service_name, setSuccessModal)}>
                         <img src={service.imageSrc} className="category-icon" />
-                        <h1 className="service-name">{service.service_name}</h1>
+                        <h2>{service.service_name}</h2>
                         <h3>Category: {service.category_name}</h3>
                         <h3>(Click to Add)</h3>
                     </div>
