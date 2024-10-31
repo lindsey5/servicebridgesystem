@@ -83,9 +83,9 @@ const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
             <div className='search-container'>
             <input type='text' className='search-input' placeholder='Search' onBlur={handleBlur} onChange={(e) => handleSearch(e.target.value)}/>
             </div>
-            {chatContacts?.length < 1 && <h3>No contacts</h3>}
+            {chatContacts?.length < 1 && <h4>No contacts</h4>}
             <div className='contacts-container'>
-                {chatContacts.length > 0 && chatContacts.map(contact => (
+                {chatContacts?.length > 0 && chatContacts.map(contact => (
                     <ChatPartnerDiv key={contact.id} contact={contact} />
                 ))}
             </div>
