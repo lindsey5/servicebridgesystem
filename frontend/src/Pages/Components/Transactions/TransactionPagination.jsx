@@ -15,8 +15,8 @@ const TransactionPagination = ({ totalPages, currentPage, setCurrentPage, disabl
     }
 
     const generatePaginationButtons = () => {
-        let startPage = Math.floor((currentPage - 1) / 6) * 6 + 1;
-        let endPage = Math.min(startPage + 5, totalPages);
+        let startPage = Math.floor((currentPage - 1) / 4) * 4 + 1;
+        let endPage = Math.min(startPage + 3, totalPages);
         let paginationBtns = [];
 
         for (let i = startPage; i <= endPage; i++) {

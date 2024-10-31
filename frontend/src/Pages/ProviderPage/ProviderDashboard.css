@@ -204,6 +204,10 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .provider-dashboard .top-section > div img{
+        display: none;
+    }
+
     .dashboard-mid-section{
         flex-direction: column;
         align-items: center;

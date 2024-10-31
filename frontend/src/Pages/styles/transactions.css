@@ -139,8 +139,7 @@
     border: 1px solid rgb(221, 221, 221);
     border-radius: 5px;
     margin: 0 2px;
-    width: 30px;
-    height: 30px;
+    padding: 5px 10px;
 }
 
 .transactions #nextPage:not(:disabled):hover, 
@@ -261,6 +260,10 @@
         width: 80%;
         z-index: 2;
         background-color: white;
+    }
+
+    .transactions .pagination-controls button{
+        padding: 5px;
     }
 }
 
