@@ -24,15 +24,12 @@ const Review = ({review, isProvider}) => {
         setImageSrc();
     }, [client_img]);
 
-    console.log( review.transaction.client_account)
-
     useEffect(() => {
         for(let i = 0; i<review.rating; i++){
             starsRef.current[i].style.color = 'rgb(3, 117, 247)'
         }
 
     },[review])
-
     return(
         <div className='review-container'>
             {isProvider && 

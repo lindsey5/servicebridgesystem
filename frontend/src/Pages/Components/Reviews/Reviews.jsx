@@ -68,11 +68,11 @@ const Reviews = ({id, rating, isProvider}) => {
         for (let i = ratingPercentages?.length - 1; i >= 0; i--) {
             const stars = [];
             for(let j=0; j<=i; j++){
-                stars.push(<span className='stars'>★</span>)
+                stars.push(<span key={`star${i+j}`} className='stars'>★</span>)
             }
 
             reviewElements.push(
-                <div className="percentage-container" key={i}>
+                <div key={i} className="percentage-container">
                     <div className='rating-stars'>
                     <span style={{marginRight: '5px'}}>{i + 1}</span>
                     {stars}
