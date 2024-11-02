@@ -14,8 +14,11 @@ router.get('/available-date/id', AvailableDateController.get_date_id);
 
 router.get('/available-date/:id', AvailableDateController.get_date );
 
-router.post('/available-date-services', AvailableDateServicesController.create_available_date_service);
+router.post('/available-date-services', providerRequireAuth, AvailableDateServicesController.create_available_date_service);
 
 router.get('/available-date-services/:date', providerRequireAuth, AvailableDateServicesController.get_available_date_services);
+
+router.delete('/available-date-service/:id', providerRequireAuth, AvailableDateServicesController.delete_available_date_service);
+
 
 export default router;

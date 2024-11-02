@@ -1,0 +1,126 @@
+.available-date-services{
+    margin-left: 50px;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid grey;
+}
+
+.available-date-services > h2{
+    margin: 0;
+    background-color: rgb(3, 117, 247);
+    padding: 20px 10px;
+    color: white;
+}
+
+.available-date-services .table-container{
+    width: 100%;
+    height: 70%;
+    background-color: white;
+    
+}
+
+.available-date-services table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.available-date-services th {
+    padding: 10px;
+    background-color: rgb(236, 236, 236);
+    font-weight: 500;
+    text-align: center;
+}
+
+.available-date-services td{
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.available-date-services td button:not(:disabled){
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.available-date-services td button:hover:not(:disabled){
+    background-color: rgb(184, 184, 184);
+}
+
+.available-date-services .add-service-modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    background-color: rgb(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.available-date-services .add-service-modal .container{
+    padding: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.available-date-services .add-service{
+    float: right;
+    margin-right: 20px;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    padding: 7px 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.available-date-services .add-service:hover{
+    background-color: rgb(172, 211, 255);
+}
+
+.add-service-modal .container select{
+    width: 250px;
+    height: 30px;
+}
+
+.add-service-modal .container > div{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-service-modal button{
+    padding: 5px 15px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    font-size: 15px;
+}
+
+.add-service-modal button:hover{
+    background-color: rgb(184, 184, 184);
+}
+
+.add-service-modal .container .close-btn{
+    background-color: red;
+}
+
+.add-service-modal .container .add-btn{
+    background-color: rgb(3, 117, 247);
+}
+
+@media screen and (max-width: 900px){
+    .available-date-services {
+        margin-top: 80px;
+        width: 95%;
+        margin-left: 0;
+    }
+
+}

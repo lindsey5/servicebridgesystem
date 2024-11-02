@@ -1,20 +1,18 @@
 import React, { useState, useEffect} from 'react';
 import './Availability.css';
+import AvailableDateServices from '../Components/Availability/AvailableDateServices';
 
 const Availability = () => {
     const [date, setDate] = useState(new Date());
     const [availableDates, setAvailableDates] = useState([]);
     const [availableDateServices, setAvailableDateServices] = useState([]);
     const [selectedDate, setSelectedDate] = useState();
+    const [showServices, setShowServices] = useState(false);
 
     const months = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
-
-    useEffect(() => {
-        console.log(availableDateServices)
-    },[availableDateServices]);
 
     useEffect(() => {
         document.title = "Availability | Provider";
@@ -76,6 +74,7 @@ const Availability = () => {
         if (flag || selectedDate < currentDate) {
             setSelectedDate(selectedDate);
             get_available_date_services(selectedDate);
+            setShowServices(true);
         } else {
             if (confirm("Add this date to your availability?")) {
                 if(addDate(selectedDate)){
@@ -167,9 +166,7 @@ const Availability = () => {
                     </ul>
                 </div>
             </div>
-            <div className='available-date-services'>
-                <h2>{selectedDate}</h2>
-            </div>
+            {showServices && <AvailableDateServices selectedDate={selectedDate} availableDateServices={availableDateServices}/>}
         </div>
     );
 };
