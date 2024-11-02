@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post('/transaction', clientRequireAuth, transactionController.create_transaction);
 
-router.get('/client/transactions', clientRequireAuth, transactionController.get_client_transactions);
+router.post('/client/transactions', clientRequireAuth, transactionController.get_client_transactions);
 
-router.get('/provider/transactions', providerRequireAuth, transactionController.get_provider_transactions);
+router.post('/provider/transactions', providerRequireAuth, transactionController.get_provider_transactions);
 
 router.put('/transaction/cancel/:id', verifyToken, transactionController.cancel_transaction);
 

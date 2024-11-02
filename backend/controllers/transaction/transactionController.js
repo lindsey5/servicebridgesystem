@@ -1,7 +1,7 @@
 import Transaction from '../../models/transaction.js';
 import Client from '../../models/client-account.js';
 import Available_date from '../../models/available-date.js';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import ProviderEarning from '../../models/provider-earning.js';
 import transactionService from '../../services/transactionService.js';
 import cancelledTransactionService from '../../services/cancelledTransactionService.js';
@@ -41,10 +41,13 @@ const get_client_transactions = async (req, res) => {
     const { page, limit} = req.query;
     const offset = (page - 1 ) * limit;
     const parseLimit = parseInt(limit);
+
     try{
         const id = req.userId;
         const query = {
-            where: { client: id},
+            where: { 
+                client: id,
+            },
             order: [
                 ['booked_on', 'DESC']
             ],
@@ -59,16 +62,27 @@ const get_client_transactions = async (req, res) => {
                 },
                 {
                     model: AvailableDate,
-                    attributes: ['date']
+                    attributes: ['date'],
+                    
                 }
             ]
         }
+
+        if(req.body.date){
+            query.include[2].where = {date: req.body.date}
+        }
+
+        if(req.body.statuses.length > 0){
+            query.where.status = {[Op.in] : req.body.statuses}
+        }
+
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);
         if(transactions){
             res.status(200).json(transactions);
         }
     }catch(err){
-        res.status(404).json({error: err.message});
+        console.log(err)
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -97,6 +111,14 @@ const get_provider_transactions = async (req, res) => {
                     attributes: ['date']
                 }
             ]
+        }
+
+        if(req.body.date){
+            query.include[2].where = {date: req.body.date}
+        }
+
+        if(req.body.statuses.length > 0){
+            query.where.status = {[Op.in] : req.body.statuses}
         }
 
         const transactions = await transactionService.get_transactions(query, offset, parseLimit);

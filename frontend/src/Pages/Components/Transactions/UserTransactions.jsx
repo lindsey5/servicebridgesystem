@@ -43,7 +43,18 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             setPrevBtn(true);
             dispatch({ type: 'SET_TRANSACTIONS',payload: null });
             try{
-                const response = await fetch(url);
+                
+                const response = await fetch(url,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify({
+                        statuses: state.selectedStatus,
+                        date: state.date
+                    }),
+                    credentials: 'include'
+                });
                 const result = await response.json();
                 setFetchedData(result.transactions);
                 dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
@@ -56,20 +67,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             }
         }
         fetchTransactions();
-    }, [currentPage]);
-
-    useEffect(() =>{
-        if(state.transactions){
-            // Filter the state.transactions by state.date and state.selectedStatus
-            const filteredTransactions = state.date || state.selectedStatus.length > 0 ? 
-            state.transactions.filter(transaction => 
-                transaction.date === state.date || 
-                state.selectedStatus.includes(transaction.status)) : 
-                fetchedData;
-            
-            dispatch({ type: 'SET_TRANSACTIONS',payload: filteredTransactions });
-         }
-    },[state.selectedStatus, state.date]);
+    }, [currentPage, state.selectedStatus, state.date]);
 
     const handleClick = (target) =>{
         if (!target.checked) {
@@ -167,7 +165,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                     </div>
                 </div>
                      <div className="table-container">
-                     {state.transactions.length < 1 && <h3>No transactions yet</h3>}
+                     {state.transactions?.length < 1 && <h3>No transactions yet</h3>}
                      <table>
                          <thead>
                              <tr>
@@ -186,7 +184,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                              </tr>
                          </thead>
                          <tbody>
-                         {state.transactions.length > 0 && state.transactions.map((transaction, index) => (
+                         {state.transactions?.length > 0 && state.transactions.map((transaction, index) => (
                                      <TransactionRow 
                                          key={index} transaction={transaction} 
                                          index={index} 
