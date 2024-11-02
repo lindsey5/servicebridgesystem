@@ -50,7 +50,11 @@ const AvailableDateServices = ({selectedDate, availableDateServices}) =>{
                         availableDateServices.map(service => 
                             <tr key={service.id}>
                                 <td>{service.service_name}</td>
-                                <td>{service.price}</td>
+                                <td>₱ {service.price.toLocaleString('en-US', {
+                                    minimumFractionDigits: 1,
+                                    maximumFractionDigits: 1
+                                    })}
+                                </td>
                                 <td>
                                     <button
                                         onClick={() => delete_available_date_service(service.id)}
