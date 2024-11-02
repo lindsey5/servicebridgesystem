@@ -116,7 +116,7 @@
     background-color: rgb(3, 117, 247);
 }
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1024px){
     .available-date-services {
         margin-top: 80px;
         width: 95%;
