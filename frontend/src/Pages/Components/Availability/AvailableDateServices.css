@@ -73,14 +73,17 @@
 .available-date-services .add-service{
     float: right;
     margin-right: 20px;
+    padding: 7px 15px;
+}
+
+.available-date-services .add-service:not(:disabled){
     background-color: rgb(3, 117, 247);
     color: white;
-    padding: 7px 15px;
     cursor: pointer;
     border: none;
 }
 
-.available-date-services .add-service:hover{
+.available-date-services .add-service:hover:not(:disabled){
     background-color: rgb(172, 211, 255);
 }
 

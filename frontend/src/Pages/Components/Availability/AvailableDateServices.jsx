@@ -67,7 +67,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices}) =>{
                 </div>
                 <button className='add-service' onClick={()=> setShowAddService(true)} 
                     disabled={
-                        selectedDate< new Date().toISOString().split('T')[0] ? true : false
+                        selectedDate < new Date().toISOString().split('T')[0] ? true : false
                     }
                 >Add Service</button>
             </div>
