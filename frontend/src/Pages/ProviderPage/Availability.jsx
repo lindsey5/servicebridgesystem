@@ -133,7 +133,7 @@ const Availability = () => {
         <div className="availability">
             <div className='top-section'>
                 <h1>Your Availability</h1>
-                <span>Pick a date to add to your availability, then choose the service you want to offer on that date.</span>
+                <span>Pick a date to add to your availability and select available date then choose the service you want to offer.</span>
             </div>
             <div className="calendar-container">
                 <div className="legend">
