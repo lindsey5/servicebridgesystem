@@ -26,7 +26,7 @@ const ClientLogin = () => {
         e.preventDefault(); // Prevent the default form submission behavior
         try {
             // Send a POST request to the client login endpoint
-            const response = await fetch('/client-login', {
+            const response = await fetch('http://localhost:3000/client-login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Indicate that the request body is JSON

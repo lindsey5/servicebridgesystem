@@ -23,7 +23,7 @@ const Home = () => {
                 }
             });
           },
-          { threshold: 0.3 }
+          { threshold: 0.1 }
         );
     
         elementsRef.current.forEach((el) => {
@@ -78,6 +78,14 @@ const Home = () => {
                             <p>Give Feedback</p>
                         </div>
                 </div>
+            </section>
+            <section className='about' ref={el => elementsRef.current[7] = el}>
+                <div>
+                    <h1>About Hustle</h1>
+                    <p>Hustle  is a fast, reliable platform that connects people and businesses with skilled professionals for a variety of tasks. From household chores to office projects, we make it easy to find the right person for the job—whenever you need them.</p>
+                    <p>Our goal is to simplify the process of booking services, saving you time and effort while ensuring you always receive top-quality results.</p>
+                </div>
+                <img src="/icons/plumbing.webp" alt="" />
             </section>
             <Services showLoginModal={showLoginModal}/>
             <footer className='home-footer'>
