@@ -9,7 +9,6 @@ export const addServiceOffered = async (serviceName, setSuccessModal) => {
              body: JSON.stringify({
                  service_name: serviceName
              }),
-             credentials: 'include'
          });
          if(response.ok){
              const result = await response.json();
@@ -33,7 +32,6 @@ export const addServiceOffered = async (serviceName, setSuccessModal) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include'
             });
             const result = await response.json();
             if(result){
@@ -54,7 +52,6 @@ export const addServiceOffered = async (serviceName, setSuccessModal) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({price}),
-                credentials: 'include'
             });
             const result = await response.json();
             if(result){

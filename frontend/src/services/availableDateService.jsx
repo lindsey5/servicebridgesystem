@@ -8,8 +8,7 @@ export const create_available_date_service = async (date, service_id, setError) 
             body: JSON.stringify({
                 date,
                 service_id
-             }),
-            credentials: 'include'
+             }), 
         })
         const result = await response.json();
         if(response.ok){
@@ -32,7 +31,6 @@ export const delete_available_date_service = async (id) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include'
             })
             const result = await response.json();
             if(response.ok){

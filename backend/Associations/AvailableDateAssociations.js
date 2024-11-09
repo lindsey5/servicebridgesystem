@@ -16,7 +16,7 @@ AvailableDateService.belongsTo(ProviderServiceOffered,{
     onUpdate: 'CASCADE', 
 })
 
-AvailableDate.hasOne(AvailableDateService, {
+AvailableDate.hasMany(AvailableDateService, {
     foreignKey: 'date_id', 
     sourceKey: 'date_id', 
     onDelete: 'CASCADE',         

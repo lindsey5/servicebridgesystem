@@ -6,7 +6,6 @@ export const createClientPaymentLink = async(data) =>{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({data}),
-            credentials: 'include'
         })
         if(response.ok){
             const result = await response.json();  
@@ -28,7 +27,6 @@ export const create_provider_payment_link = async (transaction_id, price) =>{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({transaction_id, price}),
-            credentials: 'include'
         })
         if(response.ok){
             const result = await response.json();  

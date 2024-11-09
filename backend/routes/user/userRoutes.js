@@ -33,15 +33,14 @@ router.get('/api/get/user-details/:id', async(req, res) => {
   
 router.get('/api/user', async (req, res) => {
     const token = req.cookies.jwt;
+    console.log(token)
       if (token) {
           try {
               const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
               const id = decodedToken.id;
-              
               if(id) {
                 const client = await Client.findOne({where: {id}});
                 const provider = await Provider.findOne({where: {id}});
-  
                 if(client) return res.status(200).json({ user: 'Client'});
                 if(provider) return res.status(200).json({ user: 'Provider'});
               }

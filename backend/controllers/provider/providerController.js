@@ -37,21 +37,40 @@ const getProviders = async (req, res) => {
             include: [
                 { 
                     model: ProviderServiceOffered, 
-                    where: { service_name, price: {  [Op.ne] : 0 } }, 
+                    where: { 
+                        service_name: 'Home Cleaning', 
+                        price: { [Op.ne]: 0 } 
+                    }, 
                     attributes: ['service_name', 'price'],
-                    include: {
-                        model: AvailableDateService,
-                        attributes: [],
-                        where: {
-                            service_id: sequelize.col('ProviderServiceOffereds.service_id')
+                    include: [
+                        { 
+                            model: AvailableDateService,
+                            attributes: [],
+                            where: {
+                                service_id: sequelize.col('ProviderServiceOffereds.service_id') // Ensure correct column reference
+                            }
                         }
-                    }
+                    ]
                 },
-                { model: AvailableDate, where: { date: {[Op.gte]: new Date() } } },
-            
+                { 
+                    model: AvailableDate, 
+                    where: { 
+                        date: { [Op.gte]: new Date() } 
+                    },
+                    include: [
+                        { 
+                            model: AvailableDateService,
+                            attributes: [],
+                            where: {
+                                date_id: sequelize.col('available_dates.date_id')
+                            }
+                        }
+                    ]
+                }
             ],
-            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city']
-        }
+            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city'],
+        };
+        
 
         if(price > 0){
             query.include[0].where.price = { [Op.lt] : price };
@@ -70,7 +89,6 @@ const getProviders = async (req, res) => {
         query.limit = limit;
         query.offset = offset
         const searchResults = await Provider.findAll(query);
-
         if (!searchResults || searchResults.length === 0) {
             res.status(404).json({ message: 'No records found' });
         } else {

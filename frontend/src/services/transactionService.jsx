@@ -14,7 +14,6 @@ export const createTransaction = async (data) =>{
             date_id: data.date_id, 
             time: data.time
          }),
-        credentials: 'include'
     })
     if(response.ok){
         return await response.json();
