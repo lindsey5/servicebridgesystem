@@ -30,7 +30,7 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1
     })}`;
-    
+    console.log(transaction)
     return (
         <tr>
             <td>{index + 1}</td>
@@ -48,7 +48,7 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
                 <div>
                 {user && <TransactionButton transaction={transaction} user={user} modal_dispatch={modal_dispatch}/>}
                 <button onClick={() => {
-                    const recipientId = user === 'Client' ? transaction.provider_id  : transaction.client_id;
+                    const recipientId = user === 'Client' ? transaction.provider  : transaction.client;
                     setRecipientId(recipientId);
                     const url = user === 'Provider' ? '/Provider/Messages' : '/Client/Messages';
                     navigate(url);
