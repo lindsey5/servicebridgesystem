@@ -26,6 +26,7 @@ Service Bridge System is a platform designed to bridge clients and service provi
   
   #### Provider Availability Management
   Provider can set availability for specific dates.
+  A provider can choose which service they want to offer on a specific date.
   
   #### Provider Services Offered Management
   Add, update, and remove services offered by the provider.
