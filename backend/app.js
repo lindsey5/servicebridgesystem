@@ -140,4 +140,3 @@ server.listen(PORT, () => {
   connectDB(); // Your DB connection logic
   console.log(`Server started at http://localhost:${PORT}`);
 });
-

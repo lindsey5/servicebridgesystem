@@ -8,6 +8,7 @@
     padding-left: 20px;
     padding-right: 20px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .services-section > h1{
@@ -26,33 +27,69 @@
 
 .services-parent-container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     box-shadow: 0 0 15px 5px rgb(216, 216, 216);
     border-radius: 30px;
     min-height: 500px;
+    position: relative;
+    cursor: pointer;
+    opacity: 0;
+    animation: servicesAnimation 0.8s ease-in-out forwards;
+}
+
+@keyframes servicesAnimation{
+    from{
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.services-parent-container > h1{
+    position: absolute;
+    color: white;
+    top: 90%;
+    transform: translateY(-100%);
+    font-size: 35px;
+    text-align: center;
+    z-index: 1;
 }
 
 .services-parent-container > img{
-    margin-top: 20px;
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
 }
 
-.services-parent-container h1{
-    text-align: center;
+
+.services-parent-container:hover .services-child-container{
+    opacity: 1;
 }
 
 .services-child-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
-    height: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.8s ease-in-out;
 }
 
 .services-child-container > p{
+    color: white;
     margin: 10px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
@@ -60,6 +97,27 @@
 .services-child-container > p:hover{
     transform: translateY(-3px);
     text-decoration: underline;
+}
+
+.services-section .prev, .services-section .next{
+    position: absolute;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    top: 60%;
+    border: none;
+    color: white;
+    background: rgb(0, 0, 0, 0.7);
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.services-section .prev{
+    left: 10px;
+}
+
+.services-section .next{
+    right: 10px;
 }
 
 
