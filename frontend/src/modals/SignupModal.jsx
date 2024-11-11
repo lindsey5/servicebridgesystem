@@ -14,7 +14,7 @@ const SignupModal = ({ show, hideModal }) => {
         <img src={ logo } alt="Customer Service" />
         <h1>Sign Up as</h1>
         <button className="button" onClick={()=> navigate('/Client/Signup')}>Client</button>
-        <button className="button">Provider</button>
+        <button className="button" onClick={()=> navigate('/Provider/Signup')}>Provider</button>
       </div>
     </div>
   );

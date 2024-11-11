@@ -130,11 +130,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-/*app.listen(PORT, ()=>{
-    connectDB();
-    console.log("Server started at http://localhost:" + PORT);
-});*/
-
 // Start the server and connect to the database
 server.listen(PORT, () => {
   connectDB(); // Your DB connection logic

@@ -53,7 +53,6 @@ const ProviderProfile = ({provider}) => {
                         <span className='star'>★</span>
                         <p>{rating}</p>
                     </div>
-                    <p className='address'>Location: {provider.city}</p>
                     <div className='bio-div'>
                         <p>About Me:</p>
                         <p>{provider.bio}</p>

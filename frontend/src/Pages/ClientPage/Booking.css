@@ -12,7 +12,6 @@
 
 .booking-container{
     width: 400px;
-    height: 550px;
     background-color: white;
     border-radius: 20px;
     padding: 30px;
@@ -68,7 +67,6 @@
 }
 
 
-
 .drop-down > ul > li {
     padding: 10px;
     cursor: pointer;
@@ -76,6 +74,12 @@
 
 .drop-down > ul > li:hover{
     background-color: rgb(152, 200, 255);
+}
+
+.booking .address{
+    margin: 10px 0;
+    width: calc(100% - 8px);
+    height: 35px;
 }
 
 .payment{

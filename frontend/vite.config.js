@@ -16,6 +16,26 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/client-login': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/provider-login': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/client-signup': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/provider-signup': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      }
     },
   },
 })

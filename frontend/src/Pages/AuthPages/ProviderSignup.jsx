@@ -24,7 +24,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
         dispatch({type: 'SET_ERROR', payload: 'Password doesn\'t match'});
     }else{
         try{
-            const response = await fetch('/client-signup',{
+            const response = await fetch('/provider-signup',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
             }
 
             if(response.ok){
-                navigate('/Client/Home');
+                navigate('/Provider/Dashboard');
             }
 
         }catch(err){
@@ -171,14 +171,14 @@ const SecondPage = ({state, dispatch}) => {
     );
 };
 
-const ClientSignup = () => {
+const ProviderSignup = () => {
     const { state, dispatch } = useSignupReducer();
     const [showFirstPage, setShowFirstPage] = useState(true);
 
     return (
         <div className="signup-page">
             <div className="container">
-                <h1>Client Signup</h1>
+                <h1>Provider Signup</h1>
                 {showFirstPage && (
                     <FirstPage 
                         state={state}
@@ -192,10 +192,10 @@ const ClientSignup = () => {
                         dispatch={dispatch}
                     />
                 )}
-                <p>Already have an account <a href="/Client/Login">Login</a></p>
+                <p>Already have an account <a href="/Provider/Login">Login</a></p>
             </div>
         </div>
     );
 };
 
-export default ClientSignup;
+export default ProviderSignup;

@@ -8,6 +8,10 @@ const maxAge = tokenCreator.maxAge;
 
 const signup_post = async (req, res) => {
     try{
+        const isExist = await Provider_account.findOne({where: {username: req.body.username}})
+        if(isExist){
+            throw new Error ('Username already used');
+        }
         // Create new account in the database
         const provider_account = await Provider_account.create({
             ...req.body // Extract and spread all properties from the request body (req.body)
@@ -21,9 +25,8 @@ const signup_post = async (req, res) => {
             res.status(400).json({error: 'Error'});
         }
     }catch(err){
-        console.log(err);
-         // Handle any errors that occur during the process
         const errors = handleErrors(err);
+        console.log(errors)
         res.status(400).json({errors});
     }
 }

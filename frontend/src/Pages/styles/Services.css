@@ -110,6 +110,7 @@
     background: rgb(0, 0, 0, 0.7);
     cursor: pointer;
     font-size: 25px;
+    text-align: center;
 }
 
 .services-section .prev{

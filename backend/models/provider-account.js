@@ -90,11 +90,6 @@ const provider_account = sequelize.define('provider_account', {
             }
         }
     },
-    city: {
-        type: DataTypes.STRING,
-        allowNull: false
-        
-    },
     profile_pic: {
         type: DataTypes.BLOB,
         allowNull: true
