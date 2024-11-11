@@ -39,7 +39,7 @@
 .conversation .message-box-container{
     display: flex;
     align-items: center;
-    margin: 10px;
+    margin: 10px 5px;
 }
 
 .conversation .message-box-container .recipient-profile-pic{
@@ -58,13 +58,10 @@
 
 .conversation .message-box-container.other{
     justify-content: flex-start;
-    float: left;
 }
 
 .conversation .message-box-container.you{
     justify-content: flex-end;
-    float: right;
-    align-self: flex-end;
 }
 
 .conversation .message-box-container.you .message-box{
