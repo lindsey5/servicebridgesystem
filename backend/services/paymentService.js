@@ -76,7 +76,7 @@ const create_checkout_link = async (amount, item, success_url) => {
             body: JSON.stringify({
             data: {
                 attributes: {
-                send_email_receipt: false,
+                send_email_receipt: true,
                 show_description: false,
                 show_line_items: true,
                 cancel_url: url,

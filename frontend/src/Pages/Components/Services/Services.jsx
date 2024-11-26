@@ -18,10 +18,6 @@ const Services = ({showLoginModal}) =>{
         }
     }, [data]);
 
-    useEffect(() => {
-        console.log(categories)
-    },[categories])
-
     const ServicesByCategory = ({category}) => {
         const {data: services} = useFetch(`/api/services/${category}`);
 
@@ -42,7 +38,6 @@ const Services = ({showLoginModal}) =>{
         useEffect(() => {
            const getImageSrc = async () =>{
                 try{
-                    console.log(category.category_name)
                     const response = await fetch(`https://pixabay.com/api/?key=46701607-d51d8d8ab7e9bf8a22e03cd3c&q=${category.category_name} service&image_type=photo`);
                     if(response.ok){
                         const result = await response.json();
