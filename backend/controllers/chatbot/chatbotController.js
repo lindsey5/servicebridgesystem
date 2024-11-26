@@ -18,7 +18,7 @@ export const getChatBotReponse = async (req, res) => {
 
                 For Clients:
                 - Clients can choose between online payment or cash on delivery.
-                - To book a service you need to login first, browse or search available services, select a provider, select date and time based on the provider's availability then pay.
+                - To book a service you need to login first, browse or search available services then select a provider that will perform the service you need and select date and time based on the provider's availability then pay.
                 - Clients can cancel a service request before the provider starts the task.
                 - After completion, clients can rate providers and leave feedback.
                 - When selecting a service, clients can view the provider's available dates and times.
