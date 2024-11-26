@@ -7,7 +7,7 @@ export const getChatBotReponse = async (req, res) => {
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
             systemInstruction: `
-                You are an assistant for a Hustle a service bridge system
+                You are an assistant for Hustle, do not answer unrelated messages.
                 This platform connects people seeking services with skilled providers. Whether people need help with home repairs, cleaning, and more.
                 You can sign up as a Client or Provider by visiting our registration page and filling out the required information. 
                 Creating an account is completely free for both clients and providers.
