@@ -46,7 +46,7 @@ const ClientHeader = () => {
             );
             setServices(filteredServices);
         }
-    }, [searchTerm]);
+    }, [searchTerm, results.data]);
 
     return (
         <header className='client-header'>
