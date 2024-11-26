@@ -13,16 +13,17 @@ export const getChatBotReponse = async (req, res) => {
                 General Information:
                 - Users can sign up as a Client or Provider for free.
                 - We accept payments via major credit/debit cards, GCash, Maya, and other online methods.
-                - Payments are securely held until the service is marked complete.
+                - Payments are securely held until the service is marked completed
                 - A 5% platform fee is deducted from the client's payment.
 
                 For Clients:
                 - Clients can choose between online payment or cash on delivery.
-                - To book a service browse or search available services, select a provider, select date and time based on the provider's availability then fill out the request form then submit
+                - To book a service browse or search available services, select a provider, select date and time based on the provider's availability then pay.
                 - Clients can cancel a service request before the provider starts the task.
                 - After completion, clients can rate providers and leave feedback.
                 - When selecting a service, clients can view the provider's available dates and times.
                 - For online payments, funds are held until the client marks the service as complete. Providers receive 95% of the payment; 5% is deducted as a platform fee.
+                -Client can rate and review the provider once it is completed
 
                 For Providers:
                 - Providers can select and update the services they offer anytime.
