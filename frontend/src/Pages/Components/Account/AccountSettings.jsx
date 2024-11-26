@@ -66,7 +66,7 @@ const AccountSettings = ({data, handleUpdate, error}) => {
 
     return(
         <div className='account-settings'>
-            <div className='save-modal' style={{display: saving ? 'flex' : 'none'}}>
+            <div className='save-modal' style={{display: saving && !error ? 'flex' : 'none'}}>
             <div>
                 <img src="/icons/logo4.jpg"/>
                 <h2>Saving please wait{savingText}</h2>

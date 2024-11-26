@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch"
 import AccountSettings from "../Components/Account/AccountSettings"
 
 const ClientAccountSettings = () => {
-    const { data, loading } = useFetch('/api/client');
+    const { data } = useFetch('/api/client');
     const [error, setError] = useState();
 
     const handleUpdate = async (data, password) => {
@@ -28,7 +28,7 @@ const ClientAccountSettings = () => {
 
     return (
         <>
-        {!loading && <AccountSettings data={data} error={error} handleUpdate={handleUpdate}/>}
+        <AccountSettings data={data} error={error} handleUpdate={handleUpdate}/>
         </>
     )
 }
