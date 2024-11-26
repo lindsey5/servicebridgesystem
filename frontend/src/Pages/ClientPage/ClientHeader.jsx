@@ -26,9 +26,7 @@ const ClientHeader = () => {
     };
 
     const handleFocus = () =>{
-        if(searchTerm){
-            setAutoComplete(true);
-        }
+        setAutoComplete(true);
     }
 
     const handleSearch = (value) => {
@@ -42,18 +40,12 @@ const ClientHeader = () => {
 
     // Debounce search input
     useEffect(() => {
-        if(searchTerm !== ''){
-            setAutoComplete(true);
-        }else{
-            setAutoComplete(false);
-        }
         if (results.data) {
             const filteredServices = results.data.services.filter(service =>
             service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
             );
             setServices(filteredServices);
         }
-
     }, [searchTerm]);
 
     return (
