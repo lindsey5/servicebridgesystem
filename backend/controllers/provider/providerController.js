@@ -9,7 +9,7 @@ import AvailableDateService from '../../models/available_dates_services.js';
 const get_provider = async (req, res) => {
     try {
         const provider_id = req.userId; // Retrieve the userId from the req object and assign it to the provider_id variable
-        const provider = await Provider.findOne({ where: { id: provider_id } }); // Verify if a client exists using the provider_id variable
+        const provider = await Provider.findOne({ where: { id: provider_id } }); // Verify if a provider exists using the provider_id variable
         if(provider){
              // Execute if the provider is found using the provider_id variable
             const { password, ...providerWithoutPassword } = provider.toJSON(); // Exclude the password from the provider object
@@ -33,7 +33,7 @@ const getProviders = async (req, res) => {
 
     try {
         const query = {
-            attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city'],
+            attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio'],
             include: [
                 { 
                     model: ProviderServiceOffered, 
@@ -59,7 +59,7 @@ const getProviders = async (req, res) => {
                     } },
             
             ],
-            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'city']
+            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio']
         }
 
         if(price > 0){

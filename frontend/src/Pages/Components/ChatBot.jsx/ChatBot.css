@@ -1,0 +1,125 @@
+.chat-bot-container{
+    position: fixed;
+    z-index: 3;
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1px solid rgb(177, 177, 177);
+    box-shadow:  0 0 5px 3px rgb(202, 202, 202);
+    bottom: 20px;
+    right: 20px;
+}
+
+.chat-bot-button{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chat-bot-button > img{
+    width: 70%;
+    height: 70%;
+}
+
+.chat-bot-container .container{
+    position: absolute;
+    bottom: 115%;
+    right: 0;
+    width: 400px;
+    height: 500px;
+    border-radius: 20px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
+.chat-bot-container .container .header{
+    background-color: #0375f7;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+    height: 80px;
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.chat-bot-container .messages-container{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 67%;
+    overflow-y: auto;
+}
+
+
+.chat-bot-container .messages-container .message-box{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.chat-bot-container .messages-container .message-box li{
+    padding: 7px;
+    border-radius: 8px;
+    list-style: none;
+    line-height: 2;
+}
+
+.chat-bot-container .messages-container .message-box img{
+    height: 30px;
+    margin-right: 10px;
+}
+
+.chat-bot-container .messages-container .message-box.Bot{
+    justify-content: flex-start;
+}
+
+.chat-bot-container .messages-container .message-box.You{
+    justify-content: flex-end;
+}
+
+.chat-bot-container .message-box.Bot li{
+    background-color: #0375f7;
+    color: white;
+}
+
+.chat-bot-container .message-box.You li{
+    background-color: rgb(216, 216, 216);
+}
+
+.chat-bot-container .input-container{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+.chat-bot-container .input-container input{
+    flex: 1;
+    height: 30px;
+    outline: none;
+    border: 1px solid grey;
+}
+
+.chat-bot-container .input-container button{
+    width: 60px;
+    background-color: #0375f7;
+    color: white;
+    border: none;
+    height: 33px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+    .chat-bot-container .container{
+        width: 90vw;
+    }
+}

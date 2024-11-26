@@ -25,6 +25,7 @@ import ProviderReviews from './Pages/ProviderPage/ProviderReviews.jsx'
 import ViewReviews from './Pages/ClientPage/ViewReviews.jsx';
 import { RecipientContextProvider } from './Context/RecipientContext.jsx';
 import ProviderSignup from './Pages/AuthPages/ProviderSignup.jsx';
+import ChatBot from './Pages/Components/ChatBot.jsx/ChatBot.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -78,6 +79,7 @@ export default function App() {
   return (
     <RecipientContextProvider>
       <RouterProvider router={router} />
+      <ChatBot />
     </RecipientContextProvider>
 
   );

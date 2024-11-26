@@ -12,6 +12,7 @@ import categoryRoutes from './category/categoryRoutes.js';
 import paymentRoutes from './payment/paymentRoutes.js';
 import providerBalanceRoutes from './provider/providerBalanceRoutes.js';
 import userRoutes from './user/userRoutes.js';
+import chatBotRoute from './chatBotRoute/chatBotRoute.js';
 
 const useRoutes = (app) => {
     app.use(clientAuthRoutes);
@@ -27,6 +28,7 @@ const useRoutes = (app) => {
     app.use('/api/payment', paymentRoutes);
     app.use('/api/provider/balance', providerBalanceRoutes);
     app.use(userRoutes);
+    app.use('/api', chatBotRoute)
 }
 
 export default { useRoutes };

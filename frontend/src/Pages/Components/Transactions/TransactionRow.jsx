@@ -30,7 +30,6 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1
     })}`;
-    console.log(transaction)
     return (
         <tr>
             <td>{index + 1}</td>
