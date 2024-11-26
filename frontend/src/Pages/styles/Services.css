@@ -33,7 +33,6 @@
     min-height: 500px;
     position: relative;
     cursor: pointer;
-    opacity: 0;
     animation: servicesAnimation 0.8s ease-in-out forwards;
 }
 
