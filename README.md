@@ -1,5 +1,5 @@
 # Hustle - A Service Bridge System
-Service Bridge System is a platform designed to bridge clients and service providers, offering a seamless experience for booking services, handling payments, and managing appointments. It provides a comprehensive suite of features for both clients and providers, allowing them to interact effectively through authentication, service management, and real-time communication.
+Hustle is a platform designed to bridge clients and service providers, offering a seamless experience for booking services, handling payments, and managing appointments. It provides a comprehensive suite of features for both clients and providers, allowing them to interact effectively through authentication, service management, and real-time communication.
 
 - ## Features
   #### Client and Provider Authentication
@@ -8,9 +8,7 @@ Service Bridge System is a platform designed to bridge clients and service provi
   Protection of sensitive routes based on user roles (Client/Provider).
   
   #### Services List
-  Browse services offered by various providers.
-  Filter services based on category or service name.
-  Detailed service information including pricing, availability, and reviews.
+  List of services offered by platform.
   
   #### Booking and Appointment of Service
   Book services with your preferred provider.
@@ -22,19 +20,23 @@ Service Bridge System is a platform designed to bridge clients and service provi
   Automated payment confirmations and receipts.
   
   #### Tracking Transaction Status
-  Monitor ongoing transactions from booking to service completion.
+  Provider and Client can monitor the status of transactions from booking to service completion.
   
   #### Provider Availability Management
   Provider can set availability for specific dates.
   A provider can choose which service they want to offer on a specific date.
   
   #### Provider Services Offered Management
-  Add, update, and remove services offered by the provider.
-  Set service details, including pricing.
+  Provider can add, update, and remove services offered.
+  Provider can set service details, including pricing.
   
   #### Chatting System
   Real-time chat between clients and providers.
   Secure and private communication channel for both parties.
+
+  #### Intelligent Chatbot
+  Provides instant support and guidance for both clients and providers
+  Answers frequently asked questions (FAQs) about payments, bookings, and provider services.
 
 - ## Technologies Used
     - Backend: Node.js, Express.js
@@ -43,3 +45,4 @@ Service Bridge System is a platform designed to bridge clients and service provi
     - Authentication: JWT (JSON Web Tokens)
     - Payment: PayMongo API
     - Real-time Communication: Socket.IO (for chatting system)
+    - Gemini AI (for chatbot)
