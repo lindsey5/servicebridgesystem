@@ -37,7 +37,7 @@ const initializeSocket = (server) => {
   io.on('connection', (socket) => {
     console.log('A user connected with ID:', socket.id);
 
-    socket.on('notification', async ({recipient_id, message}) => {
+    socket.on('notifications', async ({recipient_id, message}) => {
       socket.to(recipient_id).emit('notification', message);
     });
 
