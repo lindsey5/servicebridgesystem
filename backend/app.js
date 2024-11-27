@@ -15,6 +15,7 @@ import ChatService from './services/chatService.js';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 import cors from 'cors';
+import notificationService from './services/notificationService.js';
 
 dotenv.config();
 const app = express();
@@ -79,6 +80,18 @@ io.use((socket, next) => {
 
 io.on('connection', (socket) => {
   console.log('A user connected with ID:', socket.id);
+
+  socket.on('chat-partners', async () => {
+    console.log('chat-partners emmited');
+    try{
+      const chatPartners = await ChatService.fetchChatPartners(socket.id);
+      socket.emit('chat-partners', chatPartners);
+
+    }catch(err){
+      console.log(err);
+    }
+  });
+
   
   // Handle fetching chat partners
   socket.on('chat-partners', async () => {
