@@ -2,7 +2,6 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import routes from './routes/routes.js';
-import jwt from 'jsonwebtoken';
 import { connectDB } from './config/connection.js';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -12,25 +11,15 @@ import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
 import './Associations/AvailableDateAssociations.js';
 import ChatService from './services/chatService.js';
-import { Server } from 'socket.io';
 import { createServer } from 'http';
 import cors from 'cors';
-import notificationService from './services/notificationService.js';
+import { initializeSocket } from './middleware/socket.js';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT; 
 const server = createServer(app);
-const origin = process.env.NODE_ENV === 'production' ? 'https://servicebridgesystem.onrender.com' : 'http://localhost:5173';
 
-const io = new Server(server,{
-  cors: { 
-    origin,
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Authorization"],
-    credentials: true
-   }
-});
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
@@ -53,6 +42,7 @@ app.get('/api/latest-message', async (req, res) => {
   const {you, partner} = req.query;
   try{
     const latestMessage = await ChatService.fetchLatestMessage(you, partner);
+
     res.status(200).json(latestMessage)
   }catch(err){
     res.status(400).json({message: err});
@@ -60,78 +50,7 @@ app.get('/api/latest-message', async (req, res) => {
 
 });
 
-// Socket authentication middleware
-io.use((socket, next) => {
-    const token = socket.handshake.query.token;
-    if (!token) {
-        console.log('No token');
-        return next(new Error('Authentication error'));
-    }
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        socket.id = decoded.id;
-        next();
-    } catch (err) {
-        console.log(err);
-        return next(new Error('Authentication error'));
-    }
-});
-
-io.on('connection', (socket) => {
-  console.log('A user connected with ID:', socket.id);
-
-  socket.on('chat-partners', async () => {
-    console.log('chat-partners emmited');
-    try{
-      const chatPartners = await ChatService.fetchChatPartners(socket.id);
-      socket.emit('chat-partners', chatPartners);
-
-    }catch(err){
-      console.log(err);
-    }
-  });
-
-  
-  // Handle fetching chat partners
-  socket.on('chat-partners', async () => {
-    console.log('chat-partners emmited');
-    try{
-      const chatPartners = await ChatService.fetchChatPartners(socket.id);
-      socket.emit('chat-partners', chatPartners);
-
-    }catch(err){
-      console.log(err);
-    }
-  });
-
-  // Handle fetching past messages
-  socket.on('fetch messages', async (recipient) => {
-    try{
-      const pastMessages = await ChatService.fetchPastMessages(recipient, socket.id);
-      // Send past messages to client
-      socket.emit('past messages', pastMessages);
-    }catch(err){
-      console.log(err);
-    }
-  });
-
-    // Handle private messaging
-    socket.on('private message', async ({ to, message }) => {
-      try{
-        // Save message to the database
-        const newMessage = await ChatService.createPrivateMessage(to, socket.id, message);
-        // Emit the new message to the recipient
-        socket.to(to).emit('private message', newMessage);
-      }catch(err){
-        console.error(err);
-      }
-    });
-
-  socket.on('disconnect', () => {
-      console.log('User disconnected:', socket.id);
-  });
-});
+initializeSocket(server);
 
 const __dirname = path.resolve();
 

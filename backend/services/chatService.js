@@ -30,7 +30,6 @@ const fetchChatPartners = async (userId) => {
         });
         return Array.from(chatPartnerIds)
     } catch (error) {
-        console.error('Error fetching chat partners:', error);
         throw new Error('Could not fetch chat partners');
     }
 }

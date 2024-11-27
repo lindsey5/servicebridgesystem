@@ -14,7 +14,6 @@ const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
                 chatPartners.map(async (contact) => {
                     const userDetailsRes = await fetch(`/api/get/user-details/${contact}`);
                     const userDetails = await userDetailsRes.json();
-                    
                     const latestMessageRes = await fetch(`/api/latest-message/?you=${socket.id}&&partner=${contact}`);
                     const latestMessage = await latestMessageRes.json();
                     return { id: contact, userDetails, latestMessage };

@@ -1,7 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Service from "../../models/service.js";
+import { getIO } from "../../middleware/socket.js";
 
 export const getChatBotReponse = async (req, res) => {
-    try{
+    try{ 
+        const services = await Service.findAll();
+
         const prompt = req.body.prompt;
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({
@@ -32,6 +36,8 @@ export const getChatBotReponse = async (req, res) => {
                 - Providers can view service details and client information before accepting a task.
                 - For cash payments, providers must pay a 5% platform fee based on the client's payment after the transaction is completed.
                 - For online payments, 5% is automatically deducted from the client's payment, and providers receive 95% once the client marks the service as complete.
+                Services offered: 
+                ${services.map(service => service.service_name + '\n')}
                 `
           });
 

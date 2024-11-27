@@ -40,7 +40,7 @@ const create_provider_checkout_link = async (req, res) => {
         const {transaction_id, price} = req.body;
         const amount = (price * 0.05) * 100;
         const success_url = `${url}/api/transaction/complete/${transaction_id}/provider?service_price=${price}`;
-        const checkout_link = await paymentService.create_checkout_link(amount, 'Commission fee', success_url);
+        const checkout_link = await paymentService.create_checkout_link(amount, 'Platform fee', success_url);
         if(checkout_link){
             res.status(200).json(checkout_link);
         }else{
