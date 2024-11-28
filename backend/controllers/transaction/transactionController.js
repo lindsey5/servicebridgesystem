@@ -1,7 +1,7 @@
 import Transaction from '../../models/transaction.js';
 import Client from '../../models/client-account.js';
 import Available_date from '../../models/available-date.js';
-import { Op, where } from 'sequelize';
+import { Op } from 'sequelize';
 import ProviderEarning from '../../models/provider-earning.js';
 import transactionService from '../../services/transactionService.js';
 import cancelledTransactionService from '../../services/cancelledTransactionService.js';

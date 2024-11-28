@@ -26,6 +26,10 @@ import ViewReviews from './Pages/ClientPage/ViewReviews.jsx';
 import { RecipientContextProvider } from './Context/RecipientContext.jsx';
 import ProviderSignup from './Pages/AuthPages/ProviderSignup.jsx';
 import ChatBot from './Pages/Components/ChatBot.jsx/ChatBot.jsx';
+import AdminLogin from './Pages/AuthPages/AdminLogin.jsx';
+import AdminLayout from './layouts/AdminLayout.jsx';
+import AdminDashboard from './Pages/AdminPage/AdminDashboard.jsx';
+import AdminServices from './Pages/AdminPage/AdminServices.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -35,8 +39,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="Provider/Login" element={<ProviderLogin />} />
           <Route path="Client/Login" element={<ClientLogin />} />
+          <Route path='Admin/Login' element={<AdminLogin />} />
           <Route path='Client/Signup' element={<ClientSignup />}/>
           <Route path='Provider/Signup' element={<ProviderSignup />}/>
+        </Route>
+
+        <Route path='/Admin/' element={<AdminLayout />}>
+          <Route path='Dashboard' element={<AdminDashboard />} />
+          <Route path='Services' element={<AdminServices />}/>
         </Route>
   
         <Route path="/Client/" element={<ClientLayout />}>

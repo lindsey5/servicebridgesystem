@@ -1,0 +1,81 @@
+.table-page{
+    padding: 0 20px;
+    padding-top: 70px;
+    height: calc(100vh - 70px);
+    position: relative;
+    background-color: rgb(247, 247, 247);
+}
+
+.report-btn{
+    height: 30px;
+    position: absolute;
+    bottom: 40px;
+    right: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.table-page > h1{
+    font-size: 30px;
+}
+
+.table-page input[type = 'search']{
+    width: 300px;
+    height: 30px;
+    margin-bottom: 30px;
+    outline: none;
+}
+
+.table-page .table-container{
+    height: 67%;
+    overflow-y: auto;
+    overflow-x: auto;
+    background-color: white;
+    border: 2px solid rgb(235, 235, 235);
+}
+
+.table-page .table-container table{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.table-page .table-container table th{
+    padding: 10px;
+    background-color: #0375f7;
+    color: white;
+    border: 1px solid white;
+}
+
+.table-page .table-container table td{
+    padding: 8px;
+    border-bottom: 1px solid rgb(236, 236, 236);
+    text-align: center;
+}
+
+.table-page td > button{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+.table-page td > button img{
+    width: 25px;
+    height: 25px;
+}
+
+.table-page .add-btn{
+    margin-top: 20px;
+    background-color: #0375f7;
+    position: absolute;
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 7px 15px;
+    cursor: pointer;
+}
+
+.table-page .add-btn:hover{
+    background-color: #9ecbff;
+}

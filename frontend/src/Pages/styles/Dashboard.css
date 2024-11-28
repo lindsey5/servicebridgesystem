@@ -1,4 +1,4 @@
-.provider-dashboard{
+.dashboard{
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -6,7 +6,7 @@
     background-color: rgb(235, 235, 235);
 }
 
-.provider-dashboard .top-section{
+.dashboard .top-section{
     width: 98%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -15,7 +15,7 @@
     margin-bottom: 20px;
 }
 
-.provider-dashboard .top-section > div{
+.dashboard .top-section > div{
     flex: 1;
     margin: 10px;
     padding: 30px 10px;
@@ -25,15 +25,15 @@
     align-items: center;
 }
 
-.provider-dashboard .top-section > div > div{
+.dashboard .top-section > div > div{
     flex: 1;
 }
 
-.provider-dashboard .top-section > div h2, .top-section-container > div h1{
+.dashboard .top-section > div h2, .top-section-container > div h1{
     color: white;
 }
 
-.provider-dashboard .top-section > div img{
+.dashboard .top-section > div img{
     width: 65px;
     height: 65px;
 }
@@ -52,6 +52,14 @@
     background-color: white;
     border-radius: 10px;
     margin-right: 10px;
+}
+
+.dashboard-mid-section .pie-container{
+    background-color: white;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .dashboard-mid-section .account-balance{
@@ -111,7 +119,7 @@
     background-color: #9fccff;
 }
 
-.provider-dashboard .task-completed-container{
+.dashboard .task-completed-container{
     width: 98%;
     height: 600px;
     background-color: white;
@@ -123,29 +131,29 @@
     overflow-y: auto;
 }
 
-.provider-dashboard .task-completed-container h2{
+.dashboard .task-completed-container h2{
     margin: 20px;
 }
 
-.provider-dashboard .task-completed-container > table {
+.dashboard .task-completed-container > table {
     width: 100%;
     padding: 10px;
     border-collapse: collapse;
 }
 
-.provider-dashboard .task-completed-container > table th{
+.dashboard .task-completed-container > table th{
     padding: 10px;
     background-color: #0375f7;
     color: white;
 }
 
-.provider-dashboard .task-completed-container > table td {
+.dashboard .task-completed-container > table td {
     text-align: center;
     padding: 8px;
     border-bottom: 1px solid rgb(185, 185, 185);
 }
 
-.provider-dashboard .loader {
+.dashboard .loader {
     border: 15px solid #f3f3f3;
     border-radius: 50%;
     border-top: 15px solid #3498db;
@@ -178,9 +186,6 @@
 }
 
 
-
-
-
 @media screen and (max-width: 1100px){
 
     .dashboard-mid-section .account-balance{
@@ -191,19 +196,19 @@
         width: 60%;
     }
 
-    .provider-dashboard .top-section > div h2, .provider-dashboard .top-section > div h1{
+    .dashboard .top-section > div h2, .dashboard .top-section > div h1{
         font-size: 15px;
     }
 }
 
 @media screen and (max-width: 700px){
-    .provider-dashboard .top-section{
+    .dashboard .top-section{
         display: grid;
         width: 90%;
         grid-template-columns: 1fr 1fr;
     }
 
-    .provider-dashboard .top-section > div img{
+    .dashboard .top-section > div img{
         display: none;
     }
 
@@ -221,14 +226,14 @@
         width: 90%;
     }
 
-    .provider-dashboard .task-completed-container{
+    .dashboard .task-completed-container{
         width: 90%;
     }
 
 }
 
 @media screen and (max-width: 425px){
-    .provider-dashboard .top-section{
+    .dashboard .top-section{
         grid-template-columns: 1fr;
     }
 }

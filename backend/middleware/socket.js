@@ -41,7 +41,6 @@ const initializeSocket = (server) => {
       socket.to(recipient_id).emit('notification', message);
     });
 
-
     socket.on('chat-partners', async () => {
       try {
         const chatPartners = await ChatService.fetchChatPartners(socket.id);

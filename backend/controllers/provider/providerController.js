@@ -24,7 +24,7 @@ const get_provider = async (req, res) => {
     }
 };
 
-const getProviders = async (req, res) => {
+const searchProviders = async (req, res) => {
     const {service_name, price: priceStr, sortBy } = req.body;
     const price = parseFloat(priceStr);
     const page = parseInt(req.query.page);
@@ -155,4 +155,20 @@ const get_provider_rating = async (req, res) => {
     }
 }
 
-export default { get_provider, getProviders, update_provider, get_provider_rating};
+const get_providers_count = async (req,res) => {
+    try{
+        const providers_count = await Provider.count();
+
+        res.status(200).json({providers_count});
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+export default { 
+    get_provider, 
+    searchProviders, 
+    update_provider, 
+    get_provider_rating,
+    get_providers_count
+};

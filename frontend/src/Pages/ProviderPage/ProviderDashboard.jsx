@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import {CChart} from '@coreui/react-chartjs';
-import './ProviderDashboard.css';
+import '../styles/Dashboard.css';
 import EarningModal from "../../modals/EarningModal";
 
 const ProviderDashboard = () => {
@@ -39,7 +39,7 @@ const ProviderDashboard = () => {
     }
 
     return (
-        <div className="provider-dashboard">
+        <div className="dashboard">
             {showEarningModal && <EarningModal setShowEarningModal={setShowEarningModal}/>}
             <div className="top-section">
                 <div className="earnings-summary">
@@ -82,7 +82,7 @@ const ProviderDashboard = () => {
                             ],
                             datasets: [
                             {
-                                label: "Monthly Incomes",
+                                label: "Monthly Earnings",
                                 backgroundColor: "white",
                                 borderColor: "rgb(110, 178, 255)",
                                 pointBackgroundColor: "rgb(0, 119, 255)",
