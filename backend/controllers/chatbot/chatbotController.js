@@ -18,8 +18,7 @@ export const getChatBotReponse = async (req, res) => {
                 - Users can sign up as a Client or Provider for free.
                 - We accept payments via major credit/debit cards, GCash, Maya, and other online methods.
                 - Payments are securely held until the service is marked completed
-                - A 5% platform fee is deducted from the client's payment.
-
+                
                 For Clients:
                 - Clients can choose between online payment or cash on delivery.
                 - To book a service you need to login first, browse or search available services then select a provider that will perform the service you need and select date and time based on the provider's availability then pay.
