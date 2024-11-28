@@ -130,7 +130,7 @@ const FirstPage = ({state, dispatch, setShowFirstPage}) => {
                 </div>
                 <div>
                    <span>Location:</span>
-                   <select style={{marginLeft: '15px', height: '30px'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
+                   <select style={{marginLeft: '15px', height: '30px', minWidth: '150px'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
                     <option value=""></option>
                     {data?.cities && data.cities.map((city, i) => 
                         <option key={i} value={city}>{city}</option>

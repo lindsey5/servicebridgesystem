@@ -5,6 +5,7 @@ import useSearchReducer from '../../hooks/useSearchReducer';
 import ProviderProfile from './ProviderProfile';
 import '../styles/Loader.css';
 import { fetchSearchResults } from '../../services/searchResultService';
+import useFetch from '../../hooks/useFetch';
 
 const ClientSearchResult = () => {
     const location = useLocation();
@@ -14,6 +15,7 @@ const ClientSearchResult = () => {
     const filterCheckBoxesRef = useRef([]);
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { data } = useFetch('/api/cities');
 
     useEffect(() => {
         document.title = "Search Result | Client";
@@ -34,7 +36,7 @@ const ClientSearchResult = () => {
         };
         setLoading(true);
         fetchData();
-    }, [state.currentPage, state.price, state.sortBy, service_name]);
+    }, [state.currentPage, state.price, state.sortBy, service_name, state.location]);
 
     const handleClick = (page) => {
         dispatch({ type: 'SET_CURRENT_PAGE', payload: page });
@@ -101,23 +103,32 @@ const ClientSearchResult = () => {
             <div className="container">
             <div className="filter-container">
                 <div className="price-div">
-                <h2>Price</h2>
-                <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
-                <p id="selectedPrice">{state.priceLabel}</p>
+                    <h2>Price</h2>
+                    <input type="range" min="1" max="5" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
+                    <p id="selectedPrice">{state.priceLabel}</p>
+                </div>
+                <div>
+                    <p>Location</p>
+                    <select style={{ height: '30px', width: '100%'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
+                        <option value=""></option>
+                        {data?.cities && data.cities.map((city, i) => 
+                            <option key={i} value={city}>{city}</option>
+                        )}
+                    </select>
                 </div>
                 <div className="sort-div">
-                <h3>Sort By</h3>
-                <div>
-                    <input type="checkbox" id="price-desc" className="filter-checkbox" onClick={(e) => filterSearch('priceHigh',e.target)}  ref={el => filterCheckBoxesRef.current[0] = el} />
-                    <label htmlFor="price-desc">Price (Highest)</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="price-asc" className="filter-checkbox" onClick={(e) => filterSearch('priceLow', e.target)}  ref={el => filterCheckBoxesRef.current[1] = el}/>
-                    <label htmlFor="price-asc">Price (Lowest)</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="rating-desc" onClick={(e) => filterSearch('ratingHigh', e.target)} className="filter-checkbox" ref={el => filterCheckBoxesRef.current[2] = el} />
-                    <label htmlFor="rating-desc">Rating (Highest)</label>
+                    <h3>Sort By</h3>
+                    <div>
+                        <input type="checkbox" id="price-desc" className="filter-checkbox" onClick={(e) => filterSearch('priceHigh',e.target)}  ref={el => filterCheckBoxesRef.current[0] = el} />
+                        <label htmlFor="price-desc">Price (Highest)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="price-asc" className="filter-checkbox" onClick={(e) => filterSearch('priceLow', e.target)}  ref={el => filterCheckBoxesRef.current[1] = el}/>
+                        <label htmlFor="price-asc">Price (Lowest)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="rating-desc" onClick={(e) => filterSearch('ratingHigh', e.target)} className="filter-checkbox" ref={el => filterCheckBoxesRef.current[2] = el} />
+                        <label htmlFor="rating-desc">Rating (Highest)</label>
                 </div>
                 </div>
             </div>

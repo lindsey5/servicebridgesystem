@@ -8,7 +8,8 @@ export const fetchSearchResults = async (service_name, state) => {
             body: JSON.stringify({
                 service_name,
                 price: state.price,
-                sortBy: state.sortBy
+                sortBy: state.sortBy,
+                location: state.location
             })
         });
         if(response.ok){

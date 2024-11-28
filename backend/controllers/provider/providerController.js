@@ -1,7 +1,7 @@
 import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import { sequelize } from '../../config/connection.js';
 import AvailableDateService from '../../models/available_dates_services.js';
 
@@ -25,15 +25,18 @@ const get_provider = async (req, res) => {
 };
 
 const searchProviders = async (req, res) => {
-    const {service_name, price: priceStr, sortBy } = req.body;
+    const {service_name, price: priceStr, sortBy, location } = req.body;
     const price = parseFloat(priceStr);
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const offset = (page - 1) * limit;
-
+    console.log(location)
     try {
         const query = {
             attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location'],
+            where: { 
+                location: {[Op.like] : `%${location}%`}
+            },
             include: [
                 { 
                     model: ProviderServiceOffered, 

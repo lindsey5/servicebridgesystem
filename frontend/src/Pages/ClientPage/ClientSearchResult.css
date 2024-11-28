@@ -22,6 +22,7 @@
     margin-right: 50px;
     border-radius: 10px;
     display: flex;
+    justify-content: space-around;
     flex-direction: column;
     padding: 20px;
     box-shadow: 3px 5px 15px 7px rgb(199, 199, 199);
@@ -33,9 +34,7 @@
 
 .price-div{
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
-    max-width: 250px;
 }
 
 .price-div > p{

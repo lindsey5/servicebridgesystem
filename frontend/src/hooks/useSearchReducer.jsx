@@ -2,6 +2,7 @@ import { useReducer } from "react";
 
 // Initial state for the search result
 const initialState = {
+    location: '',
     price: 0, // Stores the selected price filter
     priceLabel: 'Any Price', // Label for the price filter
     currentPage: 1, // Tracks the current page in pagination
@@ -35,6 +36,8 @@ const reducer = (state, action) => {
         // Sets the sorting option
         case 'SET_SORT_BY':
             return { ...state, sortBy: action.payload };
+        case 'SET_LOCATION':
+            return { ...state, location: action.payload }
         // Default case returns the unchanged state
         default:
             return state;
