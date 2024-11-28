@@ -30,6 +30,7 @@ import AdminLogin from './Pages/AuthPages/AdminLogin.jsx';
 import AdminLayout from './layouts/AdminLayout.jsx';
 import AdminDashboard from './Pages/AdminPage/AdminDashboard.jsx';
 import AdminServices from './Pages/AdminPage/AdminServices.jsx';
+import AdminCategories from './Pages/AdminPage/AdminCategories.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -47,6 +48,7 @@ export default function App() {
         <Route path='/Admin/' element={<AdminLayout />}>
           <Route path='Dashboard' element={<AdminDashboard />} />
           <Route path='Services' element={<AdminServices />}/>
+          <Route path='Categories' element={<AdminCategories />} />
         </Route>
   
         <Route path="/Client/" element={<ClientLayout />}>

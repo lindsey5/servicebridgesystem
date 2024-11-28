@@ -26,7 +26,7 @@ export default function AdminSideBar () {
                     navigate('/Admin/Services');
                     break;
                 case '3':
-                    navigate('/Admin/Incomes');
+                    navigate('/Admin/Categories');
                     break;
             }
         }
@@ -63,18 +63,26 @@ export default function AdminSideBar () {
                     navigate('/Admin/Services');
                     handleButtonClick(2);
                 }}>
-                    <img src="/icons/repair-tool.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
+                    <img src="/icons/services.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {window.innerWidth <= 840 ? 'Services' : (hideSideBar ? '' : 'Services')}
             </button>
             <button className={`sidebar-button ${activeButton === 3 ? 'active' : ''}`}
                 onClick={() => {
-                    navigate('/Admin/Incomes');
+                    navigate('/Admin/Categories');
                     handleButtonClick(3);
+                }}>
+                    <img src="/icons/maintenance.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
+                    {window.innerWidth <= 840 ? 'Categories' : (hideSideBar ? '' : 'Categories')}
+            </button>
+            <button className={`sidebar-button ${activeButton === 4 ? 'active' : ''}`}
+                onClick={() => {
+                    navigate('/Admin/Earnings');
+                    handleButtonClick(4);
                 }}>
                     <img src="/icons/pesos.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {window.innerWidth <= 840 ? 'Earnings' : (hideSideBar ? '' : 'Earnings')}
             </button>
-            <button className={`sidebar-button ${activeButton === 3 ? 'active' : ''}`}
+            <button className={`sidebar-button`}
                 onClick={() => {}}>
                     <img src="/icons/exit.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {window.innerWidth <= 840 ? 'Logout' : (hideSideBar ? '' : 'Logout')}

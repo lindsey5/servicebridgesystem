@@ -27,7 +27,7 @@ const get_transactions = async (query, offset, limit) => {
         query.offset = offset;
         query.limit = limit;
         const totalPages = Math.ceil(totalRows / limit);
-
+        
         const transactions = await Transaction.findAll(query);
         if (transactions) {
             return { transactions, totalPages };

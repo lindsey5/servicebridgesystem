@@ -1,0 +1,81 @@
+.category-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.category-modal .container{
+    padding: 30px 50px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.category-modal .container > div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.category-modal .icon-container{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid rgb(190, 190, 190);
+}
+
+.category-modal .icon-container img{
+    width: 80%;
+    height: 80%;
+}
+
+.category-modal label{
+    text-align: center;
+    background-color: rgb(3, 117, 247);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.category-modal .container p{
+    color: rgb(170, 170, 170)
+}
+
+.category-modal .container input{
+    width: 250px;
+    height: 30px;
+    outline: none;
+}
+
+.category-modal .create-category-btn:not(:disabled){
+    background-color: rgb(3, 117, 247);
+    color: white;
+    border: none;
+}
+
+.category-modal .create-category-btn:not(:disabled):hover{
+    background-color: rgb(149, 198, 255);
+}
+
+.category-modal button:not(:disabled){
+    cursor: pointer;
+}
+
+.category-modal button{
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+}

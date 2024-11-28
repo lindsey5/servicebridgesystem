@@ -38,7 +38,8 @@ const Services = ({showLoginModal}) =>{
         useEffect(() => {
            const getImageSrc = async () =>{
                 try{
-                    const response = await fetch(`https://pixabay.com/api/?key=46701607-d51d8d8ab7e9bf8a22e03cd3c&q=${category.category_name} service&image_type=photo`);
+                    console.log(category)
+                    const response = await fetch(`https://pixabay.com/api/?key=46701607-d51d8d8ab7e9bf8a22e03cd3c&q=${category.category_name}&image_type=photo`);
                     if(response.ok){
                         const result = await response.json();
                         setImgSrc(result.hits[1].largeImageURL);

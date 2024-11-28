@@ -30,7 +30,7 @@
     justify-content: center;
     box-shadow: 0 0 15px 5px rgb(216, 216, 216);
     border-radius: 30px;
-    min-height: 500px;
+    height: 600px;
     position: relative;
     cursor: pointer;
     animation: servicesAnimation 0.8s ease-in-out forwards;

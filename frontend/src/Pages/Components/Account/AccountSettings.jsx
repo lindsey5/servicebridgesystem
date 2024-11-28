@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import '../../styles/AccountSettings.css'
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
+import useFetch from '../../../hooks/useFetch';
 
 const AccountSettings = ({data, handleUpdate, error}) => {
     const [details, setDetails] = useState();
@@ -9,6 +10,7 @@ const AccountSettings = ({data, handleUpdate, error}) => {
     const [isUsernameDisabled, setUsernameDisabled] = useState(true);
     const [saving, setSaving] = useState(false);
     const [savingText, setSavingText] = useState('');
+    const { data:cities } = useFetch('/api/cities');
 
     const setInfo = async() =>{
         if(data){
@@ -20,6 +22,10 @@ const AccountSettings = ({data, handleUpdate, error}) => {
     useEffect(() =>{
         setInfo();
     },[data]);
+
+    useEffect(() => {
+        console.log(details)
+    }, [details])
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -134,6 +140,16 @@ const AccountSettings = ({data, handleUpdate, error}) => {
                                 value={details.bio} 
                                 onInput={(e) => setDetails({...details, bio: e.target.value })}
                             />
+                        </div>}
+                        {details?.location &&  
+                        <div className='input-container'>
+                            <label>Location</label>
+                            <select style={{height: '30px'}} value={details?.location} onChange={(e) => setDetails({...details, location: e.target.value })}>
+                                <option value=""></option>
+                                {cities?.cities && cities.cities.map((city, i) => 
+                                    <option key={i} value={city}>{city}</option>
+                                )}
+                            </select>
                         </div>}
                     </div>
                     <div className='profile-pic-parent-container'>

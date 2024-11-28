@@ -8,7 +8,7 @@ import AvailableDateService from '../../models/available_dates_services.js';
 // This function get the client details from the databased based on the client id
 const get_provider = async (req, res) => {
     try {
-        const provider_id = req.userId; // Retrieve the userId from the req object and assign it to the provider_id variable
+        const provider_id = req.userId// Retrieve the userId from the req object and assign it to the provider_id variable
         const provider = await Provider.findOne({ where: { id: provider_id } }); // Verify if a provider exists using the provider_id variable
         if(provider){
              // Execute if the provider is found using the provider_id variable
@@ -33,7 +33,7 @@ const searchProviders = async (req, res) => {
 
     try {
         const query = {
-            attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio'],
+            attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location'],
             include: [
                 { 
                     model: ProviderServiceOffered, 
@@ -59,7 +59,7 @@ const searchProviders = async (req, res) => {
                     } },
             
             ],
-            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio']
+            group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location']
         }
 
         if(price > 0){
@@ -95,7 +95,7 @@ const searchProviders = async (req, res) => {
                     rating: provider.rating,
                     profile_pic: provider.profile_pic,
                     bio: provider.bio,
-                    city: provider.city,
+                    location: provider.location,
                     service_name,
                     price
                 };

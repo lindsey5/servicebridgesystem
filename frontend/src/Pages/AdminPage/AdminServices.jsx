@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import './TablePage.css';
 import AdminPagination from './AdminPagination';
 import useAdminPaginationReducer from '../../hooks/adminPaginationReducer';
-import AddServiceInterface from './AddServiceInterface';
-import UpdateServiceInterface from './UpdateServiceInterface';
+import AddServiceInterface from '../Components/Services/AddServiceInterface';
+import UpdateServiceInterface from '../Components/Services/UpdateServiceInterface';
 import { deleteService } from '../../services/servicesService';
 
 const AdminServices = () => {

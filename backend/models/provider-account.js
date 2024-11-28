@@ -94,6 +94,10 @@ const provider_account = sequelize.define('provider_account', {
         type: DataTypes.BLOB,
         allowNull: true
     },
+    location: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     bio: {
         type: DataTypes.STRING,
         allowNull: true

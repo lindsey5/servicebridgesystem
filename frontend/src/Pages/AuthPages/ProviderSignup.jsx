@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '../styles/signup.css';
 import useSignupReducer from '../../hooks/useSignupReducer';
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 const handleBlur = (e) => {
     if (e.target.value) {
@@ -34,7 +35,8 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
                     password: state.password,
                     firstname: state.firstname,
                     lastname: state.lastname,
-                    address: state.address
+                    address: state.address,
+                    location: state.location
                 }),
                 credentials: 'include'
             });
@@ -59,6 +61,11 @@ const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
     let errorFlag = false;
     dispatch({type: 'CLEAR_ERROR'})
 
+    if(!state.location){
+        errorFlag = true;
+        dispatch({type: 'SET_ERROR', payload: 'Select Location'})
+    }
+
     if(state.firstname.length > 50){
         errorFlag = true;
         dispatch({type: 'SET_ERROR', payload: 'First name is too long'})
@@ -82,6 +89,8 @@ const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
 
 
 const FirstPage = ({state, dispatch, setShowFirstPage}) => {
+    const { data } = useFetch('/api/cities');
+
     return (
         <form onSubmit={(e) => nextPage({e, state, dispatch, setShowFirstPage})}>
             <div className='first-page'>
@@ -118,6 +127,15 @@ const FirstPage = ({state, dispatch, setShowFirstPage}) => {
                         required
                     />
                     <span>Address</span>
+                </div>
+                <div>
+                   <span>Location:</span>
+                   <select style={{marginLeft: '15px', height: '30px'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
+                    <option value=""></option>
+                    {data?.cities && data.cities.map((city, i) => 
+                        <option key={i} value={city}>{city}</option>
+                    )}
+                   </select>
                 </div>
                 <button>Next</button>
             </div>

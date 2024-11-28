@@ -129,7 +129,7 @@ const ClientSearchResult = () => {
             {!loading && 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="search-results-container">
-                    <h2>{!results ? 'No ' : ''}Results for '{service_name}'</h2>
+                    <h2>{!results ? 'No ' : ''}Results for "{service_name}"</h2>
                     {results ? results.providers.map(provider => <ProviderProfile key={provider.id} provider={provider}/>) : null}
                 </div>
                 <div className="pagination-controls">

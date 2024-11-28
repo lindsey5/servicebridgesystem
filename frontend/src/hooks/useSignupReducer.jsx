@@ -7,6 +7,7 @@ const clientState = {
     firstname: '',    // Stores the client's first name
     lastname: '',     // Stores the client's last name
     address: '',      // Stores the client's address
+    location: '',
     errors: []        // Stores any signup errors
 }
 
@@ -23,6 +24,8 @@ const ClientSignupReducer = (state, action) => {
             return { ...state, lastname: action.payload }; // Update last name field
         case 'SET_ADDRESS':
             return { ...state, address: action.payload }; // Update address field
+        case 'SET_LOCATION':
+            return { ...state, location: action.payload };
         case 'SET_ERROR':
             return { ...state, errors: [...state.errors, action.payload] }; // Add a new error to the errors array
         case 'CLEAR_ERROR':

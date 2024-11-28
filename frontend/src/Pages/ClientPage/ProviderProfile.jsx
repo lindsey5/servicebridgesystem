@@ -8,7 +8,7 @@ const ProviderProfile = ({provider}) => {
     const [rating, setRating] = useState('No Reviews Yet');
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [price, setPrice] = useState();
-
+    console.log(provider)
     const book = () => {        
         const params = {
             id: provider.id,
@@ -49,6 +49,7 @@ const ProviderProfile = ({provider}) => {
                 </div>
                 <div className='details-div'>
                     <h1>{provider.firstname + ' ' + provider.lastname.charAt(0) + '.'}</h1>
+                    <p>Location: {provider.location}</p>
                     <div className='rating-div'>
                         <span className='star'>★</span>
                         <p>{rating}</p>

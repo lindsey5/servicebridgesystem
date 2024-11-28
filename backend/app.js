@@ -50,6 +50,27 @@ app.get('/api/latest-message', async (req, res) => {
 
 });
 
+app.get('/api/cities', async (req, res) => {
+  try{
+    const response= await fetch('https://psgc.gitlab.io/api/cities');
+    if(response.ok){
+      const result = await response.json();
+      res.status(200).json({cities: result.map(city => {
+        if(city.name.includes('City of')){
+          const cityNameArr = city.name.split(' ');
+          return cityNameArr[cityNameArr.length - 1] + ' City';
+        }else{
+          return city.name
+        }
+      }).sort()})
+    }
+
+  }catch(err){
+    res.status(400).json({message: err});
+  }
+
+})
+
 initializeSocket(server);
 
 const __dirname = path.resolve();

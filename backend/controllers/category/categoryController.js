@@ -1,4 +1,5 @@
 import Category from "../../models/category.js"
+import Service from "../../models/service.js"
 
 const create_category = async (req, res) => {
     try{
@@ -33,8 +34,14 @@ const delete_category = async (req, res) => {
 
 const get_categories = async (req, res) => {
     try{
-        const category = await Category.findAll(); // Fetch all the categories from the database
+        const category = await Category.findAll({
+            include:{
+                model: Service,
+                attributes: ['service_name']
+            }
+        }); // Fetch all the categories from the database
         if (category) {
+
             // Send the response with the categories if there's categories found in the database
             res.status(200).json(category); // Send a response containing all the categories found
         }        

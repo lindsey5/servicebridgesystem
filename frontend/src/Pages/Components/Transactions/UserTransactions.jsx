@@ -21,8 +21,6 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const dateInputRef = useRef(null);
     const {modal_state, modal_dispatch} = useModalReducer();
     const [loading, setLoading] = useState(true);
-    const [fetchedData, setFetchedData] = useState();
-
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -56,7 +54,6 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                     credentials: 'include'
                 });
                 const result = await response.json();
-                setFetchedData(result.transactions);
                 dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
                 setTotalPages(result.totalPages);
                 currentPage === result.totalPages || result.totalPages === 0 ? setNextBtn(true) : setNextBtn(false);

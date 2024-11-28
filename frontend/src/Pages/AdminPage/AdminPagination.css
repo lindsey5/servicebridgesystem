@@ -1,4 +1,4 @@
-.pagination-controls{
+.admin-pagination-controls{
     display: flex;
     align-items: center;
     position: absolute;
@@ -6,14 +6,14 @@
     right: 15px;
 }
 
-.pagination-controls button{
+.admin-pagination-controls button{
     padding: 5px 10px;
     margin: 5px;
     background-color: white;
     border: 1px solid rgb(221, 221, 221);
 }
 
-.pagination-controls button:not(:disabled):hover{
+.admin-pagination-controls button:not(:disabled):hover{
     cursor: pointer;
     background-color: rgb(197, 197, 197);
 }
