@@ -5,13 +5,66 @@ import Transaction from '../../models/transaction.js';
 
 const create_service = async (req, res) => {
     try{
+        const isExist = await Service.findOne({
+            where: {
+                service_name: req.body.service_name,
+                category_name: req.body.category_name
+            }
+        })
+
+        if(isExist) throw new Error('Service Already Exist')
+
         const service = await Service.create({
             service_name: req.body.service_name,
             category_name: req.body.category_name
         })
         res.status(200).json(service);
     }catch(err){
-        res.status(400).json({errors: err.message});
+        res.status(400).json({error: err.message});
+    }
+}
+
+const update_service = async (req, res) => {
+    try {
+        const { service_name, category_name, updatedServiceName } = req.body;
+        
+        if (!service_name || !category_name || !updatedServiceName) {
+            return res.status(400).json({ error: 'Missing required fields: service_name, category_name, updatedServiceName' });
+        }
+
+        const service = await Service.findOne({ where: { service_name } });
+
+        if (!service) {
+            return res.status(404).json({ error: 'Service does not exist' });
+        }
+
+        await service.destroy();
+
+        const updatedService = await Service.create({
+            service_name: updatedServiceName,
+            category_name
+        })
+
+        res.status(200).json({
+            message: 'Service successfully updated',
+            updatedService
+        });
+
+    } catch (err) {
+        // Catch any unexpected errors
+        console.error(err);
+        res.status(400).json({ error: err.message });
+    }
+};
+
+const delete_service = async (req, res) => {
+    try{
+        const service = await Service.findByPk(req.params.service_name);
+        if(!service) throw new Error('Service name doesn\'t exist');
+        await service.destroy();
+        res.status(200).json({message: "Service successfully remove"});
+    }catch(err){
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -119,4 +172,12 @@ const get_top_services = async (req, res) => {
     }
 }
 
-export default { create_service, service_findAll, get_paginated_services, services_byCategory, get_top_services } 
+export default { 
+    create_service, 
+    delete_service,
+    update_service,
+    service_findAll, 
+    get_paginated_services, 
+    services_byCategory, 
+    get_top_services 
+} 

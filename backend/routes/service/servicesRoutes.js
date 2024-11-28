@@ -4,6 +4,8 @@ import serviceController from '../../controllers/service/serviceController.js';
 const router = express.Router();
 
 router.post('/', serviceController.create_service);
+router.put('/', serviceController.update_service);
+router.delete('/:service_name', serviceController.delete_service);
 router.get('/', serviceController.service_findAll);
 router.get('/pagination', serviceController.get_paginated_services);
 router.get('/top', serviceController.get_top_services);

@@ -2,11 +2,17 @@ import { useEffect, useState } from 'react';
 import './TablePage.css';
 import AdminPagination from './AdminPagination';
 import useAdminPaginationReducer from '../../hooks/adminPaginationReducer';
+import AddServiceInterface from './AddServiceInterface';
+import UpdateServiceInterface from './UpdateServiceInterface';
+import { deleteService } from '../../services/servicesService';
 
 const AdminServices = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const {state, dispatch} = useAdminPaginationReducer();
     const [services, setServices] = useState();
+    const [showAddService, setShowAddService] = useState(false)
+    const [showUpdateService, setShowUpdateService] = useState(false);
+    const [selectedService, setSelectedService] = useState();
 
     useEffect(() => {
         const fetchAirplanes = async () => {
@@ -36,30 +42,43 @@ const AdminServices = () => {
 
     return (
         <main className="table-page">
+            {showAddService && <AddServiceInterface close={() => setShowAddService(false)}/>}
+            {showUpdateService && <UpdateServiceInterface data={selectedService} close={() => setShowUpdateService(false)}/>}
             <h1>Services</h1>
             <input type="search" placeholder='Search' onChange={(e) => setSearchTerm(e.target.value)}/>
             <AdminPagination state={state} dispatch={dispatch} />
             <div className='table-container'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Service Name</th>
-                        <th>Category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    services && services.map(service => 
-                        <tr key={service.service_name}>
-                            <td>{service.service_name}</td>
-                            <td>{service.category_name}</td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Category</th>
+                            <th>Action</th>
                         </tr>
-                    )
-                }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {
+                        services && services.map(service => 
+                            <tr key={service.service_name}>
+                                <td>{service.service_name}</td>
+                                <td>{service.category_name}</td>
+                                <td>
+                                    <button onClick={() => {
+                                        setSelectedService({
+                                            service_name: service.service_name,
+                                            category_name: service.category_name
+                                        })
+                                        setShowUpdateService(true);
+                                    }}><img src="/icons/editing (1).png" alt="" /></button>
+                                    <button onClick={() => deleteService(service.service_name)}><img src="/icons/trash-bin.png" alt="" /></button>
+                                </td>
+                            </tr>
+                        )
+                    }
+                    </tbody>
+                </table>
             </div>
-            <button className='add-btn'>Add Service</button>
+            <button className='add-btn' onClick={() => setShowAddService(true)}>Add Service</button>
         </main>
     )
 
