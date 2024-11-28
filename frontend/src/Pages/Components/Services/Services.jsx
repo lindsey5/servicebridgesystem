@@ -77,8 +77,8 @@ const Services = ({showLoginModal}) =>{
             ))
             }
             </div>
-            <button className="prev" style={{opacity: start === 0 ? 0 : 1}} onClick={backPage} ref={back}>&#10094;</button>
-            <button className="next" style={{opacity: end === categories.length ? 0 : 1}} onClick={nextPage} ref={next}>&#10095;</button>
+            <button className="prev" style={{display: start === 0 ? 'none' : 'block'}} onClick={backPage} ref={back}>&#10094;</button>
+            <button className="next" style={{display: end === categories.length ? 'none' : 'block'}} onClick={nextPage} ref={next}>&#10095;</button>
         </div>
     )
 }
