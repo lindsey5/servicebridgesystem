@@ -5,8 +5,7 @@ import Services_offered from '../../models/service_offered.js';
 const get_services_offered = async (req, res) => {
     try{
         const provider_id = req.userId;
-        
-        const services = await Services_offered.findAll({ 
+        const query = { 
             where: { provider_id: provider_id },
             include: [{
                 model: Service,
@@ -17,7 +16,8 @@ const get_services_offered = async (req, res) => {
                 ['service_name', 'ASC']
             ]
         
-        });
+        }
+        const services = await Services_offered.findAll(query);
         if(services){
             res.status(200).json({services});
         }else{

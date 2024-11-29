@@ -17,10 +17,10 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
     const [disabledNextBtn, setNextBtn] = useState(false);
     const [disabledPrevBtn, setPrevBtn] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(true);
     const checkboxesRef = useRef([]);
     const dateInputRef = useRef(null);
     const {modal_state, modal_dispatch} = useModalReducer();
-    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -51,7 +51,6 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                         statuses: state.selectedStatus,
                         date: state.date
                     }),
-                    credentials: 'include'
                 });
                 const result = await response.json();
                 dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
@@ -117,12 +116,9 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             <CancelledModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
             <RateModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
             <ReviewedModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
-            <ProviderReasonModal modal_state={modal_state} modal_dispatch={modal_dispatch}/>
-            {loading && 
-                <div className='loader-container'>
-                    <div className="loader"></div>
-                </div>}
-            {!loading && <div className="container">
+            <ProviderReasonModal modal_state={modal_state} modal_dispatch={modal_dispatch}/> 
+
+            <div className="container">
                 <div className="top-div">
                     <h2>Transactions</h2>
                     <div>

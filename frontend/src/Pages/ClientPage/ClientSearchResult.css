@@ -16,13 +16,13 @@
 
 .search-result .filter-container{
     width: 250px;
-    height: 400px;
     background-color: white;
     margin-top: 60px;
     margin-right: 50px;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     flex-direction: column;
     padding: 20px;
     box-shadow: 3px 5px 15px 7px rgb(199, 199, 199);
@@ -255,10 +255,8 @@
 
     .search-result .filter-container{
         width: 80vw;
-        height: 180px;
         margin: 0;
         flex-direction: row;
-        justify-content: space-between;
     }
 
     .search-result .price-div{
@@ -307,6 +305,10 @@
 @media (max-width: 425px){
     .filter-container label{
         font-size: 12px;
+    }
+    
+    .search-result .filter-container div{
+        width: 100%;
     }
 
     .result{

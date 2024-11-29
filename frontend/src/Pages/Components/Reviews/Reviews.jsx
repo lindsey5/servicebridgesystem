@@ -5,7 +5,9 @@ import useFetch from '../../../hooks/useFetch';
 
 const Reviews = ({id, rating, isProvider}) => {
     const [reviews, setReviews] = useState();
-    const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}`);
+    const [selectedService, setSelectedService] = useState('');
+    const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}?filter=${selectedService}`);
+    const { data: services } = useFetch('/api/services-offered');
     const starsRef = useRef([]);
     const [filter, setFilter] = useState('All');
     const [ratingPercentages, setRatingPercentages] = useState();
@@ -115,12 +117,20 @@ const Reviews = ({id, rating, isProvider}) => {
             </div>
             </div>
             <div className='review-filter'>
-                <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='All'>All</button>
-                <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='5'>★★★★★</button>
-                <button ref={el => filterButtons.current[2] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='4'>★★★★</button>
-                <button ref={el => filterButtons.current[3] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='3'>★★★</button>
-                <button ref={el => filterButtons.current[4] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='2'>★★</button>
-                <button ref={el => filterButtons.current[5] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='1'>★</button>
+                <select onChange={(e) => setSelectedService(e.target.value)}>
+                    <option value=""></option>
+                    {services && services.services.map(service => 
+                        <option value={service.service_name}>{service.service_name}</option>
+                    )}
+                </select>
+                <div>
+                    <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='All'>All</button>
+                    <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='5'>★★★★★</button>
+                    <button ref={el => filterButtons.current[2] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='4'>★★★★</button>
+                    <button ref={el => filterButtons.current[3] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='3'>★★★</button>
+                    <button ref={el => filterButtons.current[4] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='2'>★★</button>
+                    <button ref={el => filterButtons.current[5] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='1'>★</button>
+                </div>
             </div>
             <div className='reviews'>
                 {reviews && reviews.map(review => <Review key={review.transaction_id} review={review} isProvider={isProvider}/>)}

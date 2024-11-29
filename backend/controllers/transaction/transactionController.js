@@ -433,10 +433,12 @@ const get_reviewed_transaction = async (req, res) => {
     try{
         const reviewed_transaction = await ReviewedTransaction.findByPk(transaction_id);
         if(reviewed_transaction){
-            const transaction = await Transaction.findOne({
+
+            const query = {
                 where: { transaction_id },
                 include: { model: Client }
-            });
+            }
+            const transaction = await Transaction.findOne(query);
             if(transaction){
                 const jsonTransaction = transaction.toJSON();
                 const fullname = `${jsonTransaction.client_account.firstname} ${jsonTransaction.client_account.lastname}`;
@@ -469,6 +471,12 @@ const get_reviewed_transactions = async (req,res) => {
     if(req.query.rating){
         query.where.rating = req.query.rating;
     }
+
+    
+    if(req.query.filter){
+        query.include.where.service_name =  req.query.filter;
+    }
+
     try{
         const reviewed_transactions = await transactionService.get_all_reviewed_transactions(query);
         res.status(200).json(reviewed_transactions);

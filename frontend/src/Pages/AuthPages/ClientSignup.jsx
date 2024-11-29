@@ -216,7 +216,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                     {showVerifyEmail && 
                         <>
                             <h3>Verify Your Email Address</h3>
-                            <p style={{color: 'grey', fontSize: '15px'}}>In order to verify your identity, please enter the code we sent to:</p>
+                            <p style={{color: 'grey', fontSize: '15px'}}>In order to verify your email, please enter the code we sent to:</p>
                             <h4 style={{marginTop: '10px'}}>{state.email}</h4>
                             {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                             <div className='input-container'>

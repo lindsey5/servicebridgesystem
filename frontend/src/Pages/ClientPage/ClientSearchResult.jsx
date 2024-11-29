@@ -129,7 +129,7 @@ const ClientSearchResult = () => {
                     <div>
                         <input type="checkbox" id="rating-desc" onClick={(e) => filterSearch('ratingHigh', e.target)} className="filter-checkbox" ref={el => filterCheckBoxesRef.current[2] = el} />
                         <label htmlFor="rating-desc">Rating (Highest)</label>
-                </div>
+                    </div>
                 </div>
             </div>
             {loading && 
