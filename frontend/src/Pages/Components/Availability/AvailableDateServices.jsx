@@ -19,6 +19,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
     useEffect(() => {
         const getAvailableTime = async() => {
             try{
+                setTimeSlot('');
                 const response = await fetch(`/api/available-time?date=${selectedDate}`);
                 if(response.ok){
                     const result = await response.json();
