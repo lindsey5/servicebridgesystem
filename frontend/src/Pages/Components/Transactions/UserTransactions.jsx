@@ -189,7 +189,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                          </tbody>
                      </table>
                  </div>
-            </div>}
+            </div>
         </div>
     )
 }
