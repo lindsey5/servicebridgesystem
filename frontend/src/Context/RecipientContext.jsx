@@ -7,10 +7,6 @@ export const RecipientContextProvider = ({children}) => {
     // State to store the message recipient ID
     const [recipientId, setRecipientId] = useState(null);
 
-    useEffect(() => {
-        console.log(recipientId)
-    }, [recipientId])
-
     return (
         // Provide message recipientId and message setRecipientId to context consumers
         <RecipientContext.Provider value={{ recipientId, setRecipientId }}>

@@ -120,7 +120,7 @@ const Reviews = ({id, rating, isProvider}) => {
                 <select onChange={(e) => setSelectedService(e.target.value)}>
                     <option value=""></option>
                     {services && services.services.map(service => 
-                        <option value={service.service_name}>{service.service_name}</option>
+                        <option key={service.service_name} value={service.service_name}>{service.service_name}</option>
                     )}
                 </select>
                 <div>

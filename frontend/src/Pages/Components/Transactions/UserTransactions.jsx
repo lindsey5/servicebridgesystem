@@ -56,7 +56,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                 dispatch({ type: 'SET_TRANSACTIONS',payload: result.transactions });
                 setTotalPages(result.totalPages);
                 currentPage === result.totalPages || result.totalPages === 0 ? setNextBtn(true) : setNextBtn(false);
-                currentPage === 1 ? setPrevBtn(true) : setPrevBtn(false);
+                currentPage === 1 || result.totalPages === 0 ? setPrevBtn(true) : setPrevBtn(false);
                 setLoading(false);
             }catch(err){
                 console.error(err);
