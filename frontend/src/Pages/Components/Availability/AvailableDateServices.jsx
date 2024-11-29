@@ -12,7 +12,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
 
     useEffect(() =>{
         if(data?.services){
-            setSelectedService(data.services[0].service_id);
+            setSelectedService(data.services[0]?.service_id);
         }
     },[data])
 
@@ -43,7 +43,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                     {data?.services ?
                         <select onChange={(e) => setSelectedService(e.target.value) }>
                             {data.services.map(service => 
-                                <option key={service.service_id} value={service.service_id}>{service.service_name}</option>)
+                                <option key={service?.service_id} value={service?.service_id}>{service.service_name}</option>)
                             }
                         </select> :
                         <span>You don't have any services yet</span>
