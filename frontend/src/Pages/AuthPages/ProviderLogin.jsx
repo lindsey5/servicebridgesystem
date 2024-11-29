@@ -14,12 +14,12 @@ const ProviderLogin = () => {
     const navigate = useNavigate(); // Hook for navigation
     // State to manage the visibility of password
     const [isShow, setShow] = useState(false);
-    // State to hold the username and password input values
-    const [username, setUsername] = useState('');
+    // State to hold the email and password input values
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // State to hold error messages for username and password validation
+    // State to hold error messages for email and password validation
     const [passwordError, setPasswordError] = useState('');
-    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
     
     // Async function to handle user login
     async function login(e) {
@@ -32,7 +32,7 @@ const ProviderLogin = () => {
                     'Content-Type': 'application/json', // Indicate that the request body is JSON
                 },
                 body: JSON.stringify({
-                    username, // Include the username from state
+                    email, // Include the email from state
                     password // Include the password from state
                 }),
                 credentials: 'include' // Include cookies in the request for session management
@@ -40,10 +40,10 @@ const ProviderLogin = () => {
             
             // Parse the JSON response
             const result = await response.json();
-    
+            console.log(result)
             // Check for validation errors in the response
             if (result.errors) {
-                setUsernameError(result.errors.username || ''); // Set username error message if present
+                setEmailError(result.errors.email || ''); // Set email error message if present
                 setPasswordError(result.errors.password || ''); // Set password error message if present
             }
             // If the response is OK, navigate to the client home page
@@ -69,8 +69,8 @@ const ProviderLogin = () => {
                             <span className="input-icon">
                                 <img src={userLogo} alt="User Icon" /> 
                             </span>
-                            <input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-                            <p id="usernameError" className="error">{usernameError}</p>
+                            <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                            <p className="error">{emailError}</p>
                         </div>
 
                         <div className="input-container">
