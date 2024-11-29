@@ -105,6 +105,9 @@
     margin-bottom: 2px;
     width: 15px;
     height: 15px;
+}
+
+.payment-radio:not(:disabled){
     cursor: pointer;
 }
 

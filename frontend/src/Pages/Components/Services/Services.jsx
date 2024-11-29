@@ -50,7 +50,6 @@ const Services = ({showLoginModal}) =>{
            }
            getImageSrc();
         },[category])*/
-    console.log(category.category_name)
         return (
             <div className='services-parent-container'>
                 <img src={`/photos/${category.category_name}.jpg`} />

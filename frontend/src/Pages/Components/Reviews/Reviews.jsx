@@ -3,9 +3,9 @@ import './Reviews.css';
 import Review from './Review';
 import useFetch from '../../../hooks/useFetch';
 
-const Reviews = ({id, rating, isProvider}) => {
+const Reviews = ({id, rating, isProvider, service_name}) => {
     const [reviews, setReviews] = useState();
-    const [selectedService, setSelectedService] = useState('');
+    const [selectedService, setSelectedService] = useState(service_name || '');
     const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}?filter=${selectedService}`);
     const { data: services } = useFetch('/api/services-offered');
     const starsRef = useRef([]);
@@ -117,12 +117,12 @@ const Reviews = ({id, rating, isProvider}) => {
             </div>
             </div>
             <div className='review-filter'>
-                <select onChange={(e) => setSelectedService(e.target.value)}>
+                {isProvider && <select onChange={(e) => setSelectedService(e.target.value)}>
                     <option value=""></option>
                     {services && services.services.map(service => 
                         <option key={service.service_name} value={service.service_name}>{service.service_name}</option>
                     )}
-                </select>
+                </select>}
                 <div>
                     <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='All'>All</button>
                     <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='5'>★★★★★</button>
