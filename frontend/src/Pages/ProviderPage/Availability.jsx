@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import './Availability.css';
 import AvailableDateServices from '../Components/Availability/AvailableDateServices';
+import TimeSlots from '../Components/Availability/TimeSlots';
 
 const Availability = () => {
     const [date, setDate] = useState(new Date());
@@ -8,6 +9,7 @@ const Availability = () => {
     const [availableDateServices, setAvailableDateServices] = useState([]);
     const [selectedDate, setSelectedDate] = useState();
     const [showServices, setShowServices] = useState(false);
+    const [showTime, setShowTime] = useState(false);
 
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -131,6 +133,7 @@ const Availability = () => {
 
     return (
         <div className="availability">
+            {showTime && <TimeSlots selectedDate={selectedDate} close={() => setShowTime(false)}/>}
             <div className='top-section'>
                 <h1>Your Availability</h1>
                 <span>Pick a date to add to your availability and select available date then choose the service you want to offer.</span>
@@ -166,7 +169,7 @@ const Availability = () => {
                     </ul>
                 </div>
             </div>
-            {showServices && <AvailableDateServices selectedDate={selectedDate} availableDateServices={availableDateServices}/>}
+            {showServices && <AvailableDateServices selectedDate={selectedDate} availableDateServices={availableDateServices} setShowTime={() => setShowTime(true)}/>}
         </div>
     );
 };

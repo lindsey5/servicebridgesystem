@@ -3,17 +3,35 @@ import useFetch from '../../../hooks/useFetch'
 import './AvailableDateServices.css'
 import { create_available_date_service, delete_available_date_service } from '../../../services/availableDateService';
 
-const AvailableDateServices = ({selectedDate, availableDateServices}) =>{
+const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime}) =>{
     const [showAddService, setShowAddService] = useState(false);
     const [selectedService, setSelectedService] = useState('');
     const [error, setError] = useState('');
     const { data } = useFetch('/api/services-offered');
+    const [timeSlot, setTimeSlot] = useState('');
 
     useEffect(() =>{
         if(data?.services){
             setSelectedService(data.services[0].service_id);
         }
     },[data])
+
+    useEffect(() => {
+        const getAvailableTime = async() => {
+            try{
+                const response = await fetch(`/api/available-time?date=${selectedDate}`);
+                if(response.ok){
+                    const result = await response.json();
+                    console.log(result)
+                    setTimeSlot(result.time_slot);
+                }
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+        getAvailableTime();
+    }, [selectedDate])
 
     return (
         <div className='available-date-services'>
@@ -35,7 +53,13 @@ const AvailableDateServices = ({selectedDate, availableDateServices}) =>{
                     </div>
                 </div>
             </div>
-                <h2>{selectedDate}</h2>
+                <div className='header'>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <h2>{selectedDate}</h2>
+                        <h4>{timeSlot && `(${timeSlot})`}</h4>
+                    </div>
+                    <button onClick={setShowTime}>Set Time</button>
+                </div>
                 <div className='table-container'>
                 <table>
                     <thead>

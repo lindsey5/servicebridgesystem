@@ -7,11 +7,22 @@
     border: 1px solid grey;
 }
 
-.available-date-services > h2{
-    margin: 0;
+.available-date-services .header{
     background-color: rgb(3, 117, 247);
-    padding: 20px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.available-date-services .header h2,
+.available-date-services .header h4{
+    margin: 20px 10px;
     color: white;
+}
+
+.available-date-services .header button{
+    height: 25px;
+    cursor: pointer;
 }
 
 .available-date-services .table-container{

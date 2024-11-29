@@ -17,11 +17,30 @@ const Booking = () => {
     const [showTimeDropDown, setTimeDropDown] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState(null);
     const { data: dates } = useFetch(`/api/provider/available-dates?provider_id=${id}&isFiltered=true`);
+    const [startTime, setStartTime] = useState();
+    const [endTime, setEndTime] = useState();
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Book a Service";
     },[]);
+
+    useEffect(() => {
+        const getTimeSlot = async () => {
+            try{
+                const response = await fetch(`/api/available-time/provider?date=${selectedDate}&&id=${id}`)
+                if(response.ok){
+                    const result = await response.json();
+                    const timeSlots = result.time_slot.split(' to ');
+                    setStartTime(timeSlots[0]);
+                    setEndTime(timeSlots[1]);
+                }
+            }catch(err){
+                console.error(err)
+            }
+        }
+        getTimeSlot();
+    }, [selectedDate]);
 
     function decodeData (encodedData) {
         try {
@@ -41,16 +60,32 @@ const Booking = () => {
         setTimeDropDown(!showTimeDropDown);
     }
 
+    // Convert time string to minutes (e.g., '2:30 PM' -> 870 minutes)
+    function parseTimeToMinutes(timeStr) {
+        const [time, period] = timeStr.split(' ');
+        const [hours, minutes] = time.split(':').map(Number);
+
+        let totalMinutes = hours * 60 + minutes;
+        if (period === 'PM' && hours !== 12) {
+        totalMinutes += 12 * 60; // Add 12 hours for PM times (except 12 PM)
+        }
+        if (period === 'AM' && hours === 12) {
+        totalMinutes -= 12 * 60; // Subtract 12 hours for 12 AM (midnight)
+        }
+
+        return totalMinutes;
+    }
+
     const generateTimeSlots = () => {
         const times = [];
-        const startTime = 7 * 60 + 30; // 7:30 AM in minutes
-        const endTime = 22 * 60 + 30; // 10:30 PM in minutes
-        
+        const startingTime = startTime ? parseTimeToMinutes(startTime) : 7 * 60 + 30;
+        const endingTime = endTime ? parseTimeToMinutes(endTime) :  22 * 60 + 30;
+
         // Check if the selected date is today
         const today = new Date();
         const selected = new Date(selectedDate);
     
-        let thresholdTime = startTime;
+        let thresholdTime = startingTime;
     
         if (today.toDateString() === selected.toDateString()) {
             // If the selected date is today, calculate the current time and add 1 hour
@@ -59,8 +94,8 @@ const Booking = () => {
         }
         
         // Generate time slots
-        for (let minutes = startTime; minutes <= endTime; minutes += 30) {
-            if (minutes >= thresholdTime) { // Only add times greater than 1 hour from now if today
+        for (let minutes = startingTime; minutes <= endingTime; minutes += 30) {
+            if (minutes >= thresholdTime) { 
                 const hours = Math.floor(minutes / 60);
                 const mins = minutes % 60;
                 const period = hours >= 12 ? 'PM' : 'AM';
@@ -69,7 +104,7 @@ const Booking = () => {
                 times.push(formattedTime);
             }
         }
-    
+
         return times.map((time, index) => (
             <li key={index} onClick={() => handleSelectedTime(time)}>{time}</li>
         ));
