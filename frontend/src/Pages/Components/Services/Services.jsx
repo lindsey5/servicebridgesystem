@@ -34,7 +34,7 @@ const Services = ({showLoginModal}) =>{
     }
 
     const CategoryDiv = ({category}) => {
-        const [imgSrc, setImgSrc] = useState();
+        /*const [imgSrc, setImgSrc] = useState();
         useEffect(() => {
            const getImageSrc = async () =>{
                 try{
@@ -42,18 +42,18 @@ const Services = ({showLoginModal}) =>{
                     const response = await fetch(`https://pixabay.com/api/?key=46701607-d51d8d8ab7e9bf8a22e03cd3c&q=${category.category_name}&image_type=photo`);
                     if(response.ok){
                         const result = await response.json();
-                        setImgSrc(result.hits[17].largeImageURL);
+                        setImgSrc(result.hits[5].largeImageURL);
                     }
                 }catch(err){
                     
                 }
            }
            getImageSrc();
-        },[category])
-
+        },[category])*/
+    console.log(category.category_name)
         return (
             <div className='services-parent-container'>
-                <img src={imgSrc} />
+                <img src={`/photos/${category.category_name}.jpg`} />
                 <h1>{category.category_name}</h1>
                 <ServicesByCategory category={category.category_name}/>
             </div>)
