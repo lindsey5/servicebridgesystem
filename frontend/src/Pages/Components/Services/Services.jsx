@@ -42,7 +42,7 @@ const Services = ({showLoginModal}) =>{
                     const response = await fetch(`https://pixabay.com/api/?key=46701607-d51d8d8ab7e9bf8a22e03cd3c&q=${category.category_name}&image_type=photo`);
                     if(response.ok){
                         const result = await response.json();
-                        setImgSrc(result.hits[14].largeImageURL);
+                        setImgSrc(result.hits[13].largeImageURL);
                     }
                 }catch(err){
                     
