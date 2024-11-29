@@ -54,6 +54,7 @@
     transform: translateY(-100%);
     font-size: 35px;
     text-align: center;
+    text-shadow: 2px 2px rgb(3, 117, 247);
     z-index: 1;
 }
 
