@@ -123,3 +123,13 @@
         width: 90vw;
     }
 }
+
+@media  screen and (max-width: 1024px) {
+    .chat-bot-container{
+        left: 20px;
+    }
+
+    .chat-bot-container .container{
+        left: 0;
+    }
+}
