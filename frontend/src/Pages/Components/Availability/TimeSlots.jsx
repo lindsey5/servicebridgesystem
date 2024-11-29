@@ -1,28 +1,34 @@
 import { useState } from 'react';
 import './TimeSlots.css'
 
-const set_available_time = async (selected_date, time_slot) => {
-    try{
-        const response = await fetch('/api/available-time',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                date: selected_date,
-                time_slot
-             }), 
-        })
-        const result = await response.json();
-        if(response.ok){
-            window.location.reload();
+const set_available_time = async (selected_date, time_slot, setError) => {
+    const time_slots = time_slot.split(' to ');
+    
+    if(time_slots[0] !== '0:00' && time_slots[1] !== '0:00'){
+        try{
+            const response = await fetch('/api/available-time',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: selected_date,
+                    time_slot
+                 }), 
+            })
+            const result = await response.json();
+            if(response.ok){
+                window.location.reload();
+            }
+            if(result.error){
+                setError(result.error);
+            }
+    
+        }catch(err){
+    
         }
-        if(result.error){
-            setError(result.error);
-        }
-
-    }catch(err){
-
+    }else{
+        setError('Select your start-time and end-time')
     }
 }
 
@@ -31,6 +37,7 @@ const TimeSlots = ({selectedDate, close}) => {
     const [endTime, setEndTime] = useState('0:00');
     const [showStartTime, setShowStartTime] = useState(false);
     const [showEndTime, setShowEndTime] = useState(false);
+    const [error, setError] = useState('')
 
     const generateTimeSlots = (startingTime, setTime) => {
         const times = [];
@@ -85,6 +92,7 @@ const TimeSlots = ({selectedDate, close}) => {
         <div className="available-time">
             <div className="container">
                 <h2>Set Your Available Time</h2>
+                <p style={{color: 'red'}}>{error}</p>
                 <div className='time-container'>
                     <div onClick={() => setShowStartTime(prev => !prev)}>
                         {startTime}
@@ -101,7 +109,7 @@ const TimeSlots = ({selectedDate, close}) => {
                         </div>}
                     </div>
                 </div>
-                <button className='set-btn' onClick={() => set_available_time(selectedDate, `${startTime} to ${endTime}`)}>Set Time</button>
+                <button className='set-btn' onClick={() => set_available_time(selectedDate, `${startTime} to ${endTime}`, setError)}>Set Time</button>
                 <button onClick={close}>Close</button>
             </div>
         </div>

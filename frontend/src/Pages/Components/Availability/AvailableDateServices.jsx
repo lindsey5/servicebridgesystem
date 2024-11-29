@@ -23,7 +23,6 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                 const response = await fetch(`/api/available-time?date=${selectedDate}`);
                 if(response.ok){
                     const result = await response.json();
-                    console.log(result)
                     setTimeSlot(result.time_slot);
                 }
             }catch(err){
