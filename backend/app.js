@@ -14,6 +14,7 @@ import ChatService from './services/chatService.js';
 import { createServer } from 'http';
 import cors from 'cors';
 import { initializeSocket } from './middleware/socket.js';
+import jwt from 'jsonwebtoken'
 
 dotenv.config();
 const app = express();
@@ -32,6 +33,29 @@ app.use(cookieParser());
 
 // Call all the routes
 routes.useRoutes(app);
+
+app.post('/api/verify-code',async (req, res) => {
+  try {
+      // Verify the JWT and decode its payload
+      const code = req.cookies.verificationCode;
+
+      if(!code){
+          throw new Error('The code has expired. Please request a new one')
+      }
+
+      const decoded = jwt.verify(code , process.env.JWT_SECRET);
+
+      const storedCode = decoded.code;   
+      if (storedCode == req.query.code) {
+          res.clearCookie('verificationCode');
+          return res.status(200).json({ message: 'Verification successful. Your email has been verified!' });
+      }
+      throw new Error('Invalid code. Please check and try again.');
+  } catch (err) {
+      res.status(400).json({error: err.message});
+  }
+});
+
 
 app.get('/logout', (req, res) => {
     res.clearCookie('jwt', { httpOnly: true, secure: false });

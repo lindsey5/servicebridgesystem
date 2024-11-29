@@ -1,9 +1,10 @@
 import express from 'express';
-import clientController from '../../controllers/client/clientAuthController.js';
+import clientAuthController from '../../controllers/client/clientAuthController.js';
 
 const router = express.Router();
 
-router.post('/client-signup', clientController.signup_post);
-router.post('/client-login', clientController.login_post);
+router.post('/api/client/signup/verification-code', clientAuthController.clientSignupVerificationCode);
+router.post('/client-signup', clientAuthController.signup_post);
+router.post('/client-login', clientAuthController.login_post);
 
 export default router;

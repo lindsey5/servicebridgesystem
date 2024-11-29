@@ -21,7 +21,17 @@
     width: 100%;
 }
 
-.signup-page .container > form > div{
+.signup-page .resend{
+    color: rgb(3, 117, 247);
+    cursor: pointer;
+}
+
+.signup-page .resend:hover{
+    text-decoration: underline;
+}
+
+.signup-page .container > form > div,
+.signup-page .container .email-page{
     width: 100%;
     display: flex;
     flex-direction: column;

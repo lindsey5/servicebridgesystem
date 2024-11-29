@@ -3,7 +3,7 @@ import '../styles/signup.css';
 import useSignupReducer from '../../hooks/useSignupReducer';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
-import { sendProviderSignupVerificationCode } from '../../utils/emailUtils';
+import { sendProviderSignupVerificationCode, verifyCode } from '../../utils/emailUtils';
 
 const handleBlur = (e) => {
     if (e.target.value) {
@@ -32,7 +32,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: state.username,
+                    email: state.email,
                     password: state.password,
                     firstname: state.firstname,
                     lastname: state.lastname,
@@ -57,7 +57,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
     }
 }
 
-const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
+const nextPage = ({e, state, dispatch, setShowFirstPage, setShowSecondPage}) =>{
     e.preventDefault();
     let errorFlag = false;
     dispatch({type: 'CLEAR_ERROR'})
@@ -85,14 +85,15 @@ const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
     if(!errorFlag){
         dispatch({type: 'CLEAR_ERROR'})
         setShowFirstPage(false);
+        setShowSecondPage(true);
     }
 }
 
-const FirstPage = ({state, dispatch, setShowFirstPage}) => {
+const FirstPage = ({state, dispatch, setShowFirstPage, setShowSecondPage}) => {
     const { data } = useFetch('/api/cities');
 
     return (
-        <form onSubmit={(e) => nextPage({e, state, dispatch, setShowFirstPage})}>
+        <form onSubmit={(e) => nextPage({e, state, dispatch, setShowFirstPage, setShowSecondPage})}>
             <div className='first-page'>
                 {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                 <div className='input-container'>
@@ -178,28 +179,41 @@ const SecondPage = ({state, dispatch}) => {
     );
 };
 
-const EmailPage = ({state, dispatch}) => {
+const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false);
     const [code, setCode] = useState('');
 
-    const sendCode = async (e) => {
-        e.preventDefault();
+    const sendCode = async () => {
         dispatch({type: 'CLEAR_ERROR'})
-        const response = await sendProviderSignupVerificationCode(state.email);
+        if(state.email){
+            const response = await sendProviderSignupVerificationCode(state.email);
+            if(response.error){
+                dispatch({type: 'SET_ERROR', payload: response.error})
+            }else{
+                setShowVerifyEmail(true)
+            }
+        }else{
+            dispatch({type: 'SET_ERROR', payload: 'Enter an email'})
+        }
+    }
+
+    const verify = async() => {
+        const response = await verifyCode(code);
         if(response.error){
             dispatch({type: 'SET_ERROR', payload: response.error})
         }else{
-            setShowVerifyEmail(true)
+            setShowFirstPage(true)
+            setShowEmailPage(false)
         }
     }
 
     return(
-            <form onSubmit={showVerifyEmail ? '' : sendCode}>
+
                 <div className='email-page'>
-                    {!showVerifyEmail && <h2>Enter Email Address</h2>}
-                    {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                     {!showVerifyEmail && 
                         <>
+                            <h2>Enter Email Address</h2>
+                            {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                             <div className='input-container'>
                                 <input type='email'
                                     placeholder='Email'
@@ -211,7 +225,7 @@ const EmailPage = ({state, dispatch}) => {
                                 />
                                 <span>Email</span>
                             </div>
-                            <button>Submit</button>
+                            <button type='button' onClick={sendCode}>Submit</button>
                         </>
                     }
                     {showVerifyEmail && 
@@ -219,6 +233,7 @@ const EmailPage = ({state, dispatch}) => {
                             <h3>Verify Your Email Address</h3>
                             <p style={{color: 'grey', fontSize: '15px'}}>In order to verify your identity, please enter the code we sent to:</p>
                             <h4 style={{marginTop: '10px'}}>{state.email}</h4>
+                            {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                             <div className='input-container'>
                                 <input type='text'
                                     placeholder='Enter code'
@@ -230,10 +245,12 @@ const EmailPage = ({state, dispatch}) => {
                                 />
                                 <span>Enter code</span>
                             </div>
+                            <span className='resend' onClick={sendCode}>Resend</span>
+                            <button onClick={verify}>Verify Email</button>
                         </>
                     }
+
                 </div>
-            </form>
     )
 }
 
@@ -251,6 +268,8 @@ const ProviderSignup = () => {
                     <EmailPage 
                         state={state} 
                         dispatch={dispatch}
+                        setShowFirstPage={setShowFirstPage}
+                        setShowEmailPage={setShowEmailPage}
                     />
                 }
                 {showFirstPage && (
@@ -258,6 +277,7 @@ const ProviderSignup = () => {
                         state={state}
                         dispatch={dispatch}
                         setShowFirstPage={setShowFirstPage}
+                        setShowSecondPage={setShowSecondPage}
                     />
                 )}
                 {showSecondPage && (

@@ -7,7 +7,6 @@ import useFetch from '../../../hooks/useFetch';
 const AccountSettings = ({data, handleUpdate, error}) => {
     const [details, setDetails] = useState();
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
-    const [isUsernameDisabled, setUsernameDisabled] = useState(true);
     const [saving, setSaving] = useState(false);
     const [savingText, setSavingText] = useState('');
     const { data:cities } = useFetch('/api/cities');
@@ -22,10 +21,6 @@ const AccountSettings = ({data, handleUpdate, error}) => {
     useEffect(() =>{
         setInfo();
     },[data]);
-
-    useEffect(() => {
-        console.log(details)
-    }, [details])
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -106,14 +101,14 @@ const AccountSettings = ({data, handleUpdate, error}) => {
                             />
                         </div>
                         <div className='input-container'>
-                            <label>Username</label>
+                            <label>Email</label>
                             <input 
                                 type="text" 
-                                value={details?.username || ''} 
-                                disabled={isUsernameDisabled}
-                                onInput={(e) => setDetails({...details, username: e.target.value })}
+                                value={details?.email || ''} 
+                                disabled
+                                onInput={(e) => setDetails({...details, email: e.target.value })}
                             />
-                            <span onClick={() => setUsernameDisabled(!isUsernameDisabled) }>Change</span>
+                            <span>Change</span>
                         </div>
                         <div className='input-container'>
                         <label>Password</label>
