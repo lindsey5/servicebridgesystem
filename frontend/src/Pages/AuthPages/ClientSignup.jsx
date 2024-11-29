@@ -30,7 +30,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: state.username,
+                    email: state.email,
                     password: state.password,
                     firstname: state.firstname,
                     lastname: state.lastname,
@@ -40,7 +40,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
             });
             const result = await response.json();
             if(result.errors){
-                dispatch({type: 'SET_ERROR', payload: result.errors.username});
+                dispatch({type: 'SET_ERROR', payload: result.errors.email});
                 dispatch({type: 'SET_ERROR', payload: result.errors.password});
             }
 
@@ -54,7 +54,7 @@ const signup = async ({e, state, dispatch, confirmPass, navigate}) =>{
     }
 }
 
-const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
+const nextPage = ({e, state, dispatch, setShowFirstPage, setShowSecondPage}) =>{
     e.preventDefault();
     let errorFlag = false;
     dispatch({type: 'CLEAR_ERROR'})
@@ -77,9 +77,9 @@ const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
     if(!errorFlag){
         dispatch({type: 'CLEAR_ERROR'})
         setShowFirstPage(false);
+        setShowSecondPage(true)
     }
 }
-
 
 const FirstPage = ({state, dispatch, setShowFirstPage}) => {
     return (
@@ -134,14 +134,14 @@ const SecondPage = ({state, dispatch}) => {
             {state.errors && state.errors.map(error => <p key={error}>{error}</p>)}
                 <div className='input-container'>
                     <input id='fn' type='text'
-                        placeholder='Username'
-                        value={state.username}
-                        onChange={(e) => dispatch({type: 'SET_USERNAME', payload: e.target.value})}
+                        placeholder='Email'
+                        value={state.email}
+                        onChange={(e) => dispatch({type: 'SET_EMAIL', payload: e.target.value})}
                         onBlur={handleBlur}
                         onFocus={handleFocus}
                         required
                     />
-                    <span>Username</span>
+                    <span>Email</span>
                 </div>
                 <div className='input-container'>
                     <input type='password'
@@ -174,6 +174,7 @@ const SecondPage = ({state, dispatch}) => {
 const ClientSignup = () => {
     const { state, dispatch } = useSignupReducer();
     const [showFirstPage, setShowFirstPage] = useState(true);
+    const [showSecondPage, setShowSecondPage] = useState(false);
 
     return (
         <div className="signup-page">
@@ -184,14 +185,18 @@ const ClientSignup = () => {
                         state={state}
                         dispatch={dispatch}
                         setShowFirstPage={setShowFirstPage}
+                        setShowSecondPage={setShowSecondPage}
                     />
                 )}
-                {!showFirstPage && (
+                {showSecondPage && (
                     <SecondPage 
                         state={state}
                         dispatch={dispatch}
                     />
                 )}
+                {
+
+                }
                 <p>Already have an account <a href="/Client/Login">Login</a></p>
             </div>
         </div>
