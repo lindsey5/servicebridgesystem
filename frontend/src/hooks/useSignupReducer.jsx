@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 // Initial state for client signup
 const clientState = {
-    username: '',     // Stores the client's username
+    email: '',     // Stores the client's username
     password: '',     // Stores the client's password
     firstname: '',    // Stores the client's first name
     lastname: '',     // Stores the client's last name
@@ -14,8 +14,8 @@ const clientState = {
 // Reducer function to manage the signup form state
 const ClientSignupReducer = (state, action) => {
     switch (action.type) {
-        case 'SET_USERNAME':
-            return { ...state, username: action.payload }; // Update username field
+        case 'SET_EMAIL':
+            return { ...state, email: action.payload }; // Update email field
         case 'SET_PASSWORD':
             return { ...state, password: action.payload }; // Update password field
         case 'SET_FIRSTNAME':

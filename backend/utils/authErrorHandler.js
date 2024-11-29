@@ -1,9 +1,9 @@
 // Error handling function
 export const handleErrors = (err) => {
-    let errors = { username: '', password: '' };
-    // Incorrect username
-    if (err.message === 'Username not found') {
-        errors.username = 'Username not found';
+    let errors = { email: '', password: '' };
+    // Incorrect email
+    if (err.message === 'Email not found') {
+        errors.email = 'Email not found';
     }
 
     // Incorrect password
@@ -11,8 +11,8 @@ export const handleErrors = (err) => {
         errors.password = 'Incorrect password';
     }
 
-    if( err.message === 'Username already used'){
-        errors.username = 'Username is already used'
+    if( err.message === 'Email already used'){
+        errors.email = 'Email is already used'
     }
 
     if(err.name === 'SequelizeValidationError'){
@@ -21,7 +21,7 @@ export const handleErrors = (err) => {
         })
     }
     if(err.name === 'SequelizeUniqueConstraintError'){
-        errors[err.errors[0].path] = 'Username is already used';
+        errors[err.errors[0].path] = 'Email is already used';
     }   
 
     return errors;

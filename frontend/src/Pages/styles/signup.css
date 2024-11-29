@@ -87,9 +87,7 @@
     color: rgb(92, 168, 255);
 }
 
-
-.signup-page .first-page p,
-.signup-page .second-page p{
+.signup-page .error{
     color: red;
     font-size: 14px;
     margin: 10px 0;

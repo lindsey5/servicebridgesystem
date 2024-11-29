@@ -9,24 +9,14 @@ const client_account = sequelize.define('client_account', {
         defaultValue: uuidv4,
         primaryKey: true
     },
-    username: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
             notEmpty: {
-                msg: 'Username cannot be empty'
+                msg: 'Email cannot be empty'
             },
-            minLength(value) {
-                if (value.length < 8) {
-                    throw new Error('Username must be at least 8 characters long.');
-                }
-            },
-            maxLength(value) {
-                if (value.length > 20) {
-                    throw new Error('Username cannot be more than 20 characters long.');
-                }
-            }
         }
     }, 
     password: {

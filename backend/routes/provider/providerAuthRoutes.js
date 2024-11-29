@@ -1,9 +1,10 @@
 import express from 'express';
-import providerController from '../../controllers/provider/providerAuthController.js';
+import providerAuthController from '../../controllers/provider/providerAuthController.js';
 
 const router = express.Router();
 
-router.post('/provider-signup', providerController.signup_post);
-router.post('/provider-login', providerController.login_post);
+router.post('/provider-signup', providerAuthController.signup_post);
+router.post('/api/provider/signup/verification-code', providerAuthController.providerSignupVerificationCode);
+router.post('/provider-login', providerAuthController.login_post);
 
 export default router;

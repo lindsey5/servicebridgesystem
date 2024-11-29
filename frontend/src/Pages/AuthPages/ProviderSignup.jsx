@@ -3,6 +3,7 @@ import '../styles/signup.css';
 import useSignupReducer from '../../hooks/useSignupReducer';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
+import { sendProviderSignupVerificationCode } from '../../utils/emailUtils';
 
 const handleBlur = (e) => {
     if (e.target.value) {
@@ -87,14 +88,13 @@ const nextPage = ({e, state, dispatch, setShowFirstPage}) =>{
     }
 }
 
-
 const FirstPage = ({state, dispatch, setShowFirstPage}) => {
     const { data } = useFetch('/api/cities');
 
     return (
         <form onSubmit={(e) => nextPage({e, state, dispatch, setShowFirstPage})}>
             <div className='first-page'>
-                {state.errors && state.errors.map(error => <p key={error}>{error}</p>)}
+                {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                 <div className='input-container'>
                     <input id='fn' type='text'
                         placeholder='Firstname'
@@ -149,18 +149,7 @@ const SecondPage = ({state, dispatch}) => {
     return (
         <form onSubmit={(e) => signup({e, confirmPass, state, dispatch, navigate})}>
             <div className='second-page'>
-            {state.errors && state.errors.map(error => <p key={error}>{error}</p>)}
-                <div className='input-container'>
-                    <input id='fn' type='text'
-                        placeholder='Username'
-                        value={state.username}
-                        onChange={(e) => dispatch({type: 'SET_USERNAME', payload: e.target.value})}
-                        onBlur={handleBlur}
-                        onFocus={handleFocus}
-                        required
-                    />
-                    <span>Username</span>
-                </div>
+            {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                 <div className='input-container'>
                     <input type='password'
                         placeholder='Password*'
@@ -189,14 +178,81 @@ const SecondPage = ({state, dispatch}) => {
     );
 };
 
+const EmailPage = ({state, dispatch}) => {
+    const [showVerifyEmail, setShowVerifyEmail] = useState(false);
+    const [code, setCode] = useState('');
+
+    const sendCode = async (e) => {
+        e.preventDefault();
+        dispatch({type: 'CLEAR_ERROR'})
+        const response = await sendProviderSignupVerificationCode(state.email);
+        if(response.error){
+            dispatch({type: 'SET_ERROR', payload: response.error})
+        }else{
+            setShowVerifyEmail(true)
+        }
+    }
+
+    return(
+            <form onSubmit={showVerifyEmail ? '' : sendCode}>
+                <div className='email-page'>
+                    {!showVerifyEmail && <h2>Enter Email Address</h2>}
+                    {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
+                    {!showVerifyEmail && 
+                        <>
+                            <div className='input-container'>
+                                <input type='email'
+                                    placeholder='Email'
+                                    value={state.email}
+                                    onChange={(e) => dispatch({type: 'SET_EMAIL', payload: e.target.value})}
+                                    onBlur={handleBlur}
+                                    onFocus={handleFocus}
+                                    required
+                                />
+                                <span>Email</span>
+                            </div>
+                            <button>Submit</button>
+                        </>
+                    }
+                    {showVerifyEmail && 
+                        <>
+                            <h3>Verify Your Email Address</h3>
+                            <p style={{color: 'grey', fontSize: '15px'}}>In order to verify your identity, please enter the code we sent to:</p>
+                            <h4 style={{marginTop: '10px'}}>{state.email}</h4>
+                            <div className='input-container'>
+                                <input type='text'
+                                    placeholder='Enter code'
+                                    value={code}
+                                    onChange={(e) => setCode(e.target.value)}
+                                    onBlur={handleBlur}
+                                    onFocus={handleFocus}
+                                    required
+                                />
+                                <span>Enter code</span>
+                            </div>
+                        </>
+                    }
+                </div>
+            </form>
+    )
+}
+
 const ProviderSignup = () => {
     const { state, dispatch } = useSignupReducer();
-    const [showFirstPage, setShowFirstPage] = useState(true);
+    const [showEmailPage, setShowEmailPage] = useState(true);
+    const [showFirstPage, setShowFirstPage] = useState(false);
+    const [showSecondPage, setShowSecondPage] = useState(false);
 
     return (
         <div className="signup-page">
             <div className="container">
-                <h1>Provider Signup</h1>
+                {!showEmailPage && <h1>Provider Signup</h1>}
+                {showEmailPage && 
+                    <EmailPage 
+                        state={state} 
+                        dispatch={dispatch}
+                    />
+                }
                 {showFirstPage && (
                     <FirstPage 
                         state={state}
@@ -204,7 +260,7 @@ const ProviderSignup = () => {
                         setShowFirstPage={setShowFirstPage}
                     />
                 )}
-                {!showFirstPage && (
+                {showSecondPage && (
                     <SecondPage 
                         state={state}
                         dispatch={dispatch}
