@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/useFetch'
 import './AvailableDateServices.css'
 import { create_available_date_service, delete_available_date_service } from '../../../services/availableDateService';
+import { formatDate } from '../../../utils/formatDate';
 
 const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime}) =>{
     const [showAddService, setShowAddService] = useState(false);
@@ -60,7 +61,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                     </div>
                     <button 
                         onClick={setShowTime} 
-                        disabled={selectedDate< new Date().toISOString().split('T')[0] ? true : false}
+                        disabled={selectedDate < formatDate(new Date()) ? true : false}
                     >Set Time</button>
                 </div>
                 <div className='table-container'>
@@ -86,7 +87,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                                     <button
                                         onClick={() => delete_available_date_service(service.id)}
                                         disabled={
-                                            selectedDate< new Date().toISOString().split('T')[0] ? true : false
+                                            selectedDate < formatDate(new Date()) ? true : false
                                         }
                                     >Remove</button>
                                 </td>
@@ -97,7 +98,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                 </table>
                 </div>
                 <button className='add-service' onClick={()=> setShowAddService(true)} 
-                    disabled={ selectedDate< new Date().toISOString().split('T')[0] ? true : false}
+                    disabled={ selectedDate < formatDate(new Date()) ? true : false}
                 >Add Service</button>
             </div>
     )
