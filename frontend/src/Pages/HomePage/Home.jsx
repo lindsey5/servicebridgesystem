@@ -82,8 +82,8 @@ const Home = () => {
             <section className='about' ref={el => elementsRef.current[7] = el}>
                 <div>
                     <h1>About Hustle</h1>
-                    <p>Hustle  is a fast, reliable platform that connects people and businesses with skilled professionals for a variety of tasks. From household chores to office projects, we make it easy to find the right person for the job—whenever you need them.</p>
-                    <p>Our goal is to simplify the process of booking services, saving you time and effort while ensuring you always receive top-quality results.</p>
+                    <p>Hustle is a fast and reliable platform that connects individuals and businesses with skilled professionals across a wide range of services, including automotive repair, cleaning, tutoring, and more. We make it simple to find the right expert for the job—whenever you need them.</p>
+                    <p>Our mission is to connect those in need of services with skilled individuals offering affordable, high-quality solutions, while providing flexible job opportunities for students, freelancers, and unemployed individuals to showcase their skills.</p>
                 </div>
                 <img src="/icons/plumbing.webp" alt="" />
             </section>
