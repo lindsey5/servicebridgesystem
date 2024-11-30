@@ -65,8 +65,13 @@ const searchProviders = async (req, res) => {
             group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location']
         }
 
-        if(price > 0){
-            query.include[0].where.price = { [Op.lt] : price };
+        if (price > 0) {
+            query.include[0].where.price = {
+                [Op.and]: [
+                    { [Op.ne]: 0 },
+                    { [Op.lte]: price }
+                ]
+            };
         }
 
         if(sortBy){

@@ -8,8 +8,6 @@ const EditPriceModal = ({serviceDetails, setServiceDetails, setEditModal, showEd
         // Validate the price
         if (!Number.isInteger(Number(price))) {
             alert("The price should not have decimals");
-        }else if(price < 500 ){
-            alert("The minimum price is 500")
         }else{
             editServiceOfferedPrice(service_id, price);
         }
