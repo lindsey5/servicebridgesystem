@@ -98,7 +98,7 @@ const AdminDashboard = () => {
                 <div className='pie-container'>
                     <CChart
                         type="pie"
-                        style={{ width: '80%', height: '90%', height: '380px' }}
+                        style={{ width: '80%',  height: '380px' }}
                         data={{
                             labels: topServices?.services.length > 0 && topServices.services.map(service => service.service_name),
                             datasets: [

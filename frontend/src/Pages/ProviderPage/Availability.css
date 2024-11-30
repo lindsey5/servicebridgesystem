@@ -20,7 +20,14 @@
 }
 
 .availability > .top-section span{
-    color: grey;
+    color: rgb(3, 117, 247);
+    cursor: pointer;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.availability > .top-section span:hover{
+    text-underline-offset: 2px;
 }
 
 .calendar-container ul, .calendar-container li {
@@ -162,6 +169,49 @@
 
 .calendar-dates li:not(.active):hover::before {
     background-color: #dbdbdb;
+}
+
+.availability .instructions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    background-color: rgb(109, 109, 109, 0.5);
+}
+
+.availability .instructions .container{
+    background-color: white;
+    padding: 35px;
+    border-radius: 15px;
+    width: 300px;
+    position: relative;
+}
+
+.availability .instructions span{
+    position: absolute;
+    font-size: 20px;
+    right: 35px;
+    cursor: pointer;
+}
+
+.availability .instructions .container h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.availability .instructions .container h3{
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.availability .instructions .container li{
+    line-height: 2;
 }
 
 @media screen and (max-width: 600px){

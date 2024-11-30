@@ -58,7 +58,10 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                         <h2>{selectedDate}</h2>
                         <h4>{timeSlot && `(${timeSlot})`}</h4>
                     </div>
-                    <button onClick={setShowTime}>Set Time</button>
+                    <button 
+                        onClick={setShowTime} 
+                        disabled={selectedDate< new Date().toISOString().split('T')[0] ? true : false}
+                    >Set Time</button>
                 </div>
                 <div className='table-container'>
                 <table>
@@ -94,9 +97,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                 </table>
                 </div>
                 <button className='add-service' onClick={()=> setShowAddService(true)} 
-                    disabled={
-                        new Date(selectedDate) < new Date() ? true : false
-                    }
+                    disabled={ selectedDate< new Date().toISOString().split('T')[0] ? true : false}
                 >Add Service</button>
             </div>
     )

@@ -22,6 +22,9 @@
 
 .available-date-services .header button{
     height: 25px;
+}
+
+.available-date-services .header button:not(:disabled){
     cursor: pointer;
 }
 

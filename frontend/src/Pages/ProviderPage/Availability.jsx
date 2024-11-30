@@ -10,6 +10,7 @@ const Availability = () => {
     const [selectedDate, setSelectedDate] = useState();
     const [showServices, setShowServices] = useState(false);
     const [showTime, setShowTime] = useState(false);
+    const [showInstructions, setShowInstructions] = useState(false)
 
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -134,9 +135,23 @@ const Availability = () => {
     return (
         <div className="availability">
             {showTime && <TimeSlots selectedDate={selectedDate} close={() => setShowTime(false)}/>}
+            {showInstructions && 
+                <div className='instructions'>
+                    <div className='container'>
+                        <span onClick={() => setShowInstructions(false)}>X</span>
+                        <h2>Instructions</h2>
+                        <h3>Choose a date</h3>
+                        <li>Select the specific date.</li>
+                        <h3>Set time slots</h3>
+                        <li>For the chosen date, specify your available start and end times when you will be able to provide services.</li>
+                        <h3>Select services</h3>
+                        <li>After setting the date, choose the services you would like to offer on that particular date. You can select one or more services depending on what you’re able to provide.</li>
+                    </div>
+                </div>
+            }
             <div className='top-section'>
-                <h1>Your Availability</h1>
-                <span>Pick a date to add to your availability and select available date then choose the service you want to offer.</span>
+                <h1>Set Your Availability</h1>
+                <span onClick={() => setShowInstructions(() => setShowInstructions(true))}>Instructions</span>
             </div>
             <div className="calendar-container">
                 <div className="legend">
