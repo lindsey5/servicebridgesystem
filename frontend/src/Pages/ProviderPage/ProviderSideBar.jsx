@@ -10,10 +10,6 @@ export default function ProviderSideBar () {
     const [activeButton, setActiveButton] = useState(1);
     const { data } = useFetch('/api/transactions/requested/provider')
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
       // Load the active button state from localStorage when the component mounts
     useEffect(() => {
         const savedActiveButton = localStorage.getItem('activeButton');

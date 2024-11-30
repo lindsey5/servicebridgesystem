@@ -64,6 +64,7 @@
     max-height: 200px;
     overflow-y: auto;
     display: none;
+    z-index: 2;
 }
 
 

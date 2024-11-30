@@ -150,7 +150,7 @@ const Booking = () => {
                         { selectedDate ? selectedDate : 'Select Date'}
                     </button>
                     <img className='drop-down-icon' id="date-icon" src="/icons/down.png" alt="date icon" />
-                    <ul id="drop-down-dates" style={{display: showDateDropDown ? 'flex' : 'none'}}>
+                    <ul style={{display: showDateDropDown ? 'flex' : 'none'}}>
                     {
                         dates && (
                             dates.map((date, index) => {
@@ -161,7 +161,10 @@ const Booking = () => {
                                     day: 'numeric'
                                 });
                                 const formattedDate = formatter.format(dateObj);
-                                return <li key={index} onClick={() => handleSelectedDate(formattedDate)}>{formattedDate}</li>
+                                return <li key={index} onClick={() => {
+                                    handleSelectedDate(formattedDate)
+                                    setSelectedTime();
+                                }}>{formattedDate}</li>
                             })
                         )
                     }
@@ -173,7 +176,7 @@ const Booking = () => {
                         { selectedTime ? selectedTime : 'Select Time'}
                     </button>
                     <img className='drop-down-icon' id="time-icon" src="/icons/down.png" alt="time icon" />
-                    <ul id="drop-down-time" style={{display: showTimeDropDown && selectedDate ? 'flex' : 'none'}}>{generateTimeSlots()}</ul>
+                    <ul style={{display: showTimeDropDown && selectedDate ? 'flex' : 'none'}}>{generateTimeSlots()}</ul>
                 </div>
                 <h3>Payment method</h3>
                 <div className="payment">
