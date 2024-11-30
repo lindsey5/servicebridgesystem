@@ -8,7 +8,6 @@ const ProviderProfile = ({provider}) => {
     const [rating, setRating] = useState('No Reviews Yet');
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [price, setPrice] = useState();
-    console.log(provider)
     const book = () => {        
         const params = {
             id: provider.id,

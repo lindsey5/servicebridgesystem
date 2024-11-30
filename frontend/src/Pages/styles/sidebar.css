@@ -36,6 +36,16 @@
     background-color: #e6f2ff;
 }
 
+.sidebar button span{
+    padding: 2px 8px;
+    top: 50%;
+    right: 3px;
+    transform: translateY(-50%);
+    position: absolute;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+}
 
 .sidebar button:hover{
     background-color: #e6f2ff;

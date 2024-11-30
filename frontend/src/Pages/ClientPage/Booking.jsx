@@ -79,8 +79,7 @@ const Booking = () => {
     const generateTimeSlots = () => {
         const times = [];
         const startingTime = startTime ? parseTimeToMinutes(startTime) : 7 * 60 + 30;
-        const endingTime = endTime ? parseTimeToMinutes(endTime) :  22 * 60 + 30;
-
+        const endingTime = startTime ? parseTimeToMinutes(endTime) :  22 * 60 + 30;
         // Check if the selected date is today
         const today = new Date();
         const selected = new Date(selectedDate);

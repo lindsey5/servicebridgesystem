@@ -37,4 +37,6 @@ router.get('/transaction/:id/reviewed', verifyToken, transactionController.get_r
 
 router.get('/transactions/reviewed/:provider', transactionController.get_reviewed_transactions);
 
+router.get('/transactions/requested/provider', providerRequireAuth, transactionController.get_requested_transactions);
+
 export default router;

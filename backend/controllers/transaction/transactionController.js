@@ -487,6 +487,21 @@ const get_reviewed_transactions = async (req,res) => {
     }
 }
 
+const get_requested_transactions = async (req, res) => {
+    try{
+        const id = req.userId;
+        const request_transactions = await Transaction.findAll({
+            where: {
+                status: 'Requested',
+                provider: id
+            }
+        })
+        res.status(200).json(request_transactions);
+    }catch(err){
+        res.status(400).json({error: err.message})
+    }
+}
+
 export default { 
     create_transaction, 
     get_client_transactions,
@@ -504,4 +519,5 @@ export default {
     review_transaction,
     get_reviewed_transaction,
     get_reviewed_transactions,
+    get_requested_transactions
  };

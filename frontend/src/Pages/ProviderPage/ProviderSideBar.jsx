@@ -2,11 +2,17 @@ import { useNavigate } from "react-router-dom"
 import '../styles/sidebar.css'
 import { useContext, useState, useEffect } from "react"
 import { ProviderContext } from "../../Context/ProviderContext";
+import useFetch from "../../hooks/useFetch";
 
 export default function ProviderSideBar () {
     const { hideSideBar, setHideSideBar } = useContext(ProviderContext);
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = useState(1);
+    const { data } = useFetch('/api/transactions/requested/provider')
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
 
       // Load the active button state from localStorage when the component mounts
     useEffect(() => {
@@ -93,6 +99,7 @@ export default function ProviderSideBar () {
                 }}>
                     <img src="/icons/transactions.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {window.innerWidth <= 840 ? 'Transactions' : (hideSideBar ? '' : 'Transactions') }
+                    {data?.length > 0 &&  <span>{data.length}</span>}
             </button>
             <button className={`sidebar-button ${activeButton === 6 ? 'active' : ''}`}
                 onClick={() => {
