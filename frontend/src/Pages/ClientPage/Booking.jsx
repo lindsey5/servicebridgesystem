@@ -180,11 +180,11 @@ const Booking = () => {
                 </div>
                 <h3>Payment method</h3>
                 <div className="payment">
-                    <div><img src="/icons/coin.png" alt="cash icon" />Cash on Pay (Not available)</div>
-                    <input type="radio" disabled name="payment" onClick={() => setPaymentMethod('Cash on Pay')} className="payment-radio" />
+                    <div><img src="/icons/coin.png" alt="cash icon" />Cash on Pay</div>
+                    <input type="radio" name="payment" onClick={() => setPaymentMethod('Cash on Pay')} className="payment-radio" />
                 </div>
                 <div className="payment">
-                    <div><img src="/icons/credit-card.png" alt="credit card icon" />Other</div>
+                    <div><img src="/icons/credit-card.png" alt="credit card icon" />Online Payment</div>
                     <input type="radio" name="payment" onClick={() => setPaymentMethod('Online Payment')} className="payment-radio" />
                 </div>
                 <button className="next-btn" onClick={goToTransactionSummary}>Next</button>

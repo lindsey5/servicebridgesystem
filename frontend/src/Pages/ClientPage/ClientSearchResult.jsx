@@ -61,7 +61,7 @@ const ClientSearchResult = () => {
         const prices = [1000, 1500, 2000, 2500, 5000, 10000, 0];
         const priceValue = prices[value - 1];
         dispatch({ type: 'SET_PRICE', payload: priceValue });
-        dispatch({ type: 'SET_PRICE_LABEL', payload: value === '7' ? 'Any Price' : `Below ₱${priceValue}` });
+        dispatch({ type: 'SET_PRICE_LABEL', payload: value === '7' ? 'Any Price' : `₱${priceValue} or below` });
         dispatch({ type: 'SET_CURRENT_PAGE', payload: 1 });
     };
 
