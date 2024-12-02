@@ -11,7 +11,7 @@ const Review = ({review, isProvider}) => {
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const {firstname, lastname, id} = review.transaction.client_account;
     const fullname = firstname + ' ' + lastname;
-    const date_reviewed = review.date_reviewed.toIso;
+    const date_reviewed = formatDate(review.date_reviewed);
     const {setRecipientId} = useContext(RecipientContext);
     const navigate = useNavigate();
     useEffect(() => {

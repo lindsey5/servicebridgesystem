@@ -1,6 +1,17 @@
 export const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const formattedDate = date.toISOString().split('T')[0];
-    const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    return `${formattedDate} (${time})`;
+    // Custom format (MM-DD-YYYY HH:mm:ss)
+    const formattedDate = date.toLocaleString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      });
+      
+      // Manipulate the string to match the format 'MM-DD-YYYY (hh:mmAM/PM)'
+      const finalFormattedDate = formattedDate.replace(',', '').replace(' ', ' (');
+      const result = finalFormattedDate + ')';
+      return result
 }
