@@ -22,7 +22,7 @@ const ProviderProfile = ({provider}) => {
 
      useEffect(() =>{
         const setDetails = async() => {
-            setImgSrc(await createImageSrc(provider.profile_pic.data));
+            if(provider.profile_pic) setImgSrc(await createImageSrc(provider.profile_pic.data));
             setRating('Rating: ' + provider.rating + ' / 5 '); 
 
             const parsePrice = parseFloat(provider.price);

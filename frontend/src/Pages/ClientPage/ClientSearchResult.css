@@ -16,6 +16,7 @@
 
 .search-result .filter-container{
     width: 250px;
+    height: 400px;
     background-color: white;
     margin-top: 60px;
     margin-right: 50px;
@@ -238,6 +239,7 @@
     }
 
     .search-result .filter-container{
+        height: auto;
         margin-left: 20px;
         margin-right: 30px;
     }
