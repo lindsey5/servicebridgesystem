@@ -68,6 +68,7 @@ const providerSignupVerificationCode = async (req, res) => {
           secure: process.env.NODE_ENV === 'production' });
         res.status(200).json({message: 'Verification code successfully sent'})
     }catch(err){
+        console.log(err)
         res.status(401).json({error: err.message});
     }
 }

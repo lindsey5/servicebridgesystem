@@ -90,7 +90,8 @@ const provider_account = sequelize.define('provider_account', {
     },
     bio: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: '',
     },
     rating: {
         type: DataTypes.FLOAT,
