@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Service from "../../models/service.js";
-import { getIO } from "../../middleware/socket.js";
 
 export const getChatBotReponse = async (req, res) => {
     try{ 

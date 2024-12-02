@@ -19,6 +19,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
 
     useEffect(() => {
         const getAvailableTime = async() => {
+            console.log(new Date())
             try{
                 setTimeSlot('');
                 const response = await fetch(`/api/available-time?date=${selectedDate}`);
@@ -33,7 +34,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
         }
         getAvailableTime();
     }, [selectedDate])
-
+    
     return (
         <div className='available-date-services'>
             <div className='add-service-modal' style={{display: showAddService ? 'flex' : 'none'}}>
@@ -61,7 +62,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                     </div>
                     <button 
                         onClick={setShowTime} 
-                        disabled={selectedDate < formatDate(new Date()) ? true : false}
+                        disabled={selectedDate < new Date().toISOString().split('T')[0] ? true : false}
                     >Set Time</button>
                 </div>
                 <div className='table-container'>
@@ -87,7 +88,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                                     <button
                                         onClick={() => delete_available_date_service(service.id)}
                                         disabled={
-                                            selectedDate < formatDate(new Date()) ? true : false
+                                            selectedDate < new Date().toISOString().split('T')[0] ? true : false
                                         }
                                     >Remove</button>
                                 </td>
@@ -98,7 +99,7 @@ const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime
                 </table>
                 </div>
                 <button className='add-service' onClick={()=> setShowAddService(true)} 
-                    disabled={ selectedDate < formatDate(new Date()) ? true : false}
+                    disabled={ selectedDate < new Date().toISOString().split('T')[0] ? true : false}
                 >Add Service</button>
             </div>
     )
