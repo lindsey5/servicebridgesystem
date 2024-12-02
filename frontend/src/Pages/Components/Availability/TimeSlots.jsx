@@ -67,7 +67,6 @@ const TimeSlots = ({selectedDate, close}) => {
                 times.push(formattedTime);
             }
         }
-    
         return times.map((time, index) => (
             <li key={index} onClick={() => setTime(time)}>{time}</li>
         ));
