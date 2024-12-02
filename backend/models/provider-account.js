@@ -95,7 +95,8 @@ const provider_account = sequelize.define('provider_account', {
     },
     rating: {
         type: DataTypes.FLOAT,
-        allowNull: true
+        allowNull: true,
+        defaultValue: 0
     }
     }, {
     timestamps: false,
