@@ -27,8 +27,8 @@ const get_provider = async (req, res) => {
 const searchProviders = async (req, res) => {
     const {service_name, price: priceStr, sortBy, location } = req.body;
     const price = parseFloat(priceStr);
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
     console.log(location)
     try {
@@ -80,7 +80,11 @@ const searchProviders = async (req, res) => {
         }
 
         // Get to total rows
-        const totalRecords = await Provider.count(query);
+        const totalRecords = await Provider.count({
+            ...query,
+            distinct: true,
+            col: 'id',
+          });
         // Calculate total pages
         const totalPages = calculateTotalPages(totalRecords[0].count, limit);
 
