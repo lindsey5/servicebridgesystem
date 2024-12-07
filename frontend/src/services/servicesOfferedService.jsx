@@ -43,7 +43,7 @@ export const addServiceOffered = async (serviceName, setSuccessModal) => {
     }
  }
 
- export const editServiceOfferedPrice = async(service_id, price) => {
+ export const editServiceOfferedPrice = async(service_id, price, description) => {
     if(confirm('Click OK to continue')){
         try {
             const response = await fetch(`/api/services-offered/${service_id}`, {
@@ -51,7 +51,7 @@ export const addServiceOffered = async (serviceName, setSuccessModal) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({price}),
+                body: JSON.stringify({price, description}),
             });
             const result = await response.json();
             if(result){

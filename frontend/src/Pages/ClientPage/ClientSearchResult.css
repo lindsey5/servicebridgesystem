@@ -102,6 +102,16 @@
     border-radius: 10px;
 }
 
+.search-result .provider-container textarea{
+    width: 100%;
+    resize: none;
+    outline: none;
+    overflow-y: none;
+    border: none;
+    font-size: 17px;
+    color: black;
+}
+
 .search-result .price{
     position: absolute;
     right: 20px;

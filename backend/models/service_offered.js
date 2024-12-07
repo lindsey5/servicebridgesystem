@@ -33,6 +33,10 @@ const ProviderServiceOffered = sequelize.define('ProviderServiceOffered', {
     price: {
         type: DataTypes.INTEGER,
     },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    }
     }, {
     timestamps: false,
     tableName: 'provider_services_offered'

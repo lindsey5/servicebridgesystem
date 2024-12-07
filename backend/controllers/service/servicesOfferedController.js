@@ -11,7 +11,7 @@ const get_services_offered = async (req, res) => {
                 model: Service,
                 attributes: ['category_name']
             }],
-            attributes: ['service_id', 'service_name', 'price', [Sequelize.col('Service.category_name'), 'category']],
+            attributes: ['service_id', 'service_name', 'price', 'description', [Sequelize.col('Service.category_name'), 'category']],
             order:[
                 ['service_name', 'ASC']
             ]

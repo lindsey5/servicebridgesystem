@@ -41,7 +41,7 @@ const searchProviders = async (req, res) => {
                 { 
                     model: ProviderServiceOffered, 
                     where: { service_name, price: {  [Op.ne] : 0 } }, 
-                    attributes: ['service_name', 'price'],
+                    attributes: ['service_name', 'price', 'description'],
                     include: {
                         model: AvailableDateService,
                         attributes: [],
@@ -87,7 +87,7 @@ const searchProviders = async (req, res) => {
           });
         // Calculate total pages
         const totalPages = calculateTotalPages(totalRecords[0].count, limit);
-
+ 
         query.limit = limit;
         query.offset = offset
         const searchResults = await Provider.findAll(query);
@@ -98,7 +98,7 @@ const searchProviders = async (req, res) => {
             // Convert each instance to plain JSON
             const result = searchResults.map(provider => provider.toJSON());
             const providers = result.map(provider => {
-                const {service_name, price} = provider.ProviderServiceOffereds[0];
+                const {service_name, price, description} = provider.ProviderServiceOffereds[0];
                 
                 return {
                     id: provider.id,
@@ -109,6 +109,7 @@ const searchProviders = async (req, res) => {
                     bio: provider.bio,
                     location: provider.location,
                     service_name,
+                    description,
                     price
                 };
             });

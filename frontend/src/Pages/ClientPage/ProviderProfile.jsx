@@ -1,13 +1,15 @@
 import createImageSrc from '../../utils/createImageSrc';
 import defaultProfilePic from '../../assets/user (1).png';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const ProviderProfile = ({provider}) => {
     const navigate = useNavigate();
     const [rating, setRating] = useState('No Reviews Yet');
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [price, setPrice] = useState();
+    const textareaRef = useRef(null);
+
     const book = () => {        
         const params = {
             id: provider.id,
@@ -36,6 +38,14 @@ const ProviderProfile = ({provider}) => {
         setDetails();
      },[provider])
 
+     useEffect(() => {
+        const textarea = textareaRef.current;
+        if (textarea) {
+          textarea.style.height = 'auto'; 
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+      }, [provider]);
+
     return (
             <div className='provider-container'>
                 <h2 className='price'>₱ {price}</h2>
@@ -54,7 +64,16 @@ const ProviderProfile = ({provider}) => {
                         <p>{rating}</p>
                     </div>
                     <div className='bio-div'>
-                        <p>About Me:</p>
+                        <h3>About the service:</h3>
+                        <textarea
+                            ref={textareaRef}
+                            disabled
+                            value={provider?.description}
+                            placeholder="Type something..."
+                            />
+                    </div>
+                    <div className='bio-div' style={{marginTop: '20px'}}>
+                        <h3>About Me:</h3>
                         <p>{provider.bio}</p>
                     </div>
                 </div>

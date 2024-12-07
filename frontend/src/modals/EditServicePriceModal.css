@@ -11,10 +11,21 @@
 }
 
 .edit-price-modal .price{
-    width: 250px;
     height: 30px;
     outline: none;
     margin-bottom: 20px;
+}
+
+.edit-price-modal textarea{
+    width: 300px;
+    height: 200px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid grey;
+}
+
+.edit-price-modal p{
+    color: grey;
 }
 
 .edit-price-modal .edit-buttons{

@@ -69,11 +69,12 @@ const ProviderServicesOffered = () => {
                                 setEditModal(true);
                                 setServiceDetails({
                                     service_id: service.service_id,
-                                    price: service.price
+                                    price: service.price,
+                                    description: service.description
                                 })
                             }}>
                                 <img src="/icons/settings.png" />
-                                <span className="tool-tip-price">Edit Price</span>
+                                <span className="tool-tip-price">Edit Service</span>
                             </button>
                             <button onClick={() => deleteServiceOffered(service.service_id)}>
                                 <img src="/icons/trash-bin.png" />
