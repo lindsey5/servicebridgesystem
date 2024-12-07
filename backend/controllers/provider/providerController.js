@@ -30,7 +30,6 @@ const searchProviders = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
-    console.log(location)
     try {
         const query = {
             attributes: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location'],
@@ -40,27 +39,23 @@ const searchProviders = async (req, res) => {
             include: [
                 { 
                     model: ProviderServiceOffered, 
-                    where: { service_name, price: {  [Op.ne] : 0 } }, 
+                    where: { service_name, price: { [Op.ne]: 0 } }, 
                     attributes: ['service_name', 'price', 'description'],
-                    include: {
-                        model: AvailableDateService,
-                        attributes: [],
-                        where: {
-                            service_id: sequelize.col('ProviderServiceOffereds.service_id')
+                    include: [
+                        {
+                            model: AvailableDateService,
+                            attributes: [],
+                            where: {
+                                service_id: sequelize.col('ProviderServiceOffereds.service_id')
+                            },
+                            include: { 
+                                model: AvailableDate, 
+                                where: { date: { [Op.gte]: new Date() } },
+                                attributes: [] // Exclude unnecessary attributes from AvailableDate
+                            }
                         }
-                    }
-                },
-                { 
-                    model: AvailableDate, 
-                    where: { date: {[Op.gte]: new Date() } },
-                    include: {
-                        model: AvailableDateService,
-                        attributes: [],
-                        where: {
-                            date_id: sequelize.col('available_dates.date_id')
-                        }
-                    } },
-            
+                    ]
+                }
             ],
             group: ['id', 'firstname', 'lastname', 'rating', 'profile_pic', 'bio', 'location']
         }
@@ -87,7 +82,6 @@ const searchProviders = async (req, res) => {
           });
         // Calculate total pages
         const totalPages = calculateTotalPages(totalRecords[0].count, limit);
- 
         query.limit = limit;
         query.offset = offset
         const searchResults = await Provider.findAll(query);
@@ -113,7 +107,6 @@ const searchProviders = async (req, res) => {
                     price
                 };
             });
-        
             res.status(200).json({
                 providers: providers,
                 totalPages: totalPages,
