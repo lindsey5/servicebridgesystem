@@ -184,6 +184,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
 
     const verify = async() => {
         const response = await verifyCode(code);
+        dispatch({type: 'CLEAR_ERROR'})
         if(response.error){
             dispatch({type: 'SET_ERROR', payload: response.error})
         }else{
