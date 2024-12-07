@@ -70,7 +70,7 @@ const ProviderServicesOffered = () => {
                                 setServiceDetails({
                                     service_id: service.service_id,
                                     price: service.price,
-                                    description: service.description
+                                    description: service.description || ''
                                 })
                             }}>
                                 <img src="/icons/settings.png" />
