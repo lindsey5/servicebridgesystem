@@ -26,7 +26,6 @@ const ClientSearchResult = () => {
             const searchResults = await fetchSearchResults(service_name, state)
             if(searchResults){
                 setResults(searchResults);
-                console.log(searchResults)
                 dispatch({ type: 'SET_DISABLED_NEXT_BTN', payload: state.currentPage === searchResults.totalPages });
                 dispatch({ type: 'SET_DISABLED_PREV_BTN', payload: state.currentPage === 1 });
                 generatePaginationButtons(searchResults.totalPages);

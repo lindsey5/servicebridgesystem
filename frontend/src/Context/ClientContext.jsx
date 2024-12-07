@@ -10,12 +10,14 @@ const clientReducer = (state, action) => {
     case 'SET_CLIENT_DATA': // Sets the client's full name and profile picture
       return { 
         fullname: action.fullname, 
-        profile_pic: action.profile_pic 
+        profile_pic: action.profile_pic,
+        email: action.email
       };
     case 'DELETE_CLIENT_DATA': // Resets the client's full name and profile picture to null
       return {
         fullname: null,
-        profile_pic: null
+        profile_pic: null,
+        email: null
       };
     default: // Returns the current state for any unknown action type
       return state;
@@ -46,7 +48,8 @@ export const ClientContextProvider = ({ children }) => {
                   dispatch({
                       type: 'SET_CLIENT_DATA',
                       fullname: `${clientData.firstname} ${clientData.lastname}`,
-                      profile_pic: profilePicSrc
+                      profile_pic: profilePicSrc,
+                      email: clientData.email
                   });
               } catch (err) {
                   // Log any errors encountered during client data processing

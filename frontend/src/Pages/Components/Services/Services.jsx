@@ -10,8 +10,8 @@ const Services = ({showLoginModal}) =>{
     const [end, setEnd] = useState(3);
     const next = useRef();
     const back = useRef();
+    const { data, loading } = useFetch('/api/category');
 
-    const { data } = useFetch('/api/category');
     useEffect(()=>{
         if(data){
             setCategories(data);
@@ -70,14 +70,18 @@ const Services = ({showLoginModal}) =>{
     return (
         <div id="services" className='services-section'>
             <h1>Services Offered</h1>
-            <div className='categories-container'>
-            {categories.length > 0 && categories.slice(start, end).map((category, i) => (
-                <CategoryDiv key={i} category={category} />
-            ))
+            {!loading && 
+            <>
+                <div className='categories-container'>
+                {categories.length > 0 && categories.slice(start, end).map((category, i) => (
+                    <CategoryDiv key={i} category={category} />
+                ))
+                }
+                </div>
+                <button className="prev" style={{display: start === 0 ? 'none' : 'block'}} onClick={backPage} ref={back}>&#10094;</button>
+                <button className="next" style={{display: end === categories.length ? 'none' : 'block'}} onClick={nextPage} ref={next}>&#10095;</button>
+            </>
             }
-            </div>
-            <button className="prev" style={{display: start === 0 ? 'none' : 'block'}} onClick={backPage} ref={back}>&#10094;</button>
-            <button className="next" style={{display: end === categories.length ? 'none' : 'block'}} onClick={nextPage} ref={next}>&#10095;</button>
         </div>
     )
 }

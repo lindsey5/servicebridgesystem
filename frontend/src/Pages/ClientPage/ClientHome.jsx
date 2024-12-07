@@ -31,7 +31,7 @@ const ClientHome = () => {
                         <img src={context.profile_pic ? context.profile_pic : defaultProfilePic} className='profile-pic' />
                     </div>
                     <h1 id="fullname">{context.fullname && context.fullname}</h1>
-                    <button id="acc-setting">Account Setting</button>
+                    <button id="acc-setting" onClick={() => navigate('/Client/Account')}>Account Setting</button>
                 </div>
 
                 <div>
