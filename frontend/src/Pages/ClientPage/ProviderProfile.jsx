@@ -69,7 +69,7 @@ const ProviderProfile = ({provider}) => {
                             ref={textareaRef}
                             disabled
                             value={provider?.description}
-                            placeholder="Type something..."
+                            placeholder="No description about the service"
                             />
                     </div>
                     <div className='bio-div' style={{marginTop: '20px'}}>
