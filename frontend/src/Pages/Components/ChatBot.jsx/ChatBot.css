@@ -1,6 +1,6 @@
 .chat-bot-container{
     position: fixed;
-    z-index: 3;
+    z-index: 7;
     background-color: white;
     width: 80px;
     height: 80px;

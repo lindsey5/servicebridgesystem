@@ -4,7 +4,7 @@ import { TransactionContextProvider } from "../../Context/TransactionContext";
 
 const ClientTransactions = () =>{
     const [currentPage, setCurrentPage] = useState(1);
-    const url = `/api/client/transactions?page=${currentPage}&limit=10`;
+    const url = `/api/client/transactions?page=${currentPage}&limit=30`;
     useEffect(() => {
         document.title = "Transactions | Client";
     },[]);
