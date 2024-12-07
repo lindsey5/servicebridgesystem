@@ -168,7 +168,8 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false);
     const [code, setCode] = useState('');
 
-    const sendCode = async () => {
+    const sendCode = async (e) => {
+        e.preventDefault();
         dispatch({type: 'CLEAR_ERROR'})
         if(state.email){
             const response = await sendClientSignupVerificationCode(state.email);
@@ -182,7 +183,8 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
         }
     }
 
-    const verify = async() => {
+    const verify = async(e) => {
+        e.preventDefault();
         const response = await verifyCode(code);
         dispatch({type: 'CLEAR_ERROR'})
         if(response.error){
@@ -195,7 +197,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
 
     return(
 
-                <div className='email-page'>
+                <form className='email-page' onSubmit={!showVerifyEmail ? sendCode : verify}>
                     {!showVerifyEmail && 
                         <>
                             <h2>Enter Email Address</h2>
@@ -211,7 +213,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                                 />
                                 <span>Email</span>
                             </div>
-                            <button type='button' onClick={sendCode}>Submit</button>
+                            <button onClick={sendCode}>Submit</button>
                         </>
                     }
                     {showVerifyEmail && 
@@ -236,7 +238,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                         </>
                     }
 
-                </div>
+                </form>
     )
 }
 
