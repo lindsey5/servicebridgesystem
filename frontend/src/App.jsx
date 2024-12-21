@@ -31,6 +31,7 @@ import AdminLayout from './layouts/AdminLayout.jsx';
 import AdminDashboard from './Pages/AdminPage/AdminDashboard.jsx';
 import AdminServices from './Pages/AdminPage/AdminServices.jsx';
 import AdminCategories from './Pages/AdminPage/AdminCategories.jsx';
+import CompletedTransaction from './Pages/Components/Transactions/CompletedTransaction.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -68,6 +69,8 @@ export default function App() {
             <Route path='Transaction/Summary' element={<TransactionSummary/>} />
           </Route>
         </Route>
+
+        <Route path='/transaction/completed' element={<CompletedTransaction />}/>
         
         <Route path='/Provider/' element={<ProviderLayout />}>
           <Route element={<ProviderRoutes />}>

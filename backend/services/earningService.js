@@ -2,6 +2,7 @@ import ProviderEarning from "../models/provider-earning.js";
 import CompanyEarning from "../models/company-earning.js";
 
 const post_earnings = async (service_price, transaction_id) =>{
+
     const company_earnings= service_price * 0.05; // Get the 10% of the service_price variable then assign to the company_earnings variable
     const provider_earnings = service_price - company_earnings; // Get the service_price then minus the value of company_earnings variable
     try{
@@ -13,6 +14,7 @@ const post_earnings = async (service_price, transaction_id) =>{
             return null
         }
     }catch(err){
+        console.log(err)
         throw new Error(err.message);
     }
 }

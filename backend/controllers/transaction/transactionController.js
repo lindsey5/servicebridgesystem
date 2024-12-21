@@ -197,7 +197,7 @@ const client_complete_transaction = async (req, res) => {
         const provider = completed_transaction.completed_transaction.dataValues.provider;
         const earnings = completed_transaction.earnings.providerEarning.dataValues.earnings;
         await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } })
-        res.status(200).json({completed_transaction});
+        res.status(200).json(completed_transaction);
     }catch(err){
         console.log(err);
         return res.status(400).json({error: err.message});

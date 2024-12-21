@@ -91,7 +91,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
         dispatch({ type: 'SET_DATE', payload: filters.selectedDate });
     }
 
-    const clearFilter = () => {
+    const clearFilter = (target) => {
         dispatch({ type: 'SET_SELECTED_STATUS', payload: [] });
         dispatch({ type: 'SET_DATE', payload: null });
         setFilters({
@@ -102,6 +102,7 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
             checkbox.checked = false;
         });
         dateInputRef.current.value = '';
+        dispatch({type: 'SET_FILTER_CONTAINER', payload: false});
     }   
 
     const hideFilter =(target) =>{

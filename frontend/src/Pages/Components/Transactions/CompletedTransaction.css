@@ -1,0 +1,76 @@
+.completed-transaction{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(3, 117, 247);
+}
+
+.completed-transaction .container{
+    width: 350px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 10px 3px rgb(180, 180, 180);
+    border-radius: 20px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.completed-transaction .container img{
+    width: 60px;
+    height: 60px;
+}
+
+.completed-transaction .container > p{
+    color: rgb(170, 170, 170);
+    font-size: 15px;
+}
+
+.completed-transaction .container .details{
+    width: 100%;
+    margin: 30px 0;
+    border-top: 2px dashed rgb(207, 207, 207);
+    border-bottom: 2px dashed rgb(207, 207, 207);
+    padding: 15px 0;
+}
+
+.completed-transaction .container p span{
+    background-color: rgb(218, 255, 218);
+    color: rgb(35, 185, 35);
+    padding: 3px 7px;
+    margin-left: 5px;
+}
+
+.completed-transaction .container  p{
+    line-height: 2;
+}
+
+
+.completed-transaction .container .amount{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.completed-transaction button{
+    padding: 10px 40px;
+    float: right;
+    color: white;
+    background-color: #0375f7;
+    border: none;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.completed-transaction button:hover{
+    background-color: #90c4ff;
+}
+
+@media screen and (max-width: 425px){
+    .completed-transaction .container{
+        width: 70%;
+    }
+}

@@ -2,6 +2,9 @@ import Transaction from '../models/transaction.js';
 import Client from '../models/client-account.js';
 import earningService from './earningService.js';
 import ReviewedTransaction from '../models/reviewed-transaction.js';
+import provider_account from '../models/provider-account.js';
+import client_account from '../models/client-account.js';
+import AvailableDate from '../models/available-date.js';
 
 const create_transaction = async (client_id, data) => {
     try{
@@ -68,10 +71,15 @@ const complete_transaction = async (transaction_id, service_price) => {
     try{
         const earnings = await earningService.post_earnings(service_price, transaction_id);
         if(earnings){
-            const transaction = await Transaction.findByPk(transaction_id);
+            const transaction = await Transaction.findOne({
+                where: {
+                    transaction_id: transaction_id
+                },
+                include: [{model: provider_account}, {model: client_account}, {model: AvailableDate}]
+            })
             if(transaction){
-                const completed_transaction = await transaction.update({status: 'Completed'});
-                return {completed_transaction, earnings};
+                await transaction.update({status: 'Completed'});
+                return {completed_transaction: transaction, earnings};
             }else{
                 throw new Error('Completion error');
             }
@@ -79,6 +87,7 @@ const complete_transaction = async (transaction_id, service_price) => {
             throw new Error('Completion error');
         }
     }catch(err){
+
         throw new Error('Completion error');
     }
 }

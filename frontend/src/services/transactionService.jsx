@@ -33,7 +33,24 @@ export const completeTransaction = async (transaction_id, price) => {
         });
 
         if(response.ok){
-            window.location.reload();
+            const result = await response.json();
+            const data = {
+                transaction_id: result.completed_transaction.transaction_id,
+                provider: result.completed_transaction.provider_account.firstname + ' ' + result.completed_transaction.provider_account.lastname,
+                client: result.completed_transaction.client_account.firstname + ' ' + result.completed_transaction.provider_account.lastname,
+                address: result.completed_transaction.address,
+                booked_on: result.completed_transaction.booked_on,
+                date: result.completed_transaction.available_date.date,
+                time: result.completed_transaction.time,
+                service_name: result.completed_transaction.service_name,
+                price: result.completed_transaction.price,
+                payment_method: result.completed_transaction.payment_method
+            }
+            // Step 1: Convert the object into a JSON string
+            const jsonString = JSON.stringify(data);
+            // Step 2: Base64 encode the JSON string
+            const encodedString = btoa(jsonString); // btoa() encodes a string in base64
+            window.location.href = `/transaction/completed?data=${encodedString}`
         }
     }
 }
