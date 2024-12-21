@@ -147,6 +147,8 @@ const FirstPage = ({state, dispatch, setShowFirstPage, setShowSecondPage}) => {
 const SecondPage = ({state, dispatch}) => {
     const [confirmPass, setConfirmPass] = useState('');
     const navigate = useNavigate();
+    const [isAgreed, setIsAgreed] = useState(false);
+
     return (
         <form onSubmit={(e) => signup({e, confirmPass, state, dispatch, navigate})}>
             <div className='second-page'>
@@ -173,7 +175,12 @@ const SecondPage = ({state, dispatch}) => {
                     />
                     <span>Confirm Password*</span>
                 </div>
-                <button>Sign up</button>
+                <div className='check-box-container'>
+                    <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
+                        I agree to
+                    <a href="/terms" target='_blank'>Terms and Conditions</a>
+                </div>
+                <button disabled={!isAgreed}>Sign up</button>
             </div>
         </form>
     );
@@ -231,7 +238,8 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                             </div>
                             <div className='check-box-container'>
                                 <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
-                                I agree to Hustle's <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
+                                I agree to Hustle's 
+                                <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
                             </div>
                             <button onClick={sendCode} disabled={!isAgreed}>Submit</button>
                         </>

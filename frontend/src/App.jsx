@@ -3,7 +3,6 @@ import Home from './Pages/HomePage/Home.jsx';
 import ClientLogin from './Pages/AuthPages/ClientLogin.jsx';
 import ProviderLogin from './Pages/AuthPages/ProviderLogin.jsx';
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
-import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 import ProviderDashboard from './Pages/ProviderPage/ProviderDashboard.jsx';
 import {PublicRoutes, ClientRoutes, ProviderRoutes} from './routes/routes.jsx';
 import ClientLayout from './layouts/ClientLayout.jsx';
@@ -35,6 +34,7 @@ import CompletedTransaction from './Pages/Components/Transactions/CompletedTrans
 import FAQ from './Pages/HomePage/FAQ.jsx';
 import Terms from './Pages/HomePage/Terms.jsx';
 import PrivacyPolicy from './Pages/HomePage/PrivacyPolicy.jsx';
+import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 
 export default function App() {
   const router = createBrowserRouter(

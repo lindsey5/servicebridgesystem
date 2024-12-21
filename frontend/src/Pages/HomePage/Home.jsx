@@ -114,8 +114,7 @@ const Home = () => {
                     <div className='contact-div'>
                         <h3>Contact</h3>
                         <li>Taguig City, Philippines</li>
-                        <li>hussle@example.com</li>
-                        <li>+63-9505505306</li>
+                        <li>hustle@example.com</li>
                     </div>
                 </div>
                 <h2>© 2024 Hustle Inc. All rights reserved.</h2>

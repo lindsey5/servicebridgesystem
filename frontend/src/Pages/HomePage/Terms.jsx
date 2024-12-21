@@ -70,17 +70,17 @@ const TermsOfService = () => {
 
             <h3>9. Liability</h3>
             <p>
-                ServiceBridgeSystem is not liable for any damages or issues arising from the services provided by Providers or the interactions between Clients and Providers. The platform merely facilitates the connection between Clients and Providers.
+                Hustle is not liable for any damages or issues arising from the services provided by Providers or the interactions between Clients and Providers. The platform merely facilitates the connection between Clients and Providers.
             </p>
 
             <h3>10. Governing Law</h3>
             <p>
-                These Terms are governed by and construed in accordance with the laws of [Insert Country/Region]. Any disputes arising out of or relating to these Terms will be subject to the exclusive jurisdiction of the courts of [Insert Jurisdiction].
+            These Terms are governed by and construed in accordance with the laws of the Philippines. Any disputes arising out of or relating to these Terms will be subject to the exclusive jurisdiction of the courts of the Philippines.
             </p>
 
             <h3>11. Contact Us</h3>
             <p>
-                If you have any questions or concerns about these Terms, please contact us at [Insert Contact Information].
+                If you have any questions or concerns about these Terms, please contact us at hustle@example.com.
             </p>
             </div>
             <div className='image-container'>

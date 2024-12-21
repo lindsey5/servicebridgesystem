@@ -12,11 +12,12 @@
 }
 
 
-.home-header h1 a{
+.home-header h1{
     text-decoration: none;
     font-size: 36px;
     margin-left: 30px;
     color: rgb(3, 117, 247);
+    cursor: pointer;
 }
 
 .home-header .nav-button {
@@ -34,25 +35,24 @@
 }
 
 .home-header > ul{
-    width: 400px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    gap: 20px;
     flex-shrink: 0;
     list-style: none;
 }
 
-.home-header a{
+.home-header li{
     margin-right: 20px;
     font-size: 19px;
     text-decoration: none;
+    cursor: pointer;
 }
 
-.home-header a, .home-text h1 {
+.home-header li, .home-text h1 {
     color: rgb(3, 117, 247);
 }
 
-.home-header a:hover{
+.home-header li:hover{
     text-decoration: underline;
 }
 

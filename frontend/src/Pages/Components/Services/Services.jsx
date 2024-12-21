@@ -10,14 +10,36 @@ const Services = ({showLoginModal}) =>{
     const [end, setEnd] = useState(3);
     const next = useRef();
     const back = useRef();
-    const { data, loading } = useFetch('/api/category');
+    const [loading,setLoading] = useState(true);
     const [documentWidth, setDocumentWidth] = useState(document.body.scrollWidth);
 
-    useEffect(()=>{
-        if(data){
-            setCategories(data);
+    useEffect(() => {
+        if(documentWidth < 1005){
+            setStart(0);
+            setEnd(4);
+        }else{
+            setStart(0);
+            setEnd(3)
         }
-    }, [data]);
+    }, [documentWidth])
+
+    useEffect(() => {
+
+        const fetchCategories = async() => {
+            try{
+                const response = await fetch('/api/category');
+                if(response.ok){
+                    setCategories(await response.json());
+                }
+            }catch(err){
+                console.error(err)
+            }
+            setLoading(false);
+        }
+
+        fetchCategories()
+
+    }, [])
 
     useEffect(() => {
         const handleResize = () => {
@@ -91,21 +113,17 @@ const Services = ({showLoginModal}) =>{
             {!loading && 
             <>
                 <div className='categories-container'>
-                {categories.length > 0 && documentWidth < 1005 ? categories.map((category, i) => (
-                    <CategoryDiv key={i} category={category} />
-                ))
-                
-                : categories.slice(start, end).map((category, i) => (
+                {categories.length > 0 && categories.slice(start, end).map((category, i) => (
                     <CategoryDiv key={i} category={category} />
                 ))
                 }
                 </div>
-                {documentWidth > 1005 && 
+                {documentWidth > 1005 &&
                 <>
                 <button className="prev" style={{display: start === 0 ? 'none' : 'block'}} onClick={backPage} ref={back}>&#10094;</button>
                 <button className="next" style={{display: end === categories.length ? 'none' : 'block'}} onClick={nextPage} ref={next}>&#10095;</button>
-                </>
-                }
+                </>}
+                {!(end === categories.length - 1 || end > categories.length - 1) && <button className='see-more-btn' onClick={() => setEnd(prev => prev + 4)}>See more</button>}
             </>
             }
         </div>
