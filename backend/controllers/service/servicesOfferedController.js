@@ -4,7 +4,7 @@ import Services_offered from '../../models/service_offered.js';
 
 const get_services_offered = async (req, res) => {
     try{
-        const provider_id = req.userId;
+        const provider_id = req.userId || req.params.id;
         const query = { 
             where: { provider_id: provider_id },
             include: [{

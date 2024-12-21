@@ -7,7 +7,7 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
     const [reviews, setReviews] = useState();
     const [selectedService, setSelectedService] = useState(service_name || '');
     const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}?filter=${selectedService}`);
-    const { data: services } = useFetch('/api/services-offered');
+    const { data: services } = useFetch(isProvider ? '/api/services-offered' : `/api/services-offered/${id}`);
     const starsRef = useRef([]);
     const [filter, setFilter] = useState('All');
     const [ratingPercentages, setRatingPercentages] = useState();
@@ -117,12 +117,12 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
             </div>
             </div>
             <div className='review-filter'>
-                {isProvider && <select onChange={(e) => setSelectedService(e.target.value)}>
-                    <option value=""></option>
+                <select onChange={(e) => setSelectedService(e.target.value)}>
+                    <option value="">All</option>
                     {services && services.services.map(service => 
                         <option key={service.service_name} value={service.service_name}>{service.service_name}</option>
                     )}
-                </select>}
+                </select>
                 <div>
                     <button ref={el => filterButtons.current[0] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='All'>All</button>
                     <button ref={el => filterButtons.current[1] = el} onClick={(e) => setSelectedFilterBtn(e.target)} value='5'>★★★★★</button>
