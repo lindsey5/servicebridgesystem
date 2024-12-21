@@ -186,7 +186,7 @@
   justify-content: start;
   align-items: center;
   border-radius: 20px;
-  padding: 20px 20px;
+  padding: 20px;
   color: #0375f7;
   font-size: 17px;
   cursor: pointer;
@@ -334,6 +334,22 @@
 
   .how-it-work-section .how-it-work-container{
     width: 100%;
+  }
+
+  .popular-services > img{
+    width: 90%;
+    height: 400px;
+  }
+
+  .popular-services button{
+    height: 25px;
+    font-size: 12px;
+    padding: 10px
+  }
+
+  .popular-services button img{
+    width: 15px;
+    height: 15px;
   }
 
 }
