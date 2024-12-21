@@ -154,7 +154,8 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-
+  padding: 100px 0;
+  opacity: 0;
 }
 
 .popular-services h1{
@@ -162,12 +163,12 @@
 }
 
 .popular-services > img{
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
 }
 
 .popular-services >div{
-  width: 50%;
+  width: 40%;
 }
 
 .popular-services .popular-services-container{
@@ -281,7 +282,10 @@
   text-align: center;
 }
 
-.Home.animate, .how-it-work-section.animate, .about.animate {
+.Home.animate, 
+.how-it-work-section.animate, 
+.about.animate,
+.popular-services.animate {
   animation: section-animation  0.8s ease-in-out forwards;
 }
 

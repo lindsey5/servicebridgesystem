@@ -45,22 +45,22 @@ const ClientHome = () => {
                 </div>
                 <img className='homeLogo' src='/icons/logo.png'></img> 
             </section>
-            <section className='popular-services'>
-            <img src="/icons/rb_1588.png" alt="" />
-            <div>
-                <h1>Popular Services</h1>
-                <div className='popular-services-container'>
-                {popularServices?.services && popularServices.services.map(popularService => 
-                    <button onClick={() => navigate(`/Client/Search/Result?searchTerm=${popularService.service_name}`)}>
-                        <img src={searchLogo} alt="" />
-                        {popularService.service_name}
-                    </button>
-                )}
+            <section className='popular-services' ref={el => elementsRef.current[4] = el}>
+                <img src="/icons/rb_1588.png" alt="" />
+                <div>
+                    <h1>Popular Services</h1>
+                    <div className='popular-services-container'>
+                    {popularServices?.services && popularServices.services.map(popularService => 
+                        <button onClick={() => navigate(`/Client/Search/Result?searchTerm=${popularService.service_name}`)}>
+                            <img src={searchLogo} alt="" />
+                            {popularService.service_name}
+                        </button>
+                    )}
+                    </div>
                 </div>
-            </div>
             </section>
             <Services/>
-            <section className='how-it-work-section' ref={el => elementsRef.current[4] = el}>
+            <section className='how-it-work-section' ref={el => elementsRef.current[5] = el}>
                 <img src='/icons/logo.jpg'/> 
                 <div className="how-it-work-container">
                         <h1>How it works</h1>
@@ -90,7 +90,7 @@ const ClientHome = () => {
                         </div>
                 </div>
             </section>
-            <section className='about' ref={el => elementsRef.current[5] = el}>
+            <section className='about' ref={el => elementsRef.current[6] = el}>
                 <div>
                     <h1>About Hustle</h1>
                     <p>Hustle is a fast and reliable platform that connects individuals and businesses with skilled professionals across a wide range of services, including automotive services, cleaning, tutoring, and more. We make it simple to find the right expert for the job, whenever you need them.</p>

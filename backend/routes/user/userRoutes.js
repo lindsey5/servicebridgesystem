@@ -33,7 +33,6 @@ router.get('/api/get/user-details/:id', async(req, res) => {
   
 router.get('/api/user', async (req, res) => {
     const token = req.cookies.jwt;
-    console.log(token)
       if (token) {
           try {
               const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
