@@ -1,7 +1,7 @@
 import Provider from '../../models/provider-account.js';
 import ProviderServiceOffered from '../../models/service_offered.js';
 import AvailableDate from '../../models/available-date.js';
-import { Op, where } from 'sequelize';
+import { Op } from 'sequelize';
 import { sequelize } from '../../config/connection.js';
 import AvailableDateService from '../../models/available_dates_services.js';
 

@@ -6,6 +6,8 @@ import ChatPartners from './ChatPartners';
 import Conversation from './Conversation';
 import { RecipientContext } from '../../../Context/RecipientContext';
 
+const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
+
 const Messages = () => {
     const [socket, setSocket] = useState(null);
     const { data } = useFetch('/api/getToken');
@@ -16,7 +18,7 @@ const Messages = () => {
         const token = data?.token;
         document.title = "Messages | Client";
         if (token) {
-            const socketConnection = io({
+            const socketConnection = io(URL,{
                 query: { token }, 
             });
             setSocket(socketConnection);

@@ -79,6 +79,7 @@ const Home = () => {
                         </div>
                 </div>
             </section>
+            <Services showLoginModal={showLoginModal}/>
             <section className='about' ref={el => elementsRef.current[7] = el}>
                 <div>
                     <h1>About Hustle</h1>
@@ -87,7 +88,6 @@ const Home = () => {
                 </div>
                 <img src="/icons/plumbing.webp" alt="" />
             </section>
-            <Services showLoginModal={showLoginModal}/>
             <footer className='home-footer'>
                 <div>
                     <div className='footer-logo'>
