@@ -132,4 +132,8 @@
     .categories-container{
         grid-template-columns: 1fr;
     }
+
+    .services-child-container{
+        opacity: 1;
+    }
 }
