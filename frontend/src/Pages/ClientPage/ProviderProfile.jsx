@@ -1,13 +1,17 @@
 import createImageSrc from '../../utils/createImageSrc';
 import defaultProfilePic from '../../assets/user (1).png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 
 const ProviderProfile = ({provider}) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const service_name = queryParams.get('searchTerm');
     const [rating, setRating] = useState('No Reviews Yet');
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [price, setPrice] = useState();
+    const [showDescription, setShowDescription] = useState();
     const textareaRef = useRef(null);
 
     const book = () => {        
@@ -44,10 +48,21 @@ const ProviderProfile = ({provider}) => {
           textarea.style.height = 'auto'; 
           textarea.style.height = `${textarea.scrollHeight}px`;
         }
-      }, [provider]);
+      }, [showDescription]);
 
     return (
             <div className='provider-container'>
+                {showDescription && <div className='description'>
+                <h2>{service_name}</h2>
+                <p>Provider: {provider.firstname} {provider.lastname}</p>
+                <textarea 
+                    ref={textareaRef}
+                    disabled
+                    value={provider?.description}
+                    placeholder="No description about the service"
+                ></textarea>
+                <button onClick={() => setShowDescription(false)}>Close</button>
+                </div>}
                 <h2 className='price'>₱ {price}</h2>
                 <div className='left-div'>
                     <div className='img-container'>
@@ -63,15 +78,7 @@ const ProviderProfile = ({provider}) => {
                         <span className='star'>★</span>
                         <p>{rating}</p>
                     </div>
-                    <div className='bio-div'>
-                        <h3>About the service:</h3>
-                        <textarea
-                            ref={textareaRef}
-                            disabled
-                            value={provider?.description}
-                            placeholder="No description about the service"
-                            />
-                    </div>
+                    <button onClick={() => setShowDescription(true)}>Description about the service</button>
                     <div className='bio-div' style={{marginTop: '20px'}}>
                         <h3>About Me:</h3>
                         <p>{provider.bio}</p>

@@ -110,7 +110,7 @@ const ClientSearchResult = () => {
                 <div>
                     <p>Location</p>
                     <select style={{ height: '30px', width: '100%'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
-                        <option value=""></option>
+                        <option value="">All</option>
                         {data?.cities && data.cities.map((city, i) => 
                             <option key={i} value={city}>{city}</option>
                         )}

@@ -102,14 +102,48 @@
     border-radius: 10px;
 }
 
-.search-result .provider-container textarea{
+.search-result .provider-container .description{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid grey;
+    padding: 40px 20px;
+    border-radius: 20px;
+}
+
+.search-result .provider-container .description p{
     width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(180, 180, 180);
+}
+
+.search-result .provider-container .description button{
+    background-color: red;
+    float: right;
+    color: white;
+    padding: 8px 40px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.search-result .provider-container .description button:hover{
+    background-color: rgb(255, 158, 158);
+}
+
+.search-result .provider-container textarea{
+    width: 300px;
     resize: none;
     outline: none;
     overflow-y: none;
     border: none;
+    padding: 0 10px;
     font-size: 17px;
     color: black;
+    background-color: white;
+    display: block;
 }
 
 .search-result .price{
@@ -172,6 +206,16 @@
 
 .search-result .details-div .rating-div{
     display:flex;
+}
+
+.search-result .details-div button{
+    background-color: white;
+    border: none;
+    color: rgb(3, 117, 247);
+    text-decoration: underline;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 5px 10px;
 }
 
 .search-result .rating-div .star{

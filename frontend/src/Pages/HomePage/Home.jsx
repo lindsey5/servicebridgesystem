@@ -1,4 +1,3 @@
-import logo from '../../assets/Grow-your-workforce4.jpg';
 import SignupModal from '../../modals/SignupModal.jsx';
 import LoginModal from '../../modals/LoginModal.jsx';
 import Header from './header.jsx';
@@ -47,7 +46,7 @@ const Home = () => {
                 <button className='signup-btn' ref={el => elementsRef.current[4] = el} onClick={showSignupModal}>Sign Up</button>
                 <button className='login-btn' ref={el => elementsRef.current[5] = el}onClick={showLoginModal}>Log In</button>
                 </div>
-                <img className='homeLogo' src={ logo }></img> 
+                <img className='homeLogo' src='/icons/logo.png'></img> 
             </section>
             <section className='how-it-work-section' ref={el => elementsRef.current[6] = el}>
                 <img src='/icons/logo.jpg'/> 

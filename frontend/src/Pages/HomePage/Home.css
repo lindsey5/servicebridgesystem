@@ -88,8 +88,8 @@
 }
   
 .homeLogo {
-  width: 450px;
-  height: 450px;
+  width: 600px;
+  height: 600px;
 }
 
 .how-it-work-section{
@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   gap: 50px;
-  padding: 50px;
+  padding: 100px 50px;
   opacity: 0;
   transform: translateX(-200px);
   transition: transform 1s ease-out;
