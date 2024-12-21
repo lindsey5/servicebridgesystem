@@ -121,6 +121,7 @@ const ProviderDashboard = () => {
             </div>
             <div className="task-completed-container">
                 <h2>Completed Task Today</h2>
+                <div className="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -137,6 +138,14 @@ const ProviderDashboard = () => {
                     {completedTransactions && completedTransactions.completed_transactions_today.map(transaction => <CompletedTransactionRow key={transaction.transaction_id} transaction={transaction}/>)}
                     </tbody>
                 </table>
+                </div>
+                <h2>Total: ₱ {earningsToday?.total_earnings ? earningsToday.total_earnings.toLocaleString('en-US', {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1
+                            })
+                        :
+                        0.00
+                        }</h2>
             </div>
         </div>
     )

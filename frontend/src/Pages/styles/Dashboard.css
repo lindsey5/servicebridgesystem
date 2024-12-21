@@ -121,33 +121,33 @@
 
 .dashboard .task-completed-container{
     width: 98%;
-    height: 600px;
     background-color: white;
     box-sizing: border-box;
     margin: 10px;
     box-shadow: 0 0 10px 2px rgb(182, 182, 182);
     border-radius: 10px;
+    padding: 20px;
+}
+
+.dashboard .task-completed-container .table-container{
+    height: 400px;
     overflow-x: auto;
     overflow-y: auto;
 }
 
-.dashboard .task-completed-container h2{
-    margin: 20px;
-}
-
-.dashboard .task-completed-container > table {
+.dashboard .task-completed-container table {
     width: 100%;
     padding: 10px;
     border-collapse: collapse;
 }
 
-.dashboard .task-completed-container > table th{
+.dashboard .task-completed-container table th{
     padding: 10px;
     background-color: #0375f7;
     color: white;
 }
 
-.dashboard .task-completed-container > table td {
+.dashboard .task-completed-container table td {
     text-align: center;
     padding: 8px;
     border-bottom: 1px solid rgb(185, 185, 185);
