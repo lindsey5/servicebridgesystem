@@ -21,7 +21,7 @@ const TermsOfService = () => {
 
             <h3>2. Service Description</h3>
             <p>
-                ServiceBridgeSystem is an online platform that connects clients ("Clients") with service providers ("Providers") for various tasks such as home repairs, cleaning, and other related services. Clients can browse, book, and pay for services offered by Providers, while Providers can manage their services and availability.
+                Hustle is an online platform that connects clients with service providers for various tasks such as home repairs, cleaning, and other related services. Clients can browse, book, and pay for services offered by Providers, while Providers can manage their services and availability.
             </p>
 
             <h3>3. User Accounts</h3>
@@ -38,7 +38,7 @@ const TermsOfService = () => {
             <p>
                 ServiceBridgeSystem supports payments for services through various methods, including credit/debit cards and other online payment systems. By using the Service, you authorize us to process your payments as necessary to complete your transactions.
                 <ul>
-                    <li><strong>Providers:</strong> You will receive payment after the service is marked as completed. A 5% platform fee will be deducted from your earnings for services paid via online payment systems.</li>
+                    <li><strong>Providers:</strong> Payment will be receive once the service is marked as completed. A 5% platform fee will be deducted from the client's payment, and you will receive the remaining 95%.</li>
                     <li><strong>Clients:</strong> You agree to pay for services at the rates provided by Providers.</li>
                 </ul>
             </p>

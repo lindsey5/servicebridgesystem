@@ -31,8 +31,30 @@ const goToProviderPaymentLink = async(transaction_id, price) =>{
     }
 }
 
+function isTwoHoursBefore(d1, d2) {
+    console.log(d1)
+    console.log(d2)
+    if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+        throw new Error("Invalid date provided");
+    }
+
+    // Calculate the difference in milliseconds
+    const diffInMilliseconds = d2 - d1;
+
+    // Convert the difference to hours
+    const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+
+    // Check if date1 is at least 2 hours before date2
+    return diffInHours <= 2;
+}
+
 const TransactionButton = ({transaction, user, modal_dispatch}) => {
     const {setTransactionId} = useContext(TransactionContext);
+
+    const isTwoHrs = !(isTwoHoursBefore(new Date(), new Date(`${transaction.available_date.date} ${transaction.time}`)))
+
+    console.log(isTwoHrs)
+
     const handleActionButton = (onClick, icon) => (
             <button onClick={onClick}>
                 {icon && <img src={`/icons/${icon}.png`} />}
@@ -42,19 +64,24 @@ const TransactionButton = ({transaction, user, modal_dispatch}) => {
         return (
             <>
             {handleActionButton(() => acceptTransaction(transaction.transaction_id), 'accept')}
-            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
+            {isTwoHrs && handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
             </>
         );
     }else if(transaction.status === 'Accepted' && user === 'Provider'){
         return (
             <>
             {handleActionButton(() => setToOngoing(transaction.transaction_id), 'accept')}
-            {handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
+            {isTwoHrs && handleActionButton(() => {modal_dispatch({type: 'SHOW_PROVIDER_REASON', payload: true}); setTransactionId(transaction.transaction_id);} , 'cancel')}
             </>
         );
         
     }else if ((transaction.status === 'Requested' || transaction.status === 'Accepted') && user === 'Client') {
-        return handleActionButton(() =>{ setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CLIENT_REASON', payload: true}); }, 'cancel');
+        return isTwoHrs
+        ? handleActionButton(() => {
+            setTransactionId(transaction.transaction_id); 
+            modal_dispatch({ type: 'SHOW_CLIENT_REASON', payload: true });
+          }, 'cancel') 
+        : null;
 
     } else if (transaction.status === 'In Progress' && user === 'Provider') {
         return handleActionButton(() => finishTransaction(transaction.transaction_id), 'accept');
@@ -69,7 +96,7 @@ const TransactionButton = ({transaction, user, modal_dispatch}) => {
         return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.transaction_id); }, 'like');
 
     } else if (transaction.status === 'Cancelled' || transaction.status === 'Declined') {
-        return handleActionButton(() => { setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye');
+        return  handleActionButton(() => { setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye')
 
     } else if (transaction.status === 'Reviewed') {
         return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.transaction_id)}, 'eye');

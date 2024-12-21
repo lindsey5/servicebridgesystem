@@ -60,6 +60,14 @@ const FAQ = () => {
                         Yes, for online payments, a 5% platform fee is deducted from the payment, and providers receive 95% once the service is marked as complete.
                         For cash payments, providers must pay a 5% platform fee after the transaction is completed.
                     </p>
+                    <h3>Is it possible to cancel a task?</h3>
+                    <p>
+                        Yes, you can cancel a task instantly, choose a reason for the cancellation, and if you are a Client you will receive a refund if you paid online.
+                    </p>
+                    <h3>Providers can set their own rates?</h3>
+                    <p>Yes, providers can set their rates for each service they offer.</p>
+                    <h3>Providers can set availability?</h3>
+                    <p>Yes, Providers can set their availability and customize schedules by assigning services to specific dates.</p>
                 </div>
                 <div className='image-container'>
                     <img src="/icons/faq.png" alt="" />

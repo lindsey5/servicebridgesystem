@@ -31,6 +31,7 @@ export const getChatBotReponse = async (req, res) => {
                 - Providers can select and update the services they offer anytime.
                 - Providers set their availability and customize schedules by assigning services to specific dates.
                 - Providers can set prices for each service.
+                - Providers can set their own rates for each services they offer
                 - Providers can view service details and client information before accepting a task.
                 - For cash payments, providers must pay a 5% platform fee based on the client's payment after the transaction is completed.
                 - For online payments, 5% is automatically deducted from the client's payment, and providers receive 95% once the client marks the service as complete.
