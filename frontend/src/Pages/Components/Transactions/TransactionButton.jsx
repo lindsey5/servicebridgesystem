@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { TransactionContext } from '../../../Context/TransactionContext';
 import { create_provider_payment_link } from '../../../services/paymentService';
 import { updateTransaction, completeTransaction } from '../../../services/transactionService';
@@ -32,8 +33,6 @@ const goToProviderPaymentLink = async(transaction_id, price) =>{
 }
 
 function isTwoHoursBefore(d1, d2) {
-    console.log(d1)
-    console.log(d2)
     if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
         throw new Error("Invalid date provided");
     }
@@ -48,12 +47,24 @@ function isTwoHoursBefore(d1, d2) {
     return diffInHours <= 2;
 }
 
+
 const TransactionButton = ({transaction, user, modal_dispatch}) => {
+    const navigate = useNavigate();
     const {setTransactionId} = useContext(TransactionContext);
 
     const isTwoHrs = !(isTwoHoursBefore(new Date(), new Date(`${transaction.available_date.date} ${transaction.time}`)))
 
-    console.log(isTwoHrs)
+    const book = async (provider) => {        
+        const params = {
+            id: provider.id,
+            price: provider.price,
+            service_name: provider.service_name,
+            firstname: provider.firstname,
+            lastname: provider.lastname
+        }
+        const encoded = encodeURIComponent(btoa(JSON.stringify(params)));
+        navigate(`/Client/booking?data=${encoded}`);
+     }
 
     const handleActionButton = (onClick, icon) => (
             <button onClick={onClick}>
@@ -93,13 +104,19 @@ const TransactionButton = ({transaction, user, modal_dispatch}) => {
         return handleActionButton(() => goToProviderPaymentLink(transaction.transaction_id, transaction.price), 'accept');
 
     }else if (transaction.status === 'Completed' && user === 'Client') {
-        return handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.transaction_id); }, 'like');
+        return <>
+        {handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.transaction_id); }, 'like')}
+        {handleActionButton(() => book({...transaction.provider_account, price: transaction.price, service_name: transaction.service_name}), 'rebook')}
+        </>
 
     } else if (transaction.status === 'Cancelled' || transaction.status === 'Declined') {
         return  handleActionButton(() => { setTransactionId(transaction.transaction_id); modal_dispatch({type: 'SHOW_CANCELLED_TRANSACTION', payload: true}); }, 'eye')
 
     } else if (transaction.status === 'Reviewed') {
-        return handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.transaction_id)}, 'eye');
+        return <>
+        {handleActionButton(() => {modal_dispatch({type: 'SHOW_REVIEWED_TRANSACTION', payload: true}); setTransactionId(transaction.transaction_id)}, 'eye')}
+        {user === 'Client' && handleActionButton(() => book({...transaction.provider_account, price: transaction.price, service_name: transaction.service_name}), 'rebook')}
+        </>
     }else{
         return null
     }   

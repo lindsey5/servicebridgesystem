@@ -13,23 +13,12 @@ const isDateExpired = (transactionDateTime) => {
     return date < currentDate;
 };
 
-const book = async (provider_id) => {        
-    const params = {
-        id: provider.id,
-        price: provider.price,
-        service_name: provider.service_name,
-        firstname: provider.firstname,
-        lastname: provider.lastname
-    }
-    const encoded = encodeURIComponent(btoa(JSON.stringify(params)));
-    navigate(`/Client/booking?data=${encoded}`);
- }
 
 const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
     const transactionDateTime = `${transaction.available_date.date} ${transaction.time}`;
-
+    console.log(transaction)
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
         if(transaction.payment_method === 'Online Payment'){
             fail_and_refund(transaction.transaction_id);

@@ -54,11 +54,9 @@ const get_client_transactions = async (req, res) => {
             include: [
                 {
                     model: Client,
-                    attributes: ['firstname', 'lastname']
                 },
                 {
                     model: Provider,
-                    attributes: ['firstname', 'lastname']
                 },
                 {
                     model: AvailableDate,
@@ -100,11 +98,9 @@ const get_provider_transactions = async (req, res) => {
             include: [
                 {
                     model: Client,
-                    attributes: ['firstname', 'lastname']
                 },
                 {
                     model: Provider,
-                    attributes: ['firstname', 'lastname']
                 },
                 {
                     model: AvailableDate,

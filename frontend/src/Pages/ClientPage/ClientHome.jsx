@@ -10,10 +10,6 @@ const ClientHome = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(popularServices)
-    }, popularServices)
-
-    useEffect(() => {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {

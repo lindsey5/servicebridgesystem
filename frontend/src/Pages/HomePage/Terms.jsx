@@ -36,7 +36,7 @@ const TermsOfService = () => {
 
             <h3>5. Payments</h3>
             <p>
-                ServiceBridgeSystem supports payments for services through various methods, including credit/debit cards and other online payment systems. By using the Service, you authorize us to process your payments as necessary to complete your transactions.
+                Hustle supports payments for services through various methods, including credit/debit cards and other online payment systems. By using the Service, you authorize us to process your payments as necessary to complete your transactions.
                 <ul>
                     <li><strong>Providers:</strong> Payment will be receive once the service is marked as completed. A 5% platform fee will be deducted from the client's payment, and you will receive the remaining 95%.</li>
                     <li><strong>Clients:</strong> You agree to pay for services at the rates provided by Providers.</li>
