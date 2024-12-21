@@ -130,8 +130,8 @@ const FirstPage = ({state, dispatch, setShowFirstPage, setShowSecondPage}) => {
                     <span>Address</span>
                 </div>
                 <div>
-                   <span>Location:</span>
-                   <select style={{marginLeft: '15px', height: '30px', minWidth: '150px'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
+                   Location
+                   <select style={{height: '30px', minWidth: '150px', display: 'block', outline: 'none'}} onChange={(e) => dispatch({type: 'SET_LOCATION', payload: e.target.value})}>
                     <option value=""></option>
                     {data?.cities && data.cities.map((city, i) => 
                         <option key={i} value={city}>{city}</option>
@@ -182,6 +182,7 @@ const SecondPage = ({state, dispatch}) => {
 const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false);
     const [code, setCode] = useState('');
+    const [isAgreed, setIsAgreed] = useState(false);
 
     const sendCode = async (e) => {
         e.preventDefault();
@@ -228,7 +229,11 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                                 />
                                 <span>Email</span>
                             </div>
-                            <button onClick={sendCode}>Submit</button>
+                            <div className='check-box-container'>
+                                <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
+                                I agree to Hustle's <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
+                            </div>
+                            <button onClick={sendCode} disabled={!isAgreed}>Submit</button>
                         </>
                     }
                     {showVerifyEmail && 

@@ -1,0 +1,88 @@
+.page{
+    background-color: white;
+    padding: 0;
+    width: 100vw;
+    margin-top: 0;
+}
+
+.page .top-container{
+    margin-top: 0;
+    color: white;
+    background-color: #007BFF;
+    padding: 50px 80px;
+    box-sizing: border-box;
+}
+
+.page .top-container button{
+    color: white;
+    background-color: #007BFF;
+    font-size: 20px;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.page .top-container button img{
+    width: 20px;
+    margin-right: 10px;
+}
+
+.page .top-container h1{
+    font-size: 40px;
+}
+
+.page .top-container p{
+    font-size: 18px;
+}
+
+.page .container{
+    padding: 30px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.page .content{
+    padding: 30px 50px;
+}
+
+.page .image-container{
+    display: flex;
+    justify-content: center;
+}
+
+.page .container img{
+    width: 100%;
+    height: 700px;
+}
+
+.page .container p{
+    font-size: 1.3em;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.page .container ul {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+    margin-left: 20px;
+}
+
+.page .container ul li {
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 900px){
+    .page .container{
+        grid-template-columns: 1fr;
+    }
+
+    .page .image-container{
+        display: none;
+    }
+}

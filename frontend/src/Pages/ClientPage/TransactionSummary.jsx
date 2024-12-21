@@ -1,7 +1,6 @@
 import { useLocation, useNavigate, } from 'react-router-dom';
 import './TransactionSummary.css';
-import useFetch from '../../hooks/useFetch';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createTransaction } from '../../services/transactionService';
 import { createClientPaymentLink } from '../../services/paymentService';
 
@@ -12,6 +11,7 @@ const TransactionSummary = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const [isAgreed, setIsAgreed] = useState(false);
     const { provider, service_name, price, paymentMethod, date, time, provider_fullname } = location.state;
     const parsePrice = parseFloat(price);
     const formattedPrice = parsePrice.toLocaleString('en-US', {
@@ -85,9 +85,13 @@ const TransactionSummary = () => {
                         </tr>
                     </tbody>
                 </table>
+                <div className='check-box-container'>
+                    <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
+                    I agree to <a href="/terms" target="_blank">Terms & Conditions</a> and <a href="/privacy-policy" target="_blank">Privacy Policy</a>
+                </div>
                 <div className="buttons-container">
                     <button className="back-btn" onClick={()=> navigate(-1)}>Back</button>
-                    <button className="book-btn" onClick={()=> book()}>Book</button>
+                    <button className="book-btn" disabled={!isAgreed} onClick={()=> book()}>Book</button>
                 </div>
             </div>
         </div>

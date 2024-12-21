@@ -97,8 +97,7 @@ const Home = () => {
                         <h3>About</h3>
                         <li>About us</li>
                         <li>News</li>
-                        <li>Terms of service</li>
-                        <li>Services</li>
+                        <li><a href="/terms">Terms and Conditions</a></li>
                     </div>
                     <div className='social-div'>
                         <h3>Social Media</h3>
@@ -110,8 +109,8 @@ const Home = () => {
                     <div className='support-div'> 
                         <h3>Support</h3>
                         <li>Help</li>
-                        <li>Privacy Policy</li>
-                        <li>FAQs</li>
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/FAQ">FAQ's</a></li>
                     </div>
                     <div className='contact-div'>
                         <h3>Contact</h3>

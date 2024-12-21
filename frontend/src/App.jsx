@@ -32,6 +32,9 @@ import AdminDashboard from './Pages/AdminPage/AdminDashboard.jsx';
 import AdminServices from './Pages/AdminPage/AdminServices.jsx';
 import AdminCategories from './Pages/AdminPage/AdminCategories.jsx';
 import CompletedTransaction from './Pages/Components/Transactions/CompletedTransaction.jsx';
+import FAQ from './Pages/HomePage/FAQ.jsx';
+import Terms from './Pages/HomePage/Terms.jsx';
+import PrivacyPolicy from './Pages/HomePage/PrivacyPolicy.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -86,6 +89,9 @@ export default function App() {
         </Route>
 
         <Route path="/View/Reviews" element={<ViewReviews />} />
+        <Route path='/Terms' element={<Terms />}/>
+        <Route path='/FAQ' element={<FAQ />}/>
+        <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
         <Route path="*" element={<Navigate to="/" />} />
       </>
     )

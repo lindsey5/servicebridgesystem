@@ -1,0 +1,37 @@
+.faq-section {
+    background-color: white;
+    padding: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 5px rgba(90, 90, 90, 0.3);
+}
+
+.faq-section h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #007BFF;
+    margin-bottom: 50px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    font-size: 1.5em;
+    color: #007BFF;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.faq-item p {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.faq-item p:not(:first-child) {
+    margin-top: 0;
+}

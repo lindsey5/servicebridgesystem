@@ -84,8 +84,6 @@ const nextPage = ({e, state, dispatch, setShowFirstPage, setShowSecondPage}) =>{
 }
 
 const FirstPage = ({state, dispatch, setShowFirstPage, setShowSecondPage}) => {
-    const { data } = useFetch('/api/cities');
-
     return (
         <form onSubmit={(e) => nextPage({e, state, dispatch, setShowFirstPage, setShowSecondPage})}>
             <div className='first-page'>
@@ -167,6 +165,7 @@ const SecondPage = ({state, dispatch}) => {
 const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false);
     const [code, setCode] = useState('');
+    const [isAgreed, setIsAgreed] = useState(false);
 
     const sendCode = async (e) => {
         e.preventDefault();
@@ -196,7 +195,6 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     }
 
     return(
-
                 <form className='email-page' onSubmit={!showVerifyEmail ? sendCode : verify}>
                     {!showVerifyEmail && 
                         <>
@@ -213,7 +211,11 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                                 />
                                 <span>Email</span>
                             </div>
-                            <button onClick={sendCode}>Submit</button>
+                            <div className='check-box-container'>
+                                <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
+                                I agree to Hustle's <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
+                            </div>
+                            <button onClick={sendCode} disabled={!isAgreed}>Submit</button>
                         </>
                     }
                     {showVerifyEmail && 

@@ -198,8 +198,13 @@
   margin: 30px 50px;
 }
 
-.home-footer h3, .home-footer li, .home-footer h2{
+.home-footer{
   color: white;
+}
+
+.home-footer a{
+  color: white;
+  text-decoration: none;
 }
 
 .home-footer img{
@@ -212,15 +217,11 @@
   line-height: 1.8;
 }
 
-.home-footer .about-div li, 
-.home-footer .social-div li,
-.home-footer .support-div li{
+.home-footer li{
   cursor: pointer;
 }
 
-.home-footer .about-div li:hover, 
-.home-footer .social-div li:hover,
-.home-footer .support-div li:hover{
+.home-footer li:hover{
   text-decoration: underline;
 }
 

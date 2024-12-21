@@ -30,11 +30,25 @@
     text-decoration: underline;
 }
 
-.signup-page .container > form > div,
+.signup-page .container > form > div:first-child,
 .signup-page .container .email-page{
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.signup-page .container form .check-box-container{
+    display: flex;
+    margin-top: 20px;
+}
+
+.signup-page .container form .check-box-container input{
+    cursor: pointer;
+}
+
+.signup-page .container form .check-box-container a{
+    font-weight: 600;
+    text-decoration: none;
 }
 
 .signup-page .container .input-container{
@@ -46,7 +60,7 @@
     margin: 20px 0;
 }
 
-.signup-page .container input{
+.signup-page .container input:not([type='checkbox']){
     width: 100%;
     height: 37px;
     outline: none;
@@ -105,14 +119,17 @@
 
 .signup-page button{
     height: 35px;
-    color: white;
-    background-color: rgb(3, 117, 247);
-    border: none;
-    cursor: pointer;
     margin: 20px 0;
 }
 
-.signup-page button:hover{
+.signup-page button:not(:disabled){
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(3, 117, 247);
+}
+
+.signup-page button:not(:disabled):hover{
     background-color: rgb(159, 204, 255);
 }
 

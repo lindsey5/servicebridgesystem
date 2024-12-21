@@ -31,6 +31,21 @@
     padding: 20px;
 }
 
+.transaction-summary .check-box-container{
+    margin-top: 20px;
+}
+
+.transaction-summary .check-box-container input{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.transaction-summary .check-box-container a{
+    color: rgb(3, 117, 247);
+    text-decoration: none;
+    font-weight: 600;
+}
+
 .transaction-summary .buttons-container{
     margin-top: 15px;
     display: flex;
@@ -46,7 +61,7 @@
     font-weight: 600;
 }
 
-.transaction-summary .book-btn{
+.transaction-summary .book-btn:not(:disabled){
     border: none;
     background-color: rgb(3, 117, 247);
     color: white;
