@@ -163,8 +163,8 @@
 }
 
 .popular-services > img{
-  width: 700px;
-  height: 700px;
+  width: 600px;
+  height: 600px;
 }
 
 .popular-services >div{
@@ -343,7 +343,7 @@
 
   .popular-services button{
     height: 25px;
-    font-size: 12px;
+    font-size: 15px;
     padding: 10px
   }
 
