@@ -3,20 +3,40 @@ import '../../styles/ChatPartners.css';
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
 
-const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
-
+const ChatPartners = ({socket, setRecipientId }) => {
     const [chatContacts, setChatContacts] = useState();
     const [showSide, setShowSide] = useState(true);
+    const [chatPartners, setChatPartners] = useState();
+
+    useEffect(()=>{
+        if(socket) fetchChatPartners(socket);
+    },[socket]);
+
+    useEffect(() => {
+        if(socket){
+            socket.on('chat-partners', (chatPartners) => {
+                setChatPartners(chatPartners);
+            });
+        }
+        return () => {
+            socket.off('chat-partners')
+        }
+    }, [])
+
+    function fetchChatPartners(){
+        socket.emit('chat-partners');
+        socket.on('chat-partners', (chatPartners) => {
+            setChatPartners(chatPartners);
+        });
+    }
 
     const setContacts = async () => {
         setChatContacts(
             await Promise.all(
                 chatPartners.map(async (contact) => {
-                    const userDetailsRes = await fetch(`/api/get/user-details/${contact}`);
+                    const userDetailsRes = await fetch(`/api/get/user-details/${contact.partner}`);
                     const userDetails = await userDetailsRes.json();
-                    const latestMessageRes = await fetch(`/api/latest-message/?you=${socket.id}&&partner=${contact}`);
-                    const latestMessage = await latestMessageRes.json();
-                    return { id: contact, userDetails, latestMessage };
+                    return { id: contact.partner, userDetails, latestMessage: contact.latestMessage };
                 })
             )
         );
@@ -24,7 +44,9 @@ const ChatPartners = ({ socket, chatPartners, setRecipientId }) => {
     }
 
     useEffect(() => {
-        setContacts();
+        if(chatPartners){
+            setContacts();
+        }
     }, [chatPartners]);
 
     

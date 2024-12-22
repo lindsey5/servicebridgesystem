@@ -10,36 +10,20 @@ const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhos
 
 const Messages = () => {
     const [socket, setSocket] = useState(null);
-    const { data } = useFetch('/api/getToken');
-    const [chatPartners, setChatPartners] = useState([]);
     const {recipientId, setRecipientId} = useContext(RecipientContext);
 
     useEffect(() => {
-        const token = data?.token;
         document.title = "Messages | Client";
-        if (token) {
-            const socketConnection = io(URL,{
-                query: { token }, 
-            });
-            setSocket(socketConnection);
-        }
-    }, [data]);
-
-    useEffect(()=>{
-        if(socket) fetchChatPartners(socket);
-    },[socket]);
-
-    function fetchChatPartners(socket){
-        socket.emit('chat-partners');
-        socket.on('chat-partners', (chatPartners) => {
-            setChatPartners(chatPartners);
+        const socketConnection = io(URL, {
+            withCredentials: true,
         });
-    }
+        setSocket(socketConnection);
+    }, []);
 
     return (
         <div className="messages">
-            {<ChatPartners socket={socket} chatPartners={chatPartners} setRecipientId={setRecipientId}/>}
-            {socket && <Conversation recipientId={recipientId} socket={socket} fetchChatPartners={fetchChatPartners}/>}
+            {<ChatPartners socket={socket} setRecipientId={setRecipientId}/>}
+            {socket && <Conversation recipientId={recipientId} socket={socket}/>}
         </div>
     );
 };

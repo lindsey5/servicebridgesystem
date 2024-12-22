@@ -62,17 +62,6 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
-app.get('/api/latest-message', async (req, res) => {
-  const {you, partner} = req.query;
-  try{
-    const latestMessage = await ChatService.fetchLatestMessage(you, partner);
-
-    res.status(200).json(latestMessage)
-  }catch(err){
-    res.status(400).json({message: err});
-  }
-
-});
 
 app.get('/api/cities', async (req, res) => {
   try{

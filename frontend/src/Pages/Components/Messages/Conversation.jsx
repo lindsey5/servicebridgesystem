@@ -4,7 +4,7 @@ import useFetch from '../../../hooks/useFetch';
 import defaultProfilePic from '../../../assets/user (1).png';
 import createImageSrc from '../../../utils/createImageSrc';
 
-const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
+const Conversation = ({ recipientId, socket }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const chatEndRef = useRef(null);
@@ -103,12 +103,11 @@ const Conversation = ({ recipientId, socket, fetchChatPartners }) => {
             };
         
             socket.emit('private message', { to: recipientId, message });
-            fetchChatPartners(socket);
             setMessages(prevMessages => [...prevMessages, newMessage]);
     
             messageRef.current.value = '';
             setMessage('');
-            fetchChatPartners(socket);
+            socket.emit('chat-partners');
         }
     };
     
