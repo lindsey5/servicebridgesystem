@@ -8,27 +8,15 @@ const ChatPartners = ({socket, setRecipientId }) => {
     const [showSide, setShowSide] = useState(true);
     const [chatPartners, setChatPartners] = useState();
 
-    useEffect(()=>{
-        if(socket) fetchChatPartners(socket);
-    },[socket]);
-
     useEffect(() => {
         if(socket){
+            console.log(chatPartners)
+            socket.emit('chat-partners');
             socket.on('chat-partners', (chatPartners) => {
                 setChatPartners(chatPartners);
             });
         }
-        return () => {
-            socket.off('chat-partners')
-        }
-    }, [])
-
-    function fetchChatPartners(){
-        socket.emit('chat-partners');
-        socket.on('chat-partners', (chatPartners) => {
-            setChatPartners(chatPartners);
-        });
-    }
+    }, [socket])
 
     const setContacts = async () => {
         setChatContacts(

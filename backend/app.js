@@ -10,7 +10,6 @@ import './Associations/ServiceAssociations.js';
 import './Associations/TransactionAssociations.js';
 import './Associations/ProviderAssociations.js';
 import './Associations/AvailableDateAssociations.js';
-import ChatService from './services/chatService.js';
 import { createServer } from 'http';
 import cors from 'cors';
 import { initializeSocket } from './middleware/socket.js';
