@@ -80,7 +80,7 @@ const ChatPartners = ({socket, setRecipientId }) => {
                 <img className="partner-profile-pic" src={imgSrc} alt="Profile" />
                 <div className='partner-details'>
                     <h3>{contact.userDetails.firstname} {contact.userDetails.lastname}</h3>
-                   <p style={{fontWeight: contact.latestMessage.status === 'Delivered' && contact.latestMessage.from_user_id === contact.id && '600'}}>{contact.latestMessage.content}</p>
+                   <p style={{fontWeight: contact.latestMessage.status === 'Delivered' && contact.latestMessage.from_user_id === contact.partner && '600'}}>{contact.latestMessage.content}</p>
                    {contact.deliveredMessages > 0 && <span>{contact.deliveredMessages}</span>}
                 </div>
             </div>

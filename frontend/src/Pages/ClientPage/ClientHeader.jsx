@@ -58,11 +58,15 @@ const ClientHeader = () => {
                 setDeliveredMesssage(deliveredMessages)
             })
 
+            socket.on('private message', async () => {
+                socket.emit('delivered messages')
+            })
+
             socket.on('chat-partners', () => {
                 socket.emit('delivered messages');
             })
 
-            socket.on('private message', () => socket.emit('delivered messages'))
+            socket.on('seen',async () => await socket.emit('delivered messages'))
         }
     }, [socket])
 
