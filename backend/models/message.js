@@ -22,6 +22,11 @@ const Message = sequelize.define('Message', {
     timestamp: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW 
+    },
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: 'Delivered',
+        values: ['Delivered', 'Seen']
     }
 }, {
     timestamps: false,

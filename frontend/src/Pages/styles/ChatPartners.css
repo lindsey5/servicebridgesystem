@@ -8,7 +8,8 @@
 }
 
 .chat-partners .contacts-container{
-    height: 100%;
+    height: calc(100% - 70px);
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
@@ -26,6 +27,7 @@
     border-radius: 20px;
     text-align: start;
     padding-left: 13px;
+    z-index: 2;
     cursor: pointer;
 }
 
@@ -55,6 +57,7 @@
     border-bottom: 1px solid rgb(224, 224, 224);
     align-items: center;
     text-align: start;
+    position: relative;
 }
 
 .chat-partner-container:hover{
@@ -86,7 +89,22 @@
 
 .chat-partners.hide .partner-details {
     display: none;
+}
 
+.chat-partners .partner-details span{
+    background-color: red;
+    display: inline-block;
+    color: white;
+    padding: 5px;
+    min-width: 15px;
+    margin-right: 5px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    z-index: 2;
 }
 
 @media (max-width: 670px){

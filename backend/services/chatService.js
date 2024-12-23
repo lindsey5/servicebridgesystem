@@ -34,18 +34,20 @@ const fetchChatPartners = async (userId) => {
     }
 }
 
-const createPrivateMessage = async (to, from, message) => {
+const createPrivateMessage = async (to, from, message, status) => {
     try{
-        // Save message to the database
-        const newMessage = await Message.create({
+        const query = {
             from_user_id: from, 
             to_user_id: to, 
-            content: message 
-        });
+            content: message,
+            status
+        }
+        // Save message to the database
+        const newMessage = await Message.create(query);
 
         return newMessage;
     }catch(err){
-        console.error('Error creating private message:', error);
+        console.error('Error creating private message:', err);
         throw new Error('Could not send private message');
     }
 }

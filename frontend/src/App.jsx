@@ -35,6 +35,7 @@ import FAQ from './Pages/HomePage/FAQ.jsx';
 import Terms from './Pages/HomePage/Terms.jsx';
 import PrivacyPolicy from './Pages/HomePage/PrivacyPolicy.jsx';
 import ClientHome from './Pages/ClientPage/ClientHome.jsx';
+import { SocketContextProvider } from './Context/SocketContext.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -98,10 +99,11 @@ export default function App() {
   );  
 
   return (
-    <RecipientContextProvider>
+    <SocketContextProvider>
+      <RecipientContextProvider>
       <RouterProvider router={router} />
       <ChatBot />
     </RecipientContextProvider>
-
+    </SocketContextProvider>
   );
 }

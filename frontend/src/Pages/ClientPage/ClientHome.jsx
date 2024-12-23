@@ -1,5 +1,5 @@
 import Services from '../Components/Services/Services.jsx';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import searchLogo from '../../assets/search (1).png';
 import useFetch from '../../hooks/useFetch.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ const ClientHome = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {

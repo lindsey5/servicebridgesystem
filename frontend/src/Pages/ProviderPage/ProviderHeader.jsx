@@ -6,11 +6,14 @@ import useFetch from '../../hooks/useFetch';
 import createImageSrc from '../../utils/createImageSrc';
 import { useContext } from 'react';
 import { ProviderContext } from '../../Context/ProviderContext';
+import { SocketContext } from '../../Context/SocketContext';
 
 const ProviderHeader = () =>{
     const { setHideSideBar } =  useContext(ProviderContext);
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
+    const { socket } = useContext(SocketContext)
+    const [deliveredMessages, setDeliveredMesssage] = useState(0);
 
     const handleClick = () => {
         setShowDropdown(!showDropdown);
@@ -33,6 +36,25 @@ const ProviderHeader = () =>{
         getImageSrc();
     }, [providerData]);
 
+    useEffect(() => {
+        if(socket){
+            socket.emit('delivered messages');
+            socket.on('delivered messages', (deliveredMessages) => {
+                setDeliveredMesssage(deliveredMessages)
+            })
+
+            socket.on('private message', async () => {
+                socket.emit('delivered messages')
+            })
+
+            socket.on('chat-partners', () => {
+                socket.emit('delivered messages');
+            })
+
+            socket.on('seen',async () => await socket.emit('delivered messages'))
+        }
+    }, [socket])
+
     return (
     <header className='provider-header'>
         <div className="header-left-div">
@@ -42,12 +64,14 @@ const ProviderHeader = () =>{
             <h1 id="title" onClick={()=> navigate('/Provider/Dashboard')}>Hustle</h1>
         </div>
         <div className="user-container">
-            <div className='chat-icon-container' onClick={()=> {
+            <button className='chat-icon-container' onClick={()=> {
                 navigate('/Provider/Messages');
                 setHideSideBar(false); 
             }}>
                <img src="/icons/chat.png" className='chat-icon' />
-            </div>
+               {deliveredMessages > 0 && <span>{deliveredMessages}</span>}
+               
+            </button>
             <img className="user-pic" 
                 onClick={handleClick}
                 src={ profilePicSrc ? profilePicSrc : defaultProfilePic } 

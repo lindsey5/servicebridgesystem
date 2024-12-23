@@ -31,6 +31,9 @@ const Conversation = ({ recipientId, socket }) => {
 
         // Fetch past messages when connecting
         socket.emit('fetch messages', recipientId);
+        if(recipientId){
+            socket.emit('join', recipientId)
+        }
 
         // Listen for past messages
         socket.on('past messages', (pastMessages) => {
@@ -49,14 +52,13 @@ const Conversation = ({ recipientId, socket }) => {
                 id: data.message_id,
                 content: data.content,
                 from: data.from_user_id,
-                timestamp: data.timestamp
+                timestamp: data.timestamp,
             };
 
             if(newMessage.from === recipientId){
                 setMessages(prevMessages => [...prevMessages, newMessage]);
             }
-
-            fetchChatPartners(socket);
+            socket.emit('chat-partners')
         });
 
         return () => {
@@ -94,7 +96,7 @@ const Conversation = ({ recipientId, socket }) => {
         );
     };
 
-    const sendMessage = (e) => {
+    const sendMessage = async (e) => {
         e.preventDefault();
         if (message) {
             const newMessage = {
@@ -102,12 +104,12 @@ const Conversation = ({ recipientId, socket }) => {
                 timestamp: new Date().toISOString(),
             };
         
-            socket.emit('private message', { to: recipientId, message });
+            await socket.emit('private message', { to: recipientId, message });
             setMessages(prevMessages => [...prevMessages, newMessage]);
     
             messageRef.current.value = '';
             setMessage('');
-            socket.emit('chat-partners');
+            await socket.emit('chat-partners');
         }
     };
     
@@ -123,7 +125,17 @@ const Conversation = ({ recipientId, socket }) => {
                         {messages && messages.map(message => <MessageBox key={message.id} message={message} />)}
                     </div>
                     <div className="message-input-bar">
-                        <input type='text' ref={messageRef} maxLength="200" placeholder="Message" onChange={(e) => setMessage(e.target.value)} />
+                        <input 
+                            type='text' 
+                            onFocus={async () => {
+                                await socket.emit('seen', recipientId);
+                                await socket.emit('chat-partners')
+                            }}
+                            ref={messageRef} 
+                            maxLength="200" 
+                            placeholder="Message" 
+                            onChange={(e) => setMessage(e.target.value)} 
+                        />
                         <button className="send-button">
                             <img src="/icons/send.png" alt="Send" />
                         </button>

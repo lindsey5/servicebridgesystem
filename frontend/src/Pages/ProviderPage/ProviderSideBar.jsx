@@ -7,36 +7,8 @@ import useFetch from "../../hooks/useFetch";
 export default function ProviderSideBar () {
     const { hideSideBar, setHideSideBar } = useContext(ProviderContext);
     const navigate = useNavigate();
-    const [activeButton, setActiveButton] = useState(1);
+    const [activeButton, setActiveButton] = useState(parseInt(localStorage.getItem('activeButton')) || 1);
     const { data } = useFetch('/api/transactions/requested/provider')
-
-      // Load the active button state from localStorage when the component mounts
-    useEffect(() => {
-        const savedActiveButton = localStorage.getItem('activeButton');
-        if (savedActiveButton) {
-            setActiveButton(parseInt(savedActiveButton));
-            switch(savedActiveButton){
-                case '1':
-                    navigate('/Provider/Dashboard');
-                    break;
-                case '2':
-                    navigate('/Provider/Services');
-                    break;
-                case '3':
-                    navigate('/Provider/Services-Offered');
-                    break;
-                case '4':
-                    navigate('/Provider/Availability');
-                    break;
-                case '5':
-                    navigate('/Provider/Transactions');
-                    break;
-                case '6':
-                    navigate('/Provider/Reviews');
-                    break;
-            }
-        }
-    }, []);
 
     const handleButtonClick = (buttonIndex) => {
         setActiveButton(buttonIndex);

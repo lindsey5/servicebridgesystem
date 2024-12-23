@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import {CChart} from '@coreui/react-chartjs';
 import '../styles/Dashboard.css';

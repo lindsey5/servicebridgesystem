@@ -5,30 +5,32 @@ import defaultProfilePic from '../../../assets/user (1).png';
 
 const ChatPartners = ({socket, setRecipientId }) => {
     const [chatContacts, setChatContacts] = useState();
+    const [fetchedContacts, setFetchedContacts] = useState();
     const [showSide, setShowSide] = useState(true);
     const [chatPartners, setChatPartners] = useState();
 
     useEffect(() => {
         if(socket){
-            console.log(chatPartners)
             socket.emit('chat-partners');
             socket.on('chat-partners', (chatPartners) => {
                 setChatPartners(chatPartners);
             });
+
         }
+
+        return () => socket.off('chat-partners');
     }, [socket])
 
     const setContacts = async () => {
-        setChatContacts(
-            await Promise.all(
-                chatPartners.map(async (contact) => {
-                    const userDetailsRes = await fetch(`/api/get/user-details/${contact.partner}`);
-                    const userDetails = await userDetailsRes.json();
-                    return { id: contact.partner, userDetails, latestMessage: contact.latestMessage };
-                })
-            )
-        );
-        
+        const contacts = await Promise.all(
+            chatPartners.map(async (contact) => {
+                const userDetailsRes = await fetch(`/api/get/user-details/${contact.partner}`);
+                const userDetails = await userDetailsRes.json();
+                return { id: contact.partner, userDetails, deliveredMessages: contact.deliveredMessages,  latestMessage: contact.latestMessage };
+            })
+        )
+        setChatContacts(contacts);
+        setFetchedContacts(contacts);
     }
 
     useEffect(() => {
@@ -42,9 +44,8 @@ const ChatPartners = ({socket, setRecipientId }) => {
         if(!value){
             setContacts();
         }else{
-            console.log()
             setChatContacts(
-                chatContacts.filter(contact => 
+                fetchedContacts.filter(contact => 
                     contact.userDetails?.fullname.toLowerCase().includes(value.toLowerCase())
                 )
             );
@@ -74,14 +75,18 @@ const ChatPartners = ({socket, setRecipientId }) => {
         
         return (
             <div key={contact} className="chat-partner-container" 
-                onClick={() => {
+                onClick={async () => {
                     setRecipientId(contact.id);  
                     setShowSide(false);
+                    await socket.emit('seen', contact.id);
+                    await socket.emit('chat-partners')
+                    await socket.emit('delivered messages');
                 }}>
                 <img className="partner-profile-pic" src={imgSrc} alt="Profile" />
                 <div className='partner-details'>
                     <h3>{contact.userDetails.fullname}</h3>
-                   <p>{contact.latestMessage.content}</p>
+                   <p style={{fontWeight: contact.latestMessage.status === 'Delivered' && contact.latestMessage.from_user_id === contact.id && '600'}}>{contact.latestMessage.content}</p>
+                   {contact.deliveredMessages > 0 && <span>{contact.deliveredMessages}</span>}
                 </div>
             </div>
         );

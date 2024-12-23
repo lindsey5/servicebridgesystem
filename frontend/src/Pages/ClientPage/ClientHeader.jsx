@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import { ClientContext } from '../../Context/ClientContext';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
+import { SocketContext } from '../../Context/SocketContext';
 
 const ClientHeader = () => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -14,6 +15,8 @@ const ClientHeader = () => {
     const context = useContext(ClientContext);
     const navigate = useNavigate();
     const results = useFetch('/api/services');
+    const { socket } = useContext(SocketContext);
+    const [deliveredMessages, setDeliveredMesssage] = useState(0);
 
     const handleClick = () => {
         setShowDropdown((prev) => !prev);
@@ -48,6 +51,17 @@ const ClientHeader = () => {
         }
     }, [searchTerm, results.data]);
 
+    useEffect(() => {
+        if(socket){
+            socket.emit('delivered messages');
+            socket.on('delivered messages', (deliveredMessages) => {
+                setDeliveredMesssage(deliveredMessages)
+            })
+
+            socket.on('private message', () => socket.emit('delivered messages'))
+        }
+    }, [socket])
+
     return (
         <header className='client-header'>
             <h1 id="title" onClick={() => navigate('/Client/Home')}>Hustle</h1>
@@ -81,9 +95,10 @@ const ClientHeader = () => {
                 </div>
             </div>
             <div className="user-container">
-                <div className='chat-icon-container' onClick={() => navigate('/Client/Messages')}>
+                <button className='chat-icon-container' onClick={() => navigate('/Client/Messages')}>
                     <img src="/icons/chat.png" className='chat-icon' alt="Chat Icon" />
-                </div>
+                    {deliveredMessages > 0 && <span>{deliveredMessages}</span>}
+                </button>
                 <img 
                     className="user-pic" 
                     src={context.profile_pic ? context.profile_pic : defaultProfilePic} 
