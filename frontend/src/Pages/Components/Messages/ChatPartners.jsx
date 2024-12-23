@@ -22,19 +22,13 @@ const ChatPartners = ({socket, setRecipientId }) => {
     }, [socket])
 
     const setContacts = async () => {
-        const contacts = await Promise.all(
-            chatPartners.map(async (contact) => {
-                const userDetailsRes = await fetch(`/api/get/user-details/${contact.partner}`);
-                const userDetails = await userDetailsRes.json();
-                return { id: contact.partner, userDetails, deliveredMessages: contact.deliveredMessages,  latestMessage: contact.latestMessage };
-            })
-        )
-        setChatContacts(contacts);
-        setFetchedContacts(contacts);
+        setChatContacts(chatPartners);
+        setFetchedContacts(chatPartners);
     }
 
     useEffect(() => {
         if(chatPartners){
+            console.log(chatPartners)
             setContacts();
         }
     }, [chatPartners]);
@@ -46,7 +40,8 @@ const ChatPartners = ({socket, setRecipientId }) => {
         }else{
             setChatContacts(
                 fetchedContacts.filter(contact => 
-                    contact.userDetails?.fullname.toLowerCase().includes(value.toLowerCase())
+                    contact.userDetails?.firstname.toLowerCase().includes(value.toLowerCase()) || 
+                    contact.userDetails?.lastname.toLowerCase().includes(value.toLowerCase())
                 )
             );
         }
@@ -64,7 +59,7 @@ const ChatPartners = ({socket, setRecipientId }) => {
         const [imgSrc, setImgSrc] = useState(defaultProfilePic);
         const getImageSrc = async () => {
             if (contact.userDetails.profile_pic) {
-                const src = await createImageSrc(contact.userDetails.profile_pic.data);
+                const src = await createImageSrc(contact.userDetails.profile_pic);
                 setImgSrc(src);
             }
         };
@@ -76,15 +71,15 @@ const ChatPartners = ({socket, setRecipientId }) => {
         return (
             <div key={contact} className="chat-partner-container" 
                 onClick={async () => {
-                    setRecipientId(contact.id);  
+                    setRecipientId(contact.partner);  
                     setShowSide(false);
-                    await socket.emit('seen', contact.id);
+                    await socket.emit('seen', contact.partner);
                     await socket.emit('chat-partners')
                     await socket.emit('delivered messages');
                 }}>
                 <img className="partner-profile-pic" src={imgSrc} alt="Profile" />
                 <div className='partner-details'>
-                    <h3>{contact.userDetails.fullname}</h3>
+                    <h3>{contact.userDetails.firstname} {contact.userDetails.lastname}</h3>
                    <p style={{fontWeight: contact.latestMessage.status === 'Delivered' && contact.latestMessage.from_user_id === contact.id && '600'}}>{contact.latestMessage.content}</p>
                    {contact.deliveredMessages > 0 && <span>{contact.deliveredMessages}</span>}
                 </div>
@@ -101,7 +96,7 @@ const ChatPartners = ({socket, setRecipientId }) => {
             {chatContacts?.length < 1 && <h4>No contacts</h4>}
             <div className='contacts-container'>
                 {chatContacts?.length > 0 && chatContacts.map(contact => (
-                    <ChatPartnerDiv key={contact.id} contact={contact} />
+                    <ChatPartnerDiv key={contact.partner} contact={contact} />
                 ))}
             </div>
         </section>

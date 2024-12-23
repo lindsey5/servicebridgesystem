@@ -3,6 +3,8 @@ import ChatService from '../services/chatService.js';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken'
 import Message from '../models/message.js';
+import provider_account from '../models/provider-account.js';
+import client_account from '../models/client-account.js';
 
 let initializedSocket;
 const userSocketMap = new Map();
@@ -55,8 +57,8 @@ const initializeSocket = (server) => {
       }
     })
 
-    socket.on('notifications', async ({recipient_id, message}) => {
-      socket.to(recipient_id).emit('notification', message);
+    socket.on('notifications', async () => {
+      socket.emit('notifications');
     });
 
     socket.on('chat-partners', async () => {
@@ -71,7 +73,11 @@ const initializeSocket = (server) => {
               status: 'Delivered'
             }
           })
-          return { partner, latestMessage, deliveredMessages}
+          const provider = await provider_account.findByPk(partner);
+          const client = await client_account.findByPk(partner);
+
+          const userDetails = provider ? provider.dataValues :  client.dataValues;
+          return { partner, latestMessage: latestMessage.dataValues, deliveredMessages: deliveredMessages, userDetails}
         }))
         socket.emit('chat-partners', completedChatPartners);
       } catch (err) {

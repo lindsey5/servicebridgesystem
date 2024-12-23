@@ -11,6 +11,8 @@ const Messages = () => {
 
     useEffect(() => {
         document.title = "Messages | Client";
+
+        return () => setRecipientId();
     }, []);
 
     return (
