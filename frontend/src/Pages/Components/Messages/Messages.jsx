@@ -10,7 +10,7 @@ const Messages = () => {
     const {recipientId, setRecipientId} = useContext(RecipientContext);
 
     useEffect(() => {
-        document.title = "Messages | Client";
+        document.title = "Messages";
 
         return () => setRecipientId();
     }, []);

@@ -26,6 +26,10 @@ const ProviderAccountSettings = () => {
        
     }
 
+        useEffect(() => {
+         document.title = "Account | Provider";
+        },[])
+    
     return (
         <>
         {!loading && <AccountSettings data={data} error={error} handleUpdate={handleUpdate}/>}

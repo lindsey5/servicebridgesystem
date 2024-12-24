@@ -10,6 +10,7 @@ const ClientHome = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = "Home | Client";
 
         const observer = new IntersectionObserver(
           (entries) => {

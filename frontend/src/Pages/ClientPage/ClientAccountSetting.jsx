@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch"
 import AccountSettings from "../Components/Account/AccountSettings"
 
@@ -25,6 +25,10 @@ const ClientAccountSettings = () => {
         }
        
     }
+
+    useEffect(() => {
+     document.title = "Account | Client";
+    },[])
 
     return (
         <>

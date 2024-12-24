@@ -12,7 +12,7 @@ const ProviderServices = () => {
     const [showSuccess, setSuccessModal] = useState(false);
 
     useEffect(() => {
-        document.title = "Services List | Provider";
+        document.title = "Services | Provider";
     },[]);
 
     useEffect(() => {
