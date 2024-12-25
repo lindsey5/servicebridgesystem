@@ -51,6 +51,7 @@ const get_provider_today_earnings = async (req, res) => {
         // Retrieve the total of the provider's earning this day
         const todayEarnings = await ProviderEarning.findAll({
             attributes: ['earnings'],
+            where: {payment_date: {[Op.eq] : new Date()}},
             include: [{
               attributes: [],
               model: Transaction,
@@ -60,7 +61,6 @@ const get_provider_today_earnings = async (req, res) => {
                include: [{
                 attributes: [],
                 model: AvailableDate,
-                where: {date: { [Op.eq]: new Date() }}
                }]
             }]
           });
@@ -69,7 +69,6 @@ const get_provider_today_earnings = async (req, res) => {
         todayEarnings.forEach(todayEarning => {
             sum += todayEarning.dataValues.earnings
         })
-        console.log(sum);
         res.status(200).json({ total_earnings: sum }); 
     }catch(err){
         console.log(err);

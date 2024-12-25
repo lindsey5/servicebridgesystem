@@ -126,7 +126,7 @@
     cursor: pointer;
 }
 
-.user-container .chat-icon-container{
+.user-container > button{
     background-color: rgb(235, 235, 235);
     border: none;
     width: 40px;
@@ -141,7 +141,7 @@
     position: relative;
 }
 
-.user-container .chat-icon-container span{
+.user-container > button > span{
     position: absolute;
     min-width: 15px;
     height: 15px;
@@ -153,11 +153,11 @@
     right: -5px;
 }
 
-.user-container .chat-icon-container:hover{
+.user-container > button:hover{
     background-color: rgb(221, 221, 221);
 }
   
-.user-container .chat-icon{
+.user-container > button img{
     width: 50%;
     height: 50%;
 }

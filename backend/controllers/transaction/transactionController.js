@@ -1,7 +1,7 @@
 import Transaction from '../../models/transaction.js';
 import Client from '../../models/client-account.js';
 import Available_date from '../../models/available-date.js';
-import { Op } from 'sequelize';
+import { fn, Op } from 'sequelize';
 import ProviderEarning from '../../models/provider-earning.js';
 import transactionService from '../../services/transactionService.js';
 import cancelledTransactionService from '../../services/cancelledTransactionService.js';
@@ -11,6 +11,8 @@ import Payment from '../../models/payment.js';
 import paymentService from '../../services/paymentService.js';
 import ProviderBalance from '../../models/provider-balance.js';
 import AvailableDate from '../../models/available-date.js';
+import Notification from '../../models/notification.js';
+import { initializedSocket, userSocketMap } from '../../middleware/socket.js';
 
 const create_transaction = async (req, res) =>{
     try {
@@ -18,6 +20,15 @@ const create_transaction = async (req, res) =>{
         const data = req.body;
         const transaction = await transactionService.create_transaction(client_id, data);
         if(transaction){
+            const notification = await Notification.create({
+                recipient_id: data.provider,
+                sender_id: client_id,
+                message: `New request for ${data.service_name}`
+            })
+            const sender = await Client.findByPk(client_id);
+            const recipientSocketId = userSocketMap.get(data.provider);
+            
+            initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
             res.status(200).json({transaction});
         }else{
             res.status(400).json({error: "Creating new transaction failed"});
@@ -149,16 +160,23 @@ const cancel_transaction = async (req, res) => {
             const payment_checkout = await paymentService.retrieve_payment_checkout(payment_checkout_id);
             if(payment_checkout){
                 const payment_id = payment_checkout.data.attributes.payments[0].id;
-                const refunded_payment = await paymentService.refund_payment(payment_id, price);
-                if(!refunded_payment){
-                    throw new Error('Refund Failed');
-                }
+                await paymentService.refund_payment(payment_id, price);
             }
         }
         const cancelled_transaction = await cancelledTransactionService.create_cancelled_transaction({transaction_id, cancelled_by, cancellation_reason, canceller: user })
         if(cancelled_transaction){
             const updated_transaction = await transactionService.update_transaction(transaction_id, status);
             if(updated_transaction){
+                const notification = await Notification.create({
+                    recipient_id: user === 'Provider' ? updated_transaction.dataValues.client : updated_transaction.dataValues.provider,
+                    sender_id: req.userId,
+                    message: `${updated_transaction.dataValues.service_name} is cancelled`
+                })
+                const sender = user === 'Provider' ? await Provider.findByPk(req.userId) : await Client.findByPk(req.userId)
+
+                const recipientSocketId = userSocketMap.get(notification.dataValues.recipient_id);
+                initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
+
                 res.status(200).json({updated_transaction});
             }else{
                 res.status(400).json({message: "Cancellation Failed"});
@@ -174,8 +192,19 @@ const update_transaction = async (req, res) => {
     const {status} = req.body;
     const transaction_id = req.params.id;
     try{
-        const transaction = transactionService.update_transaction(transaction_id, status);
+        const transaction = await transactionService.update_transaction(transaction_id, status);
         if(transaction){
+            const notification = await Notification.create({
+                recipient_id: transaction.dataValues.client,
+                sender_id: transaction.dataValues.provider,
+                message: status==='Accepted' ? `Your request for ${transaction.dataValues.service_name} is accepted` : 
+                `${transaction.dataValues.service_name} is marked as ${status}`
+            })
+            const sender = await Provider.findByPk(transaction.dataValues.provider);
+            const recipientSocketId = userSocketMap.get(transaction.dataValues.client);
+            
+            initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
+
             res.status(200).json(transaction);
         }else{
             res.status(400).json({error: 'Failed to update transaction'})
@@ -193,6 +222,17 @@ const client_complete_transaction = async (req, res) => {
         const provider = completed_transaction.completed_transaction.dataValues.provider;
         const earnings = completed_transaction.earnings.providerEarning.dataValues.earnings;
         await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } })
+
+        const notification = await Notification.create({
+            recipient_id: provider,
+            sender_id: req.userId,
+            message: `${completed_transaction.completed_transaction.dataValues.service_name} is marked as Completed`
+        })
+        const sender = await Client.findByPk(req.userId);
+        const recipientSocketId = userSocketMap.get(provider);
+        
+        initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
+
         res.status(200).json(completed_transaction);
     }catch(err){
         console.log(err);
@@ -303,7 +343,6 @@ const get_total_completed_transaction_today = async (req, res) =>{
                 {
                     attributes: [],
                     model: AvailableDate,
-                    where: {date: { [Op.eq]: new Date() }}
                 }
             ]
         })
@@ -322,12 +361,13 @@ const get_completed_transaction_today = async (req, res) => {
                 provider: provider_id,
                 status: {
                     [Op.or]: ['Completed', 'Reviewed']
-                }
+                },
             },
             include: [ 
                 { 
                     model: ProviderEarning,
-                    attributes: ['earnings']
+                    attributes: ['earnings'],
+                    where: { payment_date: { [Op.eq] : new Date()}}
                 },
                 { 
                     model: Available_date,
@@ -337,11 +377,6 @@ const get_completed_transaction_today = async (req, res) => {
                     model: Client,
                     attributes: ['firstname', 'lastname']
                 },
-                {
-                    attributes: [],
-                    model: AvailableDate,
-                    where: {date: { [Op.eq]: new Date() }}
-                }
             ]
         });
         if(completed_transactions_today.length > 0){

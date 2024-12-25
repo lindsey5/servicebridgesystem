@@ -6,6 +6,7 @@ import { ClientContext } from '../../Context/ClientContext';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import { SocketContext } from '../../Context/SocketContext';
+import NotificationsButton from '../Components/Notifications/Notifications';
 
 const ClientHeader = () => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -68,6 +69,7 @@ const ClientHeader = () => {
 
             socket.on('seen',async () => await socket.emit('delivered messages'))
         }
+
     }, [socket])
 
     return (
@@ -103,10 +105,11 @@ const ClientHeader = () => {
                 </div>
             </div>
             <div className="user-container">
-                <button className='chat-icon-container' onClick={() => navigate('/Client/Messages')}>
-                    <img src="/icons/chat.png" className='chat-icon' alt="Chat Icon" />
+                <button onClick={() => navigate('/Client/Messages')}>
+                    <img src="/icons/chat.png" alt="Chat Icon" />
                     {deliveredMessages > 0 && <span>{deliveredMessages}</span>}
                 </button>
+                <NotificationsButton socket={socket} user={'Client'}/>
                 <img 
                     className="user-pic" 
                     src={context.profile_pic ? context.profile_pic : defaultProfilePic} 

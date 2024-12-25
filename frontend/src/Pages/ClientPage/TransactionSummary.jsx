@@ -87,7 +87,7 @@ const TransactionSummary = () => {
                 </table>
                 <div className='check-box-container'>
                     <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
-                    I agree to <a href="/terms" target="_blank">Terms & Conditions</a> and <a href="/privacy-policy" target="_blank">Privacy Policy</a>
+                    I agree to <a href="/terms" target="_blank">Terms & Conditions</a>
                 </div>
                 <div className="buttons-container">
                     <button className="back-btn" onClick={()=> navigate(-1)}>Back</button>

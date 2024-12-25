@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import transactionService from "../../services/transactionService.js";
 import paymentService from '../../services/paymentService.js';
+import { initializedSocket, userSocketMap } from '../../middleware/socket.js';
+import Notification from '../../models/notification.js';
+import client_account from '../../models/client-account.js';
 const url = process.env.NODE_ENV === 'production' ? 'https://servicebridgesystem.onrender.com' : 'http://localhost:5173';
 
 const create_client_checkout_link = async (req, res) => {
@@ -62,6 +65,15 @@ const client_payment_success = async (req, res) => {
             const transaction_id = newTransaction.dataValues.transaction_id;
             const newPayment = await paymentService.create_payment(transaction_id, payment_checkout_id);
             if(newPayment){
+                const notification = await Notification.create({
+                    recipient_id: data.provider,
+                    sender_id: client_id,
+                    message: `New request for ${data.service_name}`
+                })
+                const sender = await client_account.findByPk(client_id);
+                const recipientSocketId = userSocketMap.get(data.provider);
+                initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
+
                 res.clearCookie('checkoutData', { httpOnly: true, secure: true });
                 res.redirect(`${url}/Client/Transactions`);
             }else{
@@ -71,6 +83,7 @@ const client_payment_success = async (req, res) => {
             res.status(400).json({error: "Creating new transaction failed"});
         }
     }catch(err){
+        console.log(err)
         res.status(400).json({error: 'Payment failed'});
     }
 }

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useFetch from "../hooks/useFetch"
 import './EarningModal.css'
 
@@ -34,7 +33,7 @@ const EarningModal = ({setShowEarningModal}) => {
 
     return (
         <div className="earning-modal">
-            <h2>Earnings</h2>
+            <h2>Your Wallet</h2>
             <div className="earnings-container">
             {loading && 
                 <div className='loader-container'>

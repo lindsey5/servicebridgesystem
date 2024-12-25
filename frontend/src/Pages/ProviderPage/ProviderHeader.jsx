@@ -7,6 +7,7 @@ import createImageSrc from '../../utils/createImageSrc';
 import { useContext } from 'react';
 import { ProviderContext } from '../../Context/ProviderContext';
 import { SocketContext } from '../../Context/SocketContext';
+import NotificationsButton from '../Components/Notifications/Notifications';
 
 const ProviderHeader = () =>{
     const { setHideSideBar } =  useContext(ProviderContext);
@@ -64,14 +65,14 @@ const ProviderHeader = () =>{
             <h1 id="title" onClick={()=> navigate('/Provider/Dashboard')}>Hustle</h1>
         </div>
         <div className="user-container">
-            <button className='chat-icon-container' onClick={()=> {
+            <button onClick={()=> {
                 navigate('/Provider/Messages');
                 setHideSideBar(false); 
             }}>
-               <img src="/icons/chat.png" className='chat-icon' />
+               <img src="/icons/chat.png" />
                {deliveredMessages > 0 && <span>{deliveredMessages}</span>}
-               
             </button>
+            <NotificationsButton socket={socket} user={'Provider'}/>
             <img className="user-pic" 
                 onClick={handleClick}
                 src={ profilePicSrc ? profilePicSrc : defaultProfilePic } 

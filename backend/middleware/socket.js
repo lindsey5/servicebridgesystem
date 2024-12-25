@@ -5,10 +5,10 @@ import jwt from 'jsonwebtoken'
 import Message from '../models/message.js';
 import provider_account from '../models/provider-account.js';
 import client_account from '../models/client-account.js';
+import Notification from '../models/notification.js';
 
 let initializedSocket;
 const userSocketMap = new Map();
-const joinedUsers = [];
 
 const initializeSocket = (server) => {
   const origin = process.env.NODE_ENV === 'production' ? 'https://servicebridgesystem.onrender.com' : 'http://localhost:5173';
@@ -122,6 +122,51 @@ const initializeSocket = (server) => {
       }
     });
 
+    socket.on('notifications', async(limit) => {
+      try{
+        const notifications = await Notification.findAll({
+          where: {
+            recipient_id: socket.user.id
+          },
+          limit,
+          order: [
+            ['created_at', 'DESC']
+          ]
+        });
+
+        const unread = await Notification.count({
+          where: {
+            recipient_id: socket.user.id,
+            status: 'unread'
+          }
+        })
+
+        const completeNotifications = await Promise.all(notifications.map(async(notification) => {
+          const provider = await provider_account.findByPk(notification.dataValues.sender_id);
+          const client = await client_account.findByPk(notification.dataValues.sender_id);
+          
+          return {...notification.toJSON(), sender: provider ? provider.toJSON() : client.toJSON(), }
+
+        }))
+        socket.emit('notifications', {notifications: completeNotifications, unread});
+      }catch(err){
+        console.log(err);
+      }
+    })
+
+    socket.on('read-notifications', async () => {
+      try{
+        await Notification.update({ status: 'read' },{
+          where: {
+            recipient_id: socket.user.id,
+            status: 'unread'
+          }
+        }) 
+
+      }catch(err){
+        console.log(err)
+      }
+    })
 
     socket.on('disconnect', () => {
       console.log('User disconnected:', socket.id);
@@ -130,4 +175,4 @@ const initializeSocket = (server) => {
   });
 };
 
-  export { initializeSocket, initializedSocket };
+  export { initializeSocket, initializedSocket, userSocketMap };

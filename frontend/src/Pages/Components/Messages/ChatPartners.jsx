@@ -28,7 +28,6 @@ const ChatPartners = ({socket, setRecipientId }) => {
 
     useEffect(() => {
         if(chatPartners){
-            console.log(chatPartners)
             setContacts();
         }
     }, [chatPartners]);
