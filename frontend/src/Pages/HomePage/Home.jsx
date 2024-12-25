@@ -7,6 +7,7 @@ import Services from '../Components/Services/Services.jsx';
 import { useEffect, useRef } from 'react';
 import useFetch from '../../hooks/useFetch.jsx';
 import searchLogo from '../../assets/search (1).png';
+import BubbleCursor from '../Components/BubbleCursor.jsx';
 
 const Home = () => {
     const { isVisible: showLogin , show: showLoginModal, hide: hideLoginModal } = useModal();
@@ -136,6 +137,7 @@ const Home = () => {
                 </div>
                 <h2>© 2024 Hustle Inc. All rights reserved.</h2>
             </footer>
+            <BubbleCursor />
         </main>
     );
 }

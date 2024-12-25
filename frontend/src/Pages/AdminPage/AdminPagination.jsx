@@ -1,11 +1,6 @@
-import { useEffect } from 'react'
 import './AdminPagination.css'
 
 const AdminPagination = ({state, dispatch}) =>{
-
-    useEffect(() => {
-        console.log(state)
-    }, [state])
 
     const handlePageClick = (i) => {
         dispatch({type: 'SET_CURRENT_PAGE', payload: i})

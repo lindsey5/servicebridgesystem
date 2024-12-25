@@ -130,6 +130,8 @@ const FirstPage = ({state, dispatch, setShowFirstPage, setShowSecondPage}) => {
 const SecondPage = ({state, dispatch}) => {
     const [confirmPass, setConfirmPass] = useState('');
     const navigate = useNavigate();
+    const [isAgreed, setIsAgreed] = useState(false);
+
     return (
         <form onSubmit={(e) => signup({e, confirmPass, state, dispatch, navigate})}>
             <div className='second-page'>
@@ -156,7 +158,14 @@ const SecondPage = ({state, dispatch}) => {
                     />
                     <span>Confirm Password*</span>
                 </div>
-                <button>Sign up</button>
+                <div className='check-box-container'>
+                    <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
+                    I agree to
+                    <a href="/terms" target='_blank'>Terms</a> 
+                    and 
+                    <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
+                </div>
+                <button disabled={!isAgreed}>Sign up</button>
             </div>
         </form>
     );
@@ -165,7 +174,6 @@ const SecondPage = ({state, dispatch}) => {
 const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false);
     const [code, setCode] = useState('');
-    const [isAgreed, setIsAgreed] = useState(false);
 
     const sendCode = async (e) => {
         e.preventDefault();
@@ -198,24 +206,20 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                 <form className='email-page' onSubmit={!showVerifyEmail ? sendCode : verify}>
                     {!showVerifyEmail && 
                         <>
-                            <h2>Enter Email Address</h2>
                             {state.errors && state.errors.map(error => <p className='error' key={error}>{error}</p>)}
                             <div className='input-container'>
                                 <input type='email'
-                                    placeholder='Email'
+                                    placeholder='Enter Email'
                                     value={state.email}
                                     onChange={(e) => dispatch({type: 'SET_EMAIL', payload: e.target.value})}
                                     onBlur={handleBlur}
                                     onFocus={handleFocus}
                                     required
                                 />
-                                <span>Email</span>
+                                <span>Enter Email</span>
                             </div>
-                            <div className='check-box-container'>
-                                <input type="checkbox" onClick={() => setIsAgreed(!isAgreed)}/>
-                                I agree to Hustle's <a href="/privacy-policy" target='_blank'>Privacy Policy</a>
-                            </div>
-                            <button onClick={sendCode} disabled={!isAgreed}>Submit</button>
+                        
+                            <button>Submit</button>
                         </>
                     }
                     {showVerifyEmail && 
@@ -236,7 +240,7 @@ const EmailPage = ({state, dispatch, setShowFirstPage, setShowEmailPage}) => {
                                 <span>Enter code</span>
                             </div>
                             <span className='resend' onClick={sendCode}>Resend</span>
-                            <button onClick={verify}>Verify Email</button>
+                            <button>Verify Email</button>
                         </>
                     }
 
@@ -253,7 +257,7 @@ const ClientSignup = () => {
     return (
         <div className="signup-page">
             <div className="container">
-                {!showEmailPage && <h1>Provider Signup</h1>}
+                <h1>Client Signup</h1>
                 {showEmailPage && 
                     <EmailPage 
                         state={state} 

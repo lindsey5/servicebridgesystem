@@ -36,7 +36,6 @@ import Terms from './Pages/HomePage/Terms.jsx';
 import PrivacyPolicy from './Pages/HomePage/PrivacyPolicy.jsx';
 import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 import { SocketContextProvider } from './Context/SocketContext.jsx';
-import BubbleCursor from './Pages/Components/BubbleCursor.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -50,6 +49,12 @@ export default function App() {
           <Route path='Client/Signup' element={<ClientSignup />}/>
           <Route path='Provider/Signup' element={<ProviderSignup />}/>
         </Route>
+
+        <Route path="/View/Reviews" element={<ViewReviews />} />
+        <Route path='/Terms' element={<Terms />}/>
+        <Route path='/FAQ' element={<FAQ />}/>
+        <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
+        <Route path="*" element={<Navigate to="/" />} />
 
         <Route path='/Admin/' element={<AdminLayout />}>
           <Route path='Dashboard' element={<AdminDashboard />} />
@@ -90,11 +95,6 @@ export default function App() {
           </Route>
         </Route>
 
-        <Route path="/View/Reviews" element={<ViewReviews />} />
-        <Route path='/Terms' element={<Terms />}/>
-        <Route path='/FAQ' element={<FAQ />}/>
-        <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
-        <Route path="*" element={<Navigate to="/" />} />
       </>
     )
   );  
@@ -102,7 +102,6 @@ export default function App() {
   return (
     <SocketContextProvider>
       <RecipientContextProvider>
-      <BubbleCursor />
       <RouterProvider router={router} />
       <ChatBot />
     </RecipientContextProvider>

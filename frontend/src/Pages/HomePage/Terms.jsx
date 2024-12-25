@@ -1,9 +1,11 @@
 import React from 'react';
 import './Page.css';
+import BubbleCursor from '../Components/BubbleCursor';
 
 const TermsOfService = () => {
     return (
         <div className="page">
+            <BubbleCursor />
             <div className='top-container'>
                 <button onClick={() => window.history.back()}>
                     <img src="/icons/arrow.png" alt="" />

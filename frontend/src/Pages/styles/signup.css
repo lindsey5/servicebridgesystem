@@ -49,6 +49,7 @@
 .signup-page .container form .check-box-container a{
     font-weight: 600;
     text-decoration: none;
+    margin: 0 5px;
 }
 
 .signup-page .container .input-container{

@@ -1,8 +1,9 @@
 import Services from '../Components/Services/Services.jsx';
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import searchLogo from '../../assets/search (1).png';
 import useFetch from '../../hooks/useFetch.jsx';
 import { useNavigate } from 'react-router-dom';
+import BubbleCursor from '../Components/BubbleCursor.jsx'
 
 const ClientHome = () => {
     const elementsRef = useRef([]);
@@ -128,6 +129,7 @@ const ClientHome = () => {
                 </div>
                 <h2>© 2024 Hustle Inc. All rights reserved.</h2>
             </footer>
+            <BubbleCursor />
         </main>
     );
 }
