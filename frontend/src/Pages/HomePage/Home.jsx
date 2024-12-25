@@ -5,11 +5,14 @@ import useModal from '../../hooks/useModal.jsx';
 import './Home.css';
 import Services from '../Components/Services/Services.jsx';
 import { useEffect, useRef } from 'react';
+import useFetch from '../../hooks/useFetch.jsx';
+import searchLogo from '../../assets/search (1).png';
 
 const Home = () => {
     const { isVisible: showLogin , show: showLoginModal, hide: hideLoginModal } = useModal();
     const { isVisible: showSignup, show: showSignupModal, hide: hideSignupModal} = useModal();
     const elementsRef = useRef([]);
+    const { data: popularServices } = useFetch('/api/services/top');
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -48,7 +51,22 @@ const Home = () => {
                 </div>
                 <img className='homeLogo' src='/icons/logo.png'></img> 
             </section>
-            <section className='how-it-work-section' ref={el => elementsRef.current[6] = el}>
+            <section className='popular-services' ref={el => elementsRef.current[6] = el}>
+                <img src="/icons/rb_1588.png" alt="" />
+                <div>
+                    <h1>Popular Services</h1>
+                    <div className='popular-services-container'>
+                    {popularServices?.services && popularServices.services.map(popularService => 
+                        <button onClick={() => navigate(`/Client/Search/Result?searchTerm=${popularService.service_name}`)}>
+                            <img src={searchLogo} alt="" />
+                            {popularService.service_name}
+                        </button>
+                    )}
+                    </div>
+                </div>
+            </section>
+            <Services showLoginModal={showLoginModal}/>
+            <section className='how-it-work-section' ref={el => elementsRef.current[7] = el}>
                 <img src='/icons/logo.jpg'/> 
                 <div className="how-it-work-container">
                         <h1>How it works</h1>
@@ -78,8 +96,7 @@ const Home = () => {
                         </div>
                 </div>
             </section>
-            <Services showLoginModal={showLoginModal}/>
-            <section className='about' ref={el => elementsRef.current[7] = el}>
+            <section className='about' ref={el => elementsRef.current[8] = el}>
                 <div>
                     <h1>About Hustle</h1>
                     <p>Hustle is a fast and reliable platform that connects individuals and businesses with skilled professionals across a wide range of services, including automotive services, cleaning, tutoring, and more. We make it simple to find the right expert for the job, whenever you need them.</p>
