@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.notifications h1{
+    font-size: 22px;
+}
+
 .notifications > button{
     background-color: rgb(235, 235, 235);
     border: none;
@@ -44,7 +48,7 @@
     background-color: white;
     border-radius: 20px;
     top: calc(100% + 5px);
-    right: 0;
+    right: 10px;
     text-align: start;
     width: 300px;
 }
@@ -105,4 +109,15 @@
 
 .notifications-drop-down > .show-more:hover{
     background-color: rgb(150, 199, 255);
+}
+
+@media screen and (max-width: 425px){
+    .notifications-drop-down{
+        width: 230px;
+    }
+
+    .notifications-container{
+        height: 200px;
+    }
+    
 }

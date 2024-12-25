@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch"
 import AccountSettings from "../Components/Account/AccountSettings"
 

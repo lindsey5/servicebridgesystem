@@ -22,7 +22,7 @@ const SenderPicture = ({image}) => {
 
 }
 
-const NotificationsContainer = ({notifications, user, setLimit, setShow}) => {
+const NotificationsContainer = ({notifications, user, setLimit}) => {
     return(
         <div className="notifications-drop-down">
             <h1>Notifications</h1>
