@@ -221,7 +221,11 @@ const client_complete_transaction = async (req, res) => {
         const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
         const provider = completed_transaction.completed_transaction.dataValues.provider;
         const earnings = completed_transaction.earnings.providerEarning.dataValues.earnings;
-        await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } })
+        const company_earns = completed_transaction.earnings.companyEarning.dataValues.earnings;
+
+        completed_transaction.completed_transaction.dataValues.payment_method === 'Online Payment' ?
+        await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } }) : 
+        await ProviderBalance.decrement('balance',  { by: company_earns, where: { id: provider } } )
 
         const notification = await Notification.create({
             recipient_id: provider,
@@ -234,22 +238,6 @@ const client_complete_transaction = async (req, res) => {
         initializedSocket.to(recipientSocketId).emit('notification', {...notification.toJSON(), sender: sender.toJSON()});
 
         res.status(200).json(completed_transaction);
-    }catch(err){
-        console.log(err);
-        return res.status(400).json({error: err.message});
-    }
-}
-
-const provider_complete_transaction = async (req, res) => {
-    const transaction_id = req.params.id;
-    const { service_price } = req.query;
-    try{
-        const completed_transaction = await transactionService.complete_transaction(transaction_id, service_price);
-        if(completed_transaction){
-            res.redirect(`https://servicebridgesystem.onrender.com/Provider/Transactions`);
-        }else{
-            res.status(400).json({error: "Completion of transaction failed"});
-        }
     }catch(err){
         console.log(err);
         return res.status(400).json({error: err.message});
@@ -540,7 +528,6 @@ export default {
     cancel_transaction, 
     update_transaction,
     client_complete_transaction,
-    provider_complete_transaction,
     fail_transaction,
     get_cancelled_transaction,
     get_total_completed_transactions, 

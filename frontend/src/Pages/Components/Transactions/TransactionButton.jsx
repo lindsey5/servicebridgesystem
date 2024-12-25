@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { TransactionContext } from '../../../Context/TransactionContext';
-import { create_provider_payment_link } from '../../../services/paymentService';
 import { updateTransaction, completeTransaction } from '../../../services/transactionService';
 import React, { useContext } from 'react';
 
@@ -22,15 +21,6 @@ const acceptTransaction = (transaction_id) => {
     }
 }
 
-const goToProviderPaymentLink = async(transaction_id, price) =>{
-    const payment_link = await create_provider_payment_link(transaction_id, price);
-    
-    if(payment_link){
-        window.location.href = payment_link.checkout_url;
-    }else{
-        alert("Creating payment link error")
-    }
-}
 
 function isTwoHoursBefore(d1, d2) {
     if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
@@ -97,12 +87,9 @@ const TransactionButton = ({transaction, user, modal_dispatch}) => {
     } else if (transaction.status === 'In Progress' && user === 'Provider') {
         return handleActionButton(() => finishTransaction(transaction.transaction_id), 'accept');
 
-    } else if (transaction.status === 'Finished' && transaction.payment_method === 'Online Payment' && user === 'Client') {
+    } else if (transaction.status === 'Finished' && user === 'Client') {
         return handleActionButton(() => completeTransaction(transaction.transaction_id, transaction.price), 'accept');
             
-    } else if(transaction.status === 'Finished' && transaction.payment_method === 'Cash on Pay' && user === 'Provider') {
-        return handleActionButton(() => goToProviderPaymentLink(transaction.transaction_id, transaction.price), 'accept');
-
     }else if (transaction.status === 'Completed' && user === 'Client') {
         return <>
         {handleActionButton(() => { modal_dispatch({type: 'SHOW_RATE_MODAL', payload: true}); setTransactionId(transaction.transaction_id); }, 'like')}

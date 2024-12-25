@@ -17,8 +17,6 @@ router.put('/transaction/update/:id',verifyToken, transactionController.update_t
 
 router.put('/transaction/complete/:id/client', clientRequireAuth, transactionController.client_complete_transaction);
 
-router.get('/transaction/complete/:id/provider',  providerRequireAuth, transactionController.provider_complete_transaction);
-
 router.put('/transaction/fail/:id', verifyToken, transactionController.fail_transaction);
 
 router.get('/transaction/cancelled/:id', verifyToken, transactionController.get_cancelled_transaction);
