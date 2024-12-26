@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import './Notifications.css'
 import createImageSrc from "../../../utils/createImageSrc"
 import { formatDate } from "../../../utils/formatDate";
-
+import defaultProfilePic from '../../../assets/user (1).png';
 
 const SenderPicture = ({image}) => {
-    const [imgSrc, setImgSrc] = useState();
+    const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     
     useEffect(() => {
         const processImage = async () => {
@@ -80,9 +80,9 @@ const NotificationsButton = ({socket, user}) => {
     return(
         <div className="notifications">
             <button className="notification-btn" onClick={async () => {
+                if(show) socket.emit('notifications', limit)
                 setShow(!show);
-                await socket.emit('read-notifications');
-                await socket.emit('notifications', limit);
+                socket.emit('read-notifications');
             }}>
             <img src="/icons/bell (1).png" alt="" />
             {unread > 0 && <span>{unread}</span> }

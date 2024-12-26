@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import '../styles/sidebar.css'
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import { ProviderContext } from "../../Context/ProviderContext";
 import useFetch from "../../hooks/useFetch";
 
@@ -17,17 +17,11 @@ export default function ProviderSideBar () {
         if(window.innerWidth <= 840){
             setHideSideBar(false);
         }
+
     };
     
     return ( 
-        <nav
-            className="sidebar"
-            style={
-                window.innerWidth <= 840
-                ? { display: hideSideBar ? 'flex' : 'none' } 
-                : { width: hideSideBar ? '60px' : '180px' }
-            }
-        >
+        <nav className={`sidebar ${hideSideBar ? 'hide' : ''}`}>
             <button className={`sidebar-button ${activeButton === 1 ? 'active' : ''}`}
                 onClick={() =>{
                     navigate('/Provider/Dashboard');

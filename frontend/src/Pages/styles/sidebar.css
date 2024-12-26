@@ -68,6 +68,10 @@
     left: 15px;
 }
 
+.sidebar.hide{
+    width: 60px;
+}
+
 @media screen and (min-width: 841px){
     .sidebar{
         display: flex;
@@ -76,8 +80,11 @@
 
 @media screen and (max-width: 840px){
     .sidebar{
-        display: none;
         position: fixed;
         height: 100%;
+    }
+
+    .sidebar.hide{
+        display: none;
     }
 }
