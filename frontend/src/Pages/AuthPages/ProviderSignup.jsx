@@ -4,6 +4,7 @@ import useSignupReducer from '../../hooks/useSignupReducer';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import { sendProviderSignupVerificationCode, verifyCode } from '../../utils/emailUtils';
+import BubbleCursor from '../Components/BubbleCursor';
 
 const handleBlur = (e) => {
     if (e.target.value) {
@@ -273,6 +274,8 @@ const ProviderSignup = () => {
 
     return (
         <div className="signup-page">
+            <BubbleCursor />
+            <img src="/icons/rb_4582.png" alt="" />
             <div className="container">
                 <h1>Provider Signup</h1>
                 {showEmailPage && 

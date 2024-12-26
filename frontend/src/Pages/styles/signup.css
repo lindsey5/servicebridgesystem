@@ -1,20 +1,26 @@
 .signup-page{
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+}
+
+.signup-page > img{
+    width: 700px;
+    height: 700px;
 }
 
 .signup-page .container{
-    width: 300px;
-    border-radius: 20px;
-    background-color:white;
-    box-shadow: 0 0 10px 8px rgb(206, 206, 206);
+    width: 350px;
     display: flex;
+    border-radius: 20px;
     flex-direction: column;
     align-items: center;
-    padding: 40px;
+    padding: 40px 20px 20px 20px;
+    background-color: white;
+    box-shadow: 0 0 20px 5px #acacac;
 }
 
 .signup-page .container > form{
@@ -138,4 +144,16 @@
 .signup-page  a{
     margin-left: 5px;
     color: rgb(3, 117, 247);
+}
+
+@media screen and (max-width: 1180px){
+    .signup-page > img{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 725px){
+    .signup-page > img{
+        display: none;
+    }
 }

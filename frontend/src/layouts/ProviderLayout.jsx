@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import ProviderHeader from "../Pages/ProviderPage/ProviderHeader.jsx";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ProviderContextProvider } from "../Context/ProviderContext.jsx";
 import ProviderSideBar from "../Pages/ProviderPage/ProviderSideBar.jsx";
 import { SocketContext } from "../Context/SocketContext.jsx";
@@ -10,12 +10,13 @@ const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhos
 
 export default function ProviderLayout() {
   const { setSocket } = useContext(SocketContext);
-  
+
   useEffect(() => {
     const socketConnection = io(URL, {
       withCredentials: true,
     });
     setSocket(socketConnection);
+
   },[])
 
   return (

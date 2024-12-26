@@ -40,8 +40,7 @@ const TransactionSummary = () => {
         }else{
             const result = await createClientPaymentLink(data);
             if(result){
-                window.open(result.checkout_url, '_blank');
-                navigate('/');
+                window.location.href =result.checkout_url
             }else{
                 alert("Creating link error, please try again");
             }

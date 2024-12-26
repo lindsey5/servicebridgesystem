@@ -7,14 +7,13 @@ import useFetch from "../../hooks/useFetch";
 export default function ProviderSideBar () {
     const { hideSideBar, setHideSideBar } = useContext(ProviderContext);
     const navigate = useNavigate();
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeButton, setActiveButton] = useState(parseInt(localStorage.getItem('activeButton')) || 1);
     const { data } = useFetch('/api/transactions/requested/provider')
 
     const handleButtonClick = (buttonIndex) => {
         setActiveButton(buttonIndex);
         localStorage.setItem('activeButton', buttonIndex);
-
     };
 
     useEffect(() => {
@@ -34,7 +33,7 @@ export default function ProviderSideBar () {
           window.removeEventListener('resize', handleResize);
         };
       }, []);
-    
+      
     return ( 
         <nav className={`sidebar ${hideSideBar ? 'hide' : ''}`}>
             <button className={`sidebar-button ${activeButton === 1 ? 'active' : ''}`}
