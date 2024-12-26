@@ -1,7 +1,7 @@
 import '../styles/header.css';
 import searchIcon from '../../assets/search.png';
 import defaultProfilePic from '../../assets/user (1).png';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useMemo } from 'react';
 import { ClientContext } from '../../Context/ClientContext';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,6 @@ const ClientHeader = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showAutoComplete, setAutoComplete] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [services, setServices] = useState([]);
     const context = useContext(ClientContext);
     const navigate = useNavigate();
     const results = useFetch('/api/services');
@@ -42,15 +41,16 @@ const ClientHeader = () => {
         window.location.href = '/logout';
     };
 
-    // Debounce search input
-    useEffect(() => {
-        if (results.data) {
-            const filteredServices = results.data.services.filter(service =>
-            service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            setServices(filteredServices);
+    const services = useMemo(() => {
+        if(results.data){
+            return results.data.services.filter(service =>
+                service.service_name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
         }
-    }, [searchTerm, results.data]);
+        return []
+
+    }, [searchTerm, results.data])
+
 
     useEffect(() => {
         if(socket){

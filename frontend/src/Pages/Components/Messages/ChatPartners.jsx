@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import '../../styles/ChatPartners.css';
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
 
 const ChatPartners = ({socket, setRecipientId }) => {
     const [chatContacts, setChatContacts] = useState();
-    const [fetchedContacts, setFetchedContacts] = useState();
     const [showSide, setShowSide] = useState(true);
     const [chatPartners, setChatPartners] = useState();
 
@@ -14,6 +13,7 @@ const ChatPartners = ({socket, setRecipientId }) => {
             socket.emit('chat-partners');
             socket.on('chat-partners', (chatPartners) => {
                 setChatPartners(chatPartners);
+                setChatContacts(chatPartners)
             });
 
         }
@@ -21,24 +21,13 @@ const ChatPartners = ({socket, setRecipientId }) => {
         return () => socket.off('chat-partners');
     }, [socket])
 
-    const setContacts = async () => {
-        setChatContacts(chatPartners);
-        setFetchedContacts(chatPartners);
-    }
-
-    useEffect(() => {
-        if(chatPartners){
-            setContacts();
-        }
-    }, [chatPartners]);
-
     
     const handleSearch = (value) => {
         if(!value){
             setContacts();
         }else{
             setChatContacts(
-                fetchedContacts.filter(contact => 
+                chatPartners.filter(contact => 
                     contact.userDetails?.firstname.toLowerCase().includes(value.toLowerCase()) || 
                     contact.userDetails?.lastname.toLowerCase().includes(value.toLowerCase())
                 )

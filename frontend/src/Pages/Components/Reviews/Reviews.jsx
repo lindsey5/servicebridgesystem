@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import './Reviews.css';
 import Review from './Review';
 import useFetch from '../../../hooks/useFetch';
+import { useMemo } from 'react';
 
 const Reviews = ({id, rating, isProvider, service_name}) => {
-    const [reviews, setReviews] = useState();
     const [selectedService, setSelectedService] = useState(service_name || '');
     const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}?filter=${selectedService}`);
     const { data: services } = useFetch(isProvider ? '/api/services-offered' : `/api/services-offered/${id}`);
@@ -19,10 +19,6 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
         }
 
     },[rating])
-
-    useEffect(() => {
-        setReviews(fetchedReviews);
-    }, [fetchedReviews]);
 
     useEffect(() => {
         if(fetchedReviews){
@@ -53,16 +49,10 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
         }
     }
 
-    useEffect(() => {
-        const filterReviews = async () => {
-            if(filter !== 'All'){
-                setReviews(fetchedReviews.filter(review => review.rating == filter));
-            }else{
-                setReviews(fetchedReviews);
-            }
-        }
-        filterReviews();
-    }, [filter]);
+    const filteredReviews = useMemo(() => {
+        if (filter === 'All') return fetchedReviews;
+        return fetchedReviews?.filter(review => review.rating === parseInt(filter, 10));
+    }, [fetchedReviews, filter]);
 
 
     const reviewPercentages = () => {
@@ -133,7 +123,7 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
                 </div>
             </div>
             <div className='reviews'>
-                {reviews && reviews.map(review => <Review key={review.transaction_id} review={review} isProvider={isProvider}/>)}
+            {filteredReviews && filteredReviews.map(review => <Review key={review.transaction_id} review={review} isProvider={isProvider} />)}
             </div>
         </main>
     )

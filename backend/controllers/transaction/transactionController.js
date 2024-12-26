@@ -222,8 +222,9 @@ const client_complete_transaction = async (req, res) => {
         const provider = completed_transaction.completed_transaction.dataValues.provider;
         const earnings = completed_transaction.earnings.providerEarning.dataValues.earnings;
         const company_earns = completed_transaction.earnings.companyEarning.dataValues.earnings;
-
-        completed_transaction.completed_transaction.dataValues.payment_method === 'Online Payment' ?
+        const payment_method = completed_transaction.completed_transaction.dataValues.payment_method
+        
+        payment_method === 'Online Payment' ?
         await ProviderBalance.increment('balance', { by: earnings, where: { id: provider } }) : 
         await ProviderBalance.decrement('balance',  { by: company_earns, where: { id: provider } } )
 
