@@ -60,6 +60,7 @@ const ProviderProfile = ({provider}) => {
                     disabled
                     value={provider?.description}
                     placeholder="No description about the service"
+                    style={{lineHeight: '2'}}
                 ></textarea>
                 <button onClick={() => setShowDescription(false)}>Close</button>
                 </div>}
