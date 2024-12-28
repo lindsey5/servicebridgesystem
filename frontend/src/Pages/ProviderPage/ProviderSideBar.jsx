@@ -20,7 +20,7 @@ export default function ProviderSideBar () {
         // Function to update the window width
         const handleResize = () => {
           if(window.innerWidth <= 840){
-            setHideSideBar(false)
+            setHideSideBar(true)
           }
           setWindowWidth(window.innerWidth)
         };
@@ -33,7 +33,7 @@ export default function ProviderSideBar () {
           window.removeEventListener('resize', handleResize);
         };
       }, []);
-      
+
     return ( 
         <nav className={`sidebar ${hideSideBar ? 'hide' : ''}`}>
             <button className={`sidebar-button ${activeButton === 1 ? 'active' : ''}`}

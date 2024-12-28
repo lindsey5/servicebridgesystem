@@ -50,7 +50,7 @@
     top: calc(100% + 5px);
     right: 10px;
     text-align: start;
-    width: 300px;
+    width: 330px;
 }
 
 
@@ -62,7 +62,6 @@
 .notifications-container .notif{
     display: flex;
     font-size: 15px;
-    align-items: center;
     padding: 5px;
     line-height: 1.5;
     position: relative;
@@ -74,11 +73,21 @@
 }
 
 .notifications-container .notif > img{
-    min-width: 60px;
-    width: 60px;
-    height: 60px;
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
     margin-right: 15px;
     border-radius: 50%;
+    margin-top: 20px;
+}
+
+.notifications-container .notif div > p:first-child{
+    margin-bottom: 5px;
+}
+
+.notifications-container .notif div > p:nth-child(2){
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 .notifications-container .notif div > p:last-child{
@@ -89,7 +98,9 @@
 .notifications-container .notif.unread::after{
     content: "";
     position: absolute;
+    top: 50%;
     right: 5px;
+    transform: translateY(-50%);
     padding: 5px;
     border-radius: 50%;
     background-color: red;

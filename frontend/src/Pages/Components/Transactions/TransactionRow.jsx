@@ -14,11 +14,11 @@ const isDateExpired = (transactionDateTime) => {
 };
 
 
-const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
+const TransactionRow = ({ transaction, modal_dispatch, user }) => {
     const navigate = useNavigate();
     const {setRecipientId} = useContext(RecipientContext);
     const transactionDateTime = `${transaction.available_date.date} ${transaction.time}`;
-    console.log(transaction)
+
     if (isDateExpired(transactionDateTime) && (transaction.status === 'Requested' || transaction.status === 'Accepted')) {
         if(transaction.payment_method === 'Online Payment'){
             fail_and_refund(transaction.transaction_id);
@@ -33,16 +33,15 @@ const TransactionRow = ({ transaction, index, modal_dispatch, user }) => {
     })}`;
     return (
         <tr>
-            <td>{index + 1}</td>
-            <td>{transaction.provider_account.firstname} {transaction.provider_account.lastname}</td>
-            <td>{transaction.client_account.firstname} {transaction.client_account.lastname}</td>
-            <TransactionStatus transaction={transaction}/>
+            {user === 'Client' && <td>{transaction.provider_account.firstname} {transaction.provider_account.lastname}</td>}
+           {user === 'Provider' && <td>{transaction.client_account.firstname} {transaction.client_account.lastname}</td>}
+            <td>{transaction.available_date.date}</td>
+            <td>{transaction.time}</td>
             <td>{transaction.address}</td>
             <td>{transaction.service_name}</td>
             <td>{formattedPrice}</td>
             <td>{transaction.payment_method}</td>
-            <td>{transaction.available_date.date}</td>
-            <td>{transaction.time}</td>
+            <TransactionStatus transaction={transaction}/>
             <td>{formatDate(transaction.booked_on)}</td>
             <td className='buttons-table-data'>
                 <div>

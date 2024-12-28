@@ -163,16 +163,14 @@ const UserTransactions = ({url, currentPage, setCurrentPage}) =>{
                      <table>
                          <thead>
                              <tr>
-                                 <th>No</th>
-                                 <th>Provider</th>
-                                 <th>Client</th>
-                                 <th>Status</th>
+                                 <th>{user === 'Provider' ? 'Client' : 'Provider'}</th>
+                                 <th>Date</th>
+                                 <th>Time</th>
                                  <th>Address</th>
                                  <th>Service Name</th>
                                  <th>Price</th>
                                  <th>Payment Method</th>
-                                 <th>Date</th>
-                                 <th>Time</th>
+                                 <th>Status</th>
                                  <th>Booked on</th>
                                  <th>Action</th>
                              </tr>

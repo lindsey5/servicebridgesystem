@@ -77,7 +77,6 @@ const AccountSettings = ({data, handleUpdate, error}) => {
             <div className='container'>
                 <div className='top-section'>
                     <h1>Account Settings</h1>
-                    <span>ID: {details?.id}</span>
                 </div>
                 <div className='details-container'>
                     <div className='input-parent-container'>

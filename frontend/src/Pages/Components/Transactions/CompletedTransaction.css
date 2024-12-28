@@ -9,6 +9,7 @@
 
 .completed-transaction .container{
     width: 350px;
+    height: 90%;
     padding: 30px;
     background-color: white;
     box-shadow: 0 0 10px 3px rgb(180, 180, 180);
@@ -16,6 +17,7 @@
     font-weight: 600;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -31,7 +33,6 @@
 
 .completed-transaction .container .details{
     width: 100%;
-    margin: 30px 0;
     border-top: 2px dashed rgb(207, 207, 207);
     border-bottom: 2px dashed rgb(207, 207, 207);
     padding: 15px 0;

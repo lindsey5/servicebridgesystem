@@ -38,6 +38,7 @@ const NotificationsContainer = ({notifications, user, setLimit}) => {
             >
                 <SenderPicture image={notification.sender.profile_pic} />
                 <div>
+                    <p>{notification.sender.firstname} {notification.sender.lastname}</p>
                     <p style={{fontWeight: notification.status === 'unread' ? '700' : ''}}>{notification.message}</p>
                     <p>{formatDate(notification.created_at)}</p>
                 </div>
@@ -60,8 +61,10 @@ const NotificationsButton = ({socket, user}) => {
         if(socket){
             socket.emit('notifications', limit);
             socket.on('notifications', (data) => {
+               if(data?.notifications){
                 setNotifications(data.notifications)
                 setUnread(data.unread)
+               }
             })
 
             socket.on('notification', (notification) => {
