@@ -35,6 +35,7 @@ Hustle is a platform designed to bridge clients and service providers, offering 
   Secure and private communication channel for both parties.
 
   #### Real Time Notification
+  Real-time notifications between clients and providers about the transactions.
 
   #### Intelligent Chatbot
   Provides instant support and guidance for both clients and providers
