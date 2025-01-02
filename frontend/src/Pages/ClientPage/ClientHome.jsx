@@ -93,7 +93,6 @@ const ClientHome = () => {
                 <div>
                     <h1>About Hustle</h1>
                     <p>Hustle is a fast and reliable platform that connects individuals and businesses with skilled professionals across a wide range of services, including automotive services, cleaning, tutoring, and more. We make it simple to find the right expert for the job, whenever you need them.</p>
-                    <p>Our mission is to connect those in need of services with skilled individuals offering affordable, high-quality solutions, while providing flexible job opportunities for students, freelancers, and unemployed individuals to showcase their skills.</p>
                 </div>
                 <img src="/icons/plumbing.webp" alt="" />
             </section>

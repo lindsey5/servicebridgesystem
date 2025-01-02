@@ -2,7 +2,6 @@ import { useState } from 'react';
 import '../styles/signup.css';
 import useSignupReducer from '../../hooks/useSignupReducer';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
 import { sendClientSignupVerificationCode, verifyCode } from '../../utils/emailUtils';
 import BubbleCursor from '../Components/BubbleCursor';
 

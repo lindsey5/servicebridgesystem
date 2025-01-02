@@ -4,7 +4,7 @@ import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
 import useFetch from '../../../hooks/useFetch';
 
-const AccountSettings = ({data, handleUpdate, error}) => {
+const AccountSettings = ({data, handleUpdate, error, handleChangePassword}) => {
     const [details, setDetails] = useState();
     const [imgSrc, setImgSrc] = useState(defaultProfilePic);
     const [saving, setSaving] = useState(false);
@@ -116,7 +116,7 @@ const AccountSettings = ({data, handleUpdate, error}) => {
                             disabled 
                             value={'********'}
                         />
-                        <span>Change</span>
+                        <span onClick={handleChangePassword}>Change</span>
                         </div>
                         <div className='address-container'>
                             <label>Address</label>

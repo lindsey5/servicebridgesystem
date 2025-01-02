@@ -5,7 +5,7 @@
 
 .account-settings .top-div{
     padding-top: 80px;
-    height: 30%;
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,9 +17,14 @@
     background-color: rgb(3, 117, 247);
 }
 
-.account-settings .top-section > h1, 
 .account-settings .top-section > span{
     margin-top: 0;
+    color: white;
+}
+
+.account-settings .top-section > h1{
+    margin-top: 40px;
+    margin-bottom: 30px;
     color: white;
 }
 
@@ -71,10 +76,12 @@
 }
 
 .details-container .input-container > input{
-    height: 30px;
+    height: 45px;
     border: 1px solid rgb(153, 153, 153);
     border-radius: 10px;
     outline: none;
+    padding-left: 10px;
+    font-size: 15px;
 }
 
 .details-container textarea{

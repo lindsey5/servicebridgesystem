@@ -69,40 +69,34 @@
 
 .signup-page .container input:not([type='checkbox']){
     width: 100%;
-    height: 37px;
+    height: 45px;
     outline: none;
     border: 1px solid grey;
     padding-left: 10px;
     box-sizing: border-box;
+    font-size: 15px;
     background-color: white;
+    border-radius: 10px;
 }
 
 .signup-page .input-container span {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 5px;
     transform: translateY(-50%);
     color: grey;
     font-size: 14px;
     background-color: white;
-    padding: 0 5px;
-    animation: slide-span ease-in 0.2s;
-    display: none;
+    padding: 0 7px;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in;
 }
 
-@keyframes slide-span{
-    from{
-        transform: translateY(10px);
-    }
-
-    to{
-        transform: translateY(0);
-    }
-}
 
 .signup-page .container input:focus{
     border-width: 2px;
-    border-color:  rgb(92, 168, 255);
+    border-color:  rgb(3, 117, 247);
 }
 
 .signup-page .container input:focus::placeholder {
@@ -111,11 +105,12 @@
 
 .signup-page .input-container input.has-value + span{
     color: grey;
-    display: block;
+    opacity: 1;
+    transform: translateY(-30px);
 }
 
 .signup-page .input-container input.has-value:focus + span {
-    color: rgb(92, 168, 255);
+    color: rgb(3, 117, 247);
 }
 
 .signup-page .error{
@@ -125,8 +120,11 @@
 }
 
 .signup-page button{
-    height: 35px;
+    height: 45px;
+    font-size: 16px;
     margin: 20px 0;
+    font-weight: 600;
+    border-radius: 10px;
 }
 
 .signup-page button:not(:disabled){

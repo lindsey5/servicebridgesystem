@@ -33,8 +33,10 @@ const ClientHeader = () => {
     }
 
     const handleSearch = (value) => {
-        setSearchTerm('');
-        navigate(`/Client/Search/Result?searchTerm=${value}`);
+        if(value) {
+            setSearchTerm('');
+            navigate(`/Client/Search/Result?searchTerm=${value}`);
+        }
     };
 
     const logout = async () => {
