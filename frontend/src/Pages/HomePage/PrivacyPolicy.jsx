@@ -86,7 +86,7 @@ const PrivacyPolicy = () => {
 
             <h3>10. Contact Us</h3>
             <p>
-                If you have any questions or concerns regarding this Privacy Policy or how we handle your personal data, please contact us at [Insert Contact Information].
+                If you have any questions or concerns regarding this Privacy Policy or how we handle your personal data, please contact us at hustle@example.com.
             </p>
         </div>
         <div className='image-container'>
