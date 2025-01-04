@@ -107,7 +107,6 @@ const AccountSettings = ({data, handleUpdate, error, handleChangePassword}) => {
                                 disabled
                                 onInput={(e) => setDetails({...details, email: e.target.value })}
                             />
-                            <span>Change</span>
                         </div>
                         <div className='input-container'>
                         <label>Password</label>

@@ -40,7 +40,6 @@ const ProviderLogin = () => {
             
             // Parse the JSON response
             const result = await response.json();
-            console.log(result)
             // Check for validation errors in the response
             if (result.errors) {
                 setEmailError(result.errors.email || ''); // Set email error message if present

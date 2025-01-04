@@ -67,5 +67,21 @@ const clientSignupVerificationCode = async (req, res) => {
     }
 }
 
+const clientUpdatePassword = async (req, res) => {
+    try{
+        const { currPassword, newPassword } = req.body;
+        const client = await Client_account.findByPk(req.userId);
+        const isCorrect = await bcrypt.compare(currPassword, client.password); 
+        if(!isCorrect){
+            throw new Error('Incorrect password')
+        }
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(newPassword, salt)
+        await client.update({password: hashedPassword});
+        res.status(200).json({success: true, message: 'Client password successfully changed'})
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
 
-export default { signup_post, login_post, clientSignupVerificationCode };
+export default { signup_post, login_post, clientSignupVerificationCode, clientUpdatePassword };

@@ -37,6 +37,7 @@ import PrivacyPolicy from './Pages/HomePage/PrivacyPolicy.jsx';
 import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 import { SocketContextProvider } from './Context/SocketContext.jsx';
 import ClientChangePassword from './Pages/ClientPage/ClientChangePassword.jsx';
+import ProviderChangePassword from './Pages/ProviderPage/ProviderChangePassword.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -94,6 +95,7 @@ export default function App() {
             <Route path='Messages' element={<Messages />}/>
             <Route path='Account' element={<ProviderAccountSettings />} />
             <Route path='Reviews' element={<ProviderReviews />}/>
+            <Route path='Password' element={<ProviderChangePassword />} />
           </Route>
         </Route>
 

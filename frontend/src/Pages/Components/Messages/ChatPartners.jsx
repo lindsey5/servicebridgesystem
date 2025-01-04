@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import React from 'react';
 import '../../styles/ChatPartners.css';
 import createImageSrc from '../../../utils/createImageSrc';
 import defaultProfilePic from '../../../assets/user (1).png';
@@ -91,4 +92,4 @@ const ChatPartners = ({socket, setRecipientId }) => {
     );
 };
 
-export default ChatPartners;
+export default React.memo(ChatPartners);

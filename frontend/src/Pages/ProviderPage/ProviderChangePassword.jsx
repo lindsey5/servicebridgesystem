@@ -3,7 +3,7 @@ import ChangePassword from '../Components/Account/ChangePassword';
 
 const updatePassword = async (newPassword, currPassword) => {
     try{
-        const response = await fetch(`/api/client/password`,{
+        const response = await fetch(`/api/provider/password`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,9 +22,9 @@ const updatePassword = async (newPassword, currPassword) => {
 }
 
 
-const ClientChangePassword = () => {
+const ProviderChangePassword = () => {
     
     return <ChangePassword updatePassword={updatePassword}/>
 }
 
-export default ClientChangePassword
+export default ProviderChangePassword

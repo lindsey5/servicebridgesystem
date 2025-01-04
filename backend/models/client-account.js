@@ -31,11 +31,6 @@ const client_account = sequelize.define('client_account', {
                     throw new Error('Password must be at least 8 characters long.');
                 }
             },
-            maxLength(value) {
-                if (value.length > 20) {
-                    throw new Error('Password cannot be more than 20 characters long.');
-                }
-            }
         }
     },
     firstname: {

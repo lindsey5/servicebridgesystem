@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch"
 import AccountSettings from "../Components/Account/AccountSettings"
+import { useNavigate } from "react-router-dom";
 
 const ProviderAccountSettings = () => {
     const { data, loading } = useFetch('/api/provider');
     const [error, setError] = useState();
+    const navigate = useNavigate();
 
     const handleUpdate = async (data, password) => {
         const response = await fetch(`/api/provider/update`, {
@@ -32,7 +34,7 @@ const ProviderAccountSettings = () => {
     
     return (
         <>
-        {!loading && <AccountSettings data={data} error={error} handleUpdate={handleUpdate}/>}
+        {!loading && <AccountSettings data={data} error={error} handleUpdate={handleUpdate} handleChangePassword={() => navigate('/provider/password')}/>}
         </>
     )
 }
