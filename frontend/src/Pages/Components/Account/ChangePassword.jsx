@@ -2,7 +2,6 @@ import { useState } from 'react'
 import '../../styles/ChangePassword.css'
 import BubbleCursor from '../BubbleCursor';
 
-
 const CustomizedInput = ({placeholder, handleChange}) => {
     const [show, setShow] = useState(false);
 

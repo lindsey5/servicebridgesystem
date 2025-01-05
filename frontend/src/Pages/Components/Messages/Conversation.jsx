@@ -3,6 +3,7 @@ import '../../styles/Conversation.css';
 import useFetch from '../../../hooks/useFetch';
 import defaultProfilePic from '../../../assets/user (1).png';
 import createImageSrc from '../../../utils/createImageSrc';
+import { formatDate } from '../../../utils/formatDate';
 
 const Conversation = ({ recipientId, socket }) => {
     const [message, setMessage] = useState('');
@@ -73,24 +74,12 @@ const Conversation = ({ recipientId, socket }) => {
     },[messages]);
 
     const MessageBox = ({ message }) => {
-        const date = new Date(message.timestamp);
-
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        };
-
-        const formattedDate = date.toLocaleString('en-US', options);
         return (
             <div className={`message-box-container ${message.from === recipientId ? 'other' : 'you'}`}>
                 {message.from === recipientId && imgSrc ? <img className='recipient-profile-pic' src={imgSrc}/> : ''}
                 <div className='message-box'>
                 <p className="message-content">{message.content}</p>
-                <p className="timestamp">{formattedDate}</p>
+                <p className="timestamp">{formatDate(message.timestamp)}</p>
                 </div>
             </div>
         );
