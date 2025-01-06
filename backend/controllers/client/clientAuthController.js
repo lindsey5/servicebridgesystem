@@ -67,6 +67,26 @@ const clientSignupVerificationCode = async (req, res) => {
     }
 }
 
+const clientSendVerificationCode = async (req, res) => {
+    try {
+        const client = await Client_account.findOne({ where: {email: req.body.email}})
+
+        if(!client) throw new Error("Email doesn't exist")
+
+        const verificationCode = await sendVerificationCode(req.body.email)
+        res.cookie('verificationCode', verificationCode, {
+            maxAge: 60000,
+            secure: process.env.NODE_ENV === 'production'
+        })
+
+        res.status(200).json({message: 'Verification code successfully sent'})
+
+    } catch (err) {
+        console.log(err)
+        res.status(401).json({error: err.message});
+    }
+}
+
 const clientUpdatePassword = async (req, res) => {
     try{
         const { currPassword, newPassword } = req.body;
@@ -84,4 +104,25 @@ const clientUpdatePassword = async (req, res) => {
     }
 }
 
-export default { signup_post, login_post, clientSignupVerificationCode, clientUpdatePassword };
+const clientResetPassword = async (req, res) => {
+    try{
+        const { email, newPassword } = req.body;
+        const client = await Client_account.findOne({where: {email}});
+
+        if(!client) throw new Error("Client doesn't exist")
+        
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(newPassword, salt)
+
+        await client.update({password: hashedPassword});
+
+        res.status(200).json({success: true, message: 'Client password successfully change'})
+
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+
+export default { signup_post, login_post, clientSignupVerificationCode, 
+    clientUpdatePassword, clientSendVerificationCode, clientResetPassword };

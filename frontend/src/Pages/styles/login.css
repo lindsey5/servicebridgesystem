@@ -8,12 +8,21 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.login-parent-container .container > a{
+    color: rgb(3, 117, 247);
+    position: absolute;
+    left: 0;
+    top: -30px;
+    font-size: 18px;
+}
+
 .login-parent-container .container{
     width: 900px;
     height: 530px;
     background-color: white;
     box-shadow: 0 0 10px 5px  rgb(177, 177, 177);
     display: flex;
+    position: relative;
     border-radius: 10px;
 }
 

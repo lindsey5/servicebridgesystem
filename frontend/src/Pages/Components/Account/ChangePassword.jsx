@@ -1,26 +1,7 @@
 import { useState } from 'react'
 import '../../styles/ChangePassword.css'
 import BubbleCursor from '../BubbleCursor';
-
-const CustomizedInput = ({placeholder, handleChange}) => {
-    const [show, setShow] = useState(false);
-
-    const handleFocus = (e) => {
-        if(!e.target.classList.contains('has-value')){
-            e.target.classList.add('has-value')
-        }
-    }
-
-    const handleBlur = (e) => {
-        if(!e.target.value) e.target.classList.remove('has-value')
-    }
-
-    return <div className='password-container'>
-            <input type={show ? 'text' : 'password'} placeholder={placeholder} onChange={(e) => handleChange(e.target.value)} onFocus={handleFocus} onBlur={handleBlur}/>
-            <span>{placeholder}</span>
-            <img src={`/icons/${show ? 'hide' : 'show'}.png`} alt="" onClick={() => setShow(!show)}/>
-            </div>
-}
+import CustomizedInput from '../Input/CustomizedInput';
 
 const ChangePassword = ({updatePassword}) => {
     const [currPassword, setCurrPassword] = useState('');
@@ -53,9 +34,9 @@ const ChangePassword = ({updatePassword}) => {
                 <div className='container'>
                     <h1>Change Password</h1>
                     <p>{error}</p>
-                    <CustomizedInput placeholder='Current Password' handleChange={setCurrPassword}/>
-                    <CustomizedInput placeholder='New Password' handleChange={setNewPassword}/>
-                    <CustomizedInput placeholder='Confirm New Password' handleChange={setConfirmNewPass}/>
+                    <CustomizedInput onChange={setCurrPassword} placeholder="Current password" type="password"/>
+                    <CustomizedInput onChange={setNewPassword} placeholder="New password" type="password"/>
+                    <CustomizedInput onChange={setConfirmNewPass} placeholder="Confirm New Password" type="password"/>
                     <div className='buttons'>
                         <button className='back-btn' onClick={goBack}>Back</button>
                         <button className='submit-btn' onClick={handleSubmit}>Submit</button>

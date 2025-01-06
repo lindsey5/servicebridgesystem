@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import { verifyCode } from "../../utils/emailUtils";
 import ForgotPasswordPage from "../Components/Account/ForgotPassword"
 
-const sendClientVerificationCode = async (email) => {
+const sendVerificationCode = async (email) => {
     try{
-        const response = await fetch('/api/client/verification-code',{
+        const response = await fetch('/api/provider/verification-code',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -20,7 +21,7 @@ const sendClientVerificationCode = async (email) => {
 
 const resetPassword = async (email, newPassword) => {
     try{
-        const response = await fetch('/api/client/reset-password',{
+        const response = await fetch('/api/provider/reset-password',{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,14 +36,20 @@ const resetPassword = async (email, newPassword) => {
     }
 }
 
-const ClientForgotPassword = () => {
+const ProviderForgotPassword = () => {
+
+    useEffect(() => {
+        document.title = "Provider | Forgot Password"
+    }, [])
+
+
     return <ForgotPasswordPage 
-                backUrl="/Client/Login" 
-                userType="Client"
-                sendCode={sendClientVerificationCode}
+                backUrl="/Provider/Login" 
+                userType="Provider"
+                sendCode={sendVerificationCode}
                 verifyCode={verifyCode}
                 resetPassword={resetPassword}
             />
 }
 
-export default ClientForgotPassword
+export default ProviderForgotPassword

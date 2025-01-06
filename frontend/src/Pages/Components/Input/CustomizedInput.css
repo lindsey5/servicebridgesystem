@@ -1,0 +1,51 @@
+.customized-input-container{
+    position: relative;
+}
+
+.customized-input-container input{
+    width: 400px;
+    padding-left: 10px;
+    height: 45px;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.customized-input-container span{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    background-color: white;
+    opacity: 0;
+    font-size: 15px;
+    padding: 0 6px;
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.customized-input-container input.has-value + span{
+    transform: translateY(-32px);
+    opacity: 1;
+}
+
+.customized-input-container input:focus{
+    border: 2px solid #0375f7;
+}
+
+.customized-input-container input:focus::placeholder{
+    visibility: hidden;
+}
+
+.customized-input-container input:focus + span{
+    color: #0375f7;
+}
+
+.customized-input-container img{
+    position: absolute;
+    width: 27px;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

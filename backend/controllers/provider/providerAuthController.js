@@ -90,4 +90,46 @@ const providerUpdatePassword = async (req, res) => {
     }
 }
 
-export default { signup_post, login_post, providerSignupVerificationCode, providerUpdatePassword };
+const providerSendVerificationCode = async (req, res) => {
+    try {
+        const provider = await Provider_account.findOne({ where: {email: req.body.email}})
+
+        if(!provider) throw new Error("Email doesn't exist")
+
+        const verificationCode = await sendVerificationCode(req.body.email)
+        res.cookie('verificationCode', verificationCode, {
+            maxAge: 60000,
+            secure: process.env.NODE_ENV === 'production'
+        })
+
+        res.status(200).json({message: 'Verification code successfully sent'})
+
+    } catch (err) {
+        console.log(err)
+        res.status(401).json({error: err.message});
+    }
+}
+
+const providerResetPassword = async (req, res) => {
+    try{
+        const { email, newPassword } = req.body;
+        const provider = await Provider_account.findOne({where: {email}});
+
+        if(!provider) throw new Error("Provider doesn't exist")
+        
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(newPassword, salt)
+
+        await provider.update({password: hashedPassword});
+
+        res.status(200).json({success: true, message: 'Provider password successfully change'})
+
+    }catch(err){
+        res.status(400).json({error: err.message});
+    }
+}
+
+export default { signup_post, login_post, 
+    providerSignupVerificationCode, providerUpdatePassword, providerSendVerificationCode,
+    providerResetPassword
+ };

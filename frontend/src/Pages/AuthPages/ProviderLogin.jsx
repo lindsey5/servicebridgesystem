@@ -58,6 +58,7 @@ const ProviderLogin = () => {
     return (
         <div className='login-parent-container'>
             <div className="container">
+            <a href="/">Back to home</a>
                 <div className="icon-container">
                     <img src={serviceLogo} alt="Service Logo" />
                 </div>
@@ -85,7 +86,7 @@ const ProviderLogin = () => {
                         <input type="submit" id="login-btn" value="Log In"/>
 
                         <div className='links'>
-                            <a href="" id="forgot-pass">Forgot Password?</a>
+                            <a href="/Provider/Forgot-Password" id="forgot-pass">Forgot Password?</a>
                             <a href="/Provider/Signup" id="signup">Create an Account</a>
                         </div>
                     </div>

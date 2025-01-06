@@ -38,6 +38,8 @@ import ClientHome from './Pages/ClientPage/ClientHome.jsx';
 import { SocketContextProvider } from './Context/SocketContext.jsx';
 import ClientChangePassword from './Pages/ClientPage/ClientChangePassword.jsx';
 import ProviderChangePassword from './Pages/ProviderPage/ProviderChangePassword.jsx';
+import ClientForgotPassword from './Pages/AuthPages/ClientForgotPassword.jsx';
+import ProviderForgotPassword from './Pages/AuthPages/ProviderForgotPassword.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -50,6 +52,8 @@ export default function App() {
           <Route path='Admin/Login' element={<AdminLogin />} />
           <Route path='Client/Signup' element={<ClientSignup />}/>
           <Route path='Provider/Signup' element={<ProviderSignup />}/>
+          <Route path='Client/Forgot-Password' element={<ClientForgotPassword />} />
+          <Route path='Provider/Forgot-Password' element={<ProviderForgotPassword />}/>
         </Route>
 
         <Route path="/View/Reviews" element={<ViewReviews />} />
