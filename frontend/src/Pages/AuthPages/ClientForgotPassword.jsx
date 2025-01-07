@@ -1,5 +1,6 @@
 import { verifyCode } from "../../utils/emailUtils";
 import ForgotPasswordPage from "../Components/Account/ForgotPassword"
+import { useEffect } from "react";
 
 const sendClientVerificationCode = async (email) => {
     try{
@@ -36,6 +37,10 @@ const resetPassword = async (email, newPassword) => {
 }
 
 const ClientForgotPassword = () => {
+     useEffect(() => {
+            document.title = "Provider | Forgot Password"
+        }, [])
+
     return <ForgotPasswordPage 
                 backUrl="/Client/Login" 
                 userType="Client"

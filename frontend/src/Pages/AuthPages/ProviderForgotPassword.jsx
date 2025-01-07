@@ -38,9 +38,9 @@ const resetPassword = async (email, newPassword) => {
 
 const ProviderForgotPassword = () => {
 
-    useEffect(() => {
-        document.title = "Provider | Forgot Password"
-    }, [])
+   
+
+    
 
 
     return <ForgotPasswordPage 

@@ -9,6 +9,8 @@
     outline: none;
     box-sizing: border-box;
     font-size: 15px;
+    border-radius: 10px;
+    border: 2px solid rgb(170, 170, 170);
 }
 
 .customized-input-container span{

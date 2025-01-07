@@ -32,10 +32,6 @@ const ForgotPasswordPage = ({backUrl, userType, sendCode, verifyCode, resetPassw
         }
     }
 
-    useEffect(() => {
-        console.log(email)
-    }, [email])
-
     return(
         <div className='forgot-password-page'>
             <div>
