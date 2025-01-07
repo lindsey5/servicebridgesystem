@@ -124,14 +124,9 @@ const Home = () => {
                     </div>
                     <div className='support-div'> 
                         <h3>Support</h3>
-                        <li>Help</li>
+                        <li><a href="/contact-us">Contact us</a></li>
                         <li><a href="/privacy-policy">Privacy Policy</a></li>
                         <li><a href="/FAQ">FAQ's</a></li>
-                    </div>
-                    <div className='contact-div'>
-                        <h3>Contact</h3>
-                        <li>Taguig City, Philippines</li>
-                        <li>hustle@example.com</li>
                     </div>
                 </div>
                 <h2>© 2024 Hustle Inc. All rights reserved.</h2>
