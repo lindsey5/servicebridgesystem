@@ -19,8 +19,56 @@ const SenderPicture = ({image}) => {
 
 
     return <img src={imgSrc} alt="" />
-
 }
+
+const timeDifference = (start, end) => {
+    // Calculate the difference in years, months, and days
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+
+    // Adjust for negative months or days
+    if (months < 0) {
+        months += 12;
+        years -= 1;
+    }
+
+    if (days < 0) {
+        const prevMonth = new Date(end.getFullYear(), end.getMonth(), 0); // Last day of the previous month
+        days += prevMonth.getDate();
+    }
+
+    // Calculate the total difference in milliseconds
+    const diffInMilliseconds = end.getTime() - start.getTime();
+
+    // Convert milliseconds to hours, minutes, and seconds
+    const hours = Math.floor(diffInMilliseconds / (1000 * 3600));
+    const minutes = Math.floor((diffInMilliseconds % (1000 * 3600)) / (1000 * 60));
+    const seconds = Math.floor((diffInMilliseconds % (1000 * 60)) / 1000);
+
+    // Return the largest meaningful unit first (year > month > day > hour > minute > second)
+    if (years > 0) {
+        return `${years} year${years > 1 ? 's' : ''} ago`;
+    } else if (months > 0) {
+        return `${months} month${months > 1 ? 's' : ''} ago`;
+    } else if (days > 0) {
+        return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (hours > 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (minutes > 0) {
+        return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else if (seconds > 0) {
+        return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+    } else {
+        return "Just now"; 
+    }
+};
+
+// Example Usage:
+const start = new Date('2025-01-01T10:00:00');
+const end = new Date('2027-04-15T12:34:56');
+console.log(timeDifference(start, end)); // Output: "2 years, 3 months ago"
+
 
 const NotificationsContainer = ({notifications, user, setLimit}) => {
     return(
@@ -37,10 +85,10 @@ const NotificationsContainer = ({notifications, user, setLimit}) => {
                 }}
             >
                 <SenderPicture image={notification.sender.profile_pic} />
-                <div>
-                    <p>{notification.sender.firstname} {notification.sender.lastname}</p>
+                <div className="notif-content">
+                    <h4>{notification.sender.firstname} {notification.sender.lastname}</h4>
                     <p style={{fontWeight: notification.status === 'unread' ? '700' : ''}}>{notification.message}</p>
-                    <p>{formatDate(notification.created_at)}</p>
+                    <p className="date">{timeDifference(new Date(notification.created_at), new Date())}</p>
                 </div>
             </div>
             )}
