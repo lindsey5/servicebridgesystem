@@ -8,14 +8,10 @@
     flex-direction: column;
     z-index: 3;
     border-right: 1px solid rgb(224, 224, 224);
-}
-
-.main-content {
-    padding-left: 200px;
-}
-  
-.main-content.shortened {
-    padding-left: 80px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .sidebar button{
@@ -75,6 +71,14 @@
 @media screen and (min-width: 841px){
     .sidebar{
         display: flex;
+    }
+
+    .main-container{
+        padding-left: 200px;
+    }
+
+    .main-container.hide{
+        padding-left: 80px;
     }
 }
 

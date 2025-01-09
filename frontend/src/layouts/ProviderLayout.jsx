@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import ProviderHeader from "../Pages/ProviderPage/ProviderHeader.jsx";
-import { useContext, useEffect, useState } from "react";
-import { ProviderContextProvider } from "../Context/ProviderContext.jsx";
+import { useContext, useEffect } from "react";
+import { ProviderContext, ProviderContextProvider } from "../Context/ProviderContext.jsx";
 import ProviderSideBar from "../Pages/ProviderPage/ProviderSideBar.jsx";
 import { SocketContext } from "../Context/SocketContext.jsx";
 import io from 'socket.io-client';
@@ -23,9 +23,15 @@ export default function ProviderLayout() {
     <ProviderContextProvider>
         <ProviderHeader />
         <ProviderSideBar />
-            <main>
+        <ProviderContext.Consumer>
+        {({ hideSideBar }) => {
+          return (
+            <main className={`main-container ${hideSideBar ? 'hide' : ''}`}>
               <Outlet />
             </main>
+          )
+        }}
+      </ProviderContext.Consumer>
     </ProviderContextProvider>
   );
 }
