@@ -4,7 +4,7 @@ import Review from './Review';
 import useFetch from '../../../hooks/useFetch';
 import { useMemo } from 'react';
 
-const Reviews = ({id, rating, isProvider, service_name}) => {
+const Reviews = ({id, isProvider, service_name}) => {
     const [selectedService, setSelectedService] = useState(service_name || '');
     const { data: fetchedReviews } = useFetch(`/api/transactions/reviewed/${id}?filter=${selectedService}`);
     const { data: services } = useFetch(isProvider ? '/api/services-offered' : `/api/services-offered/${id}`);
@@ -12,6 +12,16 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
     const [filter, setFilter] = useState('All');
     const [ratingPercentages, setRatingPercentages] = useState();
     const filterButtons = useRef([]);
+
+    const rating = useMemo(() => {
+        if(fetchedReviews){
+            const total = fetchedReviews.reduce((acc, review) => review.rating + acc, 0);
+            const avgRating = total / fetchedReviews.length
+            return Math.round(avgRating * 100) / 100 || null
+        }
+
+        return undefined
+    }, [fetchedReviews])
 
     useEffect(() => {
         for(let i = 0; i < rating; i++){
@@ -53,7 +63,6 @@ const Reviews = ({id, rating, isProvider, service_name}) => {
         if (filter === 'All') return fetchedReviews;
         return fetchedReviews?.filter(review => review.rating === parseInt(filter, 10));
     }, [fetchedReviews, filter]);
-
 
     const reviewPercentages = () => {
         const reviewElements = [];

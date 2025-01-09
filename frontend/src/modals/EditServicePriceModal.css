@@ -22,6 +22,8 @@
     font-size: 15px;
     outline: none;
     border: 1px solid grey;
+    resize: none;
+    line-height: 2;
 }
 
 .edit-price-modal p{
