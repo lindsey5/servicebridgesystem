@@ -32,7 +32,7 @@ const Portfolio = ({data, isProvider}) => {
             const response = await fetch(`/api/provider/portfolio/${data.id}`)
             if(response.ok){
                 const result = await response.json()
-                setContents(result.map(item => item.content))
+                setContents(result.map(item => item.content.data))
                 setPortfolios(await Promise.all(result.map(async (portfolio) => {
                     return await createImageSrc(portfolio.content.data)
                 })))

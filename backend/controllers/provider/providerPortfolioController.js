@@ -3,7 +3,10 @@ import Porfolio from "../../models/portfolio.js"
 export const create_portfolio = async (req, res) => {
     try{
         const id = req.userId;
-        await Porfolio.destroy({where: { provider_id: id}})
+        await Porfolio.destroy({
+            where: { provider_id: id},
+            
+        })
         const { contents } = req.body;
 
         if(contents.length > 0)
