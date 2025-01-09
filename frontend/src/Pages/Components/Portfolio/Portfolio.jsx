@@ -46,6 +46,10 @@ const Portfolio = ({data, isProvider}) => {
     }
 
     useEffect(() => {
+        document.title = 'Portfolio'
+    }, [])
+
+    useEffect(() => {
         console.log(data)
         if(data) setData()
     }, [data])

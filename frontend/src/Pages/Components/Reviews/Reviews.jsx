@@ -13,6 +13,11 @@ const Reviews = ({id, isProvider, service_name}) => {
     const [ratingPercentages, setRatingPercentages] = useState();
     const filterButtons = useRef([]);
 
+    useEffect(() => {
+        document.title = 'Reviews'
+    }, [])
+
+
     const rating = useMemo(() => {
         if(fetchedReviews){
             const total = fetchedReviews.reduce((acc, review) => review.rating + acc, 0);
