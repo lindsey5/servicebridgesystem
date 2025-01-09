@@ -296,7 +296,7 @@ const fail_transaction = async (req, res) =>{
 
 
 const get_total_completed_transactions = async (req, res) =>{
-    const provider_id = req.userId;
+    const provider_id = req.userId || req.params.id;
     try{
         const completed_transactions_total = await transactionService.getTransactionCount({
             where: { 
@@ -306,9 +306,7 @@ const get_total_completed_transactions = async (req, res) =>{
                 }
             }
         })
-        if(completed_transactions_total){
-            res.status(200).json({completed_transactions_total});
-        }
+        res.status(200).json({completed_transactions_total});
     }catch(err){
         res.status(400).json({error: err.message});
     }

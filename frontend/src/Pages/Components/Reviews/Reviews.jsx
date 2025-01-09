@@ -87,7 +87,6 @@ const Reviews = ({id, isProvider, service_name}) => {
         }
         return reviewElements;
     };
-    
 
     return (
         <main className="Provider-reviews">

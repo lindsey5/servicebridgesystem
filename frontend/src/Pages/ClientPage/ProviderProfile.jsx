@@ -2,6 +2,7 @@ import createImageSrc from '../../utils/createImageSrc';
 import defaultProfilePic from '../../assets/user (1).png';
 import { useNavigate, useLocation} from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
+import useFetch from '../../hooks/useFetch';
 
 const ProviderProfile = ({provider}) => {
     const navigate = useNavigate();
@@ -50,6 +51,28 @@ const ProviderProfile = ({provider}) => {
         }
       }, [showDescription]);
 
+      const handleViewPortfolio = async () => {
+        try{
+            const response = await fetch(`/api/transactions/completed/total/${provider.id}`)
+            if(response.ok){
+                const result = await response.json()
+                const data = {
+                    id: provider.id,
+                    fullname: `${provider.firstname} ${provider.lastname}`,
+                    location: provider.location,
+                    image: provider.profile_pic,
+                    bio: provider.bio,
+                    total_task: result.completed_transactions_total
+                }
+                localStorage.setItem('provider-data', JSON.stringify(data));
+                navigate('/Client/View/Portfolio')
+            }
+        }catch(err){
+            console.log(err)
+        }
+        
+      }
+
     return (
             <div className='provider-container'>
                 {showDescription && <div className='description'>
@@ -69,7 +92,7 @@ const ProviderProfile = ({provider}) => {
                     <div className='img-container'>
                         <img src={imgSrc} alt='Provider' />
                     </div>
-                    <a href={`/View/Reviews?id=${provider.id}&&service_name=${provider.service_name}`}>View Reviews</a>
+                    <a href={`/Client/View/Reviews?id=${provider.id}&&service_name=${provider.service_name}`}>View Reviews</a>
                     <button className='book-btn' onClick={book}>Book Service</button>
                 </div>
                 <div className='details-div'>
@@ -83,6 +106,7 @@ const ProviderProfile = ({provider}) => {
                     <div className='bio-div' style={{marginTop: '20px'}}>
                         <h3>About Me:</h3>
                         <p>{provider.bio}</p>
+                        <button onClick={handleViewPortfolio}>View Portfolio</button>
                     </div>
                 </div>
             </div>

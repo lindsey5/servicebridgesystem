@@ -40,7 +40,7 @@ const get_available_time = async (req, res) => {
                 provider_id
             }
         })
-        
+        if(!available_date) throw new Error('There\'s no available time for that date')
         const available_time = await AvailableTime.findOne({ where: {date_id: available_date.date_id}});
         if(!available_time) throw new Error('Available Time not found')
         res.status(200).json(available_time)

@@ -125,7 +125,7 @@ const AccountSettings = ({data, handleUpdate, error, handleChangePassword}) => {
                                 onInput={(e) => setDetails({...details, address: e.target.value })}
                             />
                         </div>
-                        {details?.bio && 
+                        {details?.location && 
                         <div className='bio-container'>
                             <label>Bio</label>
                             <textarea 

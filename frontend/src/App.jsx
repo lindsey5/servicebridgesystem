@@ -40,6 +40,8 @@ import ClientChangePassword from './Pages/ClientPage/ClientChangePassword.jsx';
 import ProviderChangePassword from './Pages/ProviderPage/ProviderChangePassword.jsx';
 import ClientForgotPassword from './Pages/AuthPages/ClientForgotPassword.jsx';
 import ProviderForgotPassword from './Pages/AuthPages/ProviderForgotPassword.jsx';
+import ProviderPortfolio from './Pages/ProviderPage/ProviderPortfolio.jsx';
+import ViewPortfolio from './Pages/ClientPage/ViewPortfolio.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -56,7 +58,6 @@ export default function App() {
           <Route path='Provider/Forgot-Password' element={<ProviderForgotPassword />}/>
         </Route>
 
-        <Route path="/View/Reviews" element={<ViewReviews />} />
         <Route path='/Terms' element={<Terms />}/>
         <Route path='/FAQ' element={<FAQ />}/>
         <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
@@ -67,17 +68,19 @@ export default function App() {
           <Route path='Services' element={<AdminServices />}/>
           <Route path='Categories' element={<AdminCategories />} />
         </Route>
-  
-        <Route path="/Client/" element={<ClientLayout />}>
-          <Route element={<ClientRoutes />}>
-            <Route path="Home" element={<ClientHome />} />
-            <Route path="Search/Result" element={<ClientSearchResult />}/>
-            <Route path="Transactions" element={<ClientTransactions />}/>
-            <Route path='Messages' element={<Messages />}/>
-            <Route path='Services' element={<Services />}/>
-            <Route path='Account' element={<ClientAccountSettings />}/>
-            <Route path='Password' element={<ClientChangePassword />}/>
-          </Route>
+
+        <Route element={<ClientRoutes />}>
+          <Route path="/Client/" element={<ClientLayout />}>
+              <Route path="Home" element={<ClientHome />} />
+              <Route path="Search/Result" element={<ClientSearchResult />}/>
+              <Route path="Transactions" element={<ClientTransactions />}/>
+              <Route path='Messages' element={<Messages />}/>
+              <Route path='Services' element={<Services />}/>
+              <Route path='Account' element={<ClientAccountSettings />}/>
+              <Route path='Password' element={<ClientChangePassword />}/>
+              <Route path='View/Portfolio' element={<ViewPortfolio />}/>
+              <Route path="View/Reviews" element={<ViewReviews />} />
+            </Route>
         </Route>
   
         <Route path="/Client/">
@@ -100,6 +103,7 @@ export default function App() {
             <Route path='Account' element={<ProviderAccountSettings />} />
             <Route path='Reviews' element={<ProviderReviews />}/>
             <Route path='Password' element={<ProviderChangePassword />} />
+            <Route path='Portfolio' element={<ProviderPortfolio />} />
           </Route>
         </Route>
 

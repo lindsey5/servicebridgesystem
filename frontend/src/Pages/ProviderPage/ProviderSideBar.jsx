@@ -85,6 +85,14 @@ export default function ProviderSideBar () {
                     <img src="/icons/like.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
                     {windowWidth <= 840 ? 'Reviews' : (hideSideBar ? '' : 'Reviews') }
             </button>
+            <button className={`sidebar-button ${activeButton === 7 ? 'active' : ''}`}
+                onClick={() => {
+                    navigate('/Provider/Portfolio');
+                    handleButtonClick(7);
+                }}>
+                    <img src="/icons/portfolio.png" className="icons" style={{left: hideSideBar ? '15px' : ''}} />
+                    {windowWidth <= 840 ? 'Portfolio' : (hideSideBar ? '' : 'Portfolio') }
+            </button>
         </nav>
         )
 }

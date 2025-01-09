@@ -134,13 +134,14 @@
 }
 
 .search-result .provider-container textarea{
-    width: 300px;
+    width: 350px;
+    max-height: 300px;
+    overflow-y: auto;
     resize: none;
     outline: none;
-    overflow-y: none;
     border: none;
     padding: 0 10px;
-    font-size: 17px;
+    font-size: 15px;
     color: black;
     background-color: white;
     display: block;
@@ -209,7 +210,7 @@
 }
 
 .search-result .details-div button{
-    background-color: white;
+    background-color: transparent;
     border: none;
     color: rgb(3, 117, 247);
     text-decoration: underline;

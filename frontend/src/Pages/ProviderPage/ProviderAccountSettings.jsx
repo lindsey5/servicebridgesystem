@@ -8,7 +8,7 @@ const ProviderAccountSettings = () => {
     const [error, setError] = useState();
     const navigate = useNavigate();
 
-    const handleUpdate = async (data, password) => {
+    const handleUpdate = async (data) => {
         const response = await fetch(`/api/provider/update`, {
             method: 'PUT',
             headers: {

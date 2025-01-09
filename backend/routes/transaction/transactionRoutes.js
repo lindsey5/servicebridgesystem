@@ -23,6 +23,8 @@ router.get('/transaction/cancelled/:id', verifyToken, transactionController.get_
 
 router.get('/transactions/completed/total', providerRequireAuth, transactionController.get_total_completed_transactions);
 
+router.get('/transactions/completed/total/:id', transactionController.get_total_completed_transactions);
+
 router.get('/transactions/completed/total/today', providerRequireAuth, transactionController.get_total_completed_transaction_today);
 
 router.get('/transactions/completed/today', providerRequireAuth, transactionController.get_completed_transaction_today);
