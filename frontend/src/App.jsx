@@ -42,6 +42,7 @@ import ClientForgotPassword from './Pages/AuthPages/ClientForgotPassword.jsx';
 import ProviderForgotPassword from './Pages/AuthPages/ProviderForgotPassword.jsx';
 import ProviderPortfolio from './Pages/ProviderPage/ProviderPortfolio.jsx';
 import ViewPortfolio from './Pages/ClientPage/ViewPortfolio.jsx';
+import Map from './Pages/Components/Map.jsx';
 
 export default function App() {
   const router = createBrowserRouter(
@@ -62,6 +63,7 @@ export default function App() {
         <Route path='/FAQ' element={<FAQ />}/>
         <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path='/map' element={<Map />} />
 
         <Route path='/Admin/' element={<AdminLayout />}>
           <Route path='Dashboard' element={<AdminDashboard />} />
