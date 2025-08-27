@@ -50,7 +50,6 @@ const Portfolio = ({data, isProvider}) => {
     }, [])
 
     useEffect(() => {
-        console.log(data)
         if(data) setData()
     }, [data])
 

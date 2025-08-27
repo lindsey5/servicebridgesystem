@@ -15,6 +15,7 @@ const ClientSearchResult = () => {
     const filterCheckBoxesRef = useRef([]);
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [price, setPrice] = useState(7);
     const { data } = useFetch('/api/cities');
 
     useEffect(() => {
@@ -60,6 +61,7 @@ const ClientSearchResult = () => {
     const handlePrice = (value) => {
         const prices = [1000, 1500, 2000, 2500, 5000, 10000, 0];
         const priceValue = prices[value - 1];
+        setPrice(value)
         dispatch({ type: 'SET_PRICE', payload: priceValue });
         dispatch({ type: 'SET_PRICE_LABEL', payload: value === '7' ? 'Any Price' : `₱${priceValue} or below` });
         dispatch({ type: 'SET_CURRENT_PAGE', payload: 1 });
@@ -104,7 +106,7 @@ const ClientSearchResult = () => {
             <div className="filter-container">
                 <div className="price-div">
                     <h2>Price</h2>
-                    <input type="range" min="1" max="7" step="1" id="priceSlider" onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
+                    <input type="range" min="1" max="7" step="1" id="priceSlider" value={price} onChange={(e) => handlePrice(e.target.value)} disabled={loading ? true : false}/>
                     <p id="selectedPrice">{state.priceLabel}</p>
                 </div>
                 <div>

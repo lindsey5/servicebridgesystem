@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import './Notifications.css'
 import createImageSrc from "../../../utils/createImageSrc"
-import { formatDate } from "../../../utils/formatDate";
 import defaultProfilePic from '../../../assets/user (1).png';
 
 const SenderPicture = ({image}) => {
@@ -63,11 +62,6 @@ const timeDifference = (start, end) => {
         return "Just now"; 
     }
 };
-
-// Example Usage:
-const start = new Date('2025-01-01T10:00:00');
-const end = new Date('2027-04-15T12:34:56');
-console.log(timeDifference(start, end)); // Output: "2 years, 3 months ago"
 
 
 const NotificationsContainer = ({notifications, user, setLimit}) => {

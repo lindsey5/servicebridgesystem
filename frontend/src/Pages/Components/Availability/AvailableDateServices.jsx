@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/useFetch'
 import './AvailableDateServices.css'
 import { create_available_date_service, delete_available_date_service } from '../../../services/availableDateService';
-import { formatDate } from '../../../utils/formatDate';
 
 const AvailableDateServices = ({selectedDate, availableDateServices, setShowTime}) =>{
     const [showAddService, setShowAddService] = useState(false);

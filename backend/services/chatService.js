@@ -22,12 +22,13 @@ const fetchChatPartners = async (userId) => {
         
             // Add both IDs to the set if they are not the current user
             if (from_user_id !== userId) {
-            chatPartnerIds.add(from_user_id);
+                chatPartnerIds.add(from_user_id);
             }
             if (to_user_id !== userId) {
-            chatPartnerIds.add(to_user_id);
+                chatPartnerIds.add(to_user_id);
             }
         });
+
         return Array.from(chatPartnerIds)
     } catch (error) {
         throw new Error('Could not fetch chat partners');

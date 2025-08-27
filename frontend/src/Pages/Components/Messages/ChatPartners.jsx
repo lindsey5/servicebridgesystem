@@ -18,8 +18,6 @@ const ChatPartners = ({socket, setRecipientId }) => {
             });
 
         }
-
-        return () => socket.off('chat-partners');
     }, [socket])
 
     
