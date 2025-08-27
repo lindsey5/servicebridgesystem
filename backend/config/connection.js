@@ -7,7 +7,12 @@ const sequelize = new Sequelize(process.env.DB, process.env.DB_USERNAME, process
   host: process.env.DB_HOST,
   dialect: 'mysql',
   port: 4058,
-  logging: false
+  logging: false,
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: true
+    }
+  },
 });
 
 // Function to test database connection
